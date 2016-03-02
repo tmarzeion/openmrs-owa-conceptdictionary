@@ -10,6 +10,26 @@ For further documentation about OpenMRS Open Web Apps see [the wiki page](https:
 
 ## Development
 
+### Setup OpenMRS server
+
+You will need JDK 1.7, maven and OpenMRS SDK. Please refer to [the wiki page] (https://wiki.openmrs.org/display/docs/OpenMRS+SDK#OpenMRSSDK-Installation) for installation instructions.
+
+You need to setup a server (first time only) as follows:
+
+````
+mvn openmrs-sdk:setup-platform -DserverId=conceptdictionary
+mvn openmrs-sdk:install -DartifactId=owa -Dversion=1.4-SNAPSHOT -DserverId=conceptdictionary
+mvn openmrs-sdk:install -DartifactId=webservices.rest -Dversion=2.13 -DserverId=conceptdictionary
+mvn openmrs-sdk:install -DartifactId=uiframework -Dversion=3.6 -DserverId=conceptdictionary
+mvn openmrs-sdk:install -DartifactId=uicommons -Dversion=1.7 -DserverId=conceptdictionary
+````
+
+Now you can run the server:
+````
+mvn openmrs-sdk:run -DserverId=conceptdictionary
+````
+Once it says "Started Jetty Server", visit http://localhost:8080/openmrs in your browser.
+
 ### Production Build
 
 Build the distributable using [Gulp](http://gulpjs.com/) as follows:
