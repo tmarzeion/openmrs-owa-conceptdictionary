@@ -32,6 +32,13 @@ Once it says "Started Jetty Server", visit http://localhost:8080/openmrs in your
 
 ### Production Build
 
+You will need NodeJS 4+ installed to do this. See the install instructions [here](https://nodejs.org/en/download/package-manager/).
+
+Once you have NodeJS installed, you need to install Yeoman, Gulp and Bower (first time only) as follows:
+````
+npm install -g yo gulp bower
+````
+
 Build the distributable using [Gulp](http://gulpjs.com/) as follows:
 
 ````
@@ -48,7 +55,18 @@ To deploy directly to your local Open Web Apps directory, run:
 gulp deploy-local
 ````
 
-This will build and deploy the app to the `C:\Users\Rafal\openmrs\conceptdictionary` directory. To change the deploy directory, edit the `LOCAL_OWA_FOLDER` variable in `gulpfile.js`.
+This will build and deploy the app to the `C:\Users\Rafal\openmrs\conceptdictionary` directory. To change the deploy directory, edit the `LOCAL_OWA_FOLDER` variable in `gulpfile.js`. You can find your deploy directory running:
+
+````
+ mvn openmrs-sdk:run -DserverId=conceptdictionary
+````
+Look at the tmp directory location. The tmp directory is created in your deploy directory so just skip \tmp.
+````
+[INFO] --- openmrs-sdk-maven-plugin:2.1.2:run (default-cli) @ standalone-pom ---
+[INFO] Configuring Jetty for project: Maven Stub Project (No POM)
+[INFO] Context path = /openmrs
+[INFO] Tmp directory = C:\Users\Rafal\openmrs\conceptdictionary\tmp
+````
 
 ### Extending
 
