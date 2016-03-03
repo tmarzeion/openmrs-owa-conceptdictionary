@@ -22,8 +22,6 @@ var livereload = require('gulp-livereload');
 
 var plugins = gulpLoadPlugins();
 
-var LOCAL_OWA_FOLDER = "C:\\Users\\user\\openmrs\\conceptdictionary\\owa";
-
 var THIS_APP_ID = 'conceptdictionary';
 
 var htmlGlob = ['app/**/*.html'];
@@ -74,9 +72,36 @@ gulp.task('watch', function() {
 	  gulp.watch('app/*', ['deploy-local']);
 });
 
-gulp.task('deploy-local', ['build'], function() {	
-  return gulp.src(['dist/**/*', '!*.zip'])
-    .pipe(gulp.dest(LOCAL_OWA_FOLDER + '\\' + THIS_APP_ID));
+gulp.task('deploy-local', ['build'], function() {
+    var config;
+    var localOwaFolder;
+
+	try {
+	  //Will throw exception when there is no config.json file
+  	  config = require('./config.json');
+      //Will throw exception when data in config.json is corrupted
+	  localOwaFolder = config.LOCAL_OWA_FOLDER;
+	} catch (err) {
+	  //Create or override config.json file
+	  var LOCAL_OWA_FOLDER_DEFAULT = "C:\\\\Users\\\\user\\\\openmrs\\\\conceptdictionary\\\\owa";
+	  var JSON_CONFIG_PATTERN_DEFAULT =
+	       "{\n" +
+	       "\"LOCAL_OWA_FOLDER\": " + "\"" + LOCAL_OWA_FOLDER_DEFAULT + "\"" +
+  	       "\n}";
+      var stream = fs.createWriteStream("config.json");
+      stream.once('open', function() {
+      stream.write(JSON_CONFIG_PATTERN_DEFAULT);
+      stream.end();
+
+      //Variables fixed
+      config = require('./config.json');
+      localOwaFolder = config.LOCAL_OWA_FOLDER;
+      })
+    } finally {
+      // Result
+      return gulp.src(['dist/**/*', '!*.zip'])
+            .pipe(gulp.dest(localOwaFolder + '/' + THIS_APP_ID));
+    }
 });
 
 gulp.task('build', ['resources', 'html'], function() {
