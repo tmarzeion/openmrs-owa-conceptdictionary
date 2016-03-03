@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html>
+<html ng-app="conceptDictionary">
   <head>
     <title>Concept Dictionary Management</title>
     <!-- openmrs favicon -->
@@ -19,58 +19,13 @@
       </div>
       <span class="app-title">Concept Dictionary</span>
     </header>
-    <div class="clear"></div>
-    <div id="body-wrapper">
-
-<div>
-<h2>Concept Class Management T</h2>
-
-<a href="conceptClass.form">Add Concept Class</a>
-
-
-
-<br><br>
-
-<b class="boxHeader">Current Concept Classes</b>
-<form method="post" class="box">
-	<table>
-		<tbody><tr>
-			<th> </th>
-			<th> Name </th>
-			<th> Description </th>
-		</tr>
-		
-			<tr> 
-				<td valign="top"><input type="checkbox" name="conceptClassId" value="1"></td>
-				<td valign="top"><a href="conceptClass.form?conceptClassId=1">
-					   Test
-					</a>
-				</td>
-				<td valign="top">Acq. during patient encounter (vitals, labs, etc.)</td>
-			</tr>
-		
-			<tr> 
-				<td valign="top"><input type="checkbox" name="conceptClassId" value="2"></td>
-				<td valign="top"><a href="conceptClass.form?conceptClassId=2">
-					   Procedure
-					</a>
-				</td>
-				<td valign="top">Describes a clinical procedure</td>
-			</tr>
-		
-		
-	</tbody></table>
-	
-	
-	
-	<input type="submit" value="Delete Selected Concept Classes" name="action">
-</form>
-</div>
-
-    </div>
+    <div ng-view></div>
     <!-- bower:js -->
     <!-- endbower -->
     <!-- owa scripts -->
     <script src="js/conceptdictionary.js"></script>
+    <script src="js/app.js"></script>
+    <script src="js/services.js"></script>
+    <script src="js/controllers.js"></script>
   </body>
 </html>
