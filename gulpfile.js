@@ -22,7 +22,7 @@ var livereload = require('gulp-livereload');
 
 var plugins = gulpLoadPlugins();
 
-var LOCAL_OWA_FOLDER = "C:\\Users\\Rafal\\openmrs\\conceptdictionary\\owa";
+var LOCAL_OWA_FOLDER = "C:\\Users\\user\\openmrs\\conceptdictionary\\owa";
 
 var THIS_APP_ID = 'conceptdictionary';
 
