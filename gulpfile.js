@@ -18,10 +18,12 @@ var gulpLoadPlugins = require('gulp-load-plugins');
 var del = require('del');
 var mainBowerFiles = require('main-bower-files');
 var wiredep = require('wiredep').stream;
+var livereload = require('gulp-livereload');
 
 var plugins = gulpLoadPlugins();
 
-var LOCAL_OWA_FOLDER = 'C:\Users\Rafal\openmrs\conceptdictionary';
+var LOCAL_OWA_FOLDER = "C:\\Users\\Rafal\\openmrs\\conceptdictionary\\owa";
+
 var THIS_APP_ID = 'conceptdictionary';
 
 var htmlGlob = ['app/**/*.html'];
@@ -67,9 +69,14 @@ gulp.task('resources', function() {
     .pipe(gulp.dest('dist'));
 });
 
-gulp.task('deploy-local', ['build'], function() {
+gulp.task('watch', function() {
+	  livereload.listen();
+	  gulp.watch('app/*', ['deploy-local']);
+});
+
+gulp.task('deploy-local', ['build'], function() {	
   return gulp.src(['dist/**/*', '!*.zip'])
-    .pipe(gulp.dest(LOCAL_OWA_FOLDER + '/' + THIS_APP_ID));
+    .pipe(gulp.dest(LOCAL_OWA_FOLDER + '\\' + THIS_APP_ID));
 });
 
 gulp.task('build', ['resources', 'html'], function() {
