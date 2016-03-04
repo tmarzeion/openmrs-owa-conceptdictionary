@@ -100,7 +100,7 @@ gulp.task('deploy-local', ['build'], function() {
     } finally {
       // Result
       return gulp.src(['dist/**/*', '!*.zip'])
-            .pipe(gulp.dest(localOwaFolder + '/' + THIS_APP_ID));
+            .pipe(gulp.dest(localOwaFolder + '\\' + THIS_APP_ID));
     }
 });
 
