@@ -1,5 +1,7 @@
-var conceptDirControllers = angular.module('conceptDirControllers', []);
+var conceptDictControllers = angular.module('conceptDictControllers', []);
 
-conceptDirControllers.controller('ClassesListCtrl', ['$scope', 'Classes', function($scope, Classes) {
-	  $scope.classObj = Classes.query();
+conceptDictControllers.controller('ClassesListCtrl', ['$scope', 'Classes', function($scope, Classes) {
+	  $scope.classObj = Classes.query();	 
+	  
 	}]);
+

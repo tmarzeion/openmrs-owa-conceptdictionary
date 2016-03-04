@@ -1,9 +1,10 @@
-var conceptDirServices = angular.module('conceptDirServices', ['ngResource']);
+var conceptDictServices = angular.module('conceptDictServices', ['ngResource']);
 
-conceptDirServices.factory('Classes', ['$resource',
+
+conceptDictServices.factory('Classes', ['$resource',
                                    function($resource){
                                      return $resource(
-                                    		 'http://localhost:8080/openmrs/ws/rest/v1/conceptclass/8d4907b2-c2cc-11de-8d13-0010c6dffd0f', {}, {
+                                    		 'http://'+ location.host +'/openmrs/ws/rest/v1/conceptclass?v=full', {}, {
                                        query: {method:'GET'}
                                      });
                                    }]);
