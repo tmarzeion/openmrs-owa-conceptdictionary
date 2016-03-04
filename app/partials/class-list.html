@@ -1,3 +1,23 @@
 <div>
-	{{classObj.uuid}}
+<form method="post" class="box">
+	<input type="submit" value="Add Concept Class" ng-click="">
+	<table>
+		<tbody><tr>
+			<th> </th>
+			<th> Name </th>
+			<th> Description </th>
+		</tr>
+		
+			<tr ng-repeat="class in classObj.results"> 
+				<td valign="top"><input type="checkbox" name="conceptClassId" value="1"></td>
+				<td valign="top">
+					<a href="#/class-list/{{class.display}}">{{class.display}}</a>				
+				</td>
+				<td valign="top">{{class.description}}</td>
+			</tr>
+		
+	</tbody></table>	
+	
+	<input type="submit" value="Delete Selected Concept Classes" ng-click="">
+</form>
 </div>

@@ -1,5 +1,5 @@
 var conceptDictionary = angular.module('conceptDictionary', 
-		['ngRoute', 'conceptDirControllers', 'conceptDirServices']);
+		['ngRoute', 'conceptDictControllers', 'conceptDictServices']);
 
 conceptDictionary.config(['$routeProvider',
                     function($routeProvider) {
