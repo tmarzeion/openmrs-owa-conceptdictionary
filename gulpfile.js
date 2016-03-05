@@ -22,6 +22,10 @@ var livereload = require('gulp-livereload');
 
 var plugins = gulpLoadPlugins();
 
+
+var LOCAL_OWA_FOLDER = "//home//user//openmrs//conceptdictionary//owa";
+
+
 var THIS_APP_ID = 'conceptdictionary';
 
 var htmlGlob = ['app/**/*.html'];
@@ -71,6 +75,7 @@ gulp.task('watch', function() {
 	  livereload.listen();
 	  gulp.watch('app/*', ['deploy-local']);
 });
+
 
 gulp.task('deploy-local', ['build'], function() {
     var config;
