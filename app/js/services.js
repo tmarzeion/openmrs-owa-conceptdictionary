@@ -10,4 +10,16 @@ conceptDictServices.factory('Classes',['$resource', function($resource){
      							//Returns single class
      								 getClass: {method: 'GET', isArray:false }});
 				}])
+				   .factory('ClassesService', ['Classes', function(Classes){
+					   return{
+						   getAll: function(){
+							   return Classes.getAll().$promise.then(function(response){
+								   return response.results;
+							   });
+						   },
+						   getClass: function(uuid){
+							   return Classes.getClass(uuid);
+						   }
+					   }
+				   }])
 //I know this is not exactly what You meant Rafał
