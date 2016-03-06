@@ -12,6 +12,8 @@ conceptDictionary.config(['$routeProvider',
                         		  return ClassesService.getAll();
                         	  }
                           }
+                        //resolve clause makes sure that $resource is resolved
+                        //before getting into scope
                         }).
                         when('/class-list/add-class', {
                         	templateUrl: 'partials/class-add.html'                      		
