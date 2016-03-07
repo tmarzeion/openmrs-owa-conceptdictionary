@@ -29,9 +29,11 @@ describe('Concept dictionary controllers', function() {
       $httpBackend.expectGET(Util.getOpenmrsUrl()+'/ws/rest/v1/conceptclass/?v=full').
           respond({results:[{name: 'Anatomy', description: 'Anatomic sites / descriptors', uuid: 'ad491c7a-c2cc-11de-8d13-0010c6dffd0f'},
                    {name: 'Procedure', description: 'Describes a clinical procedure', uuid: 'bd490bf4-c2cc-11de-8d13-0010c6dffd0f'}]});
+      
 
       scope = $rootScope.$new();
-
+      //put adress from Utils into scope, because couldn't inject Util into unit test
+      scope.adress = Util.getOpenmrsUrl();
       var loadClasses;
       ClassesService.getAll().then(function(response){
     	  loadClasses = response;
@@ -48,5 +50,15 @@ describe('Concept dictionary controllers', function() {
     		  [{name: 'Anatomy', description: 'Anatomic sites / descriptors', uuid: 'ad491c7a-c2cc-11de-8d13-0010c6dffd0f'},
                {name: 'Procedure', description: 'Describes a clinical procedure', uuid: 'bd490bf4-c2cc-11de-8d13-0010c6dffd0f'}]);
     });
+    
+    it('should send delete request at uuid adress extracted from selection map', function() {
+    	//scope.adress equals Util.getOpenmrsUrl()
+        $httpBackend.expectDELETE(scope.adress+'/ws/rest/v1/conceptclass/ad491c7a-c2cc-11de-8d13-0010c6dffd0f?').respond("DELETE SUCCESS")
+    	scope.selected = {'ad491c7a-c2cc-11de-8d13-0010c6dffd0f' : true }
+    	scope.deleteSelected();
+        $httpBackend.flush();
+    	//expect delete fails test if no request is made
+      });
   });  
+  
 });

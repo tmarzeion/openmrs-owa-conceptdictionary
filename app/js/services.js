@@ -16,9 +16,11 @@ conceptDictServices
 	return $resource(
 			Util.getOpenmrsUrl()+'/ws/rest/v1/conceptclass/:uuid?:mode', {}, 
 			//Returns all classes as results object
-				{getAll: {method:'GET', params:{mode :'v=full'}, isArray:false},
+				{getAll: {method:'GET', params:{mode : 'v=full'}, isArray:false},
 			//Returns single class
-				 getClass: {method: 'GET', isArray:false }});
+				 getClass: {method: 'GET', isArray:false },
+			//deletes class with specified uuid
+				 deleteClass: {method: 'DELETE'}});
 }])
 .factory('ClassesService', ['Classes', function(Classes){
    return{
@@ -38,7 +40,10 @@ conceptDictServices
 	    */
 	   getClass: function(uuid){
 		   return Classes.getClass(uuid);
-	   }
+	   },
 	   //wraps Classes.getClass function
+	   deleteClass: function(uuid){
+		   return Classes.deleteClass(uuid);
+	   }
    }
 }]);

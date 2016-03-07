@@ -10,7 +10,7 @@
 		</tr>
 		
 			<tr ng-repeat="class in classes"> 
-				<td valign="top"><input type="checkbox" name="conceptClassId" value="{{class.uuid}}"></td>
+				<td valign="top"><input type="checkbox" ng-model="selected[class.uuid]" name="conceptClassId" value="{{class.uuid}}"></td>
 				<td valign="top">
 					<a href="#/class-list/{{class.uuid}}">{{class.name}}</a>				
 				</td>
@@ -19,6 +19,6 @@
 		
 	</tbody></table>	
 	
-	<input type="submit" value="Delete Selected Concept Classes" ng-click="">
+	<input type="submit" value="Delete Selected Concept Classes" ng-click="deleteSelected()">
 </form>
 </div>
