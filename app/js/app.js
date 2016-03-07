@@ -16,7 +16,8 @@ conceptDictionary.config(['$routeProvider',
                         //before getting into scope
                         }).
                         when('/class-list/add-class', {
-                        	templateUrl: 'partials/class-add.html'                      		
+                        	templateUrl: 'partials/class-add.html',
+                            controller: 'ClassAddCtrl'
                         }).
                         when('/class-list/:classUUID', {
                         	templateUrl: 'partials/class-edit.html',
