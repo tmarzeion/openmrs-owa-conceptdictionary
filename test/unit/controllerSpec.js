@@ -48,5 +48,37 @@ describe('Concept dictionary controllers', function() {
     		  [{name: 'Anatomy', description: 'Anatomic sites / descriptors', uuid: 'ad491c7a-c2cc-11de-8d13-0010c6dffd0f'},
                {name: 'Procedure', description: 'Describes a clinical procedure', uuid: 'bd490bf4-c2cc-11de-8d13-0010c6dffd0f'}]);
     });
-  });  
+  });
+
+    describe('ClassAddCtrl', function() {
+        var scope, ctrl, $httpBackend;
+
+        beforeEach(inject(function(_$httpBackend_, $rootScope, $controller, Util, ClassesService) {
+            $httpBackend = _$httpBackend_;
+            $httpBackend.expectPOST(Util.getOpenmrsUrl()+'/ws/rest/v1/conceptclass/?').
+            respond({results:{name: 'Anatomy', description: 'Anatomic sites / descriptors'}});
+
+            scope = $rootScope.$new();
+
+            var newClass = {
+                name:'Anatomy',
+                description:'Anatomic sites / descriptors'
+            };
+
+            newClass = angular.toJson(newClass);
+
+            ClassesService.addClass(newClass).then(function(success){
+                scope.response = success;
+            });
+
+            $httpBackend.flush();
+
+            ctrl = $controller('ClassAddCtrl', {$scope: scope, $location: location});
+        }));
+
+        it('should add new class ', function() {
+            expect(scope.response.results).toEqualData(
+                {name: 'Anatomy', description: 'Anatomic sites / descriptors'});
+        });
+    });
 });
