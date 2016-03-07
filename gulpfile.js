@@ -74,6 +74,7 @@ gulp.task('resources', function() {
 gulp.task('watch', function() {
 	  livereload.listen();
 	  gulp.watch('app/*', ['deploy-local']);
+	  gulp.watch('app/**/*.*', ['deploy-local']);
 });
 
 

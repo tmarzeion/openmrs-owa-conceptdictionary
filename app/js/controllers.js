@@ -7,8 +7,7 @@ conceptDictControllers.controller('ClassesListCtrl', ['$scope', 'loadClasses', '
 	$scope.go = function ( hash ) {
 		$location.path( hash );
 	};
-		
-
+	
 }]);
 
 conceptDictControllers.controller('ClassesEditCtrl', ['$scope', 'ClassesService', '$routeParams',  function($scope, ClassesService, $routeParams ) {
