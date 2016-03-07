@@ -28,6 +28,24 @@ var htmlGlob = ['app/**/*.html'];
 var resourcesGlob = ['app/**/*.{png,svg,jpg,gif}', 'app/**/*.{css,less}',
   'app/**/*.js', 'app/manifest.webapp', /* list extra resources here */ ];
 
+var Server = require('karma').Server;
+
+/**
+ * Run test once and exit
+ */
+gulp.task('test', function (done) {
+  new Server({
+    configFile: __dirname + '/test/karma.conf.js',
+    singleRun: true
+  }, done).start();
+});
+gulp.task('test-debug', function (done) {
+	  new Server({
+	    configFile: __dirname + '/test/karma.conf.js',
+	    singleRun: false
+	  }, done).start();
+	});
+
 gulp.task('copy-bower-packages', function() {
   try {
     fs.statSync('bower_components');
@@ -85,7 +103,7 @@ gulp.task('deploy-local', ['build'], function() {
 	  localOwaFolder = config.LOCAL_OWA_FOLDER;
 	} catch (err) {
 	  //Create or override config.json file
-	  var LOCAL_OWA_FOLDER_DEFAULT = "C:\\\\Users\\\\user\\\\openmrs\\\\conceptdictionary\\\\owa";
+	  var LOCAL_OWA_FOLDER_DEFAULT = "C:\\\\Users\\\\user\\\\openmrs\\\\conceptdictionary\\\\owa\\\\";
 	  var JSON_CONFIG_PATTERN_DEFAULT =
 	       "{\n" +
 	       "\"LOCAL_OWA_FOLDER\": " + "\"" + LOCAL_OWA_FOLDER_DEFAULT + "\"" +
@@ -102,7 +120,7 @@ gulp.task('deploy-local', ['build'], function() {
     } finally {
       // Result
       return gulp.src(['dist/**/*', '!*.zip'])
-            .pipe(gulp.dest(localOwaFolder + '\\' + THIS_APP_ID));
+            .pipe(gulp.dest(localOwaFolder + THIS_APP_ID));
     }
 });
 
