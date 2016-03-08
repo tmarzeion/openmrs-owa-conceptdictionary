@@ -17,11 +17,24 @@ conceptDictionary.config(['$routeProvider',
                         }).
                         when('/class-list/add-class', {
                         	templateUrl: 'partials/class-add.html',
-                            controller: 'ClassAddCtrl'
+                            controller: 'ClassAddCtrl' 
                         }).
                         when('/class-list/:classUUID', {
                         	templateUrl: 'partials/class-edit.html',
                         	controller: 'ClassesEditCtrl',
+                        }).
+                        when('/datatype-list', {
+                        	templateUrl: 'partials/datatype-list.html',
+                            controller: 'DataTypesListCtrl', 
+                            resolve: {
+                              	 loadDataTypes : function(DataTypesService){
+                              		 return DataTypesService.getAll();
+                              	 }
+                            }
+                        }).
+                        when('/datatype-list/:dataTypeUUID', {
+                        	templateUrl: 'partials/datatype-details.html',
+                        	controller: 'DataTypesDetailsCtrl',
                         }).
                         otherwise({
                           redirectTo: '/class-list'

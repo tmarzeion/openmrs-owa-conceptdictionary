@@ -95,3 +95,16 @@ conceptDictControllers.controller('ClassAddCtrl', ['$scope', 'ClassesService', '
 	}
 }]);
 
+conceptDictControllers.controller('DataTypesListCtrl', ['$scope', 'loadDataTypes', 'DataTypesService', '$routeParams',
+                                                        function($scope, loadDataTypes, DataTypesService, $routeParams){
+	$scope.dataTypes = loadDataTypes;		
+	
+}]);
+
+conceptDictControllers.controller('DataTypesDetailsCtrl', ['$scope', 'DataTypesService', '$routeParams',
+                                                        function($scope, DataTypesService, $routeParams){
+	
+	$scope.singleDataType = DataTypesService.getDataType({uuid : $routeParams.dataTypeUUID});
+	
+	
+}]);
