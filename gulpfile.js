@@ -19,6 +19,7 @@ var del = require('del');
 var mainBowerFiles = require('main-bower-files');
 var wiredep = require('wiredep').stream;
 var livereload = require('gulp-livereload');
+var gutil = require('gulp-util');
 
 var plugins = gulpLoadPlugins();
 
@@ -29,6 +30,30 @@ var resourcesGlob = ['app/**/*.{png,svg,jpg,gif}', 'app/**/*.{css,less}',
   'app/**/*.js', 'app/manifest.webapp', /* list extra resources here */ ];
 
 var Server = require('karma').Server;
+
+var getConfig = function () {
+  var config;
+
+  try {
+    // look for config file
+    config = require('./config.json');
+  } catch (err) {
+    // create file with defaults if not found
+    config = {
+      'LOCAL_OWA_FOLDER': 'C:\\\\Users\\\\user\\\\openmrs\\\\conceptdictionary\\\\owa\\\\'
+    };
+
+    fs.writeFile('config.json', JSON.stringify(config), function(err) {
+    if(err) {
+        return gutil.log(err);
+    }
+      gutil.log("Default config file created");
+    });
+
+  } finally {
+    return config;
+  }
+}
 
 /**
  * Run test once and exit
@@ -93,35 +118,10 @@ gulp.task('watch', function() {
 
 
 gulp.task('deploy-local', ['build'], function() {
-    var config;
-    var localOwaFolder;
+    var config = getConfig();
 
-	try {
-	  //Will throw exception when there is no config.json file
-  	  config = require('./config.json');
-      //Will throw exception when data in config.json is corrupted
-	  localOwaFolder = config.LOCAL_OWA_FOLDER;
-	} catch (err) {
-	  //Create or override config.json file
-	  var LOCAL_OWA_FOLDER_DEFAULT = "C:\\\\Users\\\\user\\\\openmrs\\\\conceptdictionary\\\\owa\\\\";
-	  var JSON_CONFIG_PATTERN_DEFAULT =
-	       "{\n" +
-	       "\"LOCAL_OWA_FOLDER\": " + "\"" + LOCAL_OWA_FOLDER_DEFAULT + "\"" +
-  	       "\n}";
-      var stream = fs.createWriteStream("config.json");
-      stream.once('open', function() {
-      stream.write(JSON_CONFIG_PATTERN_DEFAULT);
-      stream.end();
-
-      //Variables fixed
-      config = require('./config.json');
-      localOwaFolder = config.LOCAL_OWA_FOLDER;
-      })
-    } finally {
-      // Result
-      return gulp.src(['dist/**/*', '!*.zip'])
-            .pipe(gulp.dest(localOwaFolder + THIS_APP_ID));
-    }
+    return gulp.src(['dist/**/*', '!*.zip'])
+          .pipe(gulp.dest(config.LOCAL_OWA_FOLDER + THIS_APP_ID));
 });
 
 gulp.task('build', ['resources', 'html'], function() {
