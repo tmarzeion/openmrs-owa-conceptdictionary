@@ -4,6 +4,10 @@ var conceptDictionary = angular.module('conceptDictionary',
 conceptDictionary.config(['$routeProvider',
                     function($routeProvider) {
                       $routeProvider.
+                        when('/concept-search', {
+                            templateUrl: 'partials/concept-search.html',
+                            controller: 'ConceptSearchCtrl'
+                        }).
                         when('/class-list', {
                           templateUrl: 'partials/class-list.html',
                           controller: 'ClassesListCtrl',

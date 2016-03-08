@@ -172,4 +172,34 @@ conceptDictServices
 			}
 		}
 	}
+}])
+.factory('Concepts',['$resource', 'Util', function($resource, Util){
+	return $resource(
+		Util.getOpenmrsContextPath()+'/ws/rest/v1/concept/:uuid?:mode:showRetired:query:limit', {},
+		//Returns single concept
+		{getConcept: {method: 'GET', isArray:false },
+		//Returns concepts filtered by query
+		getQueryConcepts: {method: 'GET', params:{mode : 'v=full', showRetired : '&includeAll=true'}, isArray:false},
+		//Returns first page concepts filtered by query
+		getFirstPageQueryConcepts: {method: 'GET', params:{mode : 'v=full', showRetired : '&includeAll=true'}, isArray:false},
+		});
+
+}])
+.factory('ConceptsService',['Concepts', function(Concepts){
+	return{
+		//Returns single concept
+		getConcept: function(uuid){
+			return Concepts.getConcept(uuid);
+		},
+		//Returns concepts filtered by query
+		getQueryConcepts: function(searchTerm){
+			searchTerm = '&q=' + searchTerm;
+			return Concepts.getQueryConcepts({query: searchTerm}).$promise;
+		},
+		getFirstPageQueryConcepts: function(searchTerm, entitiesPerPage) {
+			searchTerm = '&q=' + searchTerm;
+			entitiesPerPage = '&limit=' + entitiesPerPage;
+			return Concepts.getFirstPageQueryConcepts({query: searchTerm, limit : entitiesPerPage}).$promise;
+		}
+	}
 }]);
