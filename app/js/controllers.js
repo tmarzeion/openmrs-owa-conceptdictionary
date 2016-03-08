@@ -1,7 +1,7 @@
 var conceptDictControllers = angular.module('conceptDictControllers', []);
 
-conceptDictControllers.controller('ClassesListCtrl', ['$scope', 'loadClasses', 'ClassesService', '$location', 
-                                                      function($scope, loadClasses, ClassesService, $location) {
+conceptDictControllers.controller('ClassesListCtrl', ['$scope', 'loadClasses', 'ClassesService', '$location', '$route', 
+                                                      function($scope, loadClasses, ClassesService, $location, $route) {
 	$scope.classes = loadClasses;
 	//loadClasses is resolve function, it returns array of concept class objects using ClassesService service
 		
@@ -20,8 +20,10 @@ conceptDictControllers.controller('ClassesListCtrl', ['$scope', 'loadClasses', '
 	        }
 	            
 	    });
-	    //reloads the page ($route.reload doesn't get updated list)
-	    location.reload();
+	    //updates classes list in scope after deletion
+	    ClassesService.getAll().then(function(data) {
+	    	$scope.classes = data;
+	    	$route.reload();});
 	}
 }]);
 
