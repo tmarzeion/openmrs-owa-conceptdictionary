@@ -32,8 +32,38 @@ conceptDictControllers.controller('ClassesListCtrl',
 	$scope.classAdded = $routeParams.classAdded;
 }]);
 
-conceptDictControllers.controller('ClassesEditCtrl', ['$scope', 'ClassesService', '$routeParams',  function($scope, ClassesService, $routeParams ) {
+conceptDictControllers.controller('ClassesEditCtrl', ['$scope', 'ClassesService', '$routeParams', '$location',  
+                                                      function($scope, ClassesService, $routeParams, $location ) {
       $scope.singleClass = ClassesService.getClass({uuid : $routeParams.classUUID});
+      
+      $scope.class = {
+  		name : '',
+  		description : ''
+  		};
+      
+      $scope.responseMessage = '';
+      
+      $scope.redirectToList = function() {
+  		$location.path('/class-list').search({classAdded: $scope.class.name});
+  	  };
+  	  
+  	  $scope.editClass = function() {
+  		 $scope.class.name = $scope.singleClass.name;
+  		 $scope.class.description = $scope.singleClass.description;
+  		 $scope.json = angular.toJson($scope.class);
+
+  		 ClassesService.editClass($scope.singleClass.uuid, $scope.json).then(function(success) {
+  			 $scope.redirectToList();
+  		 }, function(exception) {
+  			 $scope.responseMessage = exception.data.error.fieldErrors.name[0].message;
+  		 });
+  	  };
+	
+  	  $scope.cancel = function () {
+		$scope.class.name = '';
+		$location.path('/class-list').search({classAdded: ''});
+  	  }
+      
   }]);
 
 conceptDictControllers.controller('ClassAddCtrl', ['$scope', 'ClassesService', '$location', function($scope, ClassesService, $location){

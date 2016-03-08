@@ -18,11 +18,13 @@ conceptDictServices
 			//Returns all classes as results object
 				{getAll: {method:'GET', params:{mode : 'v=full'}, isArray:false},
 			//Returns single class
-				 getClass: {method: 'GET', isArray:false },
+				 getClass: {method: 'GET', params:{mode: 'v=full'}, isArray:false },
 			//deletes class with specified uuid
 				 deleteClass: {method: 'DELETE'},
 			//Adds new class
-				 addClass: {method: 'POST', isArray:false}});
+				 addClass: {method: 'POST', isArray:false},
+			//Edit existing class
+				 editClass: {method: 'POST', isArray:false}});
 }])
 .factory('ClassesService', ['Classes', function(Classes){
    return{
@@ -49,6 +51,9 @@ conceptDictServices
 	   },
 	   addClass: function(newClass){
 		   return Classes.addClass(newClass).$promise;
+	   },
+	   editClass: function(uuid, editedClass){
+		   return Classes.editClass(uuid, editedClass).$promise;
 	   }
    }
 }]);
