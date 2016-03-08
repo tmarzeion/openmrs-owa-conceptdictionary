@@ -53,7 +53,7 @@ conceptDictServices
 		   return Classes.addClass(newClass).$promise;
 	   },
 	   editClass: function(uuid, editedClass){
-		   return Classes.editClass(uuid, editedClass).$promise;
+		   return Classes.editClass({uuid: uuid}, editedClass).$promise;
 	   }
    }
 }]);
