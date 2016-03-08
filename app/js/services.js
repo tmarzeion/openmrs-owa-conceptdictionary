@@ -20,7 +20,9 @@ conceptDictServices
 			//Returns single class
 				 getClass: {method: 'GET', isArray:false },
 			//deletes class with specified uuid
-				 deleteClass: {method: 'DELETE'}});
+				 deleteClass: {method: 'DELETE'},
+			//Adds new class
+				 addClass: {method: 'POST', isArray:false}});
 }])
 .factory('ClassesService', ['Classes', function(Classes){
    return{
@@ -44,6 +46,9 @@ conceptDictServices
 	   //wraps Classes.getClass function
 	   deleteClass: function(uuid){
 		   return Classes.deleteClass(uuid);
+	   },
+	   addClass: function(newClass){
+		   return Classes.addClass(newClass).$promise;
 	   }
    }
 }]);

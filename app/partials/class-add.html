@@ -1,23 +1,26 @@
 <div>
 	<h2>Concept Class Form</h2>
-	<form>
+	<h3>{{responseMessage}}</h3>
+	<form name="classForm">
 	<table>
 		<tbody><tr>
 			<td>Name<span class="required">*</span></td>
 			<td>		
-				<input type="text" name="name" value="" size="35">			
+				<input type="text" name="name" size="35" ng-model="class.name" ng-required="true" value="">
 			</td>
 		</tr>
 		<tr>
 			<td valign="top">Description</td>
 			<td>			
-				<textarea name="description" rows="3" cols="40"></textarea>			
+				<textarea name="description" rows="3" cols="40" ng-model="class.description"></textarea>
 			</td>
 		</tr>	
 		
 	</tbody></table>
 	
 	<br>
-	<input type="submit" value="Save Concept Class">
+		<input type="submit" value="Save Concept Class" ng-disabled="classForm.$invalid" ng-click="addClass()">
+		<input type="submit" value="Cancel" ng-click="cancel()">
 	</form>
+
 </div>

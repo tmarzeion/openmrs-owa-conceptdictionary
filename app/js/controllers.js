@@ -1,7 +1,10 @@
 var conceptDictControllers = angular.module('conceptDictControllers', []);
 
-conceptDictControllers.controller('ClassesListCtrl', ['$scope', 'loadClasses', 'ClassesService', '$location', '$route', 
-                                                      function($scope, loadClasses, ClassesService, $location, $route) {
+conceptDictControllers.controller('ClassesListCtrl', 
+		['$scope', 'loadClasses', 'ClassesService', '$location', '$route', '$routeParams',
+        function($scope, loadClasses, ClassesService, $location, $route, $routeParams) {
+
+
 	$scope.classes = loadClasses;
 	//loadClasses is resolve function, it returns array of concept class objects using ClassesService service
 		
@@ -25,13 +28,40 @@ conceptDictControllers.controller('ClassesListCtrl', ['$scope', 'loadClasses', '
 	    	$scope.classes = data;
 	    	$route.reload();});
 	}
+
+	$scope.classAdded = $routeParams.classAdded;
 }]);
 
 conceptDictControllers.controller('ClassesEditCtrl', ['$scope', 'ClassesService', '$routeParams',  function($scope, ClassesService, $routeParams ) {
       $scope.singleClass = ClassesService.getClass({uuid : $routeParams.classUUID});
   }]);
 
-conceptDictControllers.controller('ClassAddCtrl', ['$scope', function($scope){
-	
+conceptDictControllers.controller('ClassAddCtrl', ['$scope', 'ClassesService', '$location', function($scope, ClassesService, $location){
+
+	$scope.class = {
+		name:'',
+		description:''
+	};
+
+	$scope.responseMessage = '';
+
+	$scope.redirectToList = function() {
+		$location.path('/class-list').search({classAdded: $scope.class.name});
+	};
+
+	$scope.addClass = function() {
+		$scope.json = angular.toJson($scope.class);
+
+		ClassesService.addClass($scope.json).then(function(success) {
+			$scope.redirectToList();
+		}, function(exception) {
+			$scope.responseMessage = exception.data.error.fieldErrors.name[0].message;
+		});
+	};
+
+	$scope.cancel = function () {
+		$scope.class.name = ' ';
+		$location.path('/class-list').search({classAdded: ''});
+	}
 }]);
 

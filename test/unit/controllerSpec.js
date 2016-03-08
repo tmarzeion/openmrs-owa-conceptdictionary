@@ -66,5 +66,37 @@ describe('Concept dictionary controllers', function() {
 
     	//expect delete fails test if no request is made
       }));
-  });  
+  });
+
+    describe('ClassAddCtrl', function() {
+        var scope, ctrl, $httpBackend;
+
+        beforeEach(inject(function(_$httpBackend_, $rootScope, $controller, Util, ClassesService) {
+            $httpBackend = _$httpBackend_;
+            $httpBackend.expectPOST(Util.getOpenmrsUrl()+'/ws/rest/v1/conceptclass/?').
+            respond({results:{name: 'Anatomy', description: 'Anatomic sites / descriptors'}});
+
+            scope = $rootScope.$new();
+
+            var newClass = {
+                name:'Anatomy',
+                description:'Anatomic sites / descriptors'
+            };
+
+            newClass = angular.toJson(newClass);
+
+            ClassesService.addClass(newClass).then(function(success){
+                scope.response = success;
+            });
+
+            $httpBackend.flush();
+
+            ctrl = $controller('ClassAddCtrl', {$scope: scope, $location: location});
+        }));
+
+        it('should add new class ', function() {
+            expect(scope.response.results).toEqualData(
+                {name: 'Anatomy', description: 'Anatomic sites / descriptors'});
+        });
+    });
 });
