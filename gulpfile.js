@@ -18,8 +18,8 @@ var gulpLoadPlugins = require('gulp-load-plugins');
 var del = require('del');
 var mainBowerFiles = require('main-bower-files');
 var wiredep = require('wiredep').stream;
+var livereload = require('gulp-livereload');
 var gutil = require('gulp-util');
-var browserSync = require('browser-sync').create();
 
 var plugins = gulpLoadPlugins();
 
@@ -110,22 +110,12 @@ gulp.task('resources', function() {
     .pipe(gulp.dest('dist'));
 });
 
-gulp.task('browser-sync-reload', ['deploy-local'], function() {
-  browserSync.reload();
-});
-
 gulp.task('watch', function() {
-  // forget about all the error checking for now
-  var config = require('./config.json');
-
-  browserSync.init({
-    proxy: {
-      target: config.APP_ENTRY_POINT
-    }
-  });
-
-  gulp.watch('app/**/*.*', ['browser-sync-reload']);
+	  livereload.listen();
+	  gulp.watch('app/*', ['deploy-local']);
+	  gulp.watch('app/**/*.*', ['deploy-local']);
 });
+
 
 gulp.task('deploy-local', ['build'], function() {
     var config = getConfig();
