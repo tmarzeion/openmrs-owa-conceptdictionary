@@ -4,7 +4,7 @@
 
 This repository contains the Concept Dictionary OpenMRS Open Web App.
 
-> Add a description of what your app does here.
+> Concept dictionary functionality implemented as an OWA
 
 For further documentation about OpenMRS Open Web Apps see [the wiki page](https://wiki.openmrs.org/display/docs/Open+Web+Apps+Module).
 
@@ -34,10 +34,16 @@ Once it says "Started Jetty Server", visit http://localhost:8080/openmrs in your
 
 You will need NodeJS 4+ installed to do this. See the install instructions [here](https://nodejs.org/en/download/package-manager/).
 
-Once you have NodeJS installed, you need to install Yeoman, Gulp and Bower (first time only) as follows:
+Once you have NodeJS installed, you need to install Gulp and Bower (first time only) as follows:
 ````
-npm install -g yo gulp bower
+npm install -g gulp bower
 ````
+
+Install the dependencies (first time only):
+
+```
+npm install && bower install
+```
 
 Build the distributable using [Gulp](http://gulpjs.com/) as follows:
 
@@ -55,7 +61,7 @@ To deploy directly to your local Open Web Apps directory, run:
 gulp deploy-local
 ````
 
-This will build and deploy the app to the `C:\Users\Rafal\openmrs\conceptdictionary` directory. To change the deploy directory, edit the `LOCAL_OWA_FOLDER` variable in `gulpfile.js`. You can find your deploy directory running:
+This will build and deploy the app to the `C:\Users\Rafal\openmrs\conceptdictionary` directory. To change the deploy directory, edit the `LOCAL_OWA_FOLDER` value in `config.json`. You can find your deploy directory running:
 
 ````
  mvn openmrs-sdk:run -DserverId=conceptdictionary
