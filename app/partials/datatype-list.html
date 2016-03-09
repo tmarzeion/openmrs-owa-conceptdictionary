@@ -1,0 +1,24 @@
+<div>
+	<h2>Concept Datatype Management</h2>
+	<div id="conceptDatatypeListReadOnly">(Read Only)</div>
+	<b class="boxHeader">Current Concept Datatypes</b>
+	<form method="post" class="box">
+	<table border="1">
+		<tbody>
+		<tr>			
+			<th> Name </th>
+			<th> Description </th>
+		</tr>		
+		<tr ng-repeat="dataType in dataTypes">				
+			<td valign="top"><a href="#/datatype-list/{{dataType.uuid}}">
+				   {{dataType.display}}
+				</a>
+			</td>
+			<td valign="top">{{dataType.handlers[0].display}}</td>
+		</tr>		
+		</tbody>
+	</table>
+	
+	
+</form>
+</div>

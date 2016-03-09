@@ -18,11 +18,13 @@ conceptDictServices
 			//Returns all classes as results object
 				{getAll: {method:'GET', params:{mode : 'v=full'}, isArray:false},
 			//Returns single class
-				 getClass: {method: 'GET', isArray:false },
+				 getClass: {method: 'GET', params:{mode: 'v=full'}, isArray:false },
 			//deletes class with specified uuid
 				 deleteClass: {method: 'DELETE'},
 			//Adds new class
-				 addClass: {method: 'POST', isArray:false}});
+				 addClass: {method: 'POST', isArray:false},
+			//Edit existing class
+				 editClass: {method: 'POST', isArray:false}});
 }])
 .factory('ClassesService', ['Classes', function(Classes){
    return{
@@ -49,6 +51,38 @@ conceptDictServices
 	   },
 	   addClass: function(newClass){
 		   return Classes.addClass(newClass).$promise;
+	   },
+	   editClass: function(uuid, editedClass){
+		   return Classes.editClass({uuid: uuid}, editedClass).$promise;
 	   }
    }
+}])
+.factory('DataTypes', ['$resource', 'Util', function($resource, Util){
+	return $resource(
+			Util.getOpenmrsUrl()+'/ws/rest/v1/customdatatype/:uuid?:mode', {}, 
+			//Returns all datatypes as results object
+				{getAll: {method:'GET', params:{mode : 'v=full'}, isArray:false},
+			//Returns single datatype
+				 getDataType: {method: 'GET', params:{mode: 'v=full'}, isArray:false }});
+}])
+.factory('DataTypesService', ['DataTypes', function(DataTypes){
+	   return{
+		   /**
+		    * unwraps results object
+		    * @returns array of datatypes class objects
+		    */
+		   getAll: function(){
+			   return DataTypes.getAll().$promise.then(function(response){
+				   return response.results;
+			   });
+		   },
+		   /**
+		    * fetches single datatype
+		    * @param uuid the uuid of datatype which will be fetched
+		    * @returns datatype object
+		    */
+		   getDataType: function(uuid){
+			   return DataTypes.getDataType(uuid);
+		   }
+	   }
 }]);
