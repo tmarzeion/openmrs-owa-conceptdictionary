@@ -26,7 +26,7 @@ describe('Concept dictionary controllers', function() {
 
     beforeEach(inject(function(_$httpBackend_, $rootScope, $controller, Util, ClassesService) {
       $httpBackend = _$httpBackend_;
-      $httpBackend.expectGET(Util.getOpenmrsUrl()+'/ws/rest/v1/conceptclass/?v=full').
+      $httpBackend.expectGET(Util.getOpenmrsContextPath()+'/ws/rest/v1/conceptclass/?v=full').
           respond({results:[{name: 'Anatomy', description: 'Anatomic sites / descriptors', uuid: 'ad491c7a-c2cc-11de-8d13-0010c6dffd0f'},
                    {name: 'Procedure', description: 'Describes a clinical procedure', uuid: 'bd490bf4-c2cc-11de-8d13-0010c6dffd0f'}]});
       
@@ -52,13 +52,13 @@ describe('Concept dictionary controllers', function() {
     
     it('should send delete request at uuid adress extracted from selection map', inject(function(Util) {
     	//handles delete request for specified class
-        $httpBackend.whenDELETE(Util.getOpenmrsUrl()+'/ws/rest/v1/conceptclass/ad491c7a-c2cc-11de-8d13-0010c6dffd0f?').respond("DELETE SUCCESS");
+        $httpBackend.whenDELETE(Util.getOpenmrsContextPath()+'/ws/rest/v1/conceptclass/ad491c7a-c2cc-11de-8d13-0010c6dffd0f?').respond("DELETE SUCCESS");
     	//deleteSelected function requests updated list.
-        $httpBackend.whenGET(Util.getOpenmrsUrl()+'/ws/rest/v1/conceptclass/?v=full')
+        $httpBackend.whenGET(Util.getOpenmrsContextPath()+'/ws/rest/v1/conceptclass/?v=full')
     							.respond({results:[{name: 'Anatomy', description: 'Anatomic sites / descriptors', uuid: 'ad491c7a-c2cc-11de-8d13-0010c6dffd0f'},
     	                                           {name: 'Procedure', description: 'Describes a clinical procedure', uuid: 'bd490bf4-c2cc-11de-8d13-0010c6dffd0f'}]});
     	//$route.resfresh() requests page html
-    	$httpBackend.whenGET(Util.getOpenmrsUrl()+'partials/class-list.html').respond("class list partial page");
+    	$httpBackend.whenGET(Util.getOpenmrsContextPath()+'partials/class-list.html').respond("class list partial page");
     	
     	scope.selected = {'ad491c7a-c2cc-11de-8d13-0010c6dffd0f' : true }
     	scope.deleteSelected();
@@ -73,7 +73,7 @@ describe('Concept dictionary controllers', function() {
 
         beforeEach(inject(function(_$httpBackend_, $rootScope, $controller, Util, ClassesService) {
             $httpBackend = _$httpBackend_;
-            $httpBackend.expectPOST(Util.getOpenmrsUrl()+'/ws/rest/v1/conceptclass/?').
+            $httpBackend.expectPOST(Util.getOpenmrsContextPath()+'/ws/rest/v1/conceptclass/?').
             respond({results:{name: 'Anatomy', description: 'Anatomic sites / descriptors'}});
 
             scope = $rootScope.$new();
@@ -105,10 +105,10 @@ describe('Concept dictionary controllers', function() {
 
         beforeEach(inject(function(_$httpBackend_, $rootScope, $controller, Util, ClassesService, $routeParams) {
             $httpBackend = _$httpBackend_;
-            $httpBackend.whenGET(Util.getOpenmrsUrl()+'/ws/rest/v1/conceptclass/8d490bf4-c2cc-11de-8d13-0010c6dffd0f?v=full').
+            $httpBackend.whenGET(Util.getOpenmrsContextPath()+'/ws/rest/v1/conceptclass/8d490bf4-c2cc-11de-8d13-0010c6dffd0f?v=full').
             respond({results:{uuid: '8d490bf4-c2cc-11de-8d13-0010c6dffd0f', 
             					name: 'Question', description: 'Question (eg, patient history, SF36 items)'}});
-            $httpBackend.whenPOST(Util.getOpenmrsUrl()+'/ws/rest/v1/conceptclass/8d490bf4-c2cc-11de-8d13-0010c6dffd0f?').
+            $httpBackend.whenPOST(Util.getOpenmrsContextPath()+'/ws/rest/v1/conceptclass/8d490bf4-c2cc-11de-8d13-0010c6dffd0f?').
             respond({results:{uuid: '8d490bf4-c2cc-11de-8d13-0010c6dffd0f', 
             					name: 'Question', description: 'Question (eg, patient history, SF36 items)'}});
 

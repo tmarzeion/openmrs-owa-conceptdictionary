@@ -4,17 +4,17 @@ conceptDictServices
 .factory('Util', [function(){
 	return {
 		/**
-		 * @returns openmrs server url
+		 * @returns string server url
 		 */
-		getOpenmrsUrl: function(){
-			var location = window.location.toString();
-			return location.substring(0, location.indexOf('/owa/'));
+		getOpenmrsContextPath: function(){
+			var pathname = window.location.pathname;
+			return pathname.substring(0, pathname.indexOf("/owa/"));
 		}
 	}
 }])
 .factory('Classes',['$resource', 'Util', function($resource, Util){
 	return $resource(
-			Util.getOpenmrsUrl()+'/ws/rest/v1/conceptclass/:uuid?:mode', {}, 
+			Util.getOpenmrsContextPath() + '/ws/rest/v1/conceptclass/:uuid?:mode', {},
 			//Returns all classes as results object
 				{getAll: {method:'GET', params:{mode : 'v=full'}, isArray:false},
 			//Returns single class
@@ -59,7 +59,7 @@ conceptDictServices
 }])
 .factory('DataTypes', ['$resource', 'Util', function($resource, Util){
 	return $resource(
-			Util.getOpenmrsUrl()+'/ws/rest/v1/customdatatype/:uuid?:mode', {}, 
+			Util.getOpenmrsContextPath() + '/ws/rest/v1/customdatatype/:uuid?:mode', {},
 			//Returns all datatypes as results object
 				{getAll: {method:'GET', params:{mode : 'v=full'}, isArray:false},
 			//Returns single datatype
