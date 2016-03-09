@@ -75,6 +75,23 @@ Look at the tmp directory location. The tmp directory is created in your deploy 
 [INFO] Tmp directory = C:\Users\Rafal\openmrs\conceptdictionary\tmp
 ````
 
+It is also possible to configure the project so that whenever a file is changed it is deployed to a server and a
+browser is refreshed. First please make sure the APP_ENTRY_POINT is set in config.json as follows:
+
+````
+{
+  "LOCAL_OWA_FOLDER": "C:\\\\Users\\\\rafal\\\\openmrs\\\\conceptdictionary\\\\owa\\\\",
+  "APP_ENTRY_POINT":"http://localhost:8080/openmrs/owa/conceptdictionary/index.html"
+}
+````
+
+Next run:
+````
+gulp watch
+````
+
+While it runs, it watches all files for changes and automatically updates your browser.
+
 ### Extending
 
 Install [Bower](http://bower.io/) packages dependencies as follows:
