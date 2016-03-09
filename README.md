@@ -1,7 +1,7 @@
 <img src="https://cloud.githubusercontent.com/assets/668093/12567089/0ac42774-c372-11e5-97eb-00baf0fccc37.jpg" alt="OpenMRS"/>
 
 # Concept Dictionary
-[![Build Status](https://img.shields.io/travis/psbrandt/openmrs-owa-conceptdictionary/setup-testing.svg?style=flat-square)](https://travis-ci.org/psbrandt/openmrs-owa-conceptdictionary)
+[![Build Status](https://img.shields.io/travis/rkorytkowski/openmrs-owa-conceptdictionary/setup-testing.svg?style=flat-square)](https://travis-ci.org/rkorytkowski/openmrs-owa-conceptdictionary)
 
 This repository contains the Concept Dictionary OpenMRS Open Web App.
 
