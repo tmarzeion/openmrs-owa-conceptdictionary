@@ -59,7 +59,7 @@ conceptDictServices
 }])
 .factory('DataTypes', ['$resource', 'Util', function($resource, Util){
 	return $resource(
-			Util.getOpenmrsContextPath() + '/ws/rest/v1/customdatatype/:uuid?:mode', {},
+			Util.getOpenmrsContextPath() + '/ws/rest/v1/conceptdatatype/:uuid?:mode', {},
 			//Returns all datatypes as results object
 				{getAll: {method:'GET', params:{mode : 'v=full'}, isArray:false},
 			//Returns single datatype

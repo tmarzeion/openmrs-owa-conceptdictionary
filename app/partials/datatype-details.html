@@ -8,12 +8,23 @@
 	</tr>
 	<tr>
 		<th valign="top">Description</th>
-		<td>{{singleDataType.handlers[0].display}}</td>
+		<td>{{singleDataType.description}}</td>
 	</tr>	
+	<tr>
+		<th>HL7 Abbreviation</th>
+		<td>{{singleDataType.hl7Abbreviation}}</td>
+	</tr>
 	<tr>
 		<th>UUID</th>
 		<td>{{singleDataType.uuid}}</td>
 	</tr>	
+	<tr>
+		<th>Created By</th>
+		<td>
+			{{singleDataType.auditInfo.creator.display}} -
+			{{singleDataType.auditInfo.dateCreated | date:'medium'}}
+		</td>
+	</tr>
 	</tbody>
 	</table>
 <div id="conceptDatatypeFormReadOnly">(Read Only)</div>
