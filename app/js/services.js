@@ -104,11 +104,11 @@ conceptDictServices
 	return{
 		getLocales: function(names, descriptions){
 			var locales = {};
-			for(var name of names){
-				checkLocale(name);
+			for(var index=0;index<names.length;index++){
+				checkLocale(names[index]);
 			}
-			for(var descr of descriptions){
-				checkLocale(descr);
+			for(var index=0;index<descriptions.length;index++){
+				checkLocale(descriptions[index]);
 			}
 			function checkLocale (input){
 				if(input.locale === "en"){
