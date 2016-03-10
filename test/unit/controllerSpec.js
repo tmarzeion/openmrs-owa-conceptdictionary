@@ -149,4 +149,60 @@ describe('Concept dictionary controllers', function() {
         });
 
     });
+    
+    describe('DataTypesListCtrl', function(){
+   	 var scope, ctrl, $httpBackend;
+   	 
+   	 beforeEach(inject(function(_$httpBackend_, $rootScope, $controller, Util, DataTypesService, $routeParams){
+   		 $httpBackend = _$httpBackend_;
+            $httpBackend.expectGET(Util.getOpenmrsContextPath()+'/ws/rest/v1/conceptdatatype/?v=full').
+            respond({results:[{name: 'Date Datatype', description: 'Date Field Gen Datatype Handler'},
+                              {name: 'Boolean Datatype', description: 'Boolean Field Gen Datatype Handler'}]});
+            
+            scope = $rootScope.$new();
+            
+            var loadDataTypes;
+            DataTypesService.getAll().then(function(response){
+            	loadDataTypes = response;
+            });
+            
+            $httpBackend.flush();
+            
+            ctrl = $controller('DataTypesListCtrl', {$scope: scope, loadDataTypes: loadDataTypes});
+
+   	 }));
+   	 
+   	 it('Should load all dataTypes', function(){ 
+   		 
+   		 expect(scope.dataTypes).toEqualData([{name: 'Date Datatype', description: 'Date Field Gen Datatype Handler'},
+   		                                     {name: 'Boolean Datatype', description: 'Boolean Field Gen Datatype Handler'}]);
+   		 
+   	 });
+   	
+   });
+    
+   describe('DataTypesDetailsCtrl', function(){
+	   var scope, ctrl, $httpBackend;
+	   
+	   beforeEach(inject(function(_$httpBackend_, $rootScope, $controller, Util, DataTypesService, $routeParams){
+	   		 $httpBackend = _$httpBackend_;
+	         $httpBackend.expectGET(Util.getOpenmrsContextPath()+'/ws/rest/v1/conceptdatatype/8d4a505e-c2cc-11de-8d13-0010c6dffd0f?v=full').
+	         respond({name: 'Date Datatype', description: 'Date Field Gen Datatype Handler',
+	        	 				uuid: '8d4a505e-c2cc-11de-8d13-0010c6dffd0f', hl7Abbreviation: 'DT'
+	        	 				});
+	            
+	         $routeParams.dataTypeUUID = '8d4a505e-c2cc-11de-8d13-0010c6dffd0f'   
+	         scope = $rootScope.$new();
+	            
+	         ctrl = $controller('DataTypesDetailsCtrl', {$scope: scope});
+
+	   	 }));
+	   	 
+	   	 it('Should load details of dataType', function(){ 	   		
+	   		 $httpBackend.flush();
+	   		 expect(scope.singleDataType).toEqualData({name: 'Date Datatype', description: 'Date Field Gen Datatype Handler',
+	 				uuid: '8d4a505e-c2cc-11de-8d13-0010c6dffd0f', hl7Abbreviation: 'DT'});
+	   		 
+	   	 });
+   });
 });
