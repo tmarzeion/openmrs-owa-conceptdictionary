@@ -102,6 +102,38 @@ conceptDictServices
 }])
 .factory('ConceptLocaleService',[function(){
 	return{
+		getLocales: function(names, descriptions){
+			var locales = {};
+			for(var name of names){
+				checkLocale(name);
+			}
+			for(var descr of descriptions){
+				checkLocale(descr);
+			}
+			function checkLocale (input){
+				if(input.locale === "en"){
+					locales.en = true;
+					return;
+				}
+				else if (input.locale === "es") {
+					locales.es = true;
+					return;
+				}
+				else if (input.locale === "it"){
+					locales.it = true;
+					return;
+				}
+				else if (input.locale === "fr") {
+					locales.fr = true;
+					return;
+				}
+				else if (input.locale === "pt") {
+					locales.pt = true;
+					return;
+				}
+			}
+			return locales;
+		},
 		/**
 		 * @names array of names objects of concept
 		 * @locale string of locale abbreviation, e.g. "en"
@@ -109,17 +141,20 @@ conceptDictServices
 		 */
 		getLocaleNames: function(names, locale){
 			//flags for types of locale prefered names
-			const shortFlag = "SHORT";
-			const fullFlag = "FULLY_SPECIFIED";
+			var shortFlag = "SHORT";
+			var fullFlag = "FULLY_SPECIFIED";
+			var searchFlag = "INDEX_TERM";
 			//holds full, short names and synonyms array
 			var localNames = {};
 			localNames.synonyms = [];
+			localNames.searchTerms = [];
 			
-			for (let name of names){
-				if(name.locale == locale){
-					if(name.conceptNameType == shortFlag) localNames.short = name.display;
-					if(name.conceptNameType == fullFlag) localNames.full = name.display;
-					else localNames.synonyms.push(name.display);
+			for (var index=0;index<names.length;index++){
+				if(names[index].locale === locale){
+					if(names[index].conceptNameType === shortFlag) localNames.short = names[index].display;
+					else if(names[index].conceptNameType === fullFlag) localNames.full = names[index].display;
+					else if(names[index].conceptNameType === searchFlag) localNames.searchTerms.push(names[index].display);
+					else localNames.synonyms.push(names[index].display);
 				}
 			}
 			return localNames;
@@ -130,11 +165,11 @@ conceptDictServices
 		 * @returns string - description of concept for given locale
 		 */
 		getLocaleDescr: function(descriptions, locale){
-			for (let descr of descriptions){
-				if(descr.locale == locale){
-					return descr.display;
+			for (var index=0;index<descriptions.length;index++){
+				if(descriptions[index].locale === locale){
+					return descriptions[index].display;
 				}
 			}
 		}
 	}
-}])
+}]);

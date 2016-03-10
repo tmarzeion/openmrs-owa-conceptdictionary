@@ -15,11 +15,11 @@
 			<th title="The locale in which the concept name belongs ">Locale</th>
 			<td style="padding-bottom: 2px; padding-left: 2px;">
 				
-					<button ng-click='goLocale("en")'>English</button> | 
-					<button ng-click='goLocale("es")'>Spanish</button> |
-					<button ng-click='goLocale("fr")'>French</button> |
-					<button ng-click='goLocale("it")'>Italian</button> |
-					<button ng-click='goLocale("pt")'>Portugese</button>
+					<button ng-click='goLocale("en")' ng-show = "locales.en" class="ng-hide">English</button> 
+					<button ng-click='goLocale("es")' ng-show = "locales.es" class="ng-hide">Spanish</button>
+					<button ng-click='goLocale("fr")' ng-show = "locales.fr" class="ng-hide">French</button>
+					<button ng-click='goLocale("it")' ng-show = "locales.it" class="ng-hide">Italian</button>
+					<button ng-click='goLocale("pt")' ng-show = "locales.pt" class="ng-hide">Portugese</button>
 		</tr>
 		<tr class="localeSpecific">
 			<th title="The name to be used on forms, reports etc. in case no preferred name is set for the locale">
@@ -40,6 +40,9 @@
 		<tr class="localeSpecific">
 			<th title="An index term or phrase that might be used to search for this concept but that is not valid for display purposes or storing in the record (e.g., common misspellings or pragmatic mapping term)" valign="top">Search Terms</th>
 				<td class="en">
+					<li class="searchTerm-repeat" ng-repeat="searchTerm in conceptLocale.names.searchTerms" style="list-style-type:none">
+					    	{{searchTerm}}
+    					</li>
 				</td>
 		</tr>
 		<tr class="localeSpecific">
