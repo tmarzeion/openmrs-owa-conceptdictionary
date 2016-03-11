@@ -9,7 +9,7 @@ This repository contains the Concept Dictionary OpenMRS Open Web App.
 
 For further documentation about OpenMRS Open Web Apps see [the wiki page](https://wiki.openmrs.org/display/docs/Open+Web+Apps+Module).
 
-Please follow the Style Guide at https://github.com/rkorytkowski/angular-styleguide/blob/master/a1/README.md
+Please follow [the style guide](https://github.com/rkorytkowski/angular-styleguide/blob/master/a1/README.md) for AngularJS development.
 
 ## Development
 
