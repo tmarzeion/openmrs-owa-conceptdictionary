@@ -30,7 +30,7 @@
                             </tr>
                             </thead>
                             <tbody>
-                            <tr ng-repeat="concept in concepts.slice(entriesPerPage*pageNumber-entriesPerPage,entriesPerPage*pageNumber)">
+                            <tr ng-repeat="concept in concepts.slice(sliceFrom(),sliceTo())">
                                 <td valign="top">
                                     <a href="#/concept/{{concept.uuid}}">
                                         <span ng-show="concept.retired"><del>{{concept.display}}</del></span>
@@ -49,7 +49,7 @@
                         </span>
                         <br>
                         <span ng-show="!isUserTyping && concepts.length > 0">
-                            View range: {{entriesPerPage*pageNumber+1-entriesPerPage}} to {{entriesPerPage*pageNumber}}
+                            View range: {{viewRangeStart()}} to {{viewRangeEnd()}}
                         </span>
                         <br>
                         <span ng-show="!isUserTyping && concepts.length > 0">
@@ -59,8 +59,8 @@
                         <br>
                         <input type="button" ng-show="!isUserTyping && concepts.length > 0" ng-disabled="pageNumber == 1" ng-click="firstPage()" value="First Page">
                         <input type="button" ng-show="!isUserTyping && concepts.length > 0" ng-disabled="pageNumber == 1" ng-click="prevPage()" value="Previous Page">
-                        <input type="button" ng-show="!isUserTyping && concepts.length > 0" ng-disabled="entriesPerPage*pageNumber >= concepts.length" ng-click="nextPage()" value="Next Page">
-                        <input type="button" ng-show="!isUserTyping && concepts.length > 0" ng-disabled="entriesPerPage*pageNumber >= concepts.length" ng-click="lastPage()" value="Last Page">
+                        <input type="button" ng-show="!isUserTyping && concepts.length > 0" ng-disabled="viewRangeEnd() >= concepts.length" ng-click="nextPage()" value="Next Page">
+                        <input type="button" ng-show="!isUserTyping && concepts.length > 0" ng-disabled="viewRangeEnd() >= concepts.length" ng-click="lastPage()" value="Last Page">
 
                         <div ng-show="!isUserTyping && concepts.length > 0" align="left">
                             Show

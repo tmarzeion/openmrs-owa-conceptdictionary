@@ -150,6 +150,22 @@ conceptDictControllers.controller('ConceptSearchCtrl', ['$scope', 'ConceptsServi
 
 	$scope.loadingMorePages = false;
 
+	$scope.sliceFrom = function () {
+		return $scope.entriesPerPage*$scope.pageNumber-$scope.entriesPerPage;
+	};
+
+	$scope.sliceTo = function () {
+		return $scope.entriesPerPage*$scope.pageNumber;
+	};
+
+	$scope.viewRangeStart = function () {
+		return $scope.sliceFrom()+1;
+	};
+
+	$scope.viewRangeEnd = function () {
+		return $scope.sliceTo();
+	};
+
 	//Page changing
 	$scope.nextPage = function () {
 		$scope.pageNumber++;
