@@ -78,16 +78,24 @@ angular.module('openmrs', [ 'ngResource' ])
 					});
 				},
 	
-				listFull : function(resource) {
+				listFull : function(resource, query) {
 					openmrsApi.add(resource);
-					var query = {v: 'full'};
+					if(query == null){
+						var query = {v: 'full'};
+					}else{
+						query = angular.extend(query, {v: 'full'});
+					}
 					return openmrsApi[resource].get(query).$promise.then(function(response){
 						return response.results;
 					});
 				},
-				listRef : function(resource) {
+				listRef : function(resource, query) {
 					openmrsApi.add(resource);
-					var query = {v: 'ref'};
+					if(query == null){
+						var query = {v: 'ref'};
+					}else{
+						query = angular.extend(query, {v: 'ref'});
+					}
 					return openmrsApi[resource].get(query).$promise.then(function(response){
 						return response.results;
 					});
@@ -98,15 +106,23 @@ angular.module('openmrs', [ 'ngResource' ])
 					return openmrsApi[resource].get(query).$promise;
 				},
 	
-				getFull : function(resource) { 
+				getFull : function(resource, query) { 
 					openmrsApi.add(resource);
-					var query = {v: 'full'};
+					if(query == null){
+						var query = {v: 'full'};
+					}else{
+						query = angular.extend(query, {v: 'full'});
+					}
 					return openmrsApi[resource].get(query).$promise;
 				},
 				
-				getRef : function(resource) { 
+				getRef : function(resource, query) { 
 					openmrsApi.add(resource);
-					var query = {v: 'ref'};
+					if(query == null){
+						var query = {v: 'ref'};
+					}else{
+						query = angular.extend(query, {v: 'ref'});
+					}
 					return openmrsApi[resource].get(query).$promise;
 				},
 	
