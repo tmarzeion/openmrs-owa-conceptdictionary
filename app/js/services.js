@@ -160,7 +160,7 @@ conceptDictServices
 	return $resource(
 		Util.getOpenmrsContextPath()+'/ws/rest/v1/concept/:uuid?:mode:showRetired:query:limit', {},
 		//Returns single concept
-		{getConcept: {method: 'GET', isArray:false },
+		{getConcept: {method: 'GET', params:{mode : 'v=full'}, isArray:false },
 		//Returns concepts filtered by query
 		getQueryConcepts: {method: 'GET', params:{mode : 'v=full', showRetired : '&includeAll=true'}, isArray:false},
 		//Returns first page concepts filtered by query
