@@ -1,8 +1,8 @@
-var conceptDictControllers = angular.module('conceptDictControllers', []);
+var conceptDictControllers = angular.module('conceptDictControllers', ['openmrs.resources']);
 
 conceptDictControllers.controller('ClassesListCtrl', 
-		['$scope', 'loadClasses', 'ClassesService', '$location', '$route', '$routeParams',
-        function($scope, loadClasses, ClassesService, $location, $route, $routeParams) {
+		['$scope', 'loadClasses', 'ClassesService', '$location', '$route', '$routeParams', 'openmrsRest',
+        function($scope, loadClasses, ClassesService, $location, $route, $routeParams, openmrsRest) {
 
 
 	$scope.classes = loadClasses;
@@ -19,7 +19,7 @@ conceptDictControllers.controller('ClassesListCtrl',
 	$scope.deleteSelected = function(){
 	    angular.forEach($scope.selected, function(key,value){
 	        if(key){
-	        	ClassesService.deleteClass({uuid : value});
+	        	openmrsRest.remove('conceptclass', {uuid : value});
 	        }
 	            
 	    });
@@ -32,9 +32,11 @@ conceptDictControllers.controller('ClassesListCtrl',
 	$scope.classAdded = $routeParams.classAdded;
 }]);
 
-conceptDictControllers.controller('ClassesEditCtrl', ['$scope', 'ClassesService', '$routeParams', '$location',  
-                                                      function($scope, ClassesService, $routeParams, $location ) {
-      $scope.singleClass = ClassesService.getClass({uuid : $routeParams.classUUID});
+conceptDictControllers.controller('ClassesEditCtrl', ['$scope', 'ClassesService', '$routeParams', '$location', 'openmrsRest', 
+                                                      function($scope, ClassesService, $routeParams, $location, openmrsRest ) {
+		openmrsRest.getFull('conceptclass', {uuid: $routeParams.classUUID}).then(function(respond){
+			$scope.singleClass = respond;
+		});
       
       $scope.class = {
   		name : '',
@@ -52,7 +54,7 @@ conceptDictControllers.controller('ClassesEditCtrl', ['$scope', 'ClassesService'
   		 $scope.class.description = $scope.singleClass.description;
   		 $scope.json = angular.toJson($scope.class);
 
-  		 ClassesService.editClass($scope.singleClass.uuid, $scope.json).then(function(success) {
+  		 openmrsRest.update('conceptclass', {uuid: $scope.singleClass.uuid}, $scope.json).then(function(success) {
   			 $scope.redirectToList();
   		 }, function(exception) {
   			 $scope.responseMessage = exception.data.error.fieldErrors.name[0].message;
@@ -66,7 +68,8 @@ conceptDictControllers.controller('ClassesEditCtrl', ['$scope', 'ClassesService'
       
   }]);
 
-conceptDictControllers.controller('ClassAddCtrl', ['$scope', 'ClassesService', '$location', function($scope, ClassesService, $location){
+conceptDictControllers.controller('ClassAddCtrl', ['$scope', 'ClassesService', '$location', 'openmrsRest', 
+                                                   function($scope, ClassesService, $location, openmrsRest){
 
 	$scope.class = {
 		name:'',
@@ -82,7 +85,7 @@ conceptDictControllers.controller('ClassAddCtrl', ['$scope', 'ClassesService', '
 	$scope.addClass = function() {
 		$scope.json = angular.toJson($scope.class);
 
-		ClassesService.addClass($scope.json).then(function(success) {
+		openmrsRest.create('conceptclass', $scope.json).then(function(success) {
 			$scope.redirectToList();
 		}, function(exception) {
 			$scope.responseMessage = exception.data.error.fieldErrors.name[0].message;
@@ -95,16 +98,18 @@ conceptDictControllers.controller('ClassAddCtrl', ['$scope', 'ClassesService', '
 	}
 }]);
 
-conceptDictControllers.controller('DataTypesListCtrl', ['$scope', 'loadDataTypes', 'DataTypesService', '$routeParams',
-                                                        function($scope, loadDataTypes, DataTypesService, $routeParams){
+conceptDictControllers.controller('DataTypesListCtrl', ['$scope', 'loadDataTypes', 'DataTypesService', '$routeParams', 'openmrsRest',
+                                                        function($scope, loadDataTypes, DataTypesService, $routeParams, openmrsRest){
 	$scope.dataTypes = loadDataTypes;		
 	
 }]);
 
-conceptDictControllers.controller('DataTypesDetailsCtrl', ['$scope', 'DataTypesService', '$routeParams',
-                                                        function($scope, DataTypesService, $routeParams){
+conceptDictControllers.controller('DataTypesDetailsCtrl', ['$scope', 'DataTypesService', '$routeParams', 'openmrsRest',
+                                                        function($scope, DataTypesService, $routeParams, openmrsRest){
 	
-	$scope.singleDataType = DataTypesService.getDataType({uuid : $routeParams.dataTypeUUID});
+	openmrsRest.getFull('conceptdatatype', {uuid: $routeParams.dataTypeUUID}).then(function(respond){
+		$scope.singleDataType = respond; 
+	});
 	
 	
 }]);
