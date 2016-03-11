@@ -1,16 +1,17 @@
-var conceptDictionary = angular.module('conceptDictionary', 
-		['ngRoute', 'conceptDictControllers', 'conceptDictServices', 'openmrs']);
+angular
+    .module('conceptDictionaryApp',
+		['ngRoute', 'conceptDictServices', 'openmrs'])
 
-conceptDictionary.config(['$routeProvider',
+.config(['$routeProvider',
                     function($routeProvider, openmrsRest) {
                       $routeProvider.
                         when('/concept-search', {
                             templateUrl: 'partials/concept-search.html',
-                            controller: 'ConceptSearchCtrl'
+                            controller: 'ConceptSearch'
                         }).
                         when('/class-list', {
                           templateUrl: 'partials/class-list.html',
-                          controller: 'ClassesListCtrl',
+                          controller: 'ClassesList',
                           resolve: {
                         	  loadClasses : function(openmrsRest){
                         		  return openmrsRest.listFull('conceptclass');
@@ -21,15 +22,15 @@ conceptDictionary.config(['$routeProvider',
                         }).
                         when('/class-list/add-class', {
                         	templateUrl: 'partials/class-add.html',
-                            controller: 'ClassAddCtrl' 
+                            controller: 'ClassAdd'
                         }).
                         when('/class-list/:classUUID', {
                         	templateUrl: 'partials/class-edit.html',
-                        	controller: 'ClassesEditCtrl',
+                        	controller: 'ClassesEdit',
                         }).
                         when('/datatype-list', {
                         	templateUrl: 'partials/datatype-list.html',
-                            controller: 'DataTypesListCtrl', 
+                            controller: 'DataTypesList',
                             resolve: {
                               	 loadDataTypes : function(openmrsRest){
                               		 return openmrsRest.listFull('conceptdatatype');
@@ -38,11 +39,11 @@ conceptDictionary.config(['$routeProvider',
                         }).
                         when('/datatype-list/:dataTypeUUID', {
                         	templateUrl: 'partials/datatype-details.html',
-                        	controller: 'DataTypesDetailsCtrl',
+                        	controller: 'DataTypesDetails',
                         }).
                         when('/concept/:conceptUUID/', {
                         	templateUrl: 'partials/concept.html',
-                        	controller: 'ConceptViewCtrl',
+                        	controller: 'ConceptView',
                         	resolve: {
                         		loadConcept : function($route, ConceptsService){
                         			return ConceptsService.getConcept({uuid : $route.current.params.conceptUUID});
