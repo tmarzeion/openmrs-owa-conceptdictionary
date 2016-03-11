@@ -1,4 +1,4 @@
-var conceptDictControllers = angular.module('conceptDictControllers', ['openmrs.resources']);
+var conceptDictControllers = angular.module('conceptDictControllers', ['openmrs']);
 
 conceptDictControllers.controller('ClassesListCtrl', 
 		['$scope', 'loadClasses', 'ClassesService', '$location', '$route', '$routeParams', 'openmrsRest',
