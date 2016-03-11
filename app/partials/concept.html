@@ -15,11 +15,8 @@
 			<th title="The locale in which the concept name belongs ">Locale</th>
 			<td style="padding-bottom: 2px; padding-left: 2px;">
 				
-					<button ng-click='goLocale("en")' ng-show = "locales.en" class="ng-hide">English</button> 
-					<button ng-click='goLocale("es")' ng-show = "locales.es" class="ng-hide">Spanish</button>
-					<button ng-click='goLocale("fr")' ng-show = "locales.fr" class="ng-hide">French</button>
-					<button ng-click='goLocale("it")' ng-show = "locales.it" class="ng-hide">Italian</button>
-					<button ng-click='goLocale("pt")' ng-show = "locales.pt" class="ng-hide">Portugese</button>
+					<button class="localeButtons-repeat" ng-repeat="locale in locales" ng-click='goLocale(locale)'>{{locale}}</button> 
+
 		</tr>
 		<tr class="localeSpecific">
 			<th title="The name to be used on forms, reports etc. in case no preferred name is set for the locale">
@@ -90,6 +87,7 @@
 		<tr>
 			<th title="An optional way for you to keep track of which concepts came before others when changing/updating concepts">Version</th>
 			<td>
+				{{concept.version}}
 			</td>
 		</tr>
 		<tr ng-show = "isNumeric" class="ng-hide">
@@ -146,14 +144,14 @@
 				<th valign="top">Created By</th>
 				<td>
 					{{concept.auditInfo.creator.display}} -
-					{{concept.auditInfo.dateCreated}}
+					{{concept.auditInfo.dateCreated|date:'medium'}}
 				</td>
 			</tr>
 			<tr>
 				<th valign="top">Changed By</th>
 				<td>
 					{{concept.auditInfo.creator.display}} -
-					{{concept.auditInfo.dateChanged}}
+					{{concept.auditInfo.dateChanged|date:'medium'}}
 				</td>
 			</tr>
 		<tr><td colspan="2"><br></td></tr>

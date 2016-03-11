@@ -102,7 +102,7 @@ conceptDictServices
 }])
 .factory('ConceptLocaleService',[function(){
 	return{
-		getLocales: function(names, descriptions){
+		getLocales: function(names, descriptions, serverLocales){
 			var locales = {};
 			for(var index=0;index<names.length;index++){
 				checkLocale(names[index]);
@@ -111,28 +111,11 @@ conceptDictServices
 				checkLocale(descriptions[index]);
 			}
 			function checkLocale (input){
-				if(input.locale === "en"){
-					locales.en = true;
-					return;
-				}
-				else if (input.locale === "es") {
-					locales.es = true;
-					return;
-				}
-				else if (input.locale === "it"){
-					locales.it = true;
-					return;
-				}
-				else if (input.locale === "fr") {
-					locales.fr = true;
-					return;
-				}
-				else if (input.locale === "pt") {
-					locales.pt = true;
-					return;
+				for(var index=0; index<serverLocales.length ;index++){
+					if(input.locale === serverLocales[index]) locales[serverLocales[index]] = true;
 				}
 			}
-			return locales;
+			return Object.keys(locales);
 		},
 		/**
 		 * @names array of names objects of concept
@@ -202,4 +185,20 @@ conceptDictServices
 			return Concepts.getFirstPageQueryConcepts({query: searchTerm, limit : entitiesPerPage}).$promise;
 		}
 	}
+}])
+.factory('Locales',['$resource', 'Util', function($resource, Util){
+   	return $resource(
+   			Util.getOpenmrsContextPath()+'/ws/rest/v1/systemsetting?:mode', {}, 
+   			//Returns single concept
+   				 {getLocales: {method: 'GET', params:{mode : 'q=locale.allowed.list&v=full'}, isArray:false }});
+   			//deletes class with specified uuid
+}])
+.factory('LocalesService',['Locales', function(Locales){
+   	return{
+   			//Returns single concept
+   		getLocales: function(){
+   			return Locales.getLocales().$promise.then(function(response){
+ 			   return response.results[0].value.split(", ");
+ 		   });
+   		}}
 }]);
