@@ -46,6 +46,9 @@ conceptDictionary.config(['$routeProvider',
                         	resolve: {
                         		loadConcept : function($route, ConceptsService){
                         			return ConceptsService.getConcept({uuid : $route.current.params.conceptUUID});
+                        		},
+                        		loadLocales: function(LocalesService){
+                        			return LocalesService.getLocales();
                         		}
                         	}
                         }).

@@ -113,12 +113,15 @@ conceptDictControllers.controller('DataTypesDetailsCtrl', ['$scope', 'DataTypesS
 	
 	
 }]);
-conceptDictControllers.controller('ConceptViewCtrl', ['$scope', 'loadConcept', '$q', '$location', 'ConceptLocaleService',
-                                               function($scope, loadConcept, $q, $location, ConceptLocaleService){ 
+conceptDictControllers.controller('ConceptViewCtrl', ['$scope', 'loadConcept', 'loadLocales', '$q', 'ConceptLocaleService', '$location',
+                                               function($scope, loadConcept, loadLocales, $q, ConceptLocaleService, $location ){ 
+
 	//resolves promise of fetching concept from server
-	$q.all(loadConcept).then(function(response){
+	$q.all(loadConcept, loadLocales).then(function(response){
 		$scope.concept = loadConcept;
-		$scope.locales = ConceptLocaleService.getLocales($scope.concept.names, $scope.concept.descriptions)
+		$scope.locales = ConceptLocaleService.getLocales($scope.concept.names, 
+														 $scope.concept.descriptions,
+														 loadLocales);
 		$scope.checkType();
 		$scope.goLocale($scope.concept.name.locale);
 	});
