@@ -1,4 +1,4 @@
-angular.module('openmrs.resources', [ 'ngResource' ])
+angular.module('openmrs', [ 'ngResource' ])
 	.factory('openmrsApi', function($resource) {
 
 			var getOpenmrsContextPath = function() {
@@ -9,8 +9,7 @@ angular.module('openmrs.resources', [ 'ngResource' ])
 			var openmrsApi = {
 
 				defaultConfig : {
-					uuid : '@uuid',
-					mode : '@mode'
+					uuid : '@uuid'
 				},
 
 				extraMethods : {
@@ -36,13 +35,13 @@ angular.module('openmrs.resources', [ 'ngResource' ])
 					if (!config.unnatural) {
 						var orig = angular.copy(openmrsApi.defaultConfig);
 						params = angular.extend(orig, config.params);
-						url = getOpenmrsContextPath() + '/ws/rest/v1' + config.url + '/:uuid?:mode';
+						url = getOpenmrsContextPath() + '/ws/rest/v1' + config.url + '/:uuid';
 
 						// otherwise we have to declare the entire
 						// configuration.
 					} else {
 						params = config.params;
-						url = getOpenmrsContextPath() + '/ws/rest/v1' + config.url + '/:uuid?:mode';
+						url = getOpenmrsContextPath() + '/ws/rest/v1' + config.url + '/:uuid';
 					}
 
 					// If we supply a method configuration, use that instead of
@@ -79,9 +78,16 @@ angular.module('openmrs.resources', [ 'ngResource' ])
 					});
 				},
 	
-				listFull : function(resource, query) {
+				listFull : function(resource) {
 					openmrsApi.add(resource);
-					query = angular.extend(query, {mode: 'v=full'});
+					var query = {v: 'full'};
+					return openmrsApi[resource].get(query).$promise.then(function(response){
+						return response.results;
+					});
+				},
+				listRef : function(resource) {
+					openmrsApi.add(resource);
+					var query = {v: 'ref'};
 					return openmrsApi[resource].get(query).$promise.then(function(response){
 						return response.results;
 					});
@@ -92,9 +98,15 @@ angular.module('openmrs.resources', [ 'ngResource' ])
 					return openmrsApi[resource].get(query).$promise;
 				},
 	
-				getFull : function(resource, query) { 
+				getFull : function(resource) { 
 					openmrsApi.add(resource);
-					query = angular.extend(query, {mode: 'v=full'});
+					var query = {v: 'full'};
+					return openmrsApi[resource].get(query).$promise;
+				},
+				
+				getRef : function(resource) { 
+					openmrsApi.add(resource);
+					var query = {v: 'ref'};
 					return openmrsApi[resource].get(query).$promise;
 				},
 	

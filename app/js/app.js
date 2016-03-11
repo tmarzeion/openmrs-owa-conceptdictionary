@@ -1,5 +1,5 @@
 var conceptDictionary = angular.module('conceptDictionary', 
-		['ngRoute', 'conceptDictControllers', 'conceptDictServices', 'openmrs.resources']);
+		['ngRoute', 'conceptDictControllers', 'conceptDictServices', 'openmrs']);
 
 conceptDictionary.config(['$routeProvider',
                     function($routeProvider, openmrsRest) {
@@ -13,7 +13,7 @@ conceptDictionary.config(['$routeProvider',
                           controller: 'ClassesListCtrl',
                           resolve: {
                         	  loadClasses : function(openmrsRest){
-                        		  return openmrsRest.listFull('conceptclass', {});
+                        		  return openmrsRest.listFull('conceptclass');
                         	  }
                           }
                         //resolve clause makes sure that $resource is resolved
@@ -32,7 +32,7 @@ conceptDictionary.config(['$routeProvider',
                             controller: 'DataTypesListCtrl', 
                             resolve: {
                               	 loadDataTypes : function(openmrsRest){
-                              		 return openmrsRest.listFull('conceptdatatype', {});
+                              		 return openmrsRest.listFull('conceptdatatype');
                               	 }
                             }
                         }).
