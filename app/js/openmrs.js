@@ -1,3 +1,6 @@
+/**
+ * The pattern borrowed from https://gist.github.com/brucecoddington/92a8d4b92478573d0f42
+ */
 angular.module('openmrs', [ 'ngResource' ])
 	.factory('openmrsApi', function($resource) {
 
@@ -81,7 +84,7 @@ angular.module('openmrs', [ 'ngResource' ])
 				listFull : function(resource, query) {
 					openmrsApi.add(resource);
 					if(query == null){
-						var query = {v: 'full'};
+						query = {v: 'full'};
 					}else{
 						query = angular.extend(query, {v: 'full'});
 					}
@@ -92,7 +95,7 @@ angular.module('openmrs', [ 'ngResource' ])
 				listRef : function(resource, query) {
 					openmrsApi.add(resource);
 					if(query == null){
-						var query = {v: 'ref'};
+						query = {v: 'ref'};
 					}else{
 						query = angular.extend(query, {v: 'ref'});
 					}
@@ -109,7 +112,7 @@ angular.module('openmrs', [ 'ngResource' ])
 				getFull : function(resource, query) { 
 					openmrsApi.add(resource);
 					if(query == null){
-						var query = {v: 'full'};
+						query = {v: 'full'};
 					}else{
 						query = angular.extend(query, {v: 'full'});
 					}
@@ -119,7 +122,7 @@ angular.module('openmrs', [ 'ngResource' ])
 				getRef : function(resource, query) { 
 					openmrsApi.add(resource);
 					if(query == null){
-						var query = {v: 'ref'};
+						query = {v: 'ref'};
 					}else{
 						query = angular.extend(query, {v: 'ref'});
 					}
