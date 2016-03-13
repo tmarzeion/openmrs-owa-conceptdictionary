@@ -44,19 +44,27 @@ angular
                         when('/concept/:conceptUUID/', {
                         	templateUrl: 'partials/concept.html',
                         	controller: 'ConceptView',
+                        	controllerAs: 'vm',
                         	resolve: {
-                        		loadConcept : function($route, ConceptsService){
-                        			return ConceptsService.getConcept({uuid : $route.current.params.conceptUUID});
-                        		},
-                        		loadLocales: function(LocalesService){
-                        			return LocalesService.getLocales();
-                        		}
+                        		concept : loadConcept,
+                        		serverLocales: serverLocales
                         	}
                         }).
                         otherwise({
                           redirectTo: '/class-list'
                         });
                     }]);
+
+function loadConcept ($route, openmrsRest){
+	return openmrsRest.getFull('concept',
+			{uuid : $route.current.params.conceptUUID});
+};
+function serverLocales(openmrsRest){
+	return openmrsRest.getFull('systemsetting',{q : 'locale.allowed.list'})
+					  .then(function(response){
+						  return response.results[0].value.split(", ");
+					  });
+};
 
 
 

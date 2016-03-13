@@ -1,32 +1,56 @@
-angular
-    .module('conceptDictionaryApp')
-    .controller('ConceptView', ['$scope', 'loadConcept', 'loadLocales', '$q', 'ConceptLocaleService', '$location',
-    function($scope, loadConcept, loadLocales, $q, ConceptLocaleService, $location ){
+(function() {
+    'use strict';
+    
+	angular
+		.module('conceptDictionaryApp')
+		.controller('ConceptView', ConceptView)
+	//serverLocales = avalaible locales obtained from server
+	ConceptView.$inject = ['$scope', 'concept', 'serverLocales', 'conceptLocaleService', '$location'];   
 
-        //resolves promise of fetching concept from server
-        $q.all(loadConcept, loadLocales).then(function(response){
-            $scope.concept = loadConcept;
-            $scope.locales = ConceptLocaleService.getLocales($scope.concept.names,
-                $scope.concept.descriptions,
-                loadLocales);
-            $scope.checkType();
-            $scope.goLocale($scope.concept.name.locale);
-        });
+	function ConceptView ($scope, concept, serverLocales, conceptLocaleService, $location ){
 
-        //conceptLocale holds names and description of Concept within selected locale
-        $scope.conceptLocale = {};
-        //inserts descriptions and names for specified locale into conceptLocale, parsed from concept tables,
-        $scope.goLocale = function (locale) {
-            $scope.conceptLocale.description = ConceptLocaleService.getLocaleDescr($scope.concept.descriptions, locale);
-            $scope.conceptLocale.names = ConceptLocaleService.getLocaleNames($scope.concept.names, locale);
-        }
-        //checks datatype of concept to determine
-        $scope.checkType = function(){
-            $scope.isNumeric = ($scope.concept.datatype.display == "Numeric");
-            $scope.isCoded = ($scope.concept.datatype.display == "Coded");
-        }
-        //
-        $scope.goToConcept = function(hash){
-            $location.path("/concept/"+hash);
-        }
-    }]);
+		var vm = this;
+		//determines if Numeric content is shown
+		vm.isNumeric;
+		//determines if coded answer content is shown
+		vm.isCoded;
+		//holds names and description of concept for currently selected locale
+		vm.conceptLocale = {};
+		//holds concept
+		vm.concept = concept;
+		//array of locales of concept
+		vm.locales;
+		//function invoked when user clicks locale button
+		vm.goLocale = goLocale;
+		//function invoked when user clicks othr concept button
+		vm.goTo = goTo;
+		
+		activate();
+		
+		//activation function
+		function activate(){
+			vm.locales = conceptLocaleService.getLocales(vm.concept.names,
+					vm.concept.descriptions,
+					serverLocales);
+			
+			checkType();
+			goLocale(vm.concept.name.locale);
+		}
+		//inserts descriptions and names for specified locale into conceptLocale, parsed from concept tables,
+		function goLocale (locale) {
+			vm.conceptLocale.description 
+				= conceptLocaleService.getLocaleDescr(vm.concept.descriptions, locale);
+			vm.conceptLocale.names 
+				= conceptLocaleService.getLocaleNames(vm.concept.names, locale);
+		}
+		//checks datatype of concept to determine
+		function checkType (){
+			vm.isNumeric = (vm.concept.datatype.display == "Numeric");
+			vm.isCoded = (vm.concept.datatype.display == "Coded");
+		}
+		//
+		function goTo (hash){
+			$location.path(hash);
+		}
+	};
+})();
