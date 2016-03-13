@@ -1,7 +1,10 @@
-angular
-	.module('conceptDictionaryApp')
-	.factory('conceptLocaleService', conceptLocaleService);
-				
+
+(function() {
+    'use strict';
+    
+	angular
+		.module('conceptDictionaryApp')
+		.factory('conceptLocaleService', conceptLocaleService);				
 
 		function conceptLocaleService(){
 					return{
@@ -33,6 +36,7 @@ angular
 				}
 				return Object.keys(locales);
 			}
+
 			/**
 			 * @names array of names objects of concept
 			 * @locale string of locale abbreviation, e.g. "en"
@@ -56,19 +60,21 @@ angular
 						else localNames.synonyms.push(names[index].display);
 					}
 				}
-				return localNames;
-			}
-			/**
-			 * @descriptions array of descriptions objects of concept
-			 * @locale string of locale abbreviation
-			 * @returns string - description of concept for specified locale
-			 */
-			function getLocaleDescr(descriptions, locale){
-				for (var index=0;index<descriptions.length;index++){
-					if(descriptions[index].locale === locale){
-						return descriptions[index].display;
-					}
+			return localNames;
+		};
+		/**
+		 * @descriptions array of descriptions objects of concept
+		 * @locale string of locale abbreviation
+		 * @returns string - description of concept for specified locale
+		 */
+		function getLocaleDescr(descriptions, locale){
+			for (var index=0;index<descriptions.length;index++){
+				if(descriptions[index].locale === locale){
+					return descriptions[index].display;
 				}
 			}
-
 		}
+		
+})();
+
+>>>>>>> Refractored concept view and conceptLocaleService

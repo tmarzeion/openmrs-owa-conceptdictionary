@@ -66,6 +66,15 @@
 				{{vm.concept.conceptClass.display}}
 			</td>
 		</tr>
+		<tr ng-show = "vm.concept.set">
+			<th valign="top">Set Members</th>
+				<td>
+					    <li class="setMembers-repeat" ng-repeat="member in vm.concept.setMembers" style="list-style-type:none">
+					    	<button ng-click="vm.goTo('/concept/'+member.uuid)">{{member.display}}</button>
+    					</li>
+				</td>
+				</td>
+		</tr>
 		
 		<tr>
 			<th title="If data is stored within this concept, this describes what it will look like">
@@ -79,7 +88,7 @@
 			<th valign="top">Answers</th>
 				<td>
 					    <li class="synonym-repeat" ng-repeat="answer in vm.concept.answers" style="list-style-type:none">
-					    	<button ng-click="goTo('/concept/'+answer.uuid)">{{answer.display}}</button>
+					    	<button ng-click="vm.goTo('/concept/'+answer.uuid)">{{answer.display}}</button>
     					</li>
 				</td>
 				</td>

@@ -1,6 +1,10 @@
-angular
-	.module('conceptDictionaryApp')
-	.controller('ConceptViewController', ConceptViewController);
+
+(function() {
+    'use strict';
+    
+	angular
+		.module('conceptDictionaryApp')
+		.controller('ConceptView', ConceptView)
 		
 	//serverLocales = avalaible locales obtained from server
 ConceptViewController.$inject = ['$scope', 'concept', 'serverLocales', 'conceptLocaleService', '$location'];
@@ -50,4 +54,5 @@ ConceptViewController.$inject = ['$scope', 'concept', 'serverLocales', 'conceptL
 		function goTo (hash){
 			$location.path(hash);
 		}
-	}
+	};
+})();
