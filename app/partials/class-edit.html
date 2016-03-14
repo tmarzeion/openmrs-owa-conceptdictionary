@@ -1,36 +1,36 @@
 <div>
 	<h2>Concept Class Form</h2>
-	<h3>{{responseMessage}}</h3>
+	<h3>{{vm.responseMessage}}</h3>
 	<form name="classForm">
 	<table>
 		<tbody><tr>
 			<td>Name<span class="required">*</span></td>
 			<td>		
-				<input type="text" name="name" ng-model="singleClass.name" size="35" ng-required="true">			
+				<input type="text" name="name" ng-model="vm.singleClass.name" size="35" ng-required="true">			
 			</td>
 		</tr>
 		<tr>
 			<td valign="top">Description</td>
 			<td>			
-				<textarea name="description" rows="3" cols="40" ng-model="singleClass.description"></textarea>			
+				<textarea name="description" rows="3" cols="40" ng-model="vm.singleClass.description"></textarea>			
 			</td>
 		</tr>	
 		<tr>
 			<td>Created By </td>
 			<td>
-				{{singleClass.auditInfo.creator.display}} -
-				{{singleClass.auditInfo.dateCreated | date:'medium'}}
+				{{vm.singleClass.auditInfo.creator.display}} -
+				{{vm.singleClass.auditInfo.dateCreated | date:'medium'}}
 			</td>
 		</tr>
 		<tr>     
           <td><font color="#D0D0D0"><sub>UUID</sub></font></td>
-          <td colspan="0"><font color="#D0D0D0"><sub>{{singleClass.uuid}}</sub></font></td>     
+          <td colspan="0"><font color="#D0D0D0"><sub>{{vm.singleClass.uuid}}</sub></font></td>     
    		</tr>
 		
 	</tbody></table>
 	
 	<br>
-	<input type="submit" value="Save Concept Class" ng-disabled="classForm.$invalid" ng-click="editClass()">
-		<input type="submit" value="Cancel" ng-click="cancel()">
+	<input type="submit" value="Save Concept Class" ng-disabled="classForm.$invalid" ng-click='vm.editClass()'>
+		<input type="submit" value="Cancel" ng-click="vm.cancel()">
 	</form>
 </div>

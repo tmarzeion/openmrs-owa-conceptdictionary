@@ -1,11 +1,17 @@
-angular
-    .module('conceptDictionaryApp')
-    .controller('DataTypesDetails', ['$scope', 'DataTypesService', '$routeParams', 'openmrsRest',
-    function($scope, DataTypesService, $routeParams, openmrsRest){
-
-        openmrsRest.getFull('conceptdatatype', {uuid: $routeParams.dataTypeUUID}).then(function(respond){
-            $scope.singleDataType = respond;
-        });
-
-
-    }]);
+(function(){
+	'use strict';
+	
+	angular
+		.module('conceptDictionaryApp')
+		.controller('DataTypesDetailsController', DataTypesDetailsController)
+		
+	DataTypesDetailsController.$inject = 
+		['$scope', 'loadDataType', '$routeParams', 'openmrsRest']
+	
+	function DataTypesDetailsController($scope, loadDataType, $routeParams, openmrsRest){
+		
+		var vm = this;
+		
+		vm.singleDataType = loadDataType;
+	};
+})();

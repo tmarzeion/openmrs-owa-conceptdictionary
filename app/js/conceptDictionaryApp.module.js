@@ -24,18 +24,27 @@ angular
                         }).
                         when('/class-list/:classUUID', {
                         	templateUrl: 'partials/class-edit.html',
-                        	controller: 'ClassesEdit',
+                        	controller: 'ClassesEditController',
+                        	controllerAs: 'vm',
+                        	resolve: {
+                        		singleClass : loadClass
+                        	}
                         }).
                         when('/datatype-list', {
                         	templateUrl: 'partials/datatype-list.html',
-                            controller: 'DataTypesList',
+                            controller: 'DataTypesListController',
+                        	controllerAs: 'vm',
                             resolve: {
                               	 loadDataTypes : loadDataTypes
                             }
                         }).
                         when('/datatype-list/:dataTypeUUID', {
                         	templateUrl: 'partials/datatype-details.html',
-                        	controller: 'DataTypesDetails',
+                        	controller: 'DataTypesDetailsController',
+                        	controllerAs: 'vm',
+                        	resolve: {
+                        		loadDataType : loadDataType
+                        	}
                         }).
                         when('/concept/:conceptUUID/', {
                         	templateUrl: 'partials/concept.html',
@@ -66,6 +75,14 @@ function loadClasses(openmrsRest){
 };
 function loadDataTypes (openmrsRest){
 	  return openmrsRest.listFull('conceptdatatype');
+};
+function loadClass ($route, openmrsRest){
+	return openmrsRest.getFull('conceptclass',
+			{uuid: $route.current.params.classUUID});
+};
+function loadDataType ($route, openmrsRest){
+	return openmrsRest.getFull('conceptdatatype', 
+			{uuid: $route.current.params.dataTypeUUID});
 };
 
 

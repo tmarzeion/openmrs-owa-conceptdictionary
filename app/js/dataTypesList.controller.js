@@ -1,7 +1,17 @@
-angular
-    .module('conceptDictionaryApp')
-    .controller('DataTypesList', ['$scope', 'loadDataTypes', 'DataTypesService', '$routeParams', 'openmrsRest',
-    function($scope, loadDataTypes, DataTypesService, $routeParams, openmrsRest){
-        $scope.dataTypes = loadDataTypes;
-
-    }]);
+(function() {
+	'use strict';
+	
+	angular
+		.module('conceptDictionaryApp')
+		.controller('DataTypesListController', DataTypesListController)
+	
+	DataTypesListController.$inject = 
+		['$scope', 'loadDataTypes', '$routeParams', 'openmrsRest']
+		
+	function DataTypesListController($scope, loadDataTypes, $routeParams, openmrsRest){
+		var vm = this;
+		
+		vm.dataTypes = loadDataTypes;		
+	}
+		
+})();
