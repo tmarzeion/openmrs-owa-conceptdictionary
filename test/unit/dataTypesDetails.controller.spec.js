@@ -21,26 +21,29 @@ describe('Concept dictionary controllers', function() {
 
     beforeEach(module('conceptDictionaryApp'));
 
-    describe('DataTypesDetails', function(){
+    describe('DataTypesDetailsController', function(){
         var scope, ctrl, $httpBackend;
 
-        beforeEach(inject(function(_$httpBackend_, $rootScope, $controller, Util, DataTypesService, $routeParams){
+        beforeEach(inject(function(_$httpBackend_, $rootScope, $controller, Util, $routeParams, openmrsRest){
             $httpBackend = _$httpBackend_;
             $httpBackend.expectGET(Util.getOpenmrsContextPath()+'/ws/rest/v1/conceptdatatype/8d4a505e-c2cc-11de-8d13-0010c6dffd0f?v=full').
             respond({name: 'Date Datatype', description: 'Date Field Gen Datatype Handler',
                 uuid: '8d4a505e-c2cc-11de-8d13-0010c6dffd0f', hl7Abbreviation: 'DT'
             });
 
-            $routeParams.dataTypeUUID = '8d4a505e-c2cc-11de-8d13-0010c6dffd0f'
             scope = $rootScope.$new();
+            
+            loadDataType = openmrsRest.getFull('conceptdatatype', {uuid: "8d4a505e-c2cc-11de-8d13-0010c6dffd0f"}).then(function(response){
+            	return response;	
+            });
+            $httpBackend.flush();
 
-            ctrl = $controller('DataTypesDetails', {$scope: scope});
+            ctrl = $controller('DataTypesDetailsController', {$scope: scope, loadDataType: loadDataType});
 
         }));
 
         it('Should load details of dataType', function(){
-            $httpBackend.flush();
-            expect(scope.singleDataType).toEqualData({name: 'Date Datatype', description: 'Date Field Gen Datatype Handler',
+            expect(ctrl.singleDataType.$$state.value).toEqualData({name: 'Date Datatype', description: 'Date Field Gen Datatype Handler',
                 uuid: '8d4a505e-c2cc-11de-8d13-0010c6dffd0f', hl7Abbreviation: 'DT'});
 
         });
