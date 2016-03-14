@@ -1,37 +1,60 @@
-angular
-    .module('conceptDictionaryApp')
-    .controller('ClassesEdit', ['$scope', 'ClassesService', '$routeParams', '$location', 'openmrsRest',
-    function($scope, ClassesService, $routeParams, $location, openmrsRest ) {
-        openmrsRest.getFull('conceptclass', {uuid: $routeParams.classUUID}).then(function(respond){
-            $scope.singleClass = respond;
-        });
+(function(){
+	'use strict';
+	
+	angular
+    	.module('conceptDictionaryApp')
+    	.controller('ClassesEditController', ClassesEditController)
+    	
+    ClassesEditController.$inject =
+    	['$scope', 'singleClass', '$routeParams', '$location', 'openmrsRest']
 
-        $scope.class = {
+	function ClassesEditController($scope, singleClass, $routeParams, $location, openmrsRest ){
+		
+		var vm = this;
+		//holds class information
+		vm.singleClass = singleClass;
+		
+		vm.class = {
             name : '',
             description : ''
         };
+		
+		vm.responseMessage = '';
+		
+		vm.redirectToList = redirectToList;
+		
+		vm.editClass = editClass;
+		
+		vm.cancel = cancel;
+		
+		activate();
+		
+		
+		function activate(){
+			openmrsRest.getFull('conceptclass', {uuid: $routeParams.classUUID}).then(function(respond){
+	            vm.singleClass = respond;
+	        });
+		}
 
-        $scope.responseMessage = '';
-
-        $scope.redirectToList = function() {
-            $location.path('/class-list').search({classAdded: $scope.class.name});
+        function redirectToList() {
+            $location.path('/class-list').search({classAdded: vm.class.name});
         };
 
-        $scope.editClass = function() {
-            $scope.class.name = $scope.singleClass.name;
-            $scope.class.description = $scope.singleClass.description;
-            $scope.json = angular.toJson($scope.class);
+        function editClass() {
+            vm.class.name = vm.singleClass.name;
+            vm.class.description = vm.singleClass.description;
+            vm.json = angular.toJson(vm.class);
 
-            openmrsRest.update('conceptclass', {uuid: $scope.singleClass.uuid}, $scope.json).then(function(success) {
-                $scope.redirectToList();
+            openmrsRest.update('conceptclass', {uuid: vm.singleClass.uuid}, vm.json).then(function(success) {
+                vm.redirectToList();
             }, function(exception) {
-                $scope.responseMessage = exception.data.error.fieldErrors.name[0].message;
+                vm.responseMessage = exception.data.error.fieldErrors.name[0].message;
             });
         };
 
-        $scope.cancel = function () {
-            $scope.class.name = '';
+        function cancel() {
+            vm.class.name = '';
             $location.path('/class-list').search({classAdded: ''});
         }
-
-    }]);
+	};
+})();
