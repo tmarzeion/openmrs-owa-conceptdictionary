@@ -9,26 +9,26 @@
 		</tr>
 		<tr>
 			<th title="System generated unique ID">UUID</th>
-			<td>{{concept.uuid}}</td>
+			<td>{{vm.concept.uuid}}</td>
 		</tr>
 		<tr>
 			<th title="The locale in which the concept name belongs ">Locale</th>
 			<td style="padding-bottom: 2px; padding-left: 2px;">
 				
-					<button class="localeButtons-repeat" ng-repeat="locale in locales" ng-click='goLocale(locale)'>{{locale}}</button> 
+					<button class="localeButtons-repeat" ng-repeat="locale in vm.locales" ng-click='vm.goLocale(locale)'>{{locale}}</button> 
 
 		</tr>
 		<tr class="localeSpecific">
 			<th title="The name to be used on forms, reports etc. in case no preferred name is set for the locale">
 				Display
 			</th>
-				<td>{{conceptLocale.names.full}}</td>
+				<td>{{vm.conceptLocale.names.full}}</td>
 		</tr>
 		<tr class="localeSpecific">
 			<th title="Any label or name that refers to a primary concept." valign="top">Synonyms</th>
 				<td>
 				
-					    <li class="synonym-repeat" ng-repeat="synonym in conceptLocale.names.synonyms" style="list-style-type:none">
+					    <li class="synonym-repeat" ng-repeat="synonym in vm.conceptLocale.names.synonyms" style="list-style-type:none">
 					    	{{synonym}}
     					</li>
 				</td>
@@ -37,7 +37,7 @@
 		<tr class="localeSpecific">
 			<th title="An index term or phrase that might be used to search for this concept but that is not valid for display purposes or storing in the record (e.g., common misspellings or pragmatic mapping term)" valign="top">Search Terms</th>
 				<td class="en">
-					<li class="searchTerm-repeat" ng-repeat="searchTerm in conceptLocale.names.searchTerms" style="list-style-type:none">
+					<li class="searchTerm-repeat" ng-repeat="searchTerm in vm.conceptLocale.names.searchTerms" style="list-style-type:none">
 					    	{{searchTerm}}
     					</li>
 				</td>
@@ -46,7 +46,7 @@
 			<th title="The text shown in report headers and other places where space is limited">
 				Short Name
 			</th>
-				<td class="en">{{conceptLocale.names.short}}</td>
+				<td class="en">{{vm.conceptLocale.names.short}}</td>
 		</tr>
 		
 		<tr class="localeSpecific">
@@ -54,7 +54,7 @@
 				Description
 			</th>
 				<td valign="top">
-					{{conceptLocale.description}}
+					{{vm.conceptLocale.description}}
 				</td>
 			
 		</tr>
@@ -63,7 +63,7 @@
 				Class
 			</th>
 			<td valign="top">
-				{{concept.conceptClass.display}}
+				{{vm.concept.conceptClass.display}}
 			</td>
 		</tr>
 		
@@ -72,14 +72,14 @@
 				Datatype
 			</th>
 			<td valign="top">
-				{{concept.datatype.display}}
+				{{vm.concept.datatype.display}}
 			</td>
 		</tr>
-		<tr ng-show = "isCoded" class="ng-hide">
+		<tr ng-show = "vm.isCoded" class="ng-hide">
 			<th valign="top">Answers</th>
 				<td>
-					    <li class="synonym-repeat" ng-repeat="answer in concept.answers" style="list-style-type:none">
-					    	<button ng-click="goToConcept(answer.uuid)">{{answer.display}}</button>
+					    <li class="synonym-repeat" ng-repeat="answer in vm.concept.answers" style="list-style-type:none">
+					    	<button ng-click="goTo('/concept/'+answer.uuid)">{{answer.display}}</button>
     					</li>
 				</td>
 				</td>
@@ -87,37 +87,37 @@
 		<tr>
 			<th title="An optional way for you to keep track of which concepts came before others when changing/updating concepts">Version</th>
 			<td>
-				{{concept.version}}
+				{{vm.concept.version}}
 			</td>
 		</tr>
-		<tr ng-show = "isNumeric" class="ng-hide">
+		<tr ng-show = "vm.isNumeric" class="ng-hide">
 				<th valign="top">Numeric </th>
 				<td>
 					<table>
 						<tbody>
 						<tr>
 							<th valign="middle">Absolute High</th>
-							<td valign="middle">{{concept.hiAbsolute}}</td>
+							<td valign="middle">{{vm.concept.hiAbsolute}}</td>
 						</tr>
 						<tr>
 							<th valign="middle">Critical High</th>
-							<td valign="middle">{{concept.hiCritical}}</td>
+							<td valign="middle">{{vm.concept.hiCritical}}</td>
 						</tr>
 						<tr>
 							<th valign="middle">Normal High</th>
-							<td valign="middle">{{concept.hiNormal}}</td>
+							<td valign="middle">{{vm.concept.hiNormal}}</td>
 						</tr>
 						<tr>
 							<th valign="middle">Normal Low</th>
-							<td valign="middle">{{concept.lowNormal}}</td>
+							<td valign="middle">{{vm.concept.lowNormal}}</td>
 						</tr>
 						<tr>
 							<th valign="middle">Critical Low</th>
-							<td valign="middle">{{concept.lowCritical}}</td>
+							<td valign="middle">{{vm.concept.lowCritical}}</td>
 						</tr>
 						<tr>
 							<th valign="middle">Absolute Low</th>
-							<td valign="middle">{{concept.lowAbsolute}}</td>
+							<td valign="middle">{{vm.concept.lowAbsolute}}</td>
 						</tr>
 						<tr>
 							<td></td>
@@ -126,12 +126,12 @@
 						</tr>
 						<tr>
 							<th>Units</th>
-							<td colspan="2">{{concept.units}}</td>
+							<td colspan="2">{{vm.concept.units}}</td>
 						</tr>
 						<tr>
 							<th>Allow Decimal?</th>
 							<td colspan="2">
-								{{concept.allowDecimal}}
+								{{vm.concept.allowDecimal}}
 							</td>
 						</tr>
 						<tr>
@@ -143,15 +143,15 @@
 			<tr>
 				<th valign="top">Created By</th>
 				<td>
-					{{concept.auditInfo.creator.display}} -
-					{{concept.auditInfo.dateCreated|date:'medium'}}
+					{{vm.concept.auditInfo.creator.display}} -
+					{{vm.concept.auditInfo.dateCreated|date:'medium'}}
 				</td>
 			</tr>
 			<tr>
 				<th valign="top">Changed By</th>
 				<td>
-					{{concept.auditInfo.creator.display}} -
-					{{concept.auditInfo.dateChanged|date:'medium'}}
+					{{vm.concept.auditInfo.creator.display}} -
+					{{vm.concept.auditInfo.dateChanged|date:'medium'}}
 				</td>
 			</tr>
 		<tr><td colspan="2"><br></td></tr>

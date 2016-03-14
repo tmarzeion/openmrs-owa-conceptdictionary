@@ -12,13 +12,10 @@ angular
                         when('/class-list', {
                           templateUrl: 'partials/class-list.html',
                           controller: 'ClassesList',
+                          controllerAs: 'vm',
                           resolve: {
-                        	  loadClasses : function(openmrsRest){
-                        		  return openmrsRest.listFull('conceptclass');
-                        	  }
+                        	  loadClasses : loadClasses
                           }
-                        //resolve clause makes sure that $resource is resolved
-                        //before getting into scope
                         }).
                         when('/class-list/add-class', {
                         	templateUrl: 'partials/class-add.html',
@@ -32,9 +29,7 @@ angular
                         	templateUrl: 'partials/datatype-list.html',
                             controller: 'DataTypesList',
                             resolve: {
-                              	 loadDataTypes : function(openmrsRest){
-                              		 return openmrsRest.listFull('conceptdatatype');
-                              	 }
+                              	 loadDataTypes : loadDataTypes
                             }
                         }).
                         when('/datatype-list/:dataTypeUUID', {
@@ -44,19 +39,33 @@ angular
                         when('/concept/:conceptUUID/', {
                         	templateUrl: 'partials/concept.html',
                         	controller: 'ConceptView',
+                        	controllerAs: 'vm',
                         	resolve: {
-                        		loadConcept : function($route, ConceptsService){
-                        			return ConceptsService.getConcept({uuid : $route.current.params.conceptUUID});
-                        		},
-                        		loadLocales: function(LocalesService){
-                        			return LocalesService.getLocales();
-                        		}
+                        		concept : loadConcept,
+                        		serverLocales: serverLocales
                         	}
                         }).
                         otherwise({
                           redirectTo: '/class-list'
                         });
                     }]);
+
+function loadConcept ($route, openmrsRest){
+	return openmrsRest.getFull('concept',
+			{uuid : $route.current.params.conceptUUID});
+};
+function serverLocales(openmrsRest){
+	return openmrsRest.getFull('systemsetting',{q : 'locale.allowed.list'})
+					  .then(function(response){
+						  return response.results[0].value.split(", ");
+					  });
+};
+function loadClasses(openmrsRest){
+	  return openmrsRest.listFull('conceptclass');
+};
+function loadDataTypes (openmrsRest){
+	  return openmrsRest.listFull('conceptdatatype');
+};
 
 
 
