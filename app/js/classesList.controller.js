@@ -6,9 +6,9 @@
 	    .controller('ClassesList', ClassesList)
 	    
 	ClassesList.$inject = 
-	    ['$scope', 'loadClasses', '$location', '$route', '$routeParams', 'openmrsRest']
+	    ['loadClasses', '$location', '$route', '$routeParams', 'openmrsRest']
 	
-	function ClassesList ($scope, loadClasses, $location, $route, $routeParams, openmrsRest) {
+	function ClassesList (loadClasses, $location, $route, $routeParams, openmrsRest) {
 	
 		var vm = this;
 		//array of concept classes
@@ -28,12 +28,13 @@
                 if(key){
                     openmrsRest.remove('conceptclass', {uuid : value});
                 }
-
             });
             //then updates classes list in scope after deletion
-            openmrsRest.listFull('conceptdatatype').then(function(data) {
+            openmrsRest.listFull('conceptclass').then(function(data) {
                 vm.classes = data;
-                $route.reload();});
+                $location.path("/class-list/").search({});
+            });
+
         };
         //redirects to another location
 		function goTo (hash){

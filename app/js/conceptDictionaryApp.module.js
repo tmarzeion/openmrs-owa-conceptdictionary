@@ -47,6 +47,16 @@ angular
                         		loadDataType : loadDataType
                         	}
                         }).
+                        when('/concept/add/', {
+                        	templateUrl: 'partials/concept-add.html',
+                        	controller: 'ConceptAddController',
+                        	controllerAs: 'vm',
+                        	resolve: {
+                        		serverLocales: serverLocales,
+                        		loadClasses : loadClasses,
+                        		loadDataTypes : loadDataTypes
+                        	}
+                        }).
                         when('/concept/:conceptUUID/', {
                         	templateUrl: 'partials/concept.html',
                         	controller: 'ConceptView',

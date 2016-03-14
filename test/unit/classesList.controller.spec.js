@@ -22,53 +22,43 @@ describe('Concept dictionary controllers', function() {
     beforeEach(module('conceptDictionaryApp'));
 
     describe('ClassesList', function(){
-        var scope, ctrl, $httpBackend;
+        var ctrl, $httpBackend, loadClasses;
 
-        beforeEach(inject(function(_$httpBackend_, $rootScope, $controller, Util, ClassesService) {
-            $httpBackend = _$httpBackend_;
-            $httpBackend.expectGET(Util.getOpenmrsContextPath()+'/ws/rest/v1/conceptclass/?v=full').
-            respond({results:[{name: 'Anatomy', description: 'Anatomic sites / descriptors', uuid: 'ad491c7a-c2cc-11de-8d13-0010c6dffd0f'},
-                {name: 'Procedure', description: 'Describes a clinical procedure', uuid: 'bd490bf4-c2cc-11de-8d13-0010c6dffd0f'}]});
-
-
-            scope = $rootScope.$new();
-
-            var loadClasses;
-            ClassesService.getAll().then(function(response){
+        beforeEach(inject(function(_$httpBackend_, $controller, Util, openmrsRest, _$route_ ,_$location_, _$routeParams_) {
+            $httpBackend = _$httpBackend_;         
+            $httpBackend.whenGET('/ws/rest/v1/conceptclass?v=full')
+    		.respond({results:[{name: 'Anatomy', description: 'Anatomic sites / descriptors', uuid: 'ad491c7a-c2cc-11de-8d13-0010c6dffd0f'},
+    		                   {name: 'Procedure', description: 'Describes a clinical procedure', uuid: 'bd490bf4-c2cc-11de-8d13-0010c6dffd0f'}]});
+            $httpBackend.whenGET('partials/class-list.html').respond("class list partial page");
+            
+            openmrsRest.listFull('conceptclass').then(function(response){
                 loadClasses = response;
+                ctrl = $controller('ClassesList', {loadClasses: loadClasses, 
+                									$location: _$location_, 
+                									openmrsRest : openmrsRest,
+                									$route : _$route_,
+                									$routeParams : _$routeParams_});
             });
-
             $httpBackend.flush();
-
-            ctrl = $controller('ClassesList', {$scope: scope, loadClasses: loadClasses, $location: location});
+          //handles delete request for specified class
         }));
 
 
         it('should create "classes" model with 2 classes fetched', function() {
-            expect(scope.classes).toEqualData(
+
+            expect(ctrl.classes).toEqualData(
                 [{name: 'Anatomy', description: 'Anatomic sites / descriptors', uuid: 'ad491c7a-c2cc-11de-8d13-0010c6dffd0f'},
-                    {name: 'Procedure', description: 'Describes a clinical procedure', uuid: 'bd490bf4-c2cc-11de-8d13-0010c6dffd0f'}]);
+                 {name: 'Procedure', description: 'Describes a clinical procedure', uuid: 'bd490bf4-c2cc-11de-8d13-0010c6dffd0f'}]);
         });
 
         it('should send delete request at uuid adress extracted from selection map', inject(function(Util) {
-            //handles delete request for specified class
-            $httpBackend.whenDELETE(Util.getOpenmrsContextPath()+'/ws/rest/v1/conceptclass/ad491c7a-c2cc-11de-8d13-0010c6dffd0f').respond("DELETE SUCCESS");
+            $httpBackend.whenDELETE('/ws/rest/v1/conceptclass/ad491c7a-c2cc-11de-8d13-0010c6dffd0f').respond("DELETE SUCCESS");
+            $httpBackend.whenGET('partials/class-list.html').respond("class list partial page");
+
             //deleteSelected function requests updated list.
-            $httpBackend.whenGET(Util.getOpenmrsContextPath()+'/ws/rest/v1/conceptclass?v=full')
-                .respond({results:[{name: 'Anatomy', description: 'Anatomic sites / descriptors', uuid: 'ad491c7a-c2cc-11de-8d13-0010c6dffd0f'},
-                    {name: 'Procedure', description: 'Describes a clinical procedure', uuid: 'bd490bf4-c2cc-11de-8d13-0010c6dffd0f'}]});
-            //$route.resfresh() requests page html
-            $httpBackend.whenGET(Util.getOpenmrsContextPath()+'/ws/rest/v1/conceptclass/?v=full')
-                .respond({results:[{name: 'Anatomy', description: 'Anatomic sites / descriptors', uuid: 'ad491c7a-c2cc-11de-8d13-0010c6dffd0f'},
-                    {name: 'Procedure', description: 'Describes a clinical procedure', uuid: 'bd490bf4-c2cc-11de-8d13-0010c6dffd0f'}]});
-
-            $httpBackend.whenGET(Util.getOpenmrsContextPath()+'partials/class-list.html').respond("class list partial page");
-
-            scope.selected = {'ad491c7a-c2cc-11de-8d13-0010c6dffd0f' : true }
-            scope.deleteSelected();
+            ctrl.selected = {'ad491c7a-c2cc-11de-8d13-0010c6dffd0f' : true }
+            ctrl.deleteSelected();
             $httpBackend.flush();
-
-            //expect delete fails test if no request is made
         }));
     });
 });
