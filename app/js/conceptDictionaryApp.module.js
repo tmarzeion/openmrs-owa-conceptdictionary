@@ -20,8 +20,9 @@ angular
                         }).
                         when('/class-list/add-class', {
                         	templateUrl: 'partials/class-add.html',
-                            controller: 'ClassAdd'
-                        }).
+                            controller: 'ClassAdd',
+                            controllerAs: 'vm'
+                      }).
                         when('/class-list/:classUUID', {
                         	templateUrl: 'partials/class-edit.html',
                         	controller: 'ClassesEditController',

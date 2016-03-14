@@ -1,31 +1,38 @@
 angular
     .module('conceptDictionaryApp')
-    .controller('ClassAdd', ['$scope', 'ClassesService', '$location', 'openmrsRest',
-    function($scope, ClassesService, $location, openmrsRest){
+    .controller('ClassAdd', ['ClassesService', '$location', 'openmrsRest',
+    function(ClassesService, $location, openmrsRest){
 
-        $scope.class = {
+        var vm = this;
+
+        //Default values for class and response message
+        vm.class = {
             name:'',
             description:''
         };
+        vm.responseMessage = '';
 
-        $scope.responseMessage = '';
+        //Method used to add class with current class params
+        vm.addClass = addClass;
 
-        $scope.redirectToList = function() {
-            $location.path('/class-list').search({classAdded: $scope.class.name});
-        };
+        //Method used to cancel class making
+        vm.cancel = cancel;
 
-        $scope.addClass = function() {
-            $scope.json = angular.toJson($scope.class);
 
-            openmrsRest.create('conceptclass', $scope.json).then(function(success) {
-                $scope.redirectToList();
+        //Method used to add class with current class params
+        function addClass() {
+            vm.json = angular.toJson(vm.class);
+            openmrsRest.create('conceptclass', vm.json).then(function(success) {
+                $location.path('/class-list').search({classAdded: vm.class.name});
             }, function(exception) {
-                $scope.responseMessage = exception.data.error.fieldErrors.name[0].message;
+                vm.responseMessage = exception.data.error.fieldErrors.name[0].message;
             });
-        };
+        }
 
-        $scope.cancel = function () {
-            $scope.class.name = ' ';
+        //Method used to cancel class making
+        function cancel () {
+            vm.class.name = ' ';
             $location.path('/class-list').search({classAdded: ''});
         }
+
     }]);
