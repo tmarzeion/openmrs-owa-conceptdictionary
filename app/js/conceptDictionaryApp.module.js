@@ -7,8 +7,9 @@ angular
                       $routeProvider.
                         when('/concept-search', {
                             templateUrl: 'partials/concept-search.html',
-                            controller: 'ConceptSearch'
-                        }).
+                            controller: 'ConceptSearch',
+                            controllerAs: 'vm'
+                      }).
                         when('/class-list', {
                           templateUrl: 'partials/class-list.html',
                           controller: 'ClassesList',

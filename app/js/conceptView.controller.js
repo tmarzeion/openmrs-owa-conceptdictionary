@@ -23,7 +23,7 @@
 		vm.locales;
 		//function invoked when user clicks locale button
 		vm.goLocale = goLocale;
-		//function invoked when user clicks othr concept button
+		//function invoked when user clicks other concept button
 		vm.goTo = goTo;
 		
 		activate();

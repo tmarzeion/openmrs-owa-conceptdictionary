@@ -1,91 +1,149 @@
 angular
     .module('conceptDictionaryApp')
-    .controller('ConceptSearch', ['$scope', 'ConceptsService', function($scope, ConceptsService) {
-    $scope.query='';
-    $scope.enableDescription = false;
-    $scope.concepts='';
-    $scope.isUserTyping = false;
-    $scope.searchNotification = 'Searching...';
-    $scope.noSearchInputNotification = 'Type query to search panel to find concepts';
+    .controller('ConceptSearch', ['$scope', '$routeParams' ,'ConceptsService', function($scope, $routeParams, ConceptsService) {
 
-    //Default values
-    $scope.entriesPerPage = 5;
-    $scope.pageNumber = 1;
-    $scope.resultNotification = '';
+        var vm = this;
 
-    $scope.loadingMorePages = false;
+        //Default is undefined, but it could take data from URL if there is one
+        vm.query;
+        vm.enableDescription = false;
 
-    $scope.sliceFrom = function () {
-        return $scope.entriesPerPage*$scope.pageNumber-$scope.entriesPerPage;
-    };
+        //Tells if user is actually typing (which is described in timeoutRefresh() function
+        vm.isUserTyping = false;
 
-    $scope.sliceTo = function () {
-        return $scope.entriesPerPage*$scope.pageNumber;
-    };
+        //Default values
+        vm.searchNotification = 'Searching...';
+        vm.noSearchInputNotification = 'Type query to search panel to find concepts';
+        vm.entriesPerPage = 5;
+        vm.pageNumber = 1;
+        vm.concepts='';
+        vm.resultNotification = '';
 
-    $scope.viewRangeStart = function () {
-        return $scope.sliceFrom()+1;
-    };
+        //Boolean that represents state of loading more pages after downloading first page
+        vm.loadingMorePages = false;
 
-    $scope.viewRangeEnd = function () {
-        return $scope.sliceTo();
-    };
+        //Page navigation
+        vm.nextPage;
+        vm.prevPage;
+        vm.firstPage;
+        vm.lastPage;
 
-    //Page changing
-    $scope.nextPage = function () {
-        $scope.pageNumber++;
-    };
-    $scope.prevPage = function () {
-        $scope.pageNumber--;
-    };
-    $scope.firstPage = function () {
-        $scope.pageNumber = 1;
-    };
-    $scope.lastPage = function () {
-        $scope.pageNumber = Math.floor($scope.concepts.length/$scope.entriesPerPage)+1;
-    };
+        //Page dividing
+        vm.sliceFrom;
+        vm.sliceTo;
+
+        //Page range
+        vm.viewRangeStart;
+        vm.viewRangeEnd;
+
+        //Method used to display proper notification when there is no result
+        vm.updateResultNotification;
+
+        // Method used to apply Rest response to controller variables and apply it on template
+        vm.refreshResponse;
+
+        //Method used to prevent app from querying server with every letter input into search query panel
+        vm.timeoutRefresh;
+
+        //Init method
+        activate();
 
 
-    $scope.updateResultNotification = function () {
-        if ($scope.isUserTyping) {
-            $scope.resultNotification = '';
+        //Page navigation
+        function nextPage () {
+            vm.pageNumber++;
         }
-        else {
-            $scope.resultNotification = 'There is no concept named ' + $scope.query;
+        function prevPage () {
+            vm.pageNumber--;
         }
-    };
+        function firstPage () {
+            vm.pageNumber = 1;
+        }
+        function lastPage () {
+            vm.pageNumber = Math.floor(vm.concepts.length / vm.entriesPerPage) + 1;
+        }
 
-    // Method used to prevent app from querying server with every letter input into search query panel
-    var timeout = null;
-    $scope.timeoutRefresh = function() {
-        clearTimeout(timeout);
-        $scope.isUserTyping = true;
-        timeout = setTimeout(function () {
-            $scope.refreshResponse();
-        }, 250);
-    };
+        //Page dividing
+        function sliceFrom () {
+            return vm.entriesPerPage*vm.pageNumber-vm.entriesPerPage;
+        }
+        function sliceTo () {
+            return vm.entriesPerPage*vm.pageNumber;
+        }
 
-    $scope.refreshResponse = function() {
-        $scope.firstPage();
-        $scope.isUserTyping = false;
+        //Page range
+        function viewRangeStart () {
+            return vm.sliceFrom()+1;
+        }
+        function viewRangeEnd () {
+            return vm.sliceTo();
+        }
 
-        if ($scope.query.length>0) {
-            ConceptsService.getFirstPageQueryConcepts($scope.query, $scope.entriesPerPage).then(function (firstResponse) {
-                $scope.loadingMorePages = true;
-                $scope.concepts = firstResponse.results;
-                $scope.updateResultNotification();
+        //Method used to display proper notification when there is no result
+        function updateResultNotification () {
+            if (vm.isUserTyping) {
+                vm.resultNotification = '';
+            }
+            else {
+                vm.resultNotification = 'There is no concept named ' + vm.query;
+            }
+        };
 
-                ConceptsService.getQueryConcepts($scope.query).then(function (response) {
-                    $scope.concepts = response.results;
-                    $scope.updateResultNotification();
-                    $scope.loadingMorePages = false;
+        // Method used to prevent app from querying server with every letter input into search query panel
+        var timeout = null;
+        function timeoutRefresh()  {
+            clearTimeout(timeout);
+            vm.isUserTyping = true;
+            timeout = setTimeout(function () {
+                vm.refreshResponse();
+            }, 250);
+        };
+
+        // Method used to apply Rest response to controller variables and apply it on template
+        function refreshResponse() {
+            firstPage();
+            vm.isUserTyping = false;
+
+            if (vm.query.length>0) {
+                ConceptsService.getFirstPageQueryConcepts(vm.query, vm.entriesPerPage).then(function (firstResponse) {
+                    vm.loadingMorePages = true;
+                    vm.concepts = firstResponse.results;
+                    updateResultNotification();
+
+                    ConceptsService.getQueryConcepts(vm.query).then(function (response) {
+                        vm.concepts = response.results;
+                        updateResultNotification();
+                        vm.loadingMorePages = false;
+                    });
                 });
-            });
+            }
+            else {
+                $scope.$apply(function () {
+                    vm.concepts='';
+                });
+            }
+        };
+
+        //Init method
+        function activate(){
+            if ($routeParams.redirectQuery !== undefined) {
+                vm.query = $routeParams.redirectQuery;
+                refreshResponse();
+            }
+            else {
+                vm.query = '';
+            }
+
+            vm.nextPage = nextPage;
+            vm.prevPage = prevPage;
+            vm.firstPage = firstPage;
+            vm.lastPage = lastPage;
+            vm.sliceFrom = sliceFrom;
+            vm.sliceTo = sliceTo;
+            vm.viewRangeStart = viewRangeStart;
+            vm.viewRangeEnd = viewRangeEnd;
+            vm.refreshResponse = refreshResponse;
+            vm.updateResultNotification = updateResultNotification;
+            vm.timeoutRefresh = timeoutRefresh;
         }
-        else {
-            $scope.$apply(function () {
-                $scope.concepts='';
-            });
-        }
-    };
-}]);
+    }]);

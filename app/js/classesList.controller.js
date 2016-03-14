@@ -15,7 +15,7 @@
         vm.classes = loadClasses;
         //map of selected classes
         vm.selected = {};
-        //determines whether class has been addded in previous view
+        //determines whether class has been added in previous view
         vm.classAdded = $routeParams.classAdded;
 
         vm.goTo = goTo;
