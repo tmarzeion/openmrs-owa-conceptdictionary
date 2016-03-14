@@ -10,7 +10,7 @@
 			<th> Description </th>
 		</tr>		
 			<tr ng-repeat="class in vm.classes" > 
-				<td valign="top"><input type="checkbox" ng-model="vm.selected[class.uuid]" name="conceptClassId" value="{{class.uuid}}" ng-required="true"></td>
+				<td valign="top"><input type="checkbox" ng-change="vm.refreshButtonState()" ng-model="vm.selected[class.uuid]" name="conceptClassId" value="{{class.uuid}}"></td>
 				<td valign="top">
 					<a href="#/class-list/{{class.uuid}}">{{class.name}}</a>				
 				</td>
@@ -19,6 +19,6 @@
 		
 	</tbody></table>	
 	
-	<input ng-disabled="class-list.$invalid" type="submit" value="Delete Selected Concept Classes" ng-click="vm.deleteSelected()"">
+	<input type="submit" value="Delete Selected Concept Classes" ng-disabled="!(vm.isSelected)" ng-click="vm.deleteSelected()">
 </form>
 </div>
