@@ -27,14 +27,6 @@
 		
 		vm.cancel = cancel;
 		
-		activate();
-		
-		
-		function activate(){
-			openmrsRest.getFull('conceptclass', {uuid: $routeParams.classUUID}).then(function(respond){
-	            vm.singleClass = respond;
-	        });
-		}
 
         function redirectToList() {
             $location.path('/class-list').search({classAdded: vm.class.name});
@@ -46,6 +38,7 @@
             vm.json = angular.toJson(vm.class);
 
             openmrsRest.update('conceptclass', {uuid: vm.singleClass.uuid}, vm.json).then(function(success) {
+            	vm.responseMessage = success;
                 vm.redirectToList();
             }, function(exception) {
                 vm.responseMessage = exception.data.error.fieldErrors.name[0].message;
