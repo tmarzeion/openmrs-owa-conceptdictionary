@@ -1,0 +1,31 @@
+<div class="container">
+	<div class="dashboard clear">                 
+	
+		<div class="container">
+			<div class ="info-section">
+				<div class="info-header"><h1><strong><i class="icon-cogs"></i>Concept Drug Form</strong></h1></div>
+				
+				<form name="drugs-list">
+					<div class="info-body">		
+						<ul>
+							<li ng-repeat="drug in vm.drugsList"> 										
+										<div style="display: inline-block">
+											<p><a href="#/drugs-list/{{drug.uuid}}">
+											<strong><span ng-show="drug.retired"><del>{{drug.name}}</del></span></strong>
+											<strong><span ng-show="!drug.retired">{{drug.name}}</span></strong>
+											</a></p>
+										</div>
+										<div style="display: inline-block">
+											<small>{{drug.strength}}</small>
+										</div>				
+							</li>
+						</ul>	
+					</div>
+				</form>
+				<button ng-click='vm.gotToAddDrugPage("/drugs-list/add-drug")'><i class="icon-plus"></i><strong>&#160;&#160;Add</strong></button>
+				<button ng-show='!vm.retiredOn' ng-click='vm.toggleRetire()'><i class="icon-lock"></i><strong>&#160;&#160;Show retire</strong></button>
+				<button ng-show='vm.retiredOn' ng-click='vm.toggleRetire()'><i class="icon-lock"></i><strong>&#160;&#160;Show unretire</strong></button>
+			</div>
+		</div>
+	</div>
+</div>

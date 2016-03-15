@@ -1,6 +1,6 @@
 angular
     .module('conceptDictionaryApp',
-		['ngRoute', 'openmrs'])
+		['ngRoute', 'openmrs', 'mgcrea.ngStrap.typeahead'])
 
 	.config(['$routeProvider',
                     function($routeProvider, openmrsRest) {
@@ -77,7 +77,7 @@ angular
                         	templateUrl: 'partials/datatype-list.html',
                             controller: 'DataTypesListController',
                         	controllerAs: 'vm',
-                            resolve: {
+                            resolve: { 
                               	 loadDataTypes : loadDataTypes
                             }
                         }).
@@ -125,6 +125,27 @@ angular
                         		serverLocales: serverLocales
                         	}
                         }).
+                        when('/drugs-list', {
+                        	templateUrl: 'partials/drugs-list.html',
+                        	controller: 'DrugsListController',
+                        	controllerAs: 'vm',
+                        	resolve: {
+                        		loadDrugs : loadDrugs
+                        	}
+                        }).
+                        when('/drugs-list/add-drug', {
+                        	templateUrl: 'partials/drug-add.html',
+                        	controller: 'DrugAddController',
+                        	controllerAs: 'vm'
+                        }).
+                        when('/drugs-list/:drugUUID', {
+                        	templateUrl: 'partials/drug-edit.html',
+                        	controller: 'DrugEditController',
+                        	controllerAs: 'vm',
+                        	resolve: {
+                        		loadDrug: loadDrug
+                        	}
+                        }).
                         otherwise({
                           redirectTo: '/class-list'
                         });
@@ -168,6 +189,11 @@ function loadReference ($route, openmrsRest){
 	return openmrsRest.getFull('conceptreferenceterm',
 		{uuid: $route.current.params.referenceUUID});
 };
-
-
+function loadDrugs (openmrsRest){
+	return openmrsRest.listFull('drug');
+};
+function loadDrug($route, openmrsRest){
+	return openmrsRest.getFull('drug', 
+			{uuid: $route.current.params.drugUUID});
+}
 

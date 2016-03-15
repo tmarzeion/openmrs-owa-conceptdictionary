@@ -32,7 +32,9 @@ describe('Concept dictionary controllers', function() {
             $httpBackend.whenPOST('/ws/rest/v1/conceptclass/8d490bf4-c2cc-11de-8d13-0010c6dffd0f').
             respond({results:{uuid: '8d490bf4-c2cc-11de-8d13-0010c6dffd0f',
                 name: 'Question', description: 'Question (eg, patient history, SF36 items)'}});
-
+            $httpBackend.whenGET('/ws/rest/v1/conceptclass?v=full').respond({});
+            $httpBackend.whenGET('partials/class-list.html').respond();
+            
             scope = $rootScope.$new();
 
             var singleClass;
@@ -42,7 +44,7 @@ describe('Concept dictionary controllers', function() {
             
             $httpBackend.flush();
 
-            ctrl = $controller('ClassesEditController', {$scope: scope, singleClass: singleClass, });
+            ctrl = $controller('ClassesEditController', {singleClass: singleClass, });
             ctrl.editClass();
         }));
 

@@ -26,6 +26,10 @@ describe('Concept dictionary controllers', function() {
 
         beforeEach(inject(function(_$httpBackend_, $rootScope, $controller) {
             $httpBackend = _$httpBackend_;
+            $httpBackend.whenGET('/ws/rest/v1/conceptclass?v=full').respond({});
+            $httpBackend.whenGET('partials/class-list.html').respond();
+            $httpBackend.whenGET('partials/source-list.html').respond();
+            $httpBackend.whenGET('/ws/rest/v1/conceptsource?includeAll=true&v=full').respond();
             $httpBackend.expectPOST('/ws/rest/v1/conceptsource').
             respond(
                 {

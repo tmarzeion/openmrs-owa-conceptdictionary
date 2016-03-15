@@ -1,0 +1,99 @@
+<div>
+	<h2>Concept Drug Management</h2>
+	<h3>{{vm.responseMessage}}</h3>
+	<form name='drugForm'>
+	<fieldset>
+	<table cellpadding="3" cellspacing="0" id="table">
+		<tbody>
+		<tr>
+			<th>Name</th> 
+			<td>							
+					<input type="text" ng-model='vm.drug.name'>			 	
+			</td>
+		</tr>
+		<tr>
+			<th>Concept<span class="required">*</span></th>
+			<td>
+				<concept-auto-complete	required='true' limit-to-drugs='vm.limitToDrugs' concept='vm.drug.concept' on-update='vm.updateConcept(isCorrect, concept)'></concept-auto-complete>
+		</td>
+		</tr>
+		<tr>
+			<th>Combination</th>
+			<td>					
+				<input type="checkbox" ng-model='vm.drug.combination'>
+			</td>
+		</tr>
+		<tr>
+			<th>Dosage Form</th>
+			<td>
+				<concept-auto-complete	required='false' concept='vm.drug.dosageForm' limit-to-drugs='false' on-update='vm.updateDosageForm(isCorrect, concept)'></concept-auto-complete>
+			</td>
+		</tr>
+		<tr>
+			<th>Strength</th>
+			<td>
+				<input type="text" ng-model='vm.drug.strength'>
+			</td>
+		</tr>
+		<tr>
+			<th>Minimum Dose</th>
+			<td>	
+				<input type="text" ng-model='vm.drug.minimumDailyDose'>
+			</td>
+		</tr>
+		<tr>
+			<th>Maximum Dose</th>
+			<td>
+				<input type="text" ng-model='vm.drug.maximumDailyDose'>
+		</td>
+		</tr>
+		<tr>
+			<th>Route</th>
+			<td>
+				<concept-auto-complete	required='false' concept='vm.drug.route' limit-to-drugs='false' on-update='vm.updateRoute(isCorrect, concept)'></concept-auto-complete>
+			</td>
+		</tr>
+		<tr>
+			<th>Drug Ingredients</th>
+			<td>
+				<table cellpadding="3" cellspacing="0">
+			</table>
+			</td>
+		</tr>
+		<tr>
+			<th>Created By</th>
+			<td> 
+				{{vm.drug.auditInfo.creator.display}} -
+				{{vm.drug.auditInfo.dateCreated | date: 'medium'}}
+			</td>
+		</tr>
+		<tr>        
+          <th><font color="#D0D0D0"><sub>UUID</sub></font></th>
+          <td colspan="0"><font color="#D0D0D0"><sub>{{vm.drug.uuid}}</sub>
+          </font>
+          </td>
+        </tr>
+	</tbody></table>
+	<br>
+	<input type="hidden" name="phrase" value="">
+	<button ng-click='vm.saveDrug()' ng-disabled="vm.isCorrect()">Save Concept Drug</button>
+	<button ng-click='vm.redirectToList()'>Cancel</button>
+	</fieldset>
+	</form>
+	<form ng-show='!vm.drug.retired'>
+		<fieldset>
+			<h4>Retire this Drug</h4>
+			
+			<b>Reason</b>
+			<input type="text" value="" size="40" name="retireReason">
+			
+			<br>
+			<button ng-click='vm.retire()'>Retire this Drug</button>
+		</fieldset>
+	</form>
+	<form ng-show='vm.drug.retired'>
+	<fieldset>
+			<button ng-click='vm.unRetire()'>Unretire</button>
+		</fieldset>
+	</form>
+</div>

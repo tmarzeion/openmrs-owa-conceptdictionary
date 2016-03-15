@@ -68,7 +68,8 @@ describe('Concept dictionary controllers', function() {
                         datatype: {description: 'Name of a drug which is used as anti inflammatory and analgesic.'}
                     }
                 ]});
-
+            $httpBackend.whenGET('/ws/rest/v1/conceptclass?v=full').respond({});
+            $httpBackend.whenGET('partials/class-list.html').respond();
 
             scope = $rootScope.$new();
 
