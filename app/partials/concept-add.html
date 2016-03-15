@@ -25,6 +25,7 @@
 					<tbody><tr>
 						<td id="similarConceptsStart" valign="bottom">
 								
+
 								<input name="fullname" ng-model="vm.selectedLocaleData.fullname.display"  type="text">
 								<span class="error" id="duplicateConceptError" hidden="true">Fully specified name must be unique. There is already a concept with this name</span>
 								
@@ -124,8 +125,7 @@
 		
 			<td valign="top">
 				
-					<textarea name="description" ng-model="vm.selectedLocaleData.description" rows="4" cols="50"></textarea>
-					
+					<textarea name="description" ng-model="vm.selectedLocaleData.description" rows="4" cols="50"></textarea>				
 				
 			</td>
 		
@@ -227,7 +227,7 @@
 				<tbody><tr>
 					<th valign="middle">Absolute High</th>
 					<td valign="middle">
-
+					
 							<input name="hiAbsolute" value="" class="smallWidth" type="number" ng-model="vm.concept.hiAbsolute">
 							
 						
@@ -238,7 +238,6 @@
 					<td valign="middle">
 						
 							<input name="hiCritical" value="" class="smallWidth" type="number" ng-model="vm.concept.hiCritical">
-
 							
 						
 					</td>
@@ -258,7 +257,6 @@
 					<td valign="middle">
 						
 							<input name="lowNormal" value="" class="smallWidth" type="number" ng-model="vm.concept.lowNormal">
-
 							
 						
 					</td>
@@ -268,6 +266,7 @@
 					<td valign="middle">
 							<input name="lowCritical" value="" class="smallWidth" type="number" ng-model="vm.concept.lowCritical">
 
+
 							
 						
 					</td>
@@ -276,9 +275,7 @@
 					<th valign="middle">Absolute Low</th>
 					<td valign="middle">
 						
-
 							<input name="lowAbsolute" value="" class="smallWidth" type="number" ng-model="vm.concept.lowAbsolute">
-
 							
 						
 					</td>
@@ -307,8 +304,8 @@
 				<tr ng-show="vm.concept.allowDecimal">
 					<th>Display Precision</th>
 					<td colspan="2">
-							<input id="display_precision_textbox" name="displayPrecision" ng-model="vm.concept.displayPrecision" class="mediumWidth" type="number">
 
+							<input id="display_precision_textbox" name="displayPrecision" ng-model="vm.concept.displayPrecision" class="mediumWidth" type="number">
 
 					</td>
 				</tr>

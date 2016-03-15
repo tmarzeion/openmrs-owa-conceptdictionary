@@ -70,7 +70,6 @@
 				vm.selectedLocaleData = vm.localizedConcepts[locale];
 				vm.selectedLocale = locale;	
 			}
-
 		};
 		function checkType(){
 			vm.isNumeric = (vm.concept.datatype === "8d4a4488-c2cc-11de-8d13-0010c6dffd0f");
