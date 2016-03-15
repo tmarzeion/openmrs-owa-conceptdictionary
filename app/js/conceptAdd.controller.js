@@ -1,7 +1,6 @@
-export default angular
+angular
 	.module('conceptDictionaryApp')
-	.controller('ConceptAddController', ConceptAddController)
-	.name;
+	.controller('ConceptAddController', ConceptAddController);
 		
 	ConceptAddController.$inject = ['serverLocales', 'loadClasses', 'loadDataTypes', '$scope'];
 		

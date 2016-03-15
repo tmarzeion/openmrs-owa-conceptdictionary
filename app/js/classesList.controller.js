@@ -1,7 +1,6 @@
-export default angular
+angular
 	.module('conceptDictionaryApp')
-	.controller('ClassesList', ClassesList)
-    .name;
+	.controller('ClassesList', ClassesList);
 	    
 	ClassesList.$inject = 
 	    ['loadClasses', '$location', '$route', '$routeParams', 'openmrsRest']

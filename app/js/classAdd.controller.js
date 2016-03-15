@@ -1,4 +1,4 @@
-export default angular
+angular
     .module('conceptDictionaryApp')
     .controller('ClassAdd', ['$location', 'openmrsRest',
     function($location, openmrsRest){
@@ -37,5 +37,4 @@ export default angular
             $location.path('/class-list').search({classAdded: ''});
         }
 
-    }])
-.name
+    }]);

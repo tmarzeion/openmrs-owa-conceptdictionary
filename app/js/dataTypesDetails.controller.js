@@ -1,7 +1,6 @@
-export default angular
+angular
 	.module('conceptDictionaryApp')
-	.controller('DataTypesDetailsController', DataTypesDetailsController)
-	.name;
+	.controller('DataTypesDetailsController', DataTypesDetailsController);
 		
 	DataTypesDetailsController.$inject = 
 		['$scope', 'loadDataType', '$routeParams', 'openmrsRest']

@@ -1,7 +1,6 @@
-export default angular
+angular
 	.module('conceptDictionaryApp')
-	.factory('conceptLocaleService', conceptLocaleService)
-	.name;
+	.factory('conceptLocaleService', conceptLocaleService);
 				
 
 		function conceptLocaleService(){

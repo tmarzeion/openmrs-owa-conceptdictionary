@@ -1,7 +1,6 @@
-export default angular
+angular
 	.module('conceptDictionaryApp')
-	.controller('ConceptView', ConceptView)
-	.name;
+	.controller('ConceptView', ConceptView);
 		
 	//serverLocales = avalaible locales obtained from server
 	ConceptView.$inject = ['$scope', 'concept', 'serverLocales', 'conceptLocaleService', '$location'];   

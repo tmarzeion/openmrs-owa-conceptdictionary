@@ -1,15 +1,3 @@
-import angular from 'angular';
-import openmrsRest from './openmrs.js';
-import ClassAdd from './classAdd.controller.js';
-import ClassesEditController from './classesEdit.controller.js';
-import DataTypesListController from './classesList.controller.js';
-import ConceptAddController from './conceptAdd.controller.js';
-import ConceptSearch from './conceptSearch.controller.js';
-import ConceptView from './conceptView.controller.js';
-import DataTypesDetailsController from './dataTypesDetails.controller.js';
-import DataTypesList from './dataTypesList.controller.js';
-import conceptLocaleService from './conceptLocale.service.js'
-
 angular
     .module('conceptDictionaryApp',
 		['ngRoute', 'openmrs'])
