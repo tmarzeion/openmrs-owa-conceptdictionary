@@ -7,7 +7,7 @@
 	angular
 		.module('openmrs', [ 'ngResource' ])
 		.factory('openmrsApi', openmrsApi)		
-		.provider('openmrsRest', {list: list, get: get, $get: $get})		
+		.provider('openmrsRest', openmrsRest);
 	
 		
 	function openmrsApi($resource){
@@ -64,93 +64,98 @@
 
 		return openmrsApi;
 	};
-	
-	function list(resource, query) {
-		return [ 'openmrsRest', function(openmrsRest) { // inject the data service
-			return openmrsRest.list(resource, query);
-	}]};
 
-	function get(resource, query) {
-		return [ 'openmrsRest', function(openmrsRest) {
-			return openmrsRest.get(resource, query);
-	}]};
+	function openmrsRest() {
+		return {list: list, get: get, $get: $get};
 
-	function $get(openmrsApi) {
-
-		var openmrsRest = {
-
-			list : function(resource, query) {
-				openmrsApi.add(resource);
-				return openmrsApi[resource].get(query).$promise.then(function(response){
-					return response.results;
-				});
-			},
-
-			listFull : function(resource, query) {
-				openmrsApi.add(resource);
-				if(query === undefined){
-					query = {v: 'full'};
-				}else{
-					query = angular.extend(query, {v: 'full'});
-				}
-				return openmrsApi[resource].get(query).$promise.then(function(response){
-					return response.results;
-				});
-			},
-			listRef : function(resource, query) {
-				openmrsApi.add(resource);
-				if(query === undefined){
-					query = {v: 'ref'};
-				}else{
-					query = angular.extend(query, {v: 'ref'});
-				}
-				return openmrsApi[resource].get(query).$promise.then(function(response){
-					return response.results;
-				});
-			},
-
-			get : function(resource, query) {
-				openmrsApi.add(resource);
-				return openmrsApi[resource].get(query).$promise;
-			},
-
-			getFull : function(resource, query) { 
-				openmrsApi.add(resource);
-				if(query === undefined){
-					query = {v: 'full'};
-				}else{
-					query = angular.extend(query, {v: 'full'});
-				}
-				return openmrsApi[resource].get(query).$promise;
-			},
-			
-			getRef : function(resource, query) { 
-				openmrsApi.add(resource);
-				if(query === undefined){
-					query = {v: 'ref'};
-				}else{
-					query = angular.extend(query, {v: 'ref'});
-				}
-				return openmrsApi[resource].get(query).$promise;
-			},
-
-			create : function(resource, model) {
-				openmrsApi.add(resource);
-				return openmrsApi[resource].save(model).$promise;
-			},
-
-			update : function(resource, query, model) {
-				openmrsApi.add(resource);
-				return openmrsApi[resource].save(query, model).$promise;
-			},
-
-			remove : function(resource, query) {
-				openmrsApi.add(resource);
-				return  openmrsApi[resource].remove(query).$promise;
-			}
+		function list(resource, query) {
+			return ['openmrsRest', function (openmrsRest) { // inject the data service
+				return openmrsRest.list(resource, query);
+			}]
 		};
 
-		return openmrsRest;
-	};
+		function get(resource, query) {
+			return ['openmrsRest', function (openmrsRest) {
+				return openmrsRest.get(resource, query);
+			}]
+		};
+
+		function $get(openmrsApi) {
+			var openmrsRest = {
+
+				list: function (resource, query) {
+					openmrsApi.add(resource);
+					return openmrsApi[resource].get(query).$promise.then(function (response) {
+						return response.results;
+					});
+				},
+
+				listFull: function (resource, query) {
+					openmrsApi.add(resource);
+					if (query === undefined) {
+						query = {v: 'full'};
+					} else {
+						query = angular.extend(query, {v: 'full'});
+					}
+					return openmrsApi[resource].get(query).$promise.then(function (response) {
+						return response.results;
+					});
+				},
+				listRef: function (resource, query) {
+					openmrsApi.add(resource);
+					if (query === undefined) {
+						query = {v: 'ref'};
+					} else {
+						query = angular.extend(query, {v: 'ref'});
+					}
+					return openmrsApi[resource].get(query).$promise.then(function (response) {
+						return response.results;
+					});
+				},
+
+				get: function (resource, query) {
+					openmrsApi.add(resource);
+					return openmrsApi[resource].get(query).$promise;
+				},
+
+				getFull: function (resource, query) {
+					openmrsApi.add(resource);
+					if (query === undefined) {
+						query = {v: 'full'};
+					} else {
+						query = angular.extend(query, {v: 'full'});
+					}
+					return openmrsApi[resource].get(query).$promise;
+				},
+
+				getRef: function (resource, query) {
+					openmrsApi.add(resource);
+					if (query === undefined) {
+						query = {v: 'ref'};
+					} else {
+						query = angular.extend(query, {v: 'ref'});
+					}
+					return openmrsApi[resource].get(query).$promise;
+				},
+
+				create: function (resource, model) {
+					openmrsApi.add(resource);
+					return openmrsApi[resource].save(model).$promise;
+				},
+
+				update: function (resource, query, model) {
+					openmrsApi.add(resource);
+					return openmrsApi[resource].save(query, model).$promise;
+				},
+
+				remove: function (resource, query) {
+					openmrsApi.add(resource);
+					return openmrsApi[resource].remove(query).$promise;
+				}
+			};
+
+			return openmrsRest;
+		};
+	}
 	
 })();
