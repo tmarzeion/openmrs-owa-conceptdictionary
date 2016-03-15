@@ -1,7 +1,4 @@
 
-(function() {
-    'use strict';
-    
 	angular
 		.module('conceptDictionaryApp')
 		.factory('conceptLocaleService', conceptLocaleService);				
@@ -73,8 +70,5 @@
 					return descriptions[index].display;
 				}
 			}
-		}
-		
-})();
-
->>>>>>> Refractored concept view and conceptLocaleService
+		};
+};

@@ -41,8 +41,34 @@
 						</td>
 					</tr>
 				</tbody></table>
-			</td>		
-			
+			</td>
+		
+			<td class="es" style="padding: 0px; display: none;">	
+				<table id="containerTable[es]">
+					<tbody><tr>  
+						<td id="similarConceptsStart" valign="bottom">
+								
+								<input name="namesByLocale[es].name" value="" id="namesByLocale[es].name" class="largeWidth" onchange="setRadioValue(this, 'fullySpecPreferred[es]')" type="text">
+								<span class="error" id="duplicateConceptError" hidden="true">Fully specified name must be unique. There is already a concept with this name</span>
+								
+						</td>
+						<!-- belown code displays (radio button, help icon and label) as a completed preffered group -->
+						<td id="preferredContainer[es]">
+							<span style="visibility: hidden">
+								Preferred  
+							</span>
+							<img class="help_icon" src="/openmrs/images/help.gif" style="visibility: hidden" title="Whether this name is the preferred name in its language and will be returned by default e.g on reports" border="0">
+							<br>
+										
+							<input id="fullySpecPreferred[es]" name="preferredNamesByLocale[es]" value="" style="visibility: hidden" type="radio">
+							
+							
+							
+							
+						</td>
+					</tr>
+				</tbody></table>
+			</td>
 	</tr>
 	<tr>
 		<th id="suggestions" valign="top"></th>
@@ -111,6 +137,7 @@
 		<td valign="top">
 
 				<select name="repeatClass" id="repeatClass" ng-model="vm.concept.conceptClass" ng-options="class.uuid as class.name for class in vm.classes">
+
    				 </select>
 				
 		</td>
@@ -124,7 +151,6 @@
 		</td>
 	</tr>
 	<tr ng-show="vm.concept.set" id="conceptSetRow">
-
 		<th valign="top">Set Members</th>
 		<td valign="top">
 			<input name="concept.conceptSets" id="conceptSets" size="40" value="" type="hidden">
@@ -201,7 +227,7 @@
 				<tbody><tr>
 					<th valign="middle">Absolute High</th>
 					<td valign="middle">
-						
+
 							<input name="hiAbsolute" value="" class="smallWidth" type="number" ng-model="vm.concept.hiAbsolute">
 							
 						
@@ -212,6 +238,7 @@
 					<td valign="middle">
 						
 							<input name="hiCritical" value="" class="smallWidth" type="number" ng-model="vm.concept.hiCritical">
+
 							
 						
 					</td>
@@ -221,6 +248,7 @@
 					<td valign="middle">
 						
 							<input name="hiNormal" value="" class="smallWidth" type="number" ng-model="vm.concept.hiNormal">
+
 							
 						
 					</td>
@@ -230,6 +258,7 @@
 					<td valign="middle">
 						
 							<input name="lowNormal" value="" class="smallWidth" type="number" ng-model="vm.concept.lowNormal">
+
 							
 						
 					</td>
@@ -237,8 +266,8 @@
 				<tr>
 					<th valign="middle">Critical Low</th>
 					<td valign="middle">
-						
 							<input name="lowCritical" value="" class="smallWidth" type="number" ng-model="vm.concept.lowCritical">
+
 							
 						
 					</td>
@@ -247,7 +276,9 @@
 					<th valign="middle">Absolute Low</th>
 					<td valign="middle">
 						
+
 							<input name="lowAbsolute" value="" class="smallWidth" type="number" ng-model="vm.concept.lowAbsolute">
+
 							
 						
 					</td>
@@ -277,6 +308,8 @@
 					<th>Display Precision</th>
 					<td colspan="2">
 							<input id="display_precision_textbox" name="displayPrecision" ng-model="vm.concept.displayPrecision" class="mediumWidth" type="number">
+
+
 					</td>
 				</tr>
 			</tbody></table>
