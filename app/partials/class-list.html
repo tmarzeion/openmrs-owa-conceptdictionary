@@ -1,16 +1,16 @@
 <div>
 <h2>Concept Class Management</h2>
-	<h3 ng-show="classAdded">{{classAdded}} has been added.</h3>
-<form method="post" class="box">
-	<button ng-click='go("/class-list/add-class")'>Add Concept Class</button>
+	<h3 ng-show="vm.classAdded">{{vm.classAdded}} has been saved.</h3>
+<form method="post" class="box" name="class-list">
+	<button ng-click='vm.goTo("/class-list/add-class")'>Add Concept Class</button>
 	<table>
 		<tbody><tr>
 			<th> </th>
 			<th> Name </th>
 			<th> Description </th>
 		</tr>		
-			<tr ng-repeat="class in classes"> 
-				<td valign="top"><input type="checkbox" ng-model="selected[class.uuid]" name="conceptClassId" value="{{class.uuid}}"></td>
+			<tr ng-repeat="class in vm.classes" > 
+				<td valign="top"><input type="checkbox" ng-change="vm.refreshButtonState()" ng-model="vm.selected[class.uuid]" name="conceptClassId" value="{{class.uuid}}"></td>
 				<td valign="top">
 					<a href="#/class-list/{{class.uuid}}">{{class.name}}</a>				
 				</td>
@@ -19,6 +19,6 @@
 		
 	</tbody></table>	
 	
-	<input type="submit" value="Delete Selected Concept Classes" ng-click="deleteSelected()">
+	<input type="submit" value="Delete Selected Concept Classes" ng-disabled="!(vm.isSelected)" ng-click="vm.deleteSelected()">
 </form>
 </div>

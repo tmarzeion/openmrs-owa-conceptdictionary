@@ -125,6 +125,7 @@ gulp.task('watch', function() {
   });
 
   gulp.watch('app/**/*.*', ['browser-sync-reload']);
+
 });
 
 gulp.task('deploy-local', ['build'], function() {
