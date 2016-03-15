@@ -10,6 +10,11 @@ angular
                             controller: 'ConceptSearch',
                             controllerAs: 'vm'
                       }).
+					  	when('/reference-search', {
+						    templateUrl: 'partials/reference-search.html',
+						    controller: 'ReferenceSearchController',
+						    controllerAs: 'vm'
+					  }).
                         when('/class-list', {
                           templateUrl: 'partials/class-list.html',
                           controller: 'ClassesList',
@@ -23,6 +28,14 @@ angular
                             controller: 'ClassAdd',
                             controllerAs: 'vm'
                       }).
+					    when('/reference/reference-add', {
+					  	  templateUrl: 'partials/reference-add.html',
+					  	  controller: 'ReferenceAddController',
+					  	  controllerAs: 'vm',
+						  resolve: {
+							  sources : loadSources
+						  }
+					    }).
                         when('/class-list/:classUUID', {
                         	templateUrl: 'partials/class-edit.html',
                         	controller: 'ClassesEditController',
@@ -57,6 +70,15 @@ angular
                         		loadDataTypes : loadDataTypes
                         	}
                         }).
+					    when('/reference/:referenceUUID/', {
+						    templateUrl: 'partials/reference-edit.html',
+						    controller: 'ReferenceEditController',
+						    controllerAs: 'vm',
+						    resolve: {
+							    reference : loadReference,
+								sources : loadSources
+						    }
+					    }).
                         when('/concept/:conceptUUID/', {
                         	templateUrl: 'partials/concept.html',
                         	controller: 'ConceptView',
@@ -87,6 +109,9 @@ function loadClasses(openmrsRest){
 function loadDataTypes (openmrsRest){
 	  return openmrsRest.listFull('conceptdatatype');
 };
+function loadSources (openmrsRest){
+	return openmrsRest.listFull('conceptsource');
+};
 function loadClass ($route, openmrsRest){
 	return openmrsRest.getFull('conceptclass',
 			{uuid: $route.current.params.classUUID});
@@ -95,7 +120,10 @@ function loadDataType ($route, openmrsRest){
 	return openmrsRest.getFull('conceptdatatype', 
 			{uuid: $route.current.params.dataTypeUUID});
 };
-
+function loadReference ($route, openmrsRest){
+	return openmrsRest.getFull('conceptreferenceterm',
+		{uuid: $route.current.params.referenceUUID});
+};
 
 
 

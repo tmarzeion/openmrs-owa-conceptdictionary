@@ -1,22 +1,25 @@
 angular
     .module('conceptDictionaryApp')
-    .controller('ConceptSearch', ['$scope', '$routeParams' ,'openmrsRest', function($scope, $routeParams, openmrsRest) {
+    .controller('ReferenceSearchController', ['$scope', '$routeParams' ,'openmrsRest', function($scope, $routeParams, openmrsRest) {
 
         var vm = this;
 
+        //
+        vm.referenceSaved = $routeParams.referenceSaved;
+        vm.referenceDeleted = $routeParams.referenceDeleted;
+
         //Default is undefined, but it could take data from URL if there is one
         vm.query;
-        vm.enableDescription = false;
 
         //Tells if user is actually typing (which is described in timeoutRefresh() function
         vm.isUserTyping = false;
 
         //Default values
         vm.searchNotification = 'Searching...';
-        vm.noSearchInputNotification = 'Type query to search panel to find concepts';
+        vm.noSearchInputNotification = 'Type query to search panel to find references';
         vm.entriesPerPage = 5;
         vm.pageNumber = 1;
-        vm.concepts='';
+        vm.references='';
         vm.resultNotification = '';
 
         //Boolean that represents state of loading more pages after downloading first page
@@ -60,7 +63,7 @@ angular
             vm.pageNumber = 1;
         }
         function lastPage () {
-            vm.pageNumber = Math.floor(vm.concepts.length / vm.entriesPerPage) + 1;
+            vm.pageNumber = Math.floor(vm.references.length / vm.entriesPerPage) + 1;
         }
 
         //Page dividing
@@ -85,9 +88,9 @@ angular
                 vm.resultNotification = '';
             }
             else {
-                vm.resultNotification = 'There is no concept named ' + vm.query;
+                vm.resultNotification = 'There is no reference named ' + vm.query;
             }
-        }
+        };
 
         // Method used to prevent app from querying server with every letter input into search query panel
         var timeout = null;
@@ -97,7 +100,7 @@ angular
             timeout = setTimeout(function () {
                 vm.refreshResponse();
             }, 250);
-        }
+        };
 
         // Method used to apply Rest response to controller variables and apply it on template
         function refreshResponse() {
@@ -105,13 +108,13 @@ angular
             vm.isUserTyping = false;
 
             if (vm.query.length>0) {
-                openmrsRest.listFull('concept', {q: vm.query, limit: vm.entriesPerPage, includeAll: true}).then(function (firstResponse) {
+                openmrsRest.listFull('conceptreferenceterm', {q: vm.query, limit: vm.entriesPerPage, includeAll: true}).then(function (firstResponse) {
                     vm.loadingMorePages = true;
-                    vm.concepts = firstResponse;
+                    vm.references = firstResponse;
                     updateResultNotification();
 
-                    openmrsRest.listFull('concept',{q: vm.query, includeAll: true}).then(function (response) {
-                        vm.concepts = response;
+                    openmrsRest.listFull('conceptreferenceterm',{q: vm.query, includeAll: true}).then(function (response) {
+                        vm.references = response;
                         updateResultNotification();
                         vm.loadingMorePages = false;
                     });
@@ -119,10 +122,10 @@ angular
             }
             else {
                 $scope.$apply(function () {
-                    vm.concepts='';
+                    vm.references='';
                 });
             }
-        }
+        };
 
         //Init method
         function activate(){

@@ -1,0 +1,84 @@
+<div>
+    <a href="#/reference/reference-add">Add reference</a>
+    <h2>Reference Term Management</h2>
+    <h3 ng-show="vm.referenceSaved">{{vm.referenceSaved}} has been saved</h3>
+    <h3 ng-show="vm.referenceDeleted">{{vm.referenceDeleted}} has been deleted</h3>
+    <b>Find Reference(s)</b>
+    <div>
+        <div>
+            <span>
+                <span>Find a reference by typing in its name:</span>
+                            <input id="inputNode" type="text" ng-model="vm.query" ng-change="vm.timeoutRefresh()">
+                            <input id="searchButton" name="searchButton" value="Search" type="button" ng-click="vm.refreshResponse()">
+                            <br>
+                            <br>
+
+                <span style="display: inline;">
+                    <div align="center">
+
+                        <span ng-show="vm.isUserTyping && vm.query.length > 0"> <b>{{vm.searchNotification}}</b> </span>
+                        <br>
+                        <img ng-show="vm.isUserTyping && vm.query.length > 0" src="../../moduleResources/webservices/rest/js/swagger-ui/dist/images/inprogress.gif" width="64" height="64">
+                        <span ng-show="vm.query.length == 0 && !vm.isUserTyping"><b>{{vm.noSearchInputNotification}}</b></span>
+                        <span ng-show="vm.query.length > 0 && vm.references.length == 0 && !vm.isUserTyping"><b>{{vm.resultNotification}}</b></span>
+
+                        <table ng-show="vm.references.length > 0 && vm.query.length > 0 && !vm.isUserTyping" border="solid" style="width: 100%">
+                            <thead>
+                            <tr>
+                                <td>Code</td>
+                                <td>Name</td>
+                                <td>Source</td>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <tr ng-repeat="reference in vm.references.slice(vm.sliceFrom(),vm.sliceTo())">
+                                <td valign="top">
+                                    <a href="#/reference/{{reference.uuid}}">
+                                        <span ng-show="reference.retired"><del>{{reference.code}}</del></span>
+                                        <span ng-show="!reference.retired">{{reference.code}}</span>
+                                    </a>
+                                </td>
+                                <td>
+                                    {{reference.name}}
+                                </td>
+                                <td>
+                                    {{reference.conceptSource.name}}
+                                </td>
+                            </tr>
+                            </tbody>
+                        </table>
+
+                        <span ng-show="!vm.isUserTyping && vm.references.length && !vm.loadingMorePages> 0">
+                            Found <b>{{vm.references.length}}</b> entries
+                        </span>
+                        <br>
+                        <span ng-show="!vm.isUserTyping && vm.references.length > 0">
+                            View range: {{vm.viewRangeStart()}} to {{vm.viewRangeEnd()}}
+                        </span>
+                        <br>
+                        <span ng-show="!vm.isUserTyping && vm.references.length > 0">
+                            Page: {{vm.pageNumber}}
+                        </span>
+                        <br>
+                        <br>
+                        <input type="button" ng-show="!vm.isUserTyping && vm.references.length > 0" ng-disabled="vm.pageNumber == 1" ng-click="vm.firstPage()" value="First Page">
+                        <input type="button" ng-show="!vm.isUserTyping && vm.references.length > 0" ng-disabled="vm.pageNumber == 1" ng-click="vm.prevPage()" value="Previous Page">
+                        <input type="button" ng-show="!vm.isUserTyping && vm.references.length > 0" ng-disabled="vm.viewRangeEnd() >= vm.references.length" ng-click="vm.nextPage()" value="Next Page">
+                        <input type="button" ng-show="!vm.isUserTyping && vm.references.length > 0" ng-disabled="vm.viewRangeEnd() >= vm.references.length" ng-click="vm.lastPage()" value="Last Page">
+
+                        <div ng-show="!vm.isUserTyping && vm.references.length > 0" align="left">
+                            Show
+                            <select size="1" ng-model="vm.entriesPerPage" ng-click="firstPage()">
+                                <option selected="selected" value="5">5</option>
+                                <option value="10">10</option>
+                                <option value="25">25</option>
+                                <option value="50">50</option>
+                            </select>
+                            entries
+                        </div>
+                    </div>
+                </span>
+            </span>
+        </div>
+    </div>
+</div>
