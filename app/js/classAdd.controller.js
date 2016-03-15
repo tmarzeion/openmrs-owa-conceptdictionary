@@ -1,7 +1,7 @@
-angular
+export default angular
     .module('conceptDictionaryApp')
-    .controller('ClassAdd', ['ClassesService', '$location', 'openmrsRest',
-    function(ClassesService, $location, openmrsRest){
+    .controller('ClassAdd', ['$location', 'openmrsRest',
+    function($location, openmrsRest){
 
         var vm = this;
 
@@ -23,6 +23,8 @@ angular
         function addClass() {
             vm.json = angular.toJson(vm.class);
             openmrsRest.create('conceptclass', vm.json).then(function(success) {
+                //Fix this
+                vm.success = true;
                 $location.path('/class-list').search({classAdded: vm.class.name});
             }, function(exception) {
                 vm.responseMessage = exception.data.error.fieldErrors.name[0].message;
@@ -35,4 +37,5 @@ angular
             $location.path('/class-list').search({classAdded: ''});
         }
 
-    }]);
+    }])
+.name

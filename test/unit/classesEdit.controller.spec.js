@@ -24,12 +24,12 @@ describe('Concept dictionary controllers', function() {
     describe('ClassesEditController', function() {
         var scope, ctrl, $httpBackend;
 
-        beforeEach(inject(function(_$httpBackend_, $rootScope, $controller, Util, openmrsRest, $routeParams) {
+        beforeEach(inject(function(_$httpBackend_, $rootScope, $controller, openmrsRest, $routeParams) {
             $httpBackend = _$httpBackend_;
-            $httpBackend.whenGET(Util.getOpenmrsContextPath()+'/ws/rest/v1/conceptclass/8d490bf4-c2cc-11de-8d13-0010c6dffd0f?v=full').
+            $httpBackend.whenGET('/ws/rest/v1/conceptclass/8d490bf4-c2cc-11de-8d13-0010c6dffd0f?v=full').
             respond({results:{uuid: '8d490bf4-c2cc-11de-8d13-0010c6dffd0f',
                 name: 'Question', description: 'Question (eg, patient history, SF36 items)'}});
-            $httpBackend.whenPOST(Util.getOpenmrsContextPath()+'/ws/rest/v1/conceptclass/8d490bf4-c2cc-11de-8d13-0010c6dffd0f').
+            $httpBackend.whenPOST('/ws/rest/v1/conceptclass/8d490bf4-c2cc-11de-8d13-0010c6dffd0f').
             respond({results:{uuid: '8d490bf4-c2cc-11de-8d13-0010c6dffd0f',
                 name: 'Question', description: 'Question (eg, patient history, SF36 items)'}});
 

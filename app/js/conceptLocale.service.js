@@ -1,9 +1,7 @@
-(function() {
-    'use strict';
-    
-	angular
-		.module('conceptDictionaryApp')
-		.factory('conceptLocaleService', conceptLocaleService);
+export default angular
+	.module('conceptDictionaryApp')
+	.factory('conceptLocaleService', conceptLocaleService)
+	.name;
 				
 
 		function conceptLocaleService(){
@@ -12,7 +10,7 @@
 						getLocaleNames: getLocaleNames,
 						getLocaleDescr: getLocaleDescr
 					}
-		};
+		}
 		/**
 		 * @descriptions array of descriptions objects of concept
 		 * @names array of names objects of concept
@@ -36,7 +34,7 @@
 				}
 			}
 			return Object.keys(locales);
-		};
+		}
 		/**
 		 * @names array of names objects of concept
 		 * @locale string of locale abbreviation, e.g. "en"
@@ -61,7 +59,7 @@
 				}
 			}
 			return localNames;
-		};
+		}
 		/**
 		 * @descriptions array of descriptions objects of concept
 		 * @locale string of locale abbreviation
@@ -74,5 +72,3 @@
 				}
 			}
 		}
-		
-})();

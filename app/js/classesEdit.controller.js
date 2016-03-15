@@ -1,10 +1,7 @@
-(function(){
-	'use strict';
-	
-	angular
+export default angular
     	.module('conceptDictionaryApp')
     	.controller('ClassesEditController', ClassesEditController)
-    	
+        .name;
     ClassesEditController.$inject =
     	['$scope', 'singleClass', '$routeParams', '$location', 'openmrsRest']
 
@@ -30,7 +27,7 @@
 
         function redirectToList() {
             $location.path('/class-list').search({classAdded: vm.class.name});
-        };
+        }
 
         function editClass() {
             vm.class.name = vm.singleClass.name;
@@ -43,11 +40,10 @@
             }, function(exception) {
                 vm.responseMessage = exception.data.error.fieldErrors.name[0].message;
             });
-        };
+        }
 
         function cancel() {
             vm.class.name = '';
             $location.path('/class-list').search({classAdded: ''});
         }
-	};
-})();
+	}

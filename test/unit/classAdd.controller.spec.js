@@ -22,34 +22,29 @@ describe('Concept dictionary controllers', function() {
     beforeEach(module('conceptDictionaryApp'));
 
     describe('ClassAdd', function() {
-        var scope, ctrl, $httpBackend;
+        var scope, ctrl, $httpBackend, location;
 
-        beforeEach(inject(function(_$httpBackend_, $rootScope, $controller, Util, ClassesService) {
+        beforeEach(inject(function(_$httpBackend_, $rootScope, $controller, _$location_) {
             $httpBackend = _$httpBackend_;
-            $httpBackend.expectPOST(Util.getOpenmrsContextPath()+'/ws/rest/v1/conceptclass/?').
+            $httpBackend.expectPOST('/ws/rest/v1/conceptclass').
             respond({results:{name: 'Anatomy', description: 'Anatomic sites / descriptors'}});
 
             scope = $rootScope.$new();
+
+            location = _$location_;
 
             var newClass = {
                 name:'Anatomy',
                 description:'Anatomic sites / descriptors'
             };
 
-            newClass = angular.toJson(newClass);
-
-            ClassesService.addClass(newClass).then(function(success){
-                scope.response = success;
-            });
-
-            $httpBackend.flush();
-
-            ctrl = $controller('ClassAdd', {$scope: scope, $location: location});
+            ctrl = $controller('ClassAdd', {$scope: scope, $location: _$location_});
+            ctrl.class = newClass;
         }));
 
         it('should add new class ', function() {
-            expect(scope.response.results).toEqualData(
-                {name: 'Anatomy', description: 'Anatomic sites / descriptors'});
-        });
+            ctrl.addClass();
+            $httpBackend.flush();
+            expect(ctrl.success).toEqualData(true);
     });
-});
+});})

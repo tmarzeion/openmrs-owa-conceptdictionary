@@ -1,9 +1,7 @@
-(function() {
-    'use strict';
-    
-	angular
-		.module('conceptDictionaryApp')
-		.controller('ConceptView', ConceptView)
+export default angular
+	.module('conceptDictionaryApp')
+	.controller('ConceptView', ConceptView)
+	.name;
 		
 	//serverLocales = avalaible locales obtained from server
 	ConceptView.$inject = ['$scope', 'concept', 'serverLocales', 'conceptLocaleService', '$location'];   
@@ -53,5 +51,4 @@
 		function goTo (hash){
 			$location.path(hash);
 		}
-	};
-})();
+	}

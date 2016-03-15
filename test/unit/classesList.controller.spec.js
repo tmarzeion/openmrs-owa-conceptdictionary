@@ -24,7 +24,7 @@ describe('Concept dictionary controllers', function() {
     describe('ClassesList', function(){
         var ctrl, $httpBackend, loadClasses;
 
-        beforeEach(inject(function(_$httpBackend_, $controller, Util, openmrsRest, _$route_ ,_$location_, _$routeParams_) {
+        beforeEach(inject(function(_$httpBackend_, $controller, openmrsRest, _$route_ ,_$location_, _$routeParams_) {
             $httpBackend = _$httpBackend_;         
             $httpBackend.whenGET('/ws/rest/v1/conceptclass?v=full')
     		.respond({results:[{name: 'Anatomy', description: 'Anatomic sites / descriptors', uuid: 'ad491c7a-c2cc-11de-8d13-0010c6dffd0f'},
@@ -51,7 +51,7 @@ describe('Concept dictionary controllers', function() {
                  {name: 'Procedure', description: 'Describes a clinical procedure', uuid: 'bd490bf4-c2cc-11de-8d13-0010c6dffd0f'}]);
         });
 
-        it('should send delete request at uuid adress extracted from selection map', inject(function(Util) {
+        it('should send delete request at uuid adress extracted from selection map', inject(function() {
             $httpBackend.whenDELETE('/ws/rest/v1/conceptclass/ad491c7a-c2cc-11de-8d13-0010c6dffd0f').respond("DELETE SUCCESS");
             $httpBackend.whenGET('partials/class-list.html').respond("class list partial page");
 

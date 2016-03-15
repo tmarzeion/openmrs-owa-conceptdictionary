@@ -1,9 +1,7 @@
-(function() {
-    'use strict';
-    
-	angular
-		.module('conceptDictionaryApp')
-		.controller('ConceptAddController', ConceptAddController)
+export default angular
+	.module('conceptDictionaryApp')
+	.controller('ConceptAddController', ConceptAddController)
+	.name;
 		
 	ConceptAddController.$inject = ['serverLocales', 'loadClasses', 'loadDataTypes', '$scope'];
 		
@@ -36,5 +34,4 @@
 			vm.isNumeric = (vm.selectedDatatype === "8d4a4488-c2cc-11de-8d13-0010c6dffd0f");
 			vm.isCoded = (vm.selectedDatatype === "8d4a48b6-c2cc-11de-8d13-0010c6dffd0f");
 		}
-	};
-})();
+	}

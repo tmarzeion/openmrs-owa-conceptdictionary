@@ -1,9 +1,7 @@
-(function() {
-    'use strict';
-
-	angular
-	    .module('conceptDictionaryApp')
-	    .controller('ClassesList', ClassesList)
+export default angular
+	.module('conceptDictionaryApp')
+	.controller('ClassesList', ClassesList)
+    .name;
 	    
 	ClassesList.$inject = 
 	    ['loadClasses', '$location', '$route', '$routeParams', 'openmrsRest']
@@ -56,12 +54,11 @@
                 $location.path("/class-list/").search({});
             });
 
-        };
+        }
         //redirects to another location
 		function goTo (hash){
 			$location.path(hash);
 		}
 
 
-    };
-})();
+    }

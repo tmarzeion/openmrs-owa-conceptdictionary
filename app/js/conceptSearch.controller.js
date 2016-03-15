@@ -1,6 +1,6 @@
-angular
+export default angular
     .module('conceptDictionaryApp')
-    .controller('ConceptSearch', ['$scope', '$routeParams' ,'ConceptsService', function($scope, $routeParams, ConceptsService) {
+    .controller('ConceptSearch', ['$scope', '$routeParams' ,'openmrsRest', function($scope, $routeParams, openmrsRest) {
 
         var vm = this;
 
@@ -105,13 +105,13 @@ angular
             vm.isUserTyping = false;
 
             if (vm.query.length>0) {
-                ConceptsService.getFirstPageQueryConcepts(vm.query, vm.entriesPerPage).then(function (firstResponse) {
+                openmrsRest.listFull('concept', {q: vm.query, limit: vm.entriesPerPage, includeAll: true}).then(function (firstResponse) {
                     vm.loadingMorePages = true;
-                    vm.concepts = firstResponse.results;
+                    vm.concepts = firstResponse;
                     updateResultNotification();
 
-                    ConceptsService.getQueryConcepts(vm.query).then(function (response) {
-                        vm.concepts = response.results;
+                    openmrsRest.listFull('concept',{q: vm.query, includeAll: true}).then(function (response) {
+                        vm.concepts = response;
                         updateResultNotification();
                         vm.loadingMorePages = false;
                     });
@@ -146,4 +146,5 @@ angular
             vm.updateResultNotification = updateResultNotification;
             vm.timeoutRefresh = timeoutRefresh;
         }
-    }]);
+    }])
+.name;

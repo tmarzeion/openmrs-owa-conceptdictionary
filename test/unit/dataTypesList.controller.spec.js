@@ -24,9 +24,9 @@ describe('Concept dictionary controllers', function() {
     describe('DataTypesListController', function(){
         var scope, ctrl, $httpBackend;
 
-        beforeEach(inject(function(_$httpBackend_, $rootScope, $controller, Util, $routeParams, openmrsRest){
+        beforeEach(inject(function(_$httpBackend_, $rootScope, $controller, $routeParams, openmrsRest){
             $httpBackend = _$httpBackend_;
-            $httpBackend.expectGET(Util.getOpenmrsContextPath()+'/ws/rest/v1/conceptdatatype?v=full').
+            $httpBackend.expectGET('/ws/rest/v1/conceptdatatype?v=full').
             respond({results:[{name: 'Date Datatype', description: 'Date Field Gen Datatype Handler'},
                 {name: 'Boolean Datatype', description: 'Boolean Field Gen Datatype Handler'}]});
 
