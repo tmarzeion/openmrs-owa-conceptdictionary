@@ -52,7 +52,7 @@
 				answers : [],
 				setMembers: [],
 				handler : ""
-		};
+		};	
 		
 		activate();
 		
@@ -104,5 +104,6 @@
 			var index = vm.selectedLocaleData.searchTerms.indexOf(term);
 			vm.selectedLocaleData.searchTerms.splice(index, 1);
 		}
+			
 	};
 })();
