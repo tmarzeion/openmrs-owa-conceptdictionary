@@ -4,7 +4,7 @@
     
 	angular
 		.module('conceptDictionaryApp')
-		.controller('ConceptView', ConceptView)
+		.controller('ConceptViewController', ConceptViewController)
 		
 	//serverLocales = avalaible locales obtained from server
 ConceptViewController.$inject = ['$scope', 'concept', 'serverLocales', 'conceptLocaleService', '$location'];

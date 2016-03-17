@@ -1,3 +1,4 @@
+
 {
   "name": "openmrs-owa-conceptdictionary",
   "version": "0.1.0",
@@ -22,17 +23,22 @@
     "extract-text-webpack-plugin": "^1.0.1",
     "copy-webpack-plugin": "^1.1.1",
     "autoprefixer": "^6.0.3",
+    "webpack": "^1.12.13",
     "gulp-util": "^3.0.7",
+    "browser-sync": "^2.11.1",
+    "gulp-watch": "^4.3.5",
+    "jasmine-core": "^2.4.1",
+    "karma": "^0.13.21",
+    "karma-chrome-launcher": "^0.2.2",
+    "karma-firefox-launcher": "^0.1.7",
+    "karma-jasmine": "^0.3.7",
+    "orchestrator": "^0.3.7",
     "del": "^2.2.0",
     "gulp": "^3.9.0",
     "gulp-load-plugins": "^1.2.0",
     "gulp-zip": "^3.0.2",
     "main-bower-files": "^2.11.1",
     "wiredep": "^3.0.0"
-    "webpack": "^1.12.14"
-  },
-  "scripts": {
-    "test": "gulp test"
   },
   "keywords": [
     "OpenMRS",
