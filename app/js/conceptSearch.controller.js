@@ -48,6 +48,31 @@ angular
         //Init method
         activate();
 
+        //ng-show logic
+        function isSearching () {
+            return vm.isUserTyping && vm.query.length > 0
+        }
+        function isQueryFieldEmpty () {
+            return vm.query.length == 0 && !vm.isUserTyping;
+        }
+        function conceptsNotFound () {
+            return vm.query.length > 0 && vm.concepts.length == 0 && !vm.isUserTyping;
+        }
+        function showResults() {
+            return vm.concepts.length > 0 && vm.query.length > 0 && !vm.isUserTyping;
+        }
+        function showEntriesCount() {
+            return !vm.isUserTyping && vm.concepts.length && !vm.loadingMorePages;
+        }
+        function showResultInfoAndNavigationButtons () {
+            return !vm.isUserTyping && vm.concepts.length > 0;
+        }
+        function isNextPagePossible () {
+            return vm.viewRangeEnd() >= vm.concepts.length;
+        }
+        function isPrevPagePossible() {
+            return vm.pageNumber == 1;
+        }
 
         //Page navigation
         function nextPage () {
@@ -145,5 +170,15 @@ angular
             vm.refreshResponse = refreshResponse;
             vm.updateResultNotification = updateResultNotification;
             vm.timeoutRefresh = timeoutRefresh;
+
+            //ng-show logic
+            vm.isSearching = isSearching;
+            vm.isQueryFieldEmpty = isQueryFieldEmpty;
+            vm.conceptsNotFound = conceptsNotFound;
+            vm.showResults = showResults;
+            vm.showEntriesCount = showEntriesCount;
+            vm.showResultInfoAndNavigationButtons = showResultInfoAndNavigationButtons;
+            vm.isNextPagePossible = isNextPagePossible;
+            vm.isPrevPagePossible = isPrevPagePossible;
         }
     }]);

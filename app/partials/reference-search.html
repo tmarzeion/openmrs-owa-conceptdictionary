@@ -16,13 +16,13 @@
                 <span style="display: inline;">
                     <div align="center">
 
-                        <span ng-show="vm.isUserTyping && vm.query.length > 0"> <b>{{vm.searchNotification}}</b> </span>
+                        <span ng-show="vm.isSearching()"> <b>{{vm.searchNotification}}</b> </span>
                         <br>
-                        <img ng-show="vm.isUserTyping && vm.query.length > 0" src="../../moduleResources/webservices/rest/js/swagger-ui/dist/images/inprogress.gif" width="64" height="64">
-                        <span ng-show="vm.query.length == 0 && !vm.isUserTyping"><b>{{vm.noSearchInputNotification}}</b></span>
-                        <span ng-show="vm.query.length > 0 && vm.references.length == 0 && !vm.isUserTyping"><b>{{vm.resultNotification}}</b></span>
+                        <img ng-show="vm.isSearching()" src="../../moduleResources/webservices/rest/js/swagger-ui/dist/images/inprogress.gif" width="64" height="64">
+                        <span ng-show="vm.isQueryFieldEmpty()"><b>{{vm.noSearchInputNotification}}</b></span>
+                        <span ng-show="vm.conceptsNotFound()"><b>{{vm.resultNotification}}</b></span>
 
-                        <table ng-show="vm.references.length > 0 && vm.query.length > 0 && !vm.isUserTyping" border="solid" style="width: 100%">
+                        <table ng-show="vm.showResults()" border="solid" style="width: 100%">
                             <thead>
                             <tr>
                                 <td>Code</td>
@@ -48,25 +48,28 @@
                             </tbody>
                         </table>
 
-                        <span ng-show="!vm.isUserTyping && vm.references.length && !vm.loadingMorePages> 0">
+                        <span ng-show="vm.showEntriesCount()">
                             Found <b>{{vm.references.length}}</b> entries
                         </span>
                         <br>
-                        <span ng-show="!vm.isUserTyping && vm.references.length > 0">
+                        <span ng-show="vm.showResultInfoAndNavigationButtons()">
                             View range: {{vm.viewRangeStart()}} to {{vm.viewRangeEnd()}}
                         </span>
                         <br>
-                        <span ng-show="!vm.isUserTyping && vm.references.length > 0">
+                        <span ng-show="vm.showResultInfoAndNavigationButtons()">
                             Page: {{vm.pageNumber}}
                         </span>
                         <br>
                         <br>
-                        <input type="button" ng-show="!vm.isUserTyping && vm.references.length > 0" ng-disabled="vm.pageNumber == 1" ng-click="vm.firstPage()" value="First Page">
-                        <input type="button" ng-show="!vm.isUserTyping && vm.references.length > 0" ng-disabled="vm.pageNumber == 1" ng-click="vm.prevPage()" value="Previous Page">
-                        <input type="button" ng-show="!vm.isUserTyping && vm.references.length > 0" ng-disabled="vm.viewRangeEnd() >= vm.references.length" ng-click="vm.nextPage()" value="Next Page">
-                        <input type="button" ng-show="!vm.isUserTyping && vm.references.length > 0" ng-disabled="vm.viewRangeEnd() >= vm.references.length" ng-click="vm.lastPage()" value="Last Page">
 
-                        <div ng-show="!vm.isUserTyping && vm.references.length > 0" align="left">
+                        <div ng-show="vm.showResultInfoAndNavigationButtons()">
+                            <input type="button" ng-disabled="vm.isPrevPagePossible()" ng-click="vm.firstPage()" value="First Page">
+                            <input type="button" ng-disabled="vm.isPrevPagePossible()" ng-click="vm.prevPage()" value="Previous Page">
+                            <input type="button" ng-disabled="vm.isNextPagePossible()" ng-click="vm.nextPage()" value="Next Page">
+                            <input type="button" ng-disabled="vm.isNextPagePossible()" ng-click="vm.lastPage()" value="Last Page">
+                        </div>
+
+                        <div ng-show="vm.showResultInfoAndNavigationButtons()" align="left">
                             Show
                             <select size="1" ng-model="vm.entriesPerPage" ng-click="firstPage()">
                                 <option selected="selected" value="5">5</option>
