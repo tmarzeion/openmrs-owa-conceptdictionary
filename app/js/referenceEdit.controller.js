@@ -17,6 +17,7 @@ function ReferenceEditController (reference, sources, openmrsRest, $location ){
     vm.deleteForever = deleteForever;
     vm.retire = retire;
     vm.updateConceptSource = updateConceptSource;
+    vm.isSavePossible = isSavePossible;
 
 
     function updateConceptSource() {
@@ -26,6 +27,10 @@ function ReferenceEditController (reference, sources, openmrsRest, $location ){
                 break;
             }
         }
+    }
+
+    function isSavePossible () {
+        return vm.reference.code.length > 0 && vm.reference.conceptSource.uuid !== undefined;
     }
 
 

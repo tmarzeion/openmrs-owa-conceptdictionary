@@ -23,11 +23,24 @@ angular
                         	  loadClasses : loadClasses
                           }
                         }).
+					    when('/source-list', {
+						    templateUrl: 'partials/source-list.html',
+						    controller: 'SourcesListController',
+						    controllerAs: 'vm',
+						    resolve: {
+							    sources : loadSources
+						    }
+					    }).
                         when('/class-list/add-class', {
                         	templateUrl: 'partials/class-add.html',
                             controller: 'ClassAddController',
                             controllerAs: 'vm'
                       }).
+					    when('/source-list/add-source', {
+						    templateUrl: 'partials/source-add.html',
+						    controller: 'SourceAddController',
+						    controllerAs: 'vm'
+					    }).
 					    when('/reference/reference-add', {
 					  	  templateUrl: 'partials/reference-add.html',
 					  	  controller: 'ReferenceAddController',
@@ -52,6 +65,14 @@ angular
                               	 loadDataTypes : loadDataTypes
                             }
                         }).
+					    when('/source-list/:sourceUUID', {
+						    templateUrl: 'partials/source-edit.html',
+						    controller: 'SourceEditController',
+						    controllerAs: 'vm',
+						    resolve: {
+							    sources : loadSource
+						    }
+					    }).
                         when('/datatype-list/:dataTypeUUID', {
                         	templateUrl: 'partials/datatype-details.html',
                         	controller: 'DataTypesDetailsController',
@@ -110,7 +131,11 @@ function loadDataTypes (openmrsRest){
 	  return openmrsRest.listFull('conceptdatatype');
 };
 function loadSources (openmrsRest){
-	return openmrsRest.listFull('conceptsource');
+	return openmrsRest.listFull('conceptsource', {includeAll : true});
+};
+function loadSource ($route, openmrsRest){
+	return openmrsRest.getFull('conceptsource',
+		{uuid: $route.current.params.sourceUUID});
 };
 function loadClass ($route, openmrsRest){
 	return openmrsRest.getFull('conceptclass',

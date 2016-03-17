@@ -1,0 +1,90 @@
+<div>
+
+    <h2>Concept Source Form</h2>
+    <fieldset>
+        <h3>Data:</h3>
+        <table>
+            <tbody><tr>
+                <td>Name<span class="required">*</span></td>
+                <td>
+                    <input name="name" ng-model="vm.source.name"size="35" type="text">
+                </td>
+            </tr>
+            <tr>
+                <td>HL7 Code</td>
+                <td>
+                    <input name="hl7Code" ng-model="vm.source.hl7Code" size="35" maxlength="20" type="text">
+                </td>
+            </tr>
+            <tr>
+                <td valign="top">Description<span class="required">*</span></td>
+                <td>
+                    <textarea ng-model="vm.source.description" name="description" rows="3" cols="40"></textarea>
+                </td>
+            </tr>
+
+            <tr>
+                <td>Created By</td>
+                <td>
+                    {{vm.source.auditInfo.creator.display}} -
+                    {{vm.source.auditInfo.dateCreated|date:'medium'}}
+                </td>
+            </tr>
+            <tr ng-show="vm.source.auditInfo.changedBy != null">
+                <td>Changed By</td>
+                <td>
+                    {{vm.source.auditInfo.changedBy.display}} -
+                    {{vm.source.auditInfo.dateChanged|date:'medium'}}
+                </td>
+            </tr>
+            <tr>
+
+                <td><font color="#D0D0D0"><sub>UUID</sub></font></td>
+                <td colspan="0"><font color="#D0D0D0"><sub>{{vm.source.uuid}}</sub></font></td>
+
+            </tr>
+
+            </tbody>
+        </table>
+    </fieldset>
+
+    <br>
+
+    <fieldset>
+        <h3 ng-show="!vm.source.retired">Retire</h3>
+        <h3 ng-show="vm.source.retired">Unretire</h3>
+
+        <div ng-show="vm.source.retired">
+            <span>Retired by {{vm.source.auditInfo.retiredBy.display}} - </span>
+            <span>on {{vm.source.auditInfo.dateRetired|date: 'medium'}} </span>
+            <br>
+            <span>Reason: {{vm.source.auditInfo.retireReason}}</span>
+        </div>
+
+        <table ng-show="!vm.source.retired">
+            <tr>
+                <td valign="top">Retire reason<span class="required">*</span></td>
+                <td>
+                    <textarea ng-model="vm.source.auditInfo.retireReason" rows="3" cols="50"></textarea>
+                </td>
+            </tr>
+        </table>
+
+        <input ng-disabled="vm.source.auditInfo.retireReason.length() == 0" value="Retire"  type="button" ng-disabled="vm." ng-show="!(vm.source.retired)" ng-click="vm.retire()">
+        <input value="Unretire" type="button" ng-show="vm.source.retired" ng-click="vm.retire()">
+    </fieldset>
+
+    <br>
+
+    <fieldset>
+        <h3>Delete forever</h3>
+        <input value="Delete forever" type="button" ng-click="vm.deleteForever()">
+    </fieldset>
+
+    <br>
+
+    <br>
+    <input ng-disabled="!vm.isSavePossible()" ng-click="vm.save()" value="Save Concept Source" type="button">
+    <input ng-click="vm.cancel()" value="Cancel" type="button">
+
+</div>
