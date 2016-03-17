@@ -7,7 +7,7 @@ angular
                       $routeProvider.
                         when('/concept-search', {
                             templateUrl: 'partials/concept-search.html',
-                            controller: 'ConceptSearch',
+                            controller: 'ConceptSearchController',
                             controllerAs: 'vm'
                       }).
 					  	when('/reference-search', {
@@ -17,7 +17,7 @@ angular
 					  }).
                         when('/class-list', {
                           templateUrl: 'partials/class-list.html',
-                          controller: 'ClassesList',
+                          controller: 'ClassesListController',
                           controllerAs: 'vm',
                           resolve: {
                         	  loadClasses : loadClasses
@@ -25,7 +25,7 @@ angular
                         }).
                         when('/class-list/add-class', {
                         	templateUrl: 'partials/class-add.html',
-                            controller: 'ClassAdd',
+                            controller: 'ClassAddController',
                             controllerAs: 'vm'
                       }).
 					    when('/reference/reference-add', {
@@ -81,7 +81,7 @@ angular
 					    }).
                         when('/concept/:conceptUUID/', {
                         	templateUrl: 'partials/concept.html',
-                        	controller: 'ConceptView',
+                        	controller: 'ConceptViewController',
                         	controllerAs: 'vm',
                         	resolve: {
                         		concept : loadConcept,

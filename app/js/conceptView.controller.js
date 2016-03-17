@@ -1,11 +1,11 @@
 angular
 	.module('conceptDictionaryApp')
-	.controller('ConceptView', ConceptView);
+	.controller('ConceptViewController', ConceptViewController);
 		
 	//serverLocales = avalaible locales obtained from server
-	ConceptView.$inject = ['$scope', 'concept', 'serverLocales', 'conceptLocaleService', '$location'];   
+ConceptViewController.$inject = ['$scope', 'concept', 'serverLocales', 'conceptLocaleService', '$location'];
 
-	function ConceptView ($scope, concept, serverLocales, conceptLocaleService, $location ){
+	function ConceptViewController ($scope, concept, serverLocales, conceptLocaleService, $location ){
 
 		var vm = this;
 		//determines if Numeric content is shown

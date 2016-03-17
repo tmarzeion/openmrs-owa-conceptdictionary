@@ -1,6 +1,6 @@
 angular
     .module('conceptDictionaryApp')
-    .controller('ClassAdd', ['$location', 'openmrsRest',
+    .controller('ClassAddController', ['$location', 'openmrsRest',
     function($location, openmrsRest){
 
         var vm = this;
