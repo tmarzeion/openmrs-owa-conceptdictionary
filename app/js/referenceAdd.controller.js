@@ -23,9 +23,14 @@ function ReferenceAddController (sources, openmrsRest, $location ){
 
     vm.cancel = cancel;
     vm.save = save;
+    vm.isSavePossible = isSavePossible;
 
     function cancel () {
         $location.path('/reference-search');
+    }
+
+    function isSavePossible () {
+        return vm.reference.code.length > 0 && vm.reference.conceptSource.uuid !== undefined;
     }
 
     //Method used to add class with current class params

@@ -78,7 +78,7 @@
                     <td>
                         <table cellpadding="0" cellspacing="20" align="left">
                             <tbody><tr>
-                                <td><input value="Save" type="button" ng-click ="vm.save()" ng-disabled="(vm.reference.code.length == 0) || (vm.reference.conceptSource.uuid == undefined)"></td>
+                                <td><input value="Save" type="button" ng-click ="vm.save()" ng-disabled="!vm.isSavePossible()"></td>
                                 <td><input value="Cancel" type="button" ng-click="vm.cancel()"></td>
                             </tr>
                             </tbody></table>
