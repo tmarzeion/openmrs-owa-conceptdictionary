@@ -21,59 +21,28 @@
 		</th>
 		
 			<td class="en" style="padding: 0px;">	
-				<table id="containerTable[en]">
+				<table id="fullname">
 					<tbody><tr>
 						<td id="similarConceptsStart" valign="bottom">
 								
-								<input name="namesByLocale[en].name" value="" id="namesByLocale[en].name" class="largeWidth" onchange="setRadioValue(this, 'fullySpecPreferred[en]')" type="text">
+								<input name="fullname" ng-model="vm.selectedLocaleData.fullname.display"  type="text">
 								<span class="error" id="duplicateConceptError" hidden="true">Fully specified name must be unique. There is already a concept with this name</span>
 								
 						</td>
+						
 						<!-- belown code displays (radio button, help icon and label) as a completed preffered group -->
-						<td id="preferredContainer[en]">
-							<span style="visibility: hidden">
+						<td id="preferredContainer">
+							<span>
 								Preferred  
 							</span>
-							<img class="help_icon" src="/openmrs/images/help.gif" style="visibility: hidden" title="Whether this name is the preferred name in its language and will be returned by default e.g on reports" border="0">
+							<img class="help_icon" src="/openmrs/images/help.gif" title="Whether this name is the preferred name in its language and will be returned by default e.g on reports" border="0">
 							<br>
-										
-							<input id="fullySpecPreferred[en]" name="preferredNamesByLocale[en]" value="" style="visibility: hidden" type="radio">
-							
-							
-							
-							
+							<input name="preferred name" ng-model="vm.selectedLocaleData.preferredName" ng-value="vm.selectedLocaleData.fullname" type="radio">
 						</td>
 					</tr>
 				</tbody></table>
-			</td>
-		
-			<td class="es" style="padding: 0px; display: none;">	
-				<table id="containerTable[es]">
-					<tbody><tr>
-						<td id="similarConceptsStart" valign="bottom">
-								
-								<input name="namesByLocale[es].name" value="" id="namesByLocale[es].name" class="largeWidth" onchange="setRadioValue(this, 'fullySpecPreferred[es]')" type="text">
-								<span class="error" id="duplicateConceptError" hidden="true">Fully specified name must be unique. There is already a concept with this name</span>
-								
-						</td>
-						<!-- belown code displays (radio button, help icon and label) as a completed preffered group -->
-						<td id="preferredContainer[es]">
-							<span style="visibility: hidden">
-								Preferred  
-							</span>
-							<img class="help_icon" src="/openmrs/images/help.gif" style="visibility: hidden" title="Whether this name is the preferred name in its language and will be returned by default e.g on reports" border="0">
-							<br>
-										
-							<input id="fullySpecPreferred[es]" name="preferredNamesByLocale[es]" value="" style="visibility: hidden" type="radio">
-							
-							
-							
-							
-						</td>
-					</tr>
-				</tbody></table>
-			</td>
-		
+			</td>		
+			
 	</tr>
 	<tr>
 		<th id="suggestions" valign="top"></th>
@@ -86,53 +55,29 @@
 			Synonyms <img class="help_icon_bottom" src="/openmrs/images/help.gif" title="Any label or name that refers to a primary concept." border="0">
 		</th>
 		
-			<td class="en">
-				
-				<div id="newConceptSynonym-en" style="display: none">
-					<input name="[x].name" value="" class="largeWidth" onchange="setCloneRadioValue(this)" type="text">
-					<input name="preferredNamesByLocale[en]" value="" type="radio">
-					<input value="Remove" class="smallButton" onclick="removeSynonymElement(this, 'newConceptSynonym-en', 'preferredContainer[en]', null, null)" type="button">
+			<td>
+				<div id="ConceptSynonyms" ng-show="vm.selectedLocaleData.synonyms.length > 0" ng-repeat = "synonym in vm.selectedLocaleData.synonyms">
+					<input ng-model="synonym.display" type="text">
+					<input name="preferred name" ng-model="vm.selectedLocaleData.preferredName" ng-value="synonym" type="radio">
+					<input value="Remove" class="smallButton" ng-click="vm.deleteSynonym(synonym)" type="button">
 				</div>
-				<input value="Add Synonym" class="smallButton" onclick="cloneSynonymElement('newConceptSynonym-en', 0, 'synonymsByLocale[en]', 'preferredContainer[en]')" type="button">				
+				<input value="Add Synonym" class="smallButton" ng-click="vm.pushSynonyms()" type="button">				
 			</td>			
-		
-			<td style="display: none;" class="es">
-				
-				<div id="newConceptSynonym-es" style="display: none">
-					<input name="[x].name" value="" class="largeWidth" onchange="setCloneRadioValue(this)" type="text">
-					<input name="preferredNamesByLocale[es]" value="" type="radio">
-					<input value="Remove" class="smallButton" onclick="removeSynonymElement(this, 'newConceptSynonym-es', 'preferredContainer[es]', null, null)" type="button">
-				</div>
-				<input value="Add Synonym" class="smallButton" onclick="cloneSynonymElement('newConceptSynonym-es', 0, 'synonymsByLocale[es]', 'preferredContainer[es]')" type="button">				
-			</td>			
-		
+					
 	</tr>
 	<tr class="localeSpecific">
 		<th valign="top">
 			Search Terms <img class="help_icon_bottom" src="/openmrs/images/help.gif" title="An index term or phrase that might be used to search for this concept but that is not valid for display purposes or storing in the record (e.g., common misspellings or pragmatic mapping term)" border="0">
 		</th>
 		
-			<td class="en">
-				
-				<div id="newConceptIndexTerm-en" style="display: none">
-					<input name="[x].name" value="" class="largeWidth" type="text">
+			<td>
+				<div id="ConceptIndexTerm" ng-show="vm.selectedLocaleData.searchTerms.length > 0" ng-repeat = "term in vm.selectedLocaleData.searchTerms">
+					<input ng-model="term.name" value="" class="largeWidth" type="text">
 					<input name="placeHolder" value="" style="visibility: hidden" type="radio">
-					<input value="Remove" class="smallButton" onclick="removeParentElement(this)" type="button">
+					<input value="Remove" class="smallButton" ng-click="vm.deleteSearchTerm(term)" type="button">
 				</div>
-				<input id="addSearch" value="Add Search Term " class="smallButton" onclick="cloneElement('newConceptIndexTerm-en', 0, 'indexTermsByLocale[en]')" type="button">
-			</td>
-			
-		
-			<td style="display: none;" class="es">
-				
-				<div id="newConceptIndexTerm-es" style="display: none">
-					<input name="[x].name" value="" class="largeWidth" type="text">
-					<input name="placeHolder" value="" style="visibility: hidden" type="radio">
-					<input value="Remove" class="smallButton" onclick="removeParentElement(this)" type="button">
-				</div>
-				<input id="addSearch" value="Add Search Term " class="smallButton" onclick="cloneElement('newConceptIndexTerm-es', 0, 'indexTermsByLocale[es]')" type="button">
-			</td>
-			
+				<input value="Add Search Term" class="smallButton" ng-click="vm.pushSearchTerms()" type="button">
+			</td>			
 		
 	</tr>
 	<tr class="localeSpecific">
@@ -140,19 +85,10 @@
 			Short Name <img class="help_icon_bottom" src="/openmrs/images/help.gif" title="The text shown in report headers and other places where space is limited" border="0">
 		</th>
 		
-			<td class="en">
-				
-					<input class="smallWidth" name="shortNamesByLocale[en].name" value="" type="text">
-					
-				
+			<td>				
+					<input class="smallWidth" ng-model="vm.selectedLocaleData.shortname" type="text">	
 			</td>
-		
-			<td style="display: none;" class="es">
-				
-					<input class="smallWidth" name="shortNamesByLocale[es].name" value="" type="text">
-					
-				
-			</td>
+
 		
 	</tr>
 	<tr class="localeSpecific">
@@ -160,16 +96,9 @@
 			Description <img class="help_icon_top" src="/openmrs/images/help.gif" title="Longer body of text used to fully describe this concept and how it is used." border="0">
 		</th>
 		
-			<td class="en" valign="top">
+			<td valign="top">
 				
-					<textarea name="descriptionsByLocale[en].description" rows="4" cols="50"></textarea>
-					
-				
-			</td>
-		
-			<td style="display: none;" class="es" valign="top">
-				
-					<textarea name="descriptionsByLocale[es].description" rows="4" cols="50"></textarea>
+					<textarea name="description" ng-model="vm.selectedLocaleData.description" rows="4" cols="50"></textarea>
 					
 				
 			</td>
@@ -181,8 +110,7 @@
 		</th>
 		<td valign="top">
 
-				<select name="repeatClass" id="repeatClass" ng-model="vm.selectedClass">
-      				<option ng-repeat="class in vm.classes" value="{{class.uuid}}">{{class.name}}</option>
+				<select name="repeatClass" id="repeatClass" ng-model="vm.concept.conceptClass" ng-options="class.uuid as class.name for class in vm.classes">
    				 </select>
 				
 		</td>
@@ -192,21 +120,24 @@
 				Is Set <img class="help_icon" src="/openmrs/images/help.gif" title="Whether this concept is or not a set " border="0">
 		</th>
 		<td>
-				<input type="checkbox" ng-model="vm.isSet" name="conceptClassId">			
+				<input type="checkbox" ng-model="vm.concept.set" name="conceptClassId">			
 		</td>
 	</tr>
-	<tr ng-show="vm.isSet" id="conceptSetRow">
+	<tr ng-show="vm.concept.set" id="conceptSetRow">
+
 		<th valign="top">Set Members</th>
 		<td valign="top">
-			
-				<input name="concept.conceptSets" id="conceptSets" size="40" value="" type="hidden">
-			
+			<input name="concept.conceptSets" id="conceptSets" size="40" value="" type="hidden">
 			<table cellpadding="0" cellspacing="0">
 				<tbody><tr>
+						
 					<td valign="top">
-						<select class="largeWidth" size="6" id="conceptSetsNames" multiple="multiple" onkeyup="listKeyPress('conceptSetsNames', 'conceptSets', ' ', event);">
-							
+
+						<select class="largeWidth" size="6" id="conceptSetsNames" width="200" onkeyup="listKeyPress('conceptSetsNames', 'conceptSets', ' ', event);">	
+	
 						</select>
+
+						
 					</td>
 					<td class="buttons" valign="top">
 						<span id="OpenmrsPopup_0"><span style="white-space: nowrap"><span dojoattachpoint="displayNode"></span> <input value="" dojoattachpoint="hiddenInputNode" type="hidden"><input value="" dojoattachpoint="hiddenCodedDatatype" id="hiddenCodedDatatype" type="hidden"><input value="Add" dojoattachpoint="changeButton" class="smallButton" type="button"> </span><span style="display: none;" dojoattachpoint="otherNode"><input value="" dojoattachpoint="otherInputNode" type="text"></span><div class="description" dojoattachpoint="descriptionDisplayNode"></div> <span style="display: none;" class="popupSearchForm" dojoinsertionindex="0"><input value="X" class="closeButton" type="button"><h4>Find Concept(s)</h4><span style="white-space: nowrap"><span dojoattachpoint="searchLabelNode"></span> <input style="width: 190px;" id="sSearch" value="" dojoattachpoint="inputNode" autocomplete="off" type="text"> <input style="display: none" dojoattachpoint="includeRetired" type="checkbox"> <input style="display: none" dojoattachpoint="includeVoided" type="checkbox"> <input style="display: none" dojoattachpoint="verboseListing" type="checkbox"></span><span class="openmrsSearchDiv"><table class="openmrsSearchTable" style="width: 100%" cellpadding="2" cellspacing="0"><thead><tr style="display: none;" dojoattachpoint="headerRow"></tr></thead><tbody dojoattachpoint="objHitsTableBody" style="vertical-align: top"><tr><td class="searchIndex"></td><td></td></tr></tbody></table></span></span></span>
@@ -224,7 +155,7 @@
 		</th>
 		<td valign="top">
 			
-				<select name="repeatDatatype" id="repeatDatatype" ng-model="vm.selectedDatatype" ng-change="vm.checkType()">
+				<select name="repeatDatatype" id="repeatDatatype" ng-model="vm.concept.datatype" ng-change="vm.checkType()">
       				<option ng-repeat="type in vm.datatypes" value="{{type.uuid}}">{{type.display}}</option>
    				 </select>
 								
@@ -271,7 +202,7 @@
 					<th valign="middle">Absolute High</th>
 					<td valign="middle">
 						
-							<input name="hiAbsolute" value="" class="smallWidth" type="text">
+							<input name="hiAbsolute" value="" class="smallWidth" type="number" ng-model="vm.concept.hiAbsolute">
 							
 						
 					</td>
@@ -280,7 +211,7 @@
 					<th valign="middle">Critical High</th>
 					<td valign="middle">
 						
-							<input name="hiCritical" value="" class="smallWidth" type="text">
+							<input name="hiCritical" value="" class="smallWidth" type="number" ng-model="vm.concept.hiCritical">
 							
 						
 					</td>
@@ -289,7 +220,7 @@
 					<th valign="middle">Normal High</th>
 					<td valign="middle">
 						
-							<input name="hiNormal" value="" class="smallWidth" type="text">
+							<input name="hiNormal" value="" class="smallWidth" type="number" ng-model="vm.concept.hiNormal">
 							
 						
 					</td>
@@ -298,7 +229,7 @@
 					<th valign="middle">Normal Low</th>
 					<td valign="middle">
 						
-							<input name="lowNormal" value="" class="smallWidth" type="text">
+							<input name="lowNormal" value="" class="smallWidth" type="number" ng-model="vm.concept.lowNormal">
 							
 						
 					</td>
@@ -307,7 +238,7 @@
 					<th valign="middle">Critical Low</th>
 					<td valign="middle">
 						
-							<input name="lowCritical" value="" class="smallWidth" type="text">
+							<input name="lowCritical" value="" class="smallWidth" type="number" ng-model="vm.concept.lowCritical">
 							
 						
 					</td>
@@ -316,7 +247,7 @@
 					<th valign="middle">Absolute Low</th>
 					<td valign="middle">
 						
-							<input name="lowAbsolute" value="" class="smallWidth" type="text">
+							<input name="lowAbsolute" value="" class="smallWidth" type="number" ng-model="vm.concept.lowAbsolute">
 							
 						
 					</td>
@@ -330,7 +261,7 @@
 					<th>Units</th>
 					<td colspan="2">
 						
-							<input name="units" value="" class="mediumWidth" type="text">
+							<input name="units" value="" class="mediumWidth" type="text" ng-model="vm.concept.units">
 							
 						
 					</td>
@@ -338,56 +269,27 @@
 				<tr>
 					<th>Allow Decimal?</th>
 					<td colspan="2">
-						
-							<input name="_precise" value="" type="hidden">
-							<input id="allow_decimal_checkbox" name="precise" type="checkbox">
-							
+								<input type="checkbox" ng-model="vm.concept.allowDecimal">					
 						
 					</td>
 				</tr>
-				<tr>
+				<tr ng-show="vm.concept.allowDecimal">
 					<th>Display Precision</th>
 					<td colspan="2">
-						
-							<input disabled="" id="display_precision_textbox" name="displayPrecision" value="" class="mediumWidth" type="text">
-							
-						
+							<input id="display_precision_textbox" name="displayPrecision" ng-model="vm.concept.displayPrecision" class="mediumWidth" type="number">
 					</td>
 				</tr>
 			</tbody></table>
 		</td>
 	</tr>
-    <tr style="display: none;" id="complexDatatypeRow">
+    <tr ng-show="vm.isComplex" id="complexDatatypeRow">
         <th valign="top">
 			Handler
 			<img class="help_icon" id="tooltipComplexIcon" src="/openmrs/images/help.gif" title="Handlers for complex concept reponses e.g an x-ray image handler" border="0">
 		</th>
         <td>
-			
-				<select name="handlerKey"> 
-					<option value="">Select...</option>
-					
-						<option value="ImageHandler">
-					        ImageHandler
-					    </option>
-					
-						<option value="TextHandler">
-					        TextHandler
-					    </option>
-					
-						<option value="BinaryDataHandler">
-					        BinaryDataHandler
-					    </option>
-					
-						<option value="BinaryStreamHandler">
-					        BinaryStreamHandler
-					    </option>
-					
+				<select name="handlerKey" ng-options="handler as handler for handler in vm.handlers" ng-model="vm.concept.handler"> 
 				</select>
-				
-			
-                 
-            
         </td>
     </tr>
 	<tr id="conceptMapRow">

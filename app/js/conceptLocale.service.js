@@ -1,38 +1,41 @@
-angular
-	.module('conceptDictionaryApp')
-	.factory('conceptLocaleService', conceptLocaleService);
-				
+
+	angular
+		.module('conceptDictionaryApp')
+		.factory('conceptLocaleService', conceptLocaleService);				
 
 		function conceptLocaleService(){
-					return{
-						getLocales: getLocales,
-						getLocaleNames: getLocaleNames,
-						getLocaleDescr: getLocaleDescr
-					};
-			/**
-			 * @descriptions array of descriptions objects of concept
-			 * @names array of names objects of concept
-			 * @serverLocales array of available locales
-			 * @returns array of locales of names and descriptions
-			 */
-			function getLocales (names, descriptions, serverLocales){
-				var locales = {};
-				//check names
-				for(var index=0;index<names.length;index++){
-					checkLocale(names[index]);
-				}
-				//check descriptions
-				for(var index=0;index<descriptions.length;index++){
-					checkLocale(descriptions[index]);
-				}
-				//check if input locale is contained by serverLocales
-				function checkLocale (input){
-					for(var index=0; index<serverLocales.length ;index++){
-						if(input.locale === serverLocales[index]) locales[serverLocales[index]] = true;
-					}
-				}
-				return Object.keys(locales);
+
+			var service = {
+					getLocales: getLocales,
+					getLocaleNames: getLocaleNames,
+					getLocaleDescr: getLocaleDescr
 			}
+			return service
+		/**
+		 * @descriptions array of descriptions objects of concept
+		 * @names array of names objects of concept
+		 * @serverLocales array of available locales
+		 * @returns array of locales of names and descriptions
+		 */
+		function getLocales (names, descriptions, serverLocales){
+			var locales = {};
+			//check names
+			for(var index=0;index<names.length;index++){
+				checkLocale(names[index]);
+			}
+			//check descriptions
+			for(var index=0;index<descriptions.length;index++){
+				checkLocale(descriptions[index]);
+			}
+			//check if input locale is contained by serverLocales
+			function checkLocale (input){
+				for(var index=0; index<serverLocales.length; index++){
+					if(input.locale === serverLocales[index]) locales[serverLocales[index]] = true;
+				}
+			}
+			return Object.keys(locales);
+			}
+
 			/**
 			 * @names array of names objects of concept
 			 * @locale string of locale abbreviation, e.g. "en"
@@ -56,19 +59,18 @@ angular
 						else localNames.synonyms.push(names[index].display);
 					}
 				}
-				return localNames;
-			}
-			/**
-			 * @descriptions array of descriptions objects of concept
-			 * @locale string of locale abbreviation
-			 * @returns string - description of concept for specified locale
-			 */
-			function getLocaleDescr(descriptions, locale){
-				for (var index=0;index<descriptions.length;index++){
-					if(descriptions[index].locale === locale){
-						return descriptions[index].display;
-					}
+			return localNames;
+		};
+		/**
+		 * @descriptions array of descriptions objects of concept
+		 * @locale string of locale abbreviation
+		 * @returns string - description of concept for specified locale
+		 */
+		function getLocaleDescr(descriptions, locale){
+			for (var index=0;index<descriptions.length;index++){
+				if(descriptions[index].locale === locale){
+					return descriptions[index].display;
 				}
 			}
-
-		}
+		};
+};
