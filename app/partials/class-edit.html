@@ -1,36 +1,37 @@
-<div>
-	<h2>Concept Class Form</h2>
-	<h3>{{vm.responseMessage}}</h3>
-	<form name="classForm">
-	<table>
-		<tbody><tr>
-			<td>Name<span class="required">*</span></td>
-			<td>		
-				<input type="text" name="name" ng-model="vm.singleClass.name" size="35" ng-required="true">			
-			</td>
-		</tr>
-		<tr>
-			<td valign="top">Description</td>
-			<td>			
-				<textarea name="description" rows="3" cols="40" ng-model="vm.singleClass.description"></textarea>			
-			</td>
-		</tr>	
-		<tr>
-			<td>Created By </td>
-			<td>
-				{{vm.singleClass.auditInfo.creator.display}} -
-				{{vm.singleClass.auditInfo.dateCreated | date:'medium'}}
-			</td>
-		</tr>
-		<tr>     
-          <td><font color="#D0D0D0"><sub>UUID</sub></font></td>
-          <td colspan="0"><font color="#D0D0D0"><sub>{{vm.singleClass.uuid}}</sub></font></td>     
-   		</tr>
-		
-	</tbody></table>
-	
-	<br>
-	<input type="submit" value="Save Concept Class" ng-disabled="classForm.$invalid" ng-click='vm.editClass()'>
-		<input type="submit" value="Cancel" ng-click="vm.cancel()">
-	</form>
+<div class="container">
+	<div class="dashboard clear">
+		<div class="container">
+			<div class ="info-section">
+				<div class="info-header"><h1><strong><i class="icon-plus"></i>Concept Class Form</strong></h1></div>	
+				<form method="post" name="class-edit">
+					<div class="info-body">		
+							
+							<div>Name<span class="required">*</span>
+								<input type="text" name="name" size="35" ng-model="vm.singleClass.name" ng-required="true">
+							</div>
+							
+							<div>Description
+								<textarea name="description" rows="3" cols="40" ng-model="vm.singleClass.description"></textarea>
+							</div>
+							
+							<div>
+								Created By:&#160;&#160;{{vm.singleClass.auditInfo.creator.display}} - {{vm.singleClass.auditInfo.dateCreated | date:'medium'}}
+							</div>
+							
+							<div>		
+								<p><font color="#D0D0D0"><sub>UUID:&#160;&#160;</sub></font></p>	
+								<font color="#D0D0D0"><sub>{{vm.singleClass.uuid}}</sub></font>
+							</div>
+							
+					</div>
+					<div>
+					
+						<a class="button" type="submit" ng-disabled="classForm.$invalid" ng-click="vm.editClass()"><i class="icon-ok"></i><strong>&#160;SAVE CONCEPT CLASS</strong></a>
+						<a class="button" type="submit" ng-click="vm.cancel()"><i class="icon-remove"></i><strong>&#160;CANCEL</strong></a>
+				
+					</div>
+				</form>
+			</div>
+		</div>
+	</div>
 </div>
