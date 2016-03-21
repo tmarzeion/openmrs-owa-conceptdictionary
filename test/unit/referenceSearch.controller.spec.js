@@ -100,7 +100,7 @@ describe('Concept dictionary controllers', function() {
 
         }));
 
-        it('should get reference term data with specified query', function() {
+        it('should get concept reference term data with specified query', function() {
             ctrl.query = "TE";
             ctrl.refreshResponse();
             $httpBackend.flush();

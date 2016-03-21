@@ -21,44 +21,32 @@ describe('Concept dictionary controllers', function() {
 
     beforeEach(module('conceptDictionaryApp'));
 
-    describe('ReferenceAddController', function() {
+    describe('SourceAddController', function() {
         var scope, ctrl, $httpBackend;
 
-        beforeEach(inject(function(_$httpBackend_, $rootScope, $controller, openmrsRest) {
+        beforeEach(inject(function(_$httpBackend_, $rootScope, $controller) {
             $httpBackend = _$httpBackend_;
-            $httpBackend.expectPOST('/ws/rest/v1/conceptreferenceterm').
+            $httpBackend.expectPOST('/ws/rest/v1/conceptsource').
             respond(
                 {
                     results:
                     {
-                        uuid: '83f9cdf3-b374-42d0-9b70-1a4020a0ee42',
-                        display: 'org.openmrs.module.mdrtb: Weight (WEIGHT)',
-                        name: 'Weight',
-                        conceptSource:
-                        {
-                            uuid: '17318d62-4237-4d68-86d4-f9d176872859',
-                            display: 'org.openmrs.module.mdrtb'
-                        },
-                        description: 'Weight description',
-                        code:'WEIGHT',
-                        version: '1',
+                        uuid: '42f9cdf3-b124-42d0-9b70-1a4020a0ee83',
+                        display: 'Source',
+                        name: 'Source',
+                        description: 'Source description',
+                        hl7Code:'SOURCE',
                         retired: false
                     }
                 }
             );
 
-            var sources = {
-                uuid: '17318d62-4237-4d68-86d4-f9d176872859',
-                display: 'org.openmrs.module.mdrtb'
-            };
-
             scope = $rootScope.$new();
 
-            ctrl = $controller('ReferenceAddController', {$scope: scope, sources: sources});
-            ctrl.sources = sources;
+            ctrl = $controller('SourceAddController', {$scope: scope});
         }));
 
-        it('should add new concept reference term ', function() {
+        it('should add new concept source', function() {
             ctrl.save();
             $httpBackend.flush();
             expect(ctrl.success).toEqualData(true);
