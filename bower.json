@@ -18,6 +18,7 @@
     "angular": "1.4.x",
     "angular-mocks": "1.4.x",
     "angular-route": "1.4.x",
-    "angular-resource": "1.4.x"
+    "angular-resource": "1.4.x",
+    "openmrs-contrib-refapp-ui-lib": "^0.1.8"
   }
 }

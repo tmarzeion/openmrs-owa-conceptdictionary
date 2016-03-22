@@ -1,68 +1,75 @@
-<div>
-			<div style="padding-bottom: 8px;">
-					<button ng-click='vm.goTo("/concept/add/")'>New</button> | 
-					<button ng-click=''>Edit</button> 
-			</div>
-	<table id="conceptTable" cellpadding="2" cellspacing="0">
-		<tbody><tr>
+<div class="container">
+	<div class="dashboard clear">
+		<div style="padding-bottom: 8px;">
+			<a class="button" ng-click='vm.goTo("/concept/add/")'>New</a>
+		</div>
+		<div class ="info-section">
+			<div class="info-header"><h1><strong><i class="icon-edit"></i>Concept Form</strong></h1></div>	
+			<form method="post" name="concept-edit">
+				<div class="info-body">
+		<div title="System generated unique ID">
+			<small >UUID</small>
+			<strong>{{vm.concept.uuid}}</strong>
+		</div>
+        <br>
+        <ul>
+		<div>
+			<div class ="info-container-column">
+				<div class="info-header" title="The locale in which the concept name belongs ">
+					<strong>Locale:&#160;&#160;</strong>
+					<a class="button" ng-repeat="locale in vm.locales" ng-click='vm.goLocale(locale)'><small>{{locale}}</small></a>
+				</div>	
+					<form method="post" name="concept-edit">
+						<div class="info-body">
+							
+								<li class="localeSpecific" title="The name to be used on forms, reports etc. in case no preferred name is set for the locale">
+										<small>Display</small>
+										<strong>{{vm.conceptLocale.names.full}}</strong>
+								</li>
 
-		</tr>
-		<tr>
-			<th title="System generated unique ID">UUID</th>
-			<td>{{vm.concept.uuid}}</td>
-		</tr>
-		<tr>
-			<th title="The locale in which the concept name belongs ">Locale</th>
-			<td style="padding-bottom: 2px; padding-left: 2px;">
-				
-					<button class="localeButtons-repeat" ng-repeat="locale in vm.locales" ng-click='vm.goLocale(locale)'>{{locale}}</button> 
 
-		</tr>
-		<tr class="localeSpecific">
-			<th title="The name to be used on forms, reports etc. in case no preferred name is set for the locale">
-				Display
-			</th>
-				<td>{{vm.conceptLocale.names.full}}</td>
-		</tr>
-		<tr class="localeSpecific">
-			<th title="Any label or name that refers to a primary concept." valign="top">Synonyms</th>
-				<td>
-				
-					    <li class="synonym-repeat" ng-repeat="synonym in vm.conceptLocale.names.synonyms" style="list-style-type:none">
-					    	{{synonym}}
-    					</li>
-				</td>
-				</td>
-		</tr>
-		<tr class="localeSpecific">
-			<th title="An index term or phrase that might be used to search for this concept but that is not valid for display purposes or storing in the record (e.g., common misspellings or pragmatic mapping term)" valign="top">Search Terms</th>
-				<td class="en">
-					<li class="searchTerm-repeat" ng-repeat="searchTerm in vm.conceptLocale.names.searchTerms" style="list-style-type:none">
-					    	{{searchTerm}}
-    					</li>
-				</td>
-		</tr>
-		<tr class="localeSpecific">
-			<th title="The text shown in report headers and other places where space is limited">
-				Short Name
-			</th>
-				<td class="en">{{vm.conceptLocale.names.short}}</td>
-		</tr>
-		
-		<tr class="localeSpecific">
-			<th title="Longer body of text used to fully describe this concept and how it is used." valign="top">
-				Description
-			</th>
-				<td valign="top">
-					{{vm.conceptLocale.description}}
-				</td>
-			
-		</tr>
-		<tr>
-			<th title="The classification of the medical concept">
+								<li class="localeSpecific" ng-show="vm.conceptLocale.names.synonyms.length>0">
+									<div class="info-header" title="Any label or name that refers to a primary concept.">Synonyms</div>
+										<strong>
+											    <li class="synonym-repeat" ng-repeat="synonym in vm.conceptLocale.names.synonyms">
+											    	<i class="icon-angle-right"></i>{{synonym}}
+						    					</li>
+										</strong>
+								</li>
+								
+								<li class="localeSpecific" ng-show="vm.conceptLocale.names.searchTerms.length>0">
+									<div class="info-header" title="An index term or phrase that might be used to search for this concept but that is not valid for display purposes or storing in the record (e.g., common misspellings or pragmatic mapping term)">Search Terms</div>
+										<strong>
+											<li class="searchTerm-repeat" ng-repeat="searchTerm in vm.conceptLocale.names.searchTerms">
+											    	<i class="icon-angle-right"></i>{{searchTerm}}
+						    					</li>
+										</strong>
+								</li>
+								<div class="localeSpecific">
+									<small title="The text shown in report headers and other places where space is limited">
+										Short Name
+									</small>
+										<strong class="en">{{vm.conceptLocale.names.short}}</strong>
+								</div>
+								
+								<div class="localeSpecific">
+									<small title="Longer body of text used to fully describe this concept and how it is used." valign="top">
+										Description
+									</small>
+										<strong valign="top">
+											{{vm.conceptLocale.description}}
+										</strong>
+									
+								</div>
+						</div>
+					</div>
+				</div>
+
+		<div>
+			<small title="The classification of the medical concept">
 				Class
-			</th>
-			<td valign="top">
+			</small>
+			<strong valign="top">
 				{{vm.concept.conceptClass.display}}
 			</td>
 		</tr>
@@ -75,13 +82,18 @@
 				</td>
 				</td>
 		</tr>
+
+			</strong>
+		</div>
+
 		
-		<tr>
-			<th title="If data is stored within this concept, this describes what it will look like">
+		<div>
+			<small title="If data is stored within this concept, this describes what it will look like">
 				Datatype
-			</th>
-			<td valign="top">
+			</small>
+			<strong valign="top">
 				{{vm.concept.datatype.display}}
+
 			</td>
 		</tr>
 		<tr ng-show = "vm.isCoded" class="ng-hide">
@@ -89,80 +101,82 @@
 				<td>
 					    <li class="synonym-repeat" ng-repeat="answer in vm.concept.answers" style="list-style-type:none">
 					    	<button ng-click="vm.goTo('/concept/'+answer.uuid)">{{answer.display}}</button>
+
+			</strong>
+		</div>
+		<div ng-show = "vm.isCoded" class="ng-hide">
+			<div class="info-header"><strong>Answers</strong></div>
+				<div class="info-body">
+					    <li class="synonym-repeat" ng-repeat="answer in vm.concept.answers">
+					    	<i class="icon-angle-right"></i><a href="#/concept/{{answer.uuid}}">{{answer.display}}</a>
     					</li>
-				</td>
-				</td>
-		</tr>
-		<tr>
-			<th title="An optional way for you to keep track of which concepts came before others when changing/updating concepts">Version</th>
-			<td>
+				</div>
+		</div>
+		<div>
+			<small title="An optional way for you to keep track of which concepts came before others when changing/updating concepts">Version</small>
+			<strong>
 				{{vm.concept.version}}
-			</td>
-		</tr>
-		<tr ng-show = "vm.isNumeric" class="ng-hide">
-				<th valign="top">Numeric </th>
-				<td>
-					<table>
-						<tbody>
-						<tr>
-							<th valign="middle">Absolute High</th>
-							<td valign="middle">{{vm.concept.hiAbsolute}}</td>
-						</tr>
-						<tr>
-							<th valign="middle">Critical High</th>
-							<td valign="middle">{{vm.concept.hiCritical}}</td>
-						</tr>
-						<tr>
-							<th valign="middle">Normal High</th>
-							<td valign="middle">{{vm.concept.hiNormal}}</td>
-						</tr>
-						<tr>
-							<th valign="middle">Normal Low</th>
-							<td valign="middle">{{vm.concept.lowNormal}}</td>
-						</tr>
-						<tr>
-							<th valign="middle">Critical Low</th>
-							<td valign="middle">{{vm.concept.lowCritical}}</td>
-						</tr>
-						<tr>
-							<th valign="middle">Absolute Low</th>
-							<td valign="middle">{{vm.concept.lowAbsolute}}</td>
-						</tr>
-						<tr>
-							<td></td>
-							<td colspan="2"><small><em>(range values are inclusive)</em></small>
-							</td>
-						</tr>
-						<tr>
-							<th>Units</th>
-							<td colspan="2">{{vm.concept.units}}</td>
-						</tr>
-						<tr>
-							<th>Allow Decimal?</th>
-							<td colspan="2">
+			</strong>
+		</div>
+		<br>
+		<li ng-show = "vm.isNumeric" class="ng-hide">
+				<div class="info-header"><strong>Numeric</strong> <small><em>(range values are inclusive)</em></small></div>
+					<div class = "info-body">
+						<div>
+							<small valign="middle">Absolute High</small>
+							<strong valign="middle">{{vm.concept.hiAbsolute}}</strong>
+						</div>
+						<div>
+							<small valign="middle">Critical High</small>
+							<strong valign="middle">{{vm.concept.hiCritical}}</strong>
+						</div>
+						<div>
+							<small valign="middle">Normal High</small>
+							<strong valign="middle">{{vm.concept.hiNormal}}</strong>
+						</div>
+						<div>
+							<small valign="middle">Normal Low</small>
+							<strong valign="middle">{{vm.concept.lowNormal}}</strong>
+						</div>
+						<div>
+							<small valign="middle">Critical Low</small>
+							<strong valign="middle">{{vm.concept.lowCritical}}</strong>
+						</div>
+						<div>
+							<small valign="middle">Absolute Low</small>
+							<strong valign="middle">{{vm.concept.lowAbsolute}}</strong>
+						</div>
+						<div>
+							<small>Units</small>
+							<strong colspan="2">{{vm.concept.units}}</strong>
+						</div>
+						<div>
+							<small>Allow Decimal?</small>
+							<strong colspan="2">
 								{{vm.concept.allowDecimal}}
-							</td>
-						</tr>
-						<tr>
+							</strong>
+						</div>
+						<div>
 						
-						</tr>
-					</tbody></table>
-				</td>
-				</tr>
-			<tr>
-				<th valign="top">Created By</th>
-				<td>
+						</div>
+					</div>
+				</li>
+			<div>
+				<small valign="top">Created By</small>
+				<strong>
 					{{vm.concept.auditInfo.creator.display}} -
 					{{vm.concept.auditInfo.dateCreated|date:'medium'}}
-				</td>
-			</tr>
-			<tr>
-				<th valign="top">Changed By</th>
-				<td>
+				</strong>
+			</div>
+			<div>
+				<small valign="top">Changed By</small>
+				<strong>
 					{{vm.concept.auditInfo.creator.display}} -
 					{{vm.concept.auditInfo.dateChanged|date:'medium'}}
-				</td>
-			</tr>
-		<tr><td colspan="2"><br></td></tr>
-	</tbody></table>
+				</strong>
+			</div>
+	</div>
+   </ul>
+</form>
 </div>
+

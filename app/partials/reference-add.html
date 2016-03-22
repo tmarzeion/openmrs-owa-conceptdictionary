@@ -1,72 +1,75 @@
-<div>
-    <h2>Reference Term Form</h2>
-    <br>
-    <h3 ng-show="vm.responseMessage">{{vm.responseMessage}}</h3>
-    <form id="conceptReferenceTermModel">
+<div class="container">
+	<div class="dashboard clear">
+			<div ng-show="vm.responseMessage" id="error-message" class="note-container">
+		           <div class="note warning">
+		               <div class="text">
+		                   <i class="icon-ok medium"></i>                    
+		                       <p>{{vm.responseMessage}} has been saved</p>                    
+		               </div>
+		           </div>
+			</div> 
+			<div class ="info-section">
+   				<div class="info-header"><h1><strong><i class="icon-edit"></i>Reference Term Form</strong></h1></div>	
+					<form method="post" name="class-edit">
+						<div class="info-body">		
 
-        <input name="conceptReferenceTermId" value="279124" type="hidden">
-
-        <fieldset>
-            <legend>Reference Term Details</legend>
-            <br>
-            <table class="form_align_left" cellpadding="3" cellspacing="3">
-
-                <tbody><tr>
-                    <th class="alignRight" valign="top">Code<span class="required">*</span></th>
-                    <td valign="top">
+            <div class="form_align_left" cellpadding="3" cellspacing="3">
+				<div>
+                    <div class="alignRight" valign="top">Code<span class="required">*</span></div>
+                    <div valign="top">
 
                         <input name="conceptReferenceTerm.code" ng-model="vm.reference.code" type="text">
 
 
-                    </td>
-                </tr>
-                <tr>
-                    <th class="alignRight" valign="top">Name</th>
-                    <td valign="top">
+                    </div>
+                </div>
+                <div>
+                    <div class="alignRight" valign="top">Name</div>
+                    <div valign="top">
                         <input name="conceptReferenceTerm.name" ng-model="vm.reference.name" type="text">
-                    </td>
-                </tr>
-                <tr>
+                    </div>
+                </div>
+               <div>
                     <th class="alignRight" valign="top">Source<span class="required">*</span></th>
-                    <td valign="top">
+                    <div valign="top">
                         <select
                                 ng-required="vm.reference.conceptSource"
                                 ng-model="vm.reference.conceptSource"
                                 ng-options="source as source.display for source in vm.sources">
                         </select>
-                    </td>
-                </tr>
-                <tr>
-                    <th class="alignRight" valign="top">Description</th>
-                    <td valign="top">
+                    </div>
+                </div>
+                <div>
+                    <div class="alignRight" valign="top">Description</div>
+                    <div valign="top">
 
                         <textarea name="conceptReferenceTerm.description" ng-model="vm.reference.description" rows="3" cols="50"></textarea>
 
-                    </td>
-                </tr>
-                <tr>
-                    <th class="alignRight">Version</th>
-                    <td>
+                    </div>
+                </div>
+                <div>
+                    <div class="alignRight">Version</div>
+                    <div>
 
                         <input name="conceptReferenceTerm.version" ng-model="vm.reference.version" type="text">
+                        
+                    </div>
+                </div>
+                
+                <div>
+                    <div>
+                         <div>
+                             <a class="button" ng-click ="vm.save()" ng-disabled="!vm.isSavePossible()">
+                             		<i class="icon-ok"></i><strong>&#160;Save</strong></a>
+                             <a class="button" ng-click="vm.cancel()"><i class="icon-remove"></i><strong>&#160;Cancel</strong></a>
+                         </div>
 
-                    </td>
-                </tr>
-                <tr>
-                    <th></th>
-                    <td>
-                        <table cellpadding="0" cellspacing="20" align="left">
-                            <tbody><tr>
-                                <td><input value="Save" type="button" ng-click ="vm.save()" ng-disabled="!vm.isSavePossible()"></td>
-                                <td><input value="Cancel" type="button" ng-click="vm.cancel()"></td>
-                            </tr>
-                            </tbody></table>
-                    </td>
-                </tr>
-                </tbody></table>
-        </fieldset>
+
+                    </div>
+                </div>
+                </div>
     </form>
-
-
-
+</div>
+</div>
+</div>
 </div>

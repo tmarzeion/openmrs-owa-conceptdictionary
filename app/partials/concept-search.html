@@ -3,17 +3,16 @@
 		<div class = "info-section">
 	    	<div class="info-header"><h1><strong><i class="icon-cogs"></i>Concept Dictionary Maintanace</strong></h1></div>	
 		    	<div class="info-body">
-		    	<div valign=top><b>Find Concept(s)</b></div>
 
 	            <div>
 	                <div>
 	                	<form class="patient-search form">
 		                	<i class="icon-search small"></i>&#160;Find a concept by typing in its name:
 		                	<div>
-		                		<div class="search-input">
+		                		<div class="search-input" align="center">
 		                            <input class="field-display ui-autocomplete-input" id="inputNode" type="text" ng-model="vm.query" ng-change="vm.timeoutRefresh()">
+		                            <input id="searchButton" name="searchButton" value="Search" type="button" ng-click="vm.refreshResponse()">
 		                        </div>
-	                            <input id="searchButton" name="searchButton" value="Search" type="button" ng-click="vm.refreshResponse()">
 	                            <br>
 	                            <br>
 							</div>
@@ -25,62 +24,66 @@
 		                	<label for="includeVerbose">Show Details</label>
 		                </div>
 		              	<div align="center">	                            
-		                        <span ng-show="vm.isUserTyping && vm.query.length > 0"> <b>{{vm.searchNotification}}</b> </span>
+		                        <div ng-show="vm.isUserTyping && vm.query.length > 0"><b>{{vm.searchNotification}}</b></div>
 
 		                        <img ng-show="vm.isUserTyping && vm.query.length > 0" src="../../moduleResources/webservices/rest/js/swagger-ui/dist/images/inprogress.gif" width="64" height="64">
 		                        <span ng-show="vm.query.length == 0 && !vm.isUserTyping"><b>{{vm.noSearchInputNotification}}</b></span>
 		                        <span ng-show="vm.query.length > 0 && vm.concepts.length == 0 && !vm.isUserTyping"><b>{{vm.resultNotification}}</b></span>
-		
-		                        <table ng-show="vm.concepts.length > 0 && vm.query.length > 0 && !vm.isUserTyping" border="solid" style="width: 100%">
-		                            <thead>
-		                            <tr>
-		                                <td valign="top">Name</td>
-		                                <td ng-show="vm.enableDescription">Description</td>
-		                            </tr>
-		                            </thead>
-		                            <tbody>
-		                            <tr ng-repeat="concept in vm.concepts.slice(vm.sliceFrom(),vm.sliceTo())">
-		                                <td valign="top">
-		                                    <a href="#/concept/{{concept.uuid}}">
-		                                        <span ng-show="concept.retired"><del>{{concept.display}}</del></span>
-		                                        <span ng-show="!concept.retired">{{concept.display}}</span>
-		                                    </a>
-		                                </td>
-		                                <td ng-show="vm.enableDescription">
-		                                    {{concept.descriptions[0].description}}
-		                                </td>
-		                            </tr>
-		                            </tbody>
-		                        </table>
-		
-		                        <span ng-show="!vm.isUserTyping && vm.concepts.length && !vm.loadingMorePages> 0">
-		                            <i class="icon-ok-sign small"></i>&#160;Found <b>{{vm.concepts.length}}</b> entries
-		                        </span>
-		                        <br>
-		                        <span ng-show="!vm.isUserTyping && vm.concepts.length > 0">
-		                            View range: {{vm.viewRangeStart()}} to {{vm.viewRangeEnd()}}
-		                        </span>
-		                        <br>
-		                        <span ng-show="!vm.isUserTyping && vm.concepts.length > 0">
-		                            Page: {{vm.pageNumber}}
-		                        </span>
-		                        <br>
-		                        <br>
-		                        <input type="button" ng-show="!vm.isUserTyping && vm.concepts.length > 0" ng-disabled="vm.pageNumber == 1" ng-click="vm.firstPage()" value="First Page">
-		                        <input type="button" ng-show="!vm.isUserTyping && vm.concepts.length > 0" ng-disabled="vm.pageNumber == 1" ng-click="vm.prevPage()" value="Previous Page">
-		                        <input type="button" ng-show="!vm.isUserTyping && vm.concepts.length > 0" ng-disabled="vm.viewRangeEnd() >= vm.concepts.length" ng-click="vm.nextPage()" value="Next Page">
-		                        <input type="button" ng-show="!vm.isUserTyping && vm.concepts.length > 0" ng-disabled="vm.viewRangeEnd() >= vm.concepts.length" ng-click="vm.lastPage()" value="Last Page">
-		
-		                        <div ng-show="!vm.isUserTyping && vm.concepts.length > 0" align="left">
-		                            Show
-		                            <select size="1" ng-model="vm.entriesPerPage" ng-click="firstPage()">
-		                                <option selected="selected" value="5">5</option>
-		                                <option value="10">10</option>
-		                                <option value="25">25</option>
-		                                <option value="50">50</option>
-		                            </select>
-	                            entries
-	                        </div>
+		                </div>	
+                        <div ng-show="vm.concepts.length > 0 && vm.query.length > 0 && !vm.isUserTyping" border="solid" style="width: 100%">
+                            <div class="info-header"><strong>
+                                <span valign="top">Concepts</span>
+                            </strong></div>
+                            <div class="info-body">
+                            <ul>
+	                            <li ng-repeat="concept in vm.concepts.slice(vm.sliceFrom(),vm.sliceTo())">
+	                                <div valign="top">
+	                                    <a href="#/concept/{{concept.uuid}}">
+	                                    	<strong>
+	                                        	<span ng-show="concept.retired"><del>{{concept.display}}</del></span>
+	                                        	<span ng-show="!concept.retired">{{concept.display}}</span>
+	                                        </strong>
+	                                        <small ng-show="vm.enableDescription">{{concept.descriptions[0].description}}</small>
+	                                    </a>
+	                                </div>
+	                            </tr>
+                            </ul>
+                            </div>
+                        </div>
+						<div align="center">
+	                        <span ng-show="!vm.isUserTyping && vm.concepts.length && !vm.loadingMorePages> 0">
+	                            <i class="icon-ok-sign small"></i>&#160;Found <b>{{vm.concepts.length}}</b> entries
+	                        </span>
+	                        <br>
+	                        <span ng-show="!vm.isUserTyping && vm.concepts.length > 0">
+	                            View range: {{vm.viewRangeStart()}} to {{vm.viewRangeEnd()}}
+	                        </span>
+	                        <br>
+	                        <span ng-show="!vm.isUserTyping && vm.concepts.length > 0">
+	                            Page: {{vm.pageNumber}}
+	                        </span>
+                        </div>
+                        <br>
+                        <br>
+                        <div align="center">
+		                        <a class="button" ng-show="!vm.isUserTyping && vm.concepts.length > 0" ng-disabled="vm.pageNumber == 1" ng-click="vm.firstPage()">
+		                        		<i class="icon-double-angle-left"></i>&#160;First Page</a>
+		                        <a class="button" ng-show="!vm.isUserTyping && vm.concepts.length > 0" ng-disabled="vm.pageNumber == 1" ng-click="vm.prevPage()">
+		                        		<i class="icon-angle-left"></i>&#160;Previous Page</a>
+		                        <a class="button" ng-show="!vm.isUserTyping && vm.concepts.length > 0" ng-disabled="vm.viewRangeEnd() >= vm.concepts.length" ng-click="vm.nextPage()">
+		                        		Next Page&#160;<i class="icon-angle-right"></i></a>
+		                        <a class="button" ng-show="!vm.isUserTyping && vm.concepts.length > 0" ng-disabled="vm.viewRangeEnd() >= vm.concepts.length" ng-click="vm.lastPage()">
+		                        		Last Page&#160;<i class="icon-double-angle-right"></i></a>
+						</div>
+		                <div ng-show="!vm.isUserTyping && vm.concepts.length > 0" align="left">
+	                            Show
+	                            <select size="1" ng-model="vm.entriesPerPage" ng-click="firstPage()">
+	                                <option selected="selected" value="5">5</option>
+	                                <option value="10">10</option>
+	                                <option value="25">25</option>
+	                                <option value="50">50</option>
+	                            </select>
+                            entries
 	                    </div>
 	                </div>
 	            </div>
