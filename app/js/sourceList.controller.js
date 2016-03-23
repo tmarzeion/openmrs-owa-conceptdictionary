@@ -3,18 +3,16 @@ angular
     .controller('SourcesListController', SourcesListController);
 
 SourcesListController.$inject =
-    ['sources', '$location', '$route', '$routeParams', 'openmrsRest']
+    ['sources', '$location', '$routeParams'];
 
-function SourcesListController (sources, $location, $route, $routeParams, openmrsRest) {
+function SourcesListController (sources, $location, $routeParams) {
 
     var vm = this;
-    //array of concept classes
+    //array of concept sources
     vm.sources = sources;
-    //map of selected classes
-    //determines whether class has been saved or deleted in previous view
+    //determines whether source class has been saved or deleted in previous view
     vm.sourceSaved = $routeParams.sourceSaved;
     vm.sourceDeleted = $routeParams.sourceDeleted;
-
 
     vm.goTo = goTo;
 
@@ -22,6 +20,4 @@ function SourcesListController (sources, $location, $route, $routeParams, openmr
     function goTo (hash){
         $location.path(hash);
     }
-
-
 }

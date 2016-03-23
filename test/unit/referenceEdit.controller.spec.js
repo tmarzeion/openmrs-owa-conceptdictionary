@@ -84,7 +84,7 @@ describe('Concept dictionary controllers', function() {
             ctrl = $controller('ReferenceEditController', {$scope: scope, reference: reference, sources: sources});
         }));
 
-        it('should edit existing class ', function() {
+        it('should edit existing concept reference term ', function() {
             ctrl.save();
             $httpBackend.flush();
             expect(ctrl.success).toEqualData(true);
