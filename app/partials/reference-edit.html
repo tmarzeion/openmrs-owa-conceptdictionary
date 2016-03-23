@@ -1,113 +1,94 @@
-<div>
-    <h2>Reference Term Form</h2>
-    <br>
-    <h3 ng-show="vm.responseMessage">{{vm.responseMessage}}</h3>
-    <form id="conceptReferenceTermModel">
+<div class="container">
+	<div class="dashboard clear">
+			<div class ="info-section">
+   				<div class="info-header"><h1><strong><i class="icon-cog"></i>Reference Term Form</strong></h1></div>	
+					<form method="post" name="class-edit">
+						<div class="info-body">		
 
-        <input name="conceptReferenceTermId" value="279124" type="hidden">
-
-        <fieldset>
-            <legend>Reference Term Details</legend>
-            <br>
-            <table class="form_align_left" cellpadding="3" cellspacing="3">
-
-                <tbody><tr>
-                    <th class="alignRight" valign="top">Code<span class="required">*</span></th>
-                    <td valign="top">
+            <div class="form_align_left" cellpadding="3" cellspacing="3">
+				<div>
+                    <div class="alignRight" valign="top">Code<span class="required">*</span></div>
+                    <div valign="top">
 
                         <input name="conceptReferenceTerm.code" ng-model="vm.reference.code" type="text">
 
 
-                    </td>
-                </tr>
-                <tr>
-                    <th class="alignRight" valign="top">Name</th>
-                    <td valign="top">
+                    </div>
+                </div>
+                <div>
+                    <div class="alignRight" valign="top">Name</div>
+                    <div valign="top">
                         <input name="conceptReferenceTerm.name" ng-model="vm.reference.name" type="text">
-                    </td>
-                </tr>
-                <tr>
-                    <th class="alignRight" valign="top">Source<span class="required">*</span></th>
-                    <td valign="top">
+                    </div>
+                </div>
+                <div>
+                    <div class="alignRight" valign="top">Source<span class="required">*</span></div>
+                    <div valign="top">
                         <select
                                 ng-model="vm.selectedConceptSource"
                                 ng-options="source.name as source.name for source in vm.sources"
                                 ng-change="vm.updateConceptSource()">
                         </select>
-                    </td>
-                </tr>
-                <tr>
-                    <th class="alignRight" valign="top">Description</th>
-                    <td valign="top">
+                    </div>
+                </div>
+                <div>
+                    <div class="alignRight" valign="top">Description</div>
+                    <div valign="top">
 
                         <textarea name="conceptReferenceTerm.description" ng-model="vm.reference.description" rows="3" cols="50"></textarea>
 
-                    </td>
-                </tr>
-                <tr>
-                    <th class="alignRight">Version</th>
-                    <td>
+                    </div>
+                </div>
+                <div>
+                    <div class="alignRight">Version</div>
+                    <div>
 
                         <input name="conceptReferenceTerm.version" ng-model="vm.reference.version" type="text">
 
-                    </td>
-                </tr>
+                    </div>
+                </div>
 
-                <tr>
-                    <th class="alignRight">Created By</th>
-                    <td>
-                        {{vm.reference.auditInfo.creator.display}},
-                        {{vm.reference.auditInfo.dateCreated|date:'medium'}}
-                    </td>
-                </tr>
-                <tr ng-show="vm.reference.auditInfo.changedBy != null">
-                    <th class="alignRight">Changed By</th>
-                    <td>
-                        {{vm.reference.auditInfo.changedBy.display}},
-                        {{vm.reference.auditInfo.dateChanged|date:'medium'}}
-                    </td>
-                </tr>
+                <div>
+                    <div>
+	                    <small>Created By</small>
+	                    <strong>
+	                        {{vm.reference.auditInfo.creator.display}},
+	                        {{vm.reference.auditInfo.dateCreated|date:'medium'}}
+	                    </strong>
+                    </div>
+                </div>
+                
+                <div ng-show="vm.reference.auditInfo.changedBy != null">
+                    <div>
+                    	<small>Changed By</small>
+                    	<strong>
+	                        {{vm.reference.auditInfo.changedBy.display}},
+	                        {{vm.reference.auditInfo.dateChanged|date:'medium'}}
+                         </strong>
+                    </div>
+                </div>
 
-                <tr>
-                    <th class="alignRight"><font color="#D0D0D0"><sub>UUID</sub></font></th>
-                    <td colspan="0"><font color="#D0D0D0"><sub>{{vm.reference.uuid}}</sub></font></td>
-                </tr>
+                <div>
+                    <div class="alignRight"><font color="#D0D0D0"><small>UUID</sub></small>
+                    <small>{{vm.reference.uuid}}</small></font></div>
+                </div>
 
-                <tr>
-                    <th></th>
-                    <td>
-                        <table cellpadding="0" cellspacing="20" align="left">
-                            <tbody><tr>
-                                <td><input value="Save" type="button" ng-click ="vm.save()" ng-disabled="!vm.isSavePossible()"></td>
-                                <td><input value="Cancel" type="button" ng-click="vm.cancel()"></td>
-                            </tr>
-                            </tbody></table>
-                    </td>
-                </tr>
-                </tbody></table>
-        </fieldset>
+                <div>
+                    <div>
+                         <div>
+                             <a class="button" ng-click ="vm.save()" ng-disabled="!vm.isSavePossible()">
+                             		<i class="icon-ok"></i><strong>&#160;Save</strong></a>
+                             <a class="button" ng-click="vm.cancel()"><i class="icon-remove"></i><strong>&#160;Cancel</strong></a>
+                             <a class="button" ng-show="!(vm.reference.retired)" ng-click="vm.retire()"><i class="icon-lock"></i><strong>&#160;Retire</strong></a>
+						 	 <a class="button" ng-show="vm.reference.retired" ng-click="vm.retire()"><i class="icon-reply"></i><strong>&#160;Unretire</strong></a>
+              				 <a class="button" ng-click="vm.deleteForever()"><i class="icon-trash"></i><strong>&#160;Delete Forever</strong></a> 
+                         </div>
+
+                    </div>
+                </div>
+                </div>
     </form>
-
-    <table cellpadding="3" cellspacing="3">
-        <tbody><tr>
-            <td>
-
-                <input value="Retire" type="button" ng-show="!(vm.reference.retired)" ng-click="vm.retire()">
-
-            </td>
-            <td>
-                <input value="Unretire" type="button" ng-show="vm.reference.retired" ng-click="vm.retire()">
-
-            </td>
-            <td>
-
-                <input value="Delete forever" type="button" ng-click="vm.deleteForever()">
-
-            </td>
-        </tr>
-        </tbody>
-    </table>
-
-
-
+</div>
+</div>
+</div>
 </div>

@@ -1,31 +1,32 @@
-<div>
-	<h2>Concept Datatype Form</h2>
-	<table class="left-aligned-th">
-	<tbody>
-	<tr>
-		<th>Name</th>
-		<td>{{vm.singleDataType.display}}</td>
-	</tr>
-	<tr>
-		<th valign="top">Description</th>
-		<td>{{vm.singleDataType.description}}</td>
-	</tr>	
-	<tr>
-		<th>HL7 Abbreviation</th>
-		<td>{{vm.singleDataType.hl7Abbreviation}}</td>
-	</tr>
-	<tr>
-		<th>UUID</th>
-		<td>{{vm.singleDataType.uuid}}</td>
-	</tr>	
-	<tr>
-		<th>Created By</th>
-		<td>
-			{{vm.singleDataType.auditInfo.creator.display}} -
-			{{vm.singleDataType.auditInfo.dateCreated | date:'medium'}}
-		</td>
-	</tr>
-	</tbody>
-	</table>
-<div id="conceptDatatypeFormReadOnly">(Read Only)</div>
+<div class="container">
+	<div class="dashboard clear">
+		<div class ="info-section">
+			<div class="info-header">
+				<h1><strong><i class="icon-cog"></i>Concept Datatype Form</strong></h1>
+				<div id="concepdivatatypeFormReadOnly"><small>(Read Only)</small></div>
+			</div>
+			<div class="info-body">
+				<div>
+					<div><small>Name:  </small><strong>{{vm.singleDataType.display}}</strong></div>
+				</div>
+				<div>
+					<div><small>Description:</small><strong>{{vm.singleDataType.description}}</strong></div>
+				</div>	
+				<div>
+					<div><small>HL7 Abbreviation:</small><strong>{{vm.singleDataType.hl7Abbreviation}}</strong></div>
+				</div>
+				<div>
+					<div><small>UUID:</small><strong>{{vm.singleDataType.uuid}}</strong></div>
+				</div>	
+				<div>
+					<div><small>Created By:</small>
+						<strong>
+							{{vm.singleDataType.auditInfo.creator.display}} -
+							{{vm.singleDataType.auditInfo.dateCreated | date:'medium'}}
+						</strong>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
 </div>

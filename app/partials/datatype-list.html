@@ -1,24 +1,19 @@
-<div>
-	<h2>Concept Datatype Management</h2>
-	<div id="conceptDatatypeListReadOnly">(Read Only)</div>
-	<b class="boxHeader">Current Concept Datatypes</b>
-	<form method="post" class="box">
-	<table border="1">
-		<tbody>
-		<tr>			
-			<th> Name </th>
-			<th> Description </th>
-		</tr>		
-		<tr ng-repeat="dataType in vm.dataTypes">				
-			<td valign="top"><a href="#/datatype-list/{{dataType.uuid}}">
-				   {{dataType.display}}
-				</a>
-			</td>
-			<td valign="top">{{dataType.description}}</td>
-		</tr>		
-		</tbody>
-	</table>
-	
-	
-</form>
+<div class="container">
+	<div class="dashboard clear">
+		<div class ="info-section">
+			<div class="info-header">
+				<h1><strong><i class="icon-cogs"></i>Concept Datatype Management</strong></h1>
+				<div id="conceptDatatypeListReadOnly"><small>(Read Only)</small></div>
+			</div>
+			<div class="info-body">
+				<ul>
+					<li ng-repeat="dataType in vm.dataTypes">				
+						<div>
+							<a href="#/datatype-list/{{dataType.uuid}}"><strong>{{dataType.display}}</strong></a> {{dataType.description}}
+						</div>
+					</li>	
+				</ul>	
+			</div>
+		</div>
+	</div>
 </div>

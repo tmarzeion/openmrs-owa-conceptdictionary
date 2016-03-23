@@ -1,26 +1,25 @@
-<div>
-	<h2>Concept Class Form</h2>
-	<h3>{{vm.responseMessage}}</h3>
-	<form name="classForm">
-	<table>
-		<tbody><tr>
-			<td>Name<span class="required">*</span></td>
-			<td>		
-				<input type="text" name="name" size="35" ng-model="vm.class.name" ng-required="true" value="">
-			</td>
-		</tr>
-		<tr>
-			<td valign="top">Description</td>
-			<td>			
-				<textarea name="description" rows="3" cols="40" ng-model="vm.class.description"></textarea>
-			</td>
-		</tr>	
+<div class="container">
+	<div class="dashboard clear">
+		<div class ="info-section">
+			<div class="info-header"><h1><strong><i class="icon-plus"></i>Concept Class Form</strong></h1></div>	
+			<form method="post" name="class-add">
+				<div class="info-body">		
+						<div>Name<span class="required">*</span></div>
+						<div>		
+							<input type="text" name="name" size="35" ng-model="vm.class.name" ng-required="true" value="">
+						</div>
+						<div>Description</div>
+						<div>			
+							<textarea name="description" rows="3" cols="40" ng-model="vm.class.description"></textarea>
+						</div>
+				</div>
+				
+				<div>				
+					<a class="button" type="submit" ng-disabled="classForm.$invalid" ng-click="vm.addClass()"><i class="icon-ok"></i><strong>&#160;Save Concept Class</strong></a>
+					<a class="button" type="submit" ng-click="vm.cancel()"><i class="icon-remove"></i><strong>&#160;Cancel</strong></a>
+				</div>		
 		
-	</tbody></table>
-	
-	<br>
-		<input type="submit" value="Save Concept Class" ng-disabled="classForm.$invalid" ng-click="vm.addClass()">
-		<input type="submit" value="Cancel" ng-click="vm.cancel()">
-	</form>
-
+			</form>
+		</div>
+	</div>
 </div>

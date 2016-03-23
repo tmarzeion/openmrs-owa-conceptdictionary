@@ -1,24 +1,43 @@
-<div>
-<h2>Concept Class Management</h2>
-	<h3 ng-show="vm.classAdded">{{vm.classAdded}} has been saved.</h3>
-<form method="post" class="box" name="class-list">
-	<button ng-click='vm.goTo("/class-list/add-class")'>Add Concept Class</button>
-	<table>
-		<tbody><tr>
-			<th> </th>
-			<th> Name </th>
-			<th> Description </th>
-		</tr>		
-			<tr ng-repeat="class in vm.classes" > 
-				<td valign="top"><input type="checkbox" ng-change="vm.refreshButtonState()" ng-model="vm.selected[class.uuid]" name="conceptClassId" value="{{class.uuid}}"></td>
-				<td valign="top">
-					<a href="#/class-list/{{class.uuid}}">{{class.name}}</a>				
-				</td>
-				<td valign="top">{{class.description}}</td>
-			</tr>
-		
-	</tbody></table>	
+<div class="container">
+	<div class="dashboard clear">
+
+		<div ng-show="vm.classAdded" id="success-message" class="note-container">
+            <div class="note success">
+                <div class="text">
+                    <i class="icon-ok medium"></i>                    
+                        <p>&#160;&#160;{{vm.classAdded}} has been saved.</p>                    
+                </div>
+            </div>
+		</div>                     
 	
-	<input type="submit" value="Delete Selected Concept Classes" ng-disabled="!(vm.isSelected)" ng-click="vm.deleteSelected()">
-</form>
+		<div class="container">
+			<div class ="info-section">
+				<div class="info-header"><h1><strong><i class="icon-cogs"></i>Concept Class Management</strong></h1></div>
+					
+				<form method="post" name="class-list">
+					<div class="info-body">		
+						<ul>
+							<li ng-repeat="class in vm.classes"> 
+										<div style="display: inline-block">
+											<input class="top" type="checkbox" ng-change="vm.refreshButtonState()" ng-model="vm.selected[class.uuid]" name="conceptClassId" value="{{class.uuid}}">
+										</div>
+										<div style="display: inline-block">
+											<p><a href="#/class-list/{{class.uuid}}"><strong>{{class.name}}</strong></a></p>
+										</div>
+										<div style="display: inline-block">
+											<small>{{class.description}}</small>
+										</div>				
+							</li>
+						</ul>	
+					</div>
+					
+					<div>					
+						<a class="button" ng-click='vm.goTo("/class-list/add-class")'><i class="icon-plus"></i><strong>&#160;&#160;ADD</strong></a>
+						<a class="button" type="submit" ng-disabled="!(vm.isSelected)" ng-click="vm.deleteSelected()"><i class="icon-remove"></i><strong>&#160;DELETE</strong></a>				
+					</div>		
+				
+				</form>
+			</div>
+		</div>
+	</div>
 </div>
