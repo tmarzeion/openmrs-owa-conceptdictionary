@@ -1,6 +1,5 @@
 <div class = "container">
 	<div class="dashboard clear">
-	
 		<div ng-show="vm.referenceSaved" id="success-message" class="note-container">
             <div class="note success">
                 <div class="text">
@@ -10,10 +9,10 @@
             </div>
 		</div>    
 		
-		<div ng-show="vm.referenceDeleted" id="success-message" class="note-container">
-            <div class="note success">
+		<div ng-show="vm.referenceDeleted" id="delete-message" class="note-container">
+            <div class="note error">
                 <div class="text">
-                    <i class="icon-ok medium"></i>                    
+                    <i class="icon-trash medium"></i>                    
                         <p>{{vm.referenceDeleted}} has been deleted</p>                    
                 </div>
             </div>
@@ -55,9 +54,11 @@
 				                        <table border="0">
 				                            <thead>
 				                            <tr>
-				                                <td>Code</td>
-				                                <td>Name</td>
-				                                <td>Source</td>
+				                           		
+					                                <td><strong>Code </strong></td>
+					                                <td><strong> Name </strong></td>
+					                                <td><strong> Source </strong></td>
+				                               
 				                            </tr>
 				                            </thead>
 				                            <tbody class="info-body">
@@ -79,7 +80,7 @@
 				                        </table>
 			                        </div>	
 		                        </div>
-			
+						<div ng-show="!vm.isUserTyping && vm.references.length > 0" >
 							<div align="center">
 		                        <span ng-show="!vm.isUserTyping && vm.references.length && !vm.loadingMorePages> 0">
 		                            <i class="icon-ok-sign small"></i>&#160;Found <b>{{vm.references.length}}</b> entries
@@ -96,16 +97,16 @@
 				            <br>
 	                        <br>
 	                        <div align="center">
-			                        <a class="button" ng-disabled="vm.isPrevPagePossible()" ng-click="vm.firstPage()">
-			                        		<i class="icon-double-angle-left"></i>&#160;First Page</a>
-			                        <a class="button" ng-disabled="vm.isPrevPagePossible()" ng-click="vm.prevPage()">
-			                        		<i class="icon-angle-left"></i>&#160;Previous Page</a>
-			                        <a class="button" ng-disabled="vm.isNextPagePossible()" ng-click="vm.nextPage()">
-			                        		Next Page&#160;<i class="icon-angle-right"></i></a>
-			                        <a class="button" ng-disabled="vm.isNextPagePossible()" ng-click="vm.lastPage()">
-			                        		Last Page&#160;<i class="icon-double-angle-right"></i></a>
+			                        <button ng-disabled="vm.isPrevPagePossible()" ng-click="vm.firstPage()">
+			                        		<i class="icon-double-angle-left"></i>&#160;First Page</button>
+			                        <button class="button" ng-disabled="vm.isPrevPagePossible()" ng-click="vm.prevPage()">
+			                        		<i class="icon-angle-left"></i>&#160;Previous Page</button>
+			                        <button class="button" ng-disabled="vm.isNextPagePossible()" ng-click="vm.nextPage()">
+			                        		Next Page&#160;<i class="icon-angle-right"></i></button>
+			                        <button class="button" ng-disabled="vm.isNextPagePossible()" ng-click="vm.lastPage()">
+			                        		Last Page&#160;<i class="icon-double-angle-right"></i></button>
 							</div>
-			                <div ng-show="!vm.isUserTyping && vm.references.length > 0" align="left">
+			                <div align="left">
 		                            Show
 		                            <select size="1" ng-model="vm.entriesPerPage" ng-click="firstPage()">
 		                                <option selected="selected" value="5">5</option>
@@ -114,6 +115,7 @@
 		                                <option value="50">50</option>
 		                            </select>
 	                            entries
+		                    </div>
 		                    </div>
 		        		</div>
 		    		</div>
