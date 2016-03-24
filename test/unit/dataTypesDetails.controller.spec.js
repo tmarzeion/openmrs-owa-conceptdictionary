@@ -31,7 +31,7 @@ describe('Concept dictionary controllers', function() {
                 uuid: '8d4a505e-c2cc-11de-8d13-0010c6dffd0f', hl7Abbreviation: 'DT'
             });
             $httpBackend.whenGET('/ws/rest/v1/conceptclass?v=full').respond({});
-            $httpBackend.whenGET('partials/class-list.html').respond();
+            $httpBackend.whenGET('partials/index-menu.html').respond();
 
             scope = $rootScope.$new();
             

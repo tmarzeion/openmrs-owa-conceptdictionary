@@ -30,7 +30,7 @@ describe('Concept dictionary controllers', function() {
             respond({results:[{name: 'Date Datatype', description: 'Date Field Gen Datatype Handler'},
                 {name: 'Boolean Datatype', description: 'Boolean Field Gen Datatype Handler'}]});
             $httpBackend.whenGET('/ws/rest/v1/conceptclass?v=full').respond({});
-            $httpBackend.whenGET('partials/class-list.html').respond();
+            $httpBackend.whenGET('partials/index-menu.html').respond();
 
             scope = $rootScope.$new();
 

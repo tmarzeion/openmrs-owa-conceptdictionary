@@ -27,7 +27,7 @@ describe('Concept dictionary controllers', function () {
         beforeEach(inject(function (_$httpBackend_, $rootScope, $controller, _$location_) {
             $httpBackend = _$httpBackend_;
             $httpBackend.whenGET('/ws/rest/v1/conceptclass?v=full').respond({});
-            $httpBackend.whenGET('partials/class-list.html').respond();
+            $httpBackend.whenGET('partials/index-menu.html').respond();
             $httpBackend.whenGET('/ws/rest/v1/conceptstopword?v=full').respond();
             $httpBackend.whenGET('partials/conceptstopword-list.html').respond();
             $httpBackend.expectPOST('/ws/rest/v1/conceptstopword')
