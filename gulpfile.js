@@ -20,6 +20,7 @@ var mainBowerFiles = require('main-bower-files');
 var wiredep = require('wiredep').stream;
 var gutil = require('gulp-util');
 var browserSync = require('browser-sync').create();
+var eslint = require('gulp-eslint');
 
 var plugins = gulpLoadPlugins();
 
@@ -27,11 +28,12 @@ var THIS_APP_ID = 'conceptdictionary';
 
 var htmlGlob = ['app/**/*.html'];
 var resourcesGlob = ['app/**/*.{png,svg,jpg,gif}', 'app/**/*.{css,less}',
-  'app/**/*.js', 'app/manifest.webapp', /* list extra resources here */ ];
+  'app/**/*.js', 'app/manifest.webapp', /* list extra resources here */
+];
 
 var Server = require('karma').Server;
 
-var getConfig = function () {
+var getConfig = function() {
   var config;
 
   try {
@@ -44,9 +46,9 @@ var getConfig = function () {
     };
 
     fs.writeFile('config.json', JSON.stringify(config), function(err) {
-    if(err) {
+      if (err) {
         return gutil.log(err);
-    }
+      }
       gutil.log("Default config file created");
     });
 
@@ -58,18 +60,18 @@ var getConfig = function () {
 /**
  * Run test once and exit
  */
-gulp.task('test', function (done) {
+gulp.task('test', ['lint'], function(done) {
   new Server({
     configFile: __dirname + '/test/karma.conf.js',
     singleRun: true
   }, done).start();
 });
-gulp.task('test-debug', function (done) {
-	  new Server({
-	    configFile: __dirname + '/test/karma.conf.js',
-	    singleRun: false
-	  }, done).start();
-	});
+gulp.task('test-debug', function(done) {
+  new Server({
+    configFile: __dirname + '/test/karma.conf.js',
+    singleRun: false
+  }, done).start();
+});
 
 gulp.task('copy-bower-packages', function() {
   try {
@@ -129,10 +131,10 @@ gulp.task('watch', function() {
 });
 
 gulp.task('deploy-local', ['build'], function() {
-    var config = getConfig();
+  var config = getConfig();
 
-    return gulp.src(['dist/**/*', '!*.zip'])
-          .pipe(gulp.dest(config.LOCAL_OWA_FOLDER + THIS_APP_ID));
+  return gulp.src(['dist/**/*', '!*.zip'])
+    .pipe(gulp.dest(config.LOCAL_OWA_FOLDER + THIS_APP_ID));
 });
 
 gulp.task('build', ['resources', 'html'], function() {
@@ -143,6 +145,14 @@ gulp.task('build', ['resources', 'html'], function() {
 
 gulp.task('clean', del.bind(null, ['dist']));
 
-gulp.task('default', ['clean'], function() {
+gulp.task('lint', function() {
+  return gulp.src('app/**/*.js')
+    .pipe(eslint())
+    .pipe(eslint.format());
+  // // TODO: Uncomment when linting looks good
+  // .pipe(eslint.failAfterError());
+});
+
+gulp.task('default', ['clean', 'test'], function() {
   gulp.start('build');
 });

@@ -1,7 +1,7 @@
 <img src="https://cloud.githubusercontent.com/assets/668093/12567089/0ac42774-c372-11e5-97eb-00baf0fccc37.jpg" alt="OpenMRS"/>
 
 # Concept Dictionary
-[![Build Status](https://travis-ci.org/rkorytkowski/openmrs-owa-conceptdictionary.svg?branch=master)](https://travis-ci.org/rkorytkowski/openmrs-owa-conceptdictionary)
+[![Build Status](https://travis-ci.org/rkorytkowski/openmrs-owa-conceptdictionary.svg?branch=master)](https://travis-ci.org/rkorytkowski/openmrs-owa-conceptdictionary) [![Codacy Badge](https://api.codacy.com/project/badge/grade/a7b282f69c44458297ec61d65d4b3baf)](https://www.codacy.com/app/pascal_2/openmrs-owa-conceptdictionary) [![Codacy Badge](https://api.codacy.com/project/badge/coverage/a7b282f69c44458297ec61d65d4b3baf)](https://www.codacy.com/app/pascal_2/openmrs-owa-conceptdictionary)
 
 This repository contains the Concept Dictionary OpenMRS Open Web App.
 
@@ -19,7 +19,7 @@ You will need JDK 1.7, maven and OpenMRS SDK. Please refer to [the wiki page] (h
 
 You need to setup a server (first time only) as follows:
 
-````
+````sh
 mvn openmrs-sdk:setup-platform -DserverId=conceptdictionary
 mvn openmrs-sdk:install -DartifactId=owa -Dversion=1.4-SNAPSHOT -DserverId=conceptdictionary
 mvn openmrs-sdk:install -DartifactId=webservices.rest -Dversion=2.13 -DserverId=conceptdictionary
@@ -28,7 +28,7 @@ mvn openmrs-sdk:install -DartifactId=uicommons -Dversion=1.7 -DserverId=conceptd
 ````
 
 Now you can run the server:
-````
+````sh
 mvn openmrs-sdk:run -DserverId=conceptdictionary
 ````
 Once it says "Started Jetty Server", visit http://localhost:8080/openmrs in your browser.
@@ -38,19 +38,19 @@ Once it says "Started Jetty Server", visit http://localhost:8080/openmrs in your
 You will need NodeJS 4+ installed to do this. See the install instructions [here](https://nodejs.org/en/download/package-manager/).
 
 Once you have NodeJS installed, you need to install Gulp and Bower (first time only) as follows:
-````
+````sh
 npm install -g gulp bower
 ````
 
 Install the dependencies (first time only):
 
-```
+```sh
 npm install && bower install
 ```
 
 Build the distributable using [Gulp](http://gulpjs.com/) as follows:
 
-````
+````sh
 gulp
 ````
 
@@ -60,13 +60,13 @@ This will create a file called `conceptdictionary.zip` file in the `dist` direct
 
 To deploy directly to your local Open Web Apps directory, run:
 
-````
+````sh
 gulp deploy-local
 ````
 
 This will build and deploy the app to the `C:\Users\Rafal\openmrs\conceptdictionary` directory. To change the deploy directory, edit the `LOCAL_OWA_FOLDER` value in `config.json`. You can find your deploy directory running:
 
-````
+````sh
  mvn openmrs-sdk:run -DserverId=conceptdictionary
 ````
 Look at the tmp directory location. The tmp directory is created in your deploy directory so just skip \tmp.
@@ -80,7 +80,7 @@ Look at the tmp directory location. The tmp directory is created in your deploy 
 It is also possible to configure the project so that whenever a file is changed it is deployed to a server and a
 browser is refreshed. First please make sure the APP_ENTRY_POINT is set in config.json as follows:
 
-````
+````js
 {
   "LOCAL_OWA_FOLDER": "C:\\\\Users\\\\rafal\\\\openmrs\\\\conceptdictionary\\\\owa\\\\",
   "APP_ENTRY_POINT":"http://localhost:8080/openmrs/owa/conceptdictionary/index.html"
@@ -88,7 +88,7 @@ browser is refreshed. First please make sure the APP_ENTRY_POINT is set in confi
 ````
 
 Next run:
-````
+````sh
 gulp watch
 ````
 
@@ -98,13 +98,13 @@ While it runs, it watches all files for changes and automatically updates your b
 
 Install [Bower](http://bower.io/) packages dependencies as follows:
 
-````
+````sh
 bower install --save <package>
 ````
 
 Be sure to include the following in your `html` files at the position you want the Bower dependencies injected:
 
-````
+````html
 <!-- bower:js -->
 <!-- endbower -->
 ````
