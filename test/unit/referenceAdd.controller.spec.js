@@ -46,6 +46,9 @@ describe('Concept dictionary controllers', function() {
                     }
                 }
             );
+            $httpBackend.whenGET('/ws/rest/v1/conceptclass?v=full').respond({});
+            $httpBackend.whenGET('partials/class-list.html').respond();
+            $httpBackend.whenGET('partials/reference-search.html').respond();
 
             var sources = {
                 uuid: '17318d62-4237-4d68-86d4-f9d176872859',

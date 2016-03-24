@@ -66,7 +66,9 @@ describe('Concept dictionary controllers', function() {
                     }
                 }
             );
-
+            $httpBackend.whenGET('/ws/rest/v1/conceptclass?v=full').respond({});
+            $httpBackend.whenGET('partials/reference-search.html').respond();
+            $httpBackend.whenGET('partials/class-list.html').respond();
             scope = $rootScope.$new();
 
             var reference;

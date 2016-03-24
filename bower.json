@@ -15,10 +15,11 @@
   ],
   "dependencies": {
     "modernizr": "3.3.1",
-    "angular": "1.4.x",
-    "angular-mocks": "1.4.x",
-    "angular-route": "1.4.x",
-    "angular-resource": "1.4.x",
+    "angular": "1.5.x",
+    "angular-mocks": "1.5.x",
+    "angular-route": "1.5.x",
+    "angular-resource": "1.5.x",
+    "angular-strap": "^2.3.7",
     "openmrs-contrib-refapp-ui-lib": "^0.1.8"
   }
 }

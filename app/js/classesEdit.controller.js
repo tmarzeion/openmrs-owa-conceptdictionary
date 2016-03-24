@@ -2,9 +2,9 @@ angular
     	.module('conceptDictionaryApp')
     	.controller('ClassesEditController', ClassesEditController);
     ClassesEditController.$inject =
-    	['$scope', 'singleClass', '$routeParams', '$location', 'openmrsRest']
+    	['singleClass', '$routeParams', '$location', 'openmrsRest']
 
-	function ClassesEditController($scope, singleClass, $routeParams, $location, openmrsRest ){
+	function ClassesEditController( singleClass, $routeParams, $location, openmrsRest ){
 		
 		var vm = this;
 		//holds class information
