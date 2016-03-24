@@ -39,7 +39,7 @@ function SourceEditController (sources ,openmrsRest, $location ){
 
     function deleteForever() {
         openmrsRest.remove('conceptsource', {uuid : vm.source.uuid, purge : true});
-        $location.path('/source-list').search({referenceDeleted: vm.source.name});
+        $location.path('/source-list').search({sourceDeleted: vm.source.name});
     }
 
     function retire() {
