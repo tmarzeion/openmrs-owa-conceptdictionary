@@ -41,6 +41,14 @@ angular
 						    controller: 'SourceAddController',
 						    controllerAs: 'vm'
 					    }).
+				        when('/conceptstopword-list/conceptstopword-add', {
+				      	  templateUrl: 'partials/conceptstopword-add.html',
+				      	  controller: 'ConceptStopWordAddController',
+				      	  controllerAs: 'vm',
+						  resolve: {
+							  serverLocales : serverLocales
+						  }
+				        }).
 					    when('/reference/reference-add', {
 					  	  templateUrl: 'partials/reference-add.html',
 					  	  controller: 'ReferenceAddController',
@@ -48,6 +56,14 @@ angular
 						  resolve: {
 							  sources : loadSources
 						  }
+					    }).
+					    when('/conceptstopword-list', {
+						    templateUrl: 'partials/conceptstopword-list.html',
+						    controller: 'ConceptStopWordListController',
+						    controllerAs: 'vm',
+						    resolve: {
+							    loadConceptStopWords : loadConceptStopWords
+						    }
 					    }).
                         when('/class-list/:classUUID', {
                         	templateUrl: 'partials/class-edit.html',
@@ -136,6 +152,9 @@ function loadSources (openmrsRest){
 function loadSource ($route, openmrsRest){
 	return openmrsRest.getFull('conceptsource',
 		{uuid: $route.current.params.sourceUUID});
+};
+function loadConceptStopWords (openmrsRest){
+	return openmrsRest.listFull('conceptstopword');
 };
 function loadClass ($route, openmrsRest){
 	return openmrsRest.getFull('conceptclass',

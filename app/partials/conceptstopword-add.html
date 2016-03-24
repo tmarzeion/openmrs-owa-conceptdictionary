@@ -1,0 +1,23 @@
+<div>
+    <h2>Concept Stop Word Form</h2>
+    <h3>{{vm.responseMessage}}</h3>
+    <form name="classForm">
+
+        <div>
+            Name<span class="required">*</span>
+            <input type="text" name="name" size="35" ng-model="vm.conceptStopWord.value" ng-required="true" value="">
+
+            <select
+                    ng-required="true"
+                    ng-model="vm.conceptStopWord.locale"
+                    ng-options="serverLocale as serverLocale for serverLocale in vm.serverLocales">
+            </select>
+        </div>
+
+        <br>
+
+        <input type="submit" value="Save Concept Class" ng-disabled="classForm.$invalid" ng-click="vm.addConceptStopWord()">
+        <input type="button" value="Cancel" ng-click="vm.cancel()">
+    </form>
+
+</div>
