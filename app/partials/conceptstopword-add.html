@@ -1,23 +1,25 @@
-<div>
-    <h2>Concept Stop Word Form</h2>
-    <h3>{{vm.responseMessage}}</h3>
-    <form name="classForm">
-
-        <div>
-            Name<span class="required">*</span>
-            <input type="text" name="name" size="35" ng-model="vm.conceptStopWord.value" ng-required="true" value="">
-
-            <select
-                    ng-required="true"
-                    ng-model="vm.conceptStopWord.locale"
-                    ng-options="serverLocale as serverLocale for serverLocale in vm.serverLocales">
-            </select>
+<div class="dashboard clear">
+    <div class="info-section">
+        <div class="info-header"><h1><strong>
+            <h3>{{vm.responseMessage}}</h3>
+            <i class="icon-edit"></i>Concept Stop Word Form</strong></h1>
         </div>
+        <div class="info-body">
+            <div>
+                Name<span class="required">*</span>
+                <input type="text" name="name" size="35" ng-model="vm.conceptStopWord.value" ng-required="true"
+                       value="">
 
-        <br>
-
-        <input type="submit" value="Save Concept Class" ng-disabled="classForm.$invalid" ng-click="vm.addConceptStopWord()">
-        <input type="button" value="Cancel" ng-click="vm.cancel()">
-    </form>
-
+                <select
+                        ng-required="true"
+                        ng-model="vm.conceptStopWord.locale"
+                        ng-options="serverLocale as serverLocale for serverLocale in vm.serverLocales">
+                </select>
+            </div>
+            <br>
+        </div>
+        <button ng-disabled="!(vm.conceptStopWord.locale)" ng-click="vm.addConceptStopWord()"><i
+                class="icon-ok"></i><strong>&#160;Save</strong></button>
+        <button ng-click="vm.cancel()"><i class="icon-remove"></i><strong>&#160;Cancel</strong></button>
+    </div>
 </div>

@@ -1,24 +1,35 @@
-<div>
-    <h2>Concept Stop Word Management</h2>
-    <h3 ng-show="vm.conceptStopWordAdded">{{vm.conceptStopWordAdded}} has been saved.</h3>
-    <form method="post" class="box" name="conceptstopword-list">
-        <button ng-click='vm.goTo("/conceptstopword-list/conceptstopword-add")'>Add Concept Class</button>
-        <table>
-            <tbody><tr>
-                <th> </th>
-                <th> Name </th>
-                <th> Locale </th>
-            </tr>
-            <tr ng-repeat="conceptStopWord in vm.conceptStopWords" >
-                <td valign="top"><input type="checkbox" ng-change="vm.refreshButtonState()" ng-model="vm.selected[conceptStopWord.uuid]" name="conceptStopWordId" value="{{conceptStopWord.uuid}}"></td>
-                <td valign="top">
-                    {{conceptStopWord.display}}
-                </td>
-                <td valign="top">{{conceptStopWord.locale}}</td>
-            </tr>
-            </tbody>
-        </table>
+<div class="dashboard clear" xmlns="http://www.w3.org/1999/html">
 
-        <input type="submit" value="Delete Selected Concept Stop Words" ng-disabled="!(vm.isSelected)" ng-click="vm.deleteSelected()">
-    </form>
+    <div class=info-section">
+
+        <div class="info-header">
+            <h3 ng-show="vm.conceptStopWordAdded">{{vm.conceptStopWordAdded}} has been saved.</h3>
+            <strong>
+                <h1><i class="icon-cogs"></i>Concept Stop Word Management</h1>
+            </strong>
+        </div>
+
+        <div class="info-body">
+
+            <ul>
+                <li ng-repeat="conceptStopWord in vm.conceptStopWords">
+                    <i class="icon-angle-right"></i>
+                    <input type="checkbox" ng-change="vm.refreshButtonState()" ng-model="vm.selected[conceptStopWord.uuid]"
+                           name="conceptStopWordId" value="{{conceptStopWord.uuid}}">
+                    {{conceptStopWord.display}}
+                    <span style="color: #D0D0D0; ">({{conceptStopWord.locale}})</span>
+                </li>
+            </ul>
+        </div>
+    </div>
+
+    <button ng-click='vm.goTo("/conceptstopword-list/conceptstopword-add")'>
+        <i class="icon-plus"></i>
+        <strong>&#160;Add</strong>
+    </button>
+    <button value="" ng-disabled="!(vm.isSelected)" ng-click="vm.deleteSelected()">
+        <i class="icon-remove"></i>
+        <strong>&#160;Delete</strong>
+    </button>
+
 </div>
