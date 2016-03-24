@@ -26,6 +26,8 @@ describe('Concept dictionary controllers', function () {
 
         beforeEach(inject(function (_$httpBackend_, $controller, openmrsRest, _$location_, _$routeParams_) {
             $httpBackend = _$httpBackend_;
+            $httpBackend.whenGET('/ws/rest/v1/conceptclass?v=full').respond({});
+            $httpBackend.whenGET('partials/class-list.html').respond();
             $httpBackend.whenGET('/ws/rest/v1/conceptstopword?v=full')
                 .respond({
                         results: [
