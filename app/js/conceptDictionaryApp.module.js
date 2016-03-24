@@ -147,8 +147,9 @@ angular
                         	}
                         }).
                         otherwise({
-                          redirectTo: '/class-list'
-                        });
+						  redirectTo: '/',
+						  templateUrl: 'partials/index-menu.html'
+					  });
                     }]);
 
 function loadConcept ($route, openmrsRest){

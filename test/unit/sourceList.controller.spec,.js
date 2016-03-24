@@ -27,7 +27,7 @@ describe('Concept dictionary controllers', function() {
         beforeEach(inject(function(_$httpBackend_, $controller ,openmrsRest) {
             $httpBackend = _$httpBackend_;
             $httpBackend.whenGET('/ws/rest/v1/conceptclass?v=full').respond({});
-            $httpBackend.whenGET('partials/class-list.html').respond();
+            $httpBackend.whenGET('partials/index-menu.html').respond();
             $httpBackend.whenGET('/ws/rest/v1/conceptsource?includeAll=true&v=full').respond();
             $httpBackend.expectGET('/ws/rest/v1/conceptsource?includeAll=true&v=full')
                 .respond(

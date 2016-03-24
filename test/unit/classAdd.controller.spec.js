@@ -30,6 +30,8 @@ describe('Concept dictionary controllers', function() {
             respond({results:{name: 'Anatomy', description: 'Anatomic sites / descriptors'}});
             $httpBackend.whenGET('/ws/rest/v1/conceptclass?v=full').respond({});
             $httpBackend.whenGET('partials/class-list.html').respond();
+            $httpBackend.whenGET('partials/index-menu.html').respond();
+
 
             scope = $rootScope.$new();
             
