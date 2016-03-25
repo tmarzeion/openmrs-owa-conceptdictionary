@@ -20,7 +20,7 @@
 
 			<div class="info-header">
 				<h1>
-					<strong><i class="icon-edit"></i>Concept Form</strong>
+					<strong><i class="icon-edit"></i>{{"Concept.title" | translate}}</strong>
 				</h1>
 			</div>
 			<form method="post">
@@ -32,7 +32,7 @@
 							<td title="The locale in which the concept name belongs ">
 
 								<div class="info-header">
-									<strong>Locale:&#160;&#160;</strong>
+									<strong>{{"Locale" | translate}}:&#160;&#160;</strong>
 
 									<button class="localeButtons-repeat"
 										ng-repeat="locale in vm.serverLocales"
@@ -45,13 +45,13 @@
 
 										<li>
 											<p class="left">
-												Fully Specified Name<span class="required">*</span> <img
+												{{"Concept.fullySpecifiedName" | translate}}<span class="required">*</span> <img
 												class="help_icon" src="/openmrs/images/help.gif"
 												title="The name to be used on forms, reports etc. in case no preferred name is set for the locale"
 												border="0">
 											</p>
 											<p class="left" ng-show="vm.selectedLocaleData.synonyms.length > 0">
-												Preferred  <img class="help_icon"
+												{{"Concept.name.localePreferred" | translate}}  <img class="help_icon"
 												src="/openmrs/images/help.gif"
 												title="Whether this name is the preferred name in its language and will be returned by default e.g on reports"
 												border="0">
@@ -74,7 +74,7 @@
 										</li>
 										<li ng-show="vm.selectedLocaleData.fullname.display.length>0">
 											<div>
-												    Synonyms <img class="help_icon_bottom"
+												{{"Concept.synonyms" | translate}} <img class="help_icon_bottom"
 													src="/openmrs/images/help.gif"
 													title="Any label or name that refers to a primary concept."
 													border="0">
@@ -93,17 +93,17 @@
 													ng-value="synonym" type="radio">
 												</p>
 												<p class="left">
-													<a class="button cancel" valign="middle" ng-click="vm.deleteSynonym(synonym)" type="button"><i class="icon-remove"></i>Remove</a>
+													<a class="button cancel" valign="middle" ng-click="vm.deleteSynonym(synonym)" type="button"><i class="icon-remove"></i>{{"Remove" | translate}}</a>
 												</p>	
 													
 											</div> 
 											
 											<a class="button confirm"
-											ng-click="vm.pushSynonyms()" valign="middle"><i class="icon-plus"></i>Add Synonym</a>
+											ng-click="vm.pushSynonyms()" valign="middle"><i class="icon-plus"></i>{{"Concept.synonym.add" | translate}}</a>
 										</li>
 										<li class="localeSpecific" ng-show="vm.selectedLocaleData.fullname.display.length>0">
 											<div valign="top">
-												Search Terms <img class="help_icon_bottom"
+												{{"Concept.indexTerms" | translate}} <img class="help_icon_bottom"
 													src="/openmrs/images/help.gif"
 													title="An index term or phrase that might be used to search for this concept but that is not valid for display purposes or storing in the record (e.g., common misspellings or pragmatic mapping term)"
 													border="0">
@@ -123,19 +123,19 @@
 												</p>
 												<p class="left">
 													<a class="button cancel"
-														ng-click="vm.deleteSearchTerm(term)" type="button"><i class="icon-remove"></i>Remove</a>
+														ng-click="vm.deleteSearchTerm(term)" type="button"><i class="icon-remove"></i>{{"Remove" | translate}}</a>
 												</p>	
 
 											</div> 
 											
 											<a class="button confirm"
-											ng-click="vm.pushSearchTerms()" type="button"><i class="icon-plus"></i>Add Search Term</a>
+											ng-click="vm.pushSearchTerms()" type="button"><i class="icon-plus"></i>{{"Concept.indexTerm.add" | translate}}</a>
 
 
 										</li>
 										<li class="localeSpecific" ng-show="vm.selectedLocaleData.fullname.display.length>0">
 											<div>
-												Short Name <img class="help_icon_bottom"
+												{{"Concept.shortName" | translate}} <img class="help_icon_bottom"
 													src="/openmrs/images/help.gif"
 													title="The text shown in report headers and other places where space is limited"
 													border="0">
@@ -147,7 +147,7 @@
 										</li>
 										<li class="localeSpecific" ng-show="vm.selectedLocaleData.fullname.display.length>0">
 											<div>
-												Description <img class="help_icon_top"
+												{{"Description" | translate}} <img class="help_icon_top"
 													src="/openmrs/images/help.gif"
 													title="Longer body of text used to fully describe this concept and how it is used."
 													border="0">
@@ -163,7 +163,7 @@
 						</tr>
 
 						<tr>
-							<td>Class <img class="help_icon_bottom"
+							<td>{{"Concept.conceptClass" | translate}} <img class="help_icon_bottom"
 								src="/openmrs/images/help.gif"
 								title="The classification of the medical concept" border="0">
 
@@ -174,7 +174,7 @@
 							</td>
 						</tr>
 						<tr>
-							<td valign="top">Is Set <img class="help_icon"
+							<td valign="top">{{"Concept.set" | translate}} <img class="help_icon"
 								src="/openmrs/images/help.gif"
 								title="Whether this concept is or not a set " border="0">
 
@@ -185,13 +185,13 @@
 
 						<tr ng-show="vm.concept.set">
 							<td>
-								<p>Set Members</p>
+								<p>{{"Concept.conceptSets" | translate}}</p>
 								<concept-table on-update="vm.onSetMemberTableUpdate(concepts)"></concept-table>
 							</td>														
 						</tr>
 
 						<tr>
-							<td>Datatype <img class="help_icon"
+							<td>{{"Concept.datatype" | translate}} <img class="help_icon"
 								src="/openmrs/images/help.gif"
 								title="If data is stored within this concept, this describes what it will look like"
 								border="0"> <select name="repeatDatatype"
@@ -204,7 +204,7 @@
 
 						<tr ng-show='vm.isCoded'>
 							<td valign="top">
-								<p>Answers<img class="help_icon"
+								<p>{{"Concept.answers" | translate}}<img class="help_icon"
 									id="tooltipCodedIcon" src="/openmrs/images/help.gif"
 									title="Answer Concept(s) in case this concept is a question"
 									border="0"></p>
@@ -215,51 +215,50 @@
 						<tr id="numericDatatypeRow">
 							<td ng-show='vm.isNumeric' valign="top">
 								<div class="info-header">
-									<strong>Numeric</strong> <img class="help_icon"
+									<strong>{{"ConceptNumeric.name" | translate}}</strong> <img class="help_icon"
 										id="tooltipNumericIcon" src="/openmrs/images/help.gif"
-										title="Numeric value ranges" border="0"> <small><em>(range
-											values are inclusive)</em></small>
+										title="Numeric value ranges" border="0"> <small><em>({{"ConceptNumeric.inclusive" | translate}})</em></small>
 								</div>
 								<table border="0">
 									<tbody>
 										<tr>
-											<th valign="middle">Absolute High</th>
+											<th valign="middle">{{"ConceptNumeric.absoluteHigh" | translate}}</th>
 											<td valign="middle"><input name="hiAbsolute" value=""
 												class="smallWidth" type="number" step="any"
 												ng-model="vm.concept.hiAbsolute"></td>
 										</tr>
 										<tr>
-											<th valign="middle">Critical High</th>
+											<th valign="middle">{{"ConceptNumeric.criticalHigh" | translate}}</th>
 											<td valign="middle"><input name="hiCritical" value=""
 												class="smallWidth" type="number" step="any"
 												ng-model="vm.concept.hiCritical"></td>
 										</tr>
 										<tr>
-											<th valign="middle">Normal High</th>
+											<th valign="middle">{{"ConceptNumeric.normalHigh" | translate}}</th>
 											<td valign="middle"><input name="hiNormal" value=""
 												class="smallWidth" type="number" step="any"
 												ng-model="vm.concept.hiNormal"></td>
 										</tr>
 										<tr>
-											<th valign="middle">Normal Low</th>
+											<th valign="middle">{{"ConceptNumeric.normalLow" | translate}}</th>
 											<td valign="middle"><input name="lowNormal" value=""
 												class="smallWidth" type="number" step="any"
 												ng-model="vm.concept.lowNormal"></td>
 										</tr>
 										<tr>
-											<th valign="middle">Critical Low</th>
+											<th valign="middle">{{"ConceptNumeric.criticalLow" | translate}}</th>
 											<td valign="middle"><input name="lowCritical" value=""
 												class="smallWidth" type="number" step="any"
 												ng-model="vm.concept.lowCritical"></td>
 										</tr>
 										<tr>
-											<th valign="middle">Absolute Low</th>
+											<th valign="middle">{{"ConceptNumeric.absoluteLow" | translate}}</th>
 											<td valign="middle"><input name="lowAbsolute" value=""
 												class="smallWidth" type="number" step="any"
 												ng-model="vm.concept.lowAbsolute"></td>
 										</tr>
 										<tr>
-											<th>Units</th>
+											<th>{{"ConceptNumeric.units" | translate}}</th>
 											<td colspan="2"><input name="units" value=""
 												class="mediumWidth" type="text" ng-model="vm.concept.units">
 
@@ -267,12 +266,12 @@
 											</td>
 										</tr>
 										<tr>
-											<th>Allow Decimal?</th>
+											<th>{{"ConceptNumeric.allowDecimal" | translate}}</th>
 											<td colspan="2"><input type="checkbox"
 												ng-model="vm.concept.allowDecimal"></td>
 										</tr>
 										<tr>
-											<th>Display Precision</th>
+											<th>{{"ConceptNumeric.displayPrecision" | translate}}</th>
 											<td colspan="2"><input name="displayPrecision" value=""
 												class="smallWidth" type="number" step="any"
 												ng-model="vm.concept.displayPrecision"></td>
@@ -283,7 +282,7 @@
 						</tr>
 
 						<tr ng-show="vm.isComplex" id="complexDatatypeRow">
-							<td valign="top">Handler <img class="help_icon"
+							<td valign="top">{{"ConceptComplex.handler" | translate}} <img class="help_icon"
 								id="tooltipComplexIcon" src="/openmrs/images/help.gif"
 								title="Handlers for complex concept reponses e.g an x-ray image handler"
 								border="0"> <select name="handlerKey"
@@ -312,13 +311,11 @@
 
 				<div id="saveDeleteButtons" style="margin-top: 15px">
 
-					<button ng-disabled="!vm.isFormValid" ng-click="vm.postConcept()"><i class="icon-ok"></i><strong>&#160;Save Concept</strong></button> 
-					<button ng-disabled="!vm.isFormValid" ng-click=""><i class="icon-ok"></i><strong>&#160;Save and Continue</strong></button>
-					<button ng-click=""><i class="icon-remove"></i><strong>&#160;Cancel</strong></button>
-
-
+					<button ng-disabled="!vm.isFormValid" ng-click="vm.postConcept()"><i class="icon-ok"></i><strong>&#160;{{"Concept.save" | translate}}</strong></button>
+					<button ng-disabled="!vm.isFormValid" ng-click=""><i class="icon-ok"></i><strong>&#160;{{"Concept.saveAndContinue" | translate}}</strong></button>
+					<button ng-click=""><i class="icon-remove"></i><strong>&#160;{{"Concept.cancel" | translate}}</strong></button>
+					
 				</div>
-
 			</form>
 		</div>
 	</div>

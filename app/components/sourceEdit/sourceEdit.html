@@ -1,25 +1,25 @@
 <div class="container">
 	<div class="dashboard clear">
 		<div class ="info-section">
-			<div class="info-header"><h1><strong><i class="icon-edit"></i>Concept Source Form</strong></h1></div>	
+			<div class="info-header"><h1><strong><i class="icon-edit"></i>{{"ConceptSource.title" | translate}}</strong></h1></div>
 				<div class="info-body">
 			        <div class ="info-section">
-						<div class="info-header"><h2><strong><i class="icon-book"></i>Data</strong></h2></div>	
+						<div class="info-header"><h2><strong><i class="icon-book"></i>{{"Data" | translate}}</strong></h2></div>
 							<div class="info-body">
 						        <ul>
 						            <li>
-						                <div>Name<span class="required">*</span></div>
+						                <div>{{"Name" | translate}}<span class="required">*</span></div>
 						                <div>
 						                    <input name="name" ng-model="vm.source.name"size="35" type="text">
 						                </div>
 						            </li>
 						            <li>
-						                <div>HL7 Code</div>
+						                <div>{{"ConceptSource.hl7Code" | translate}}</div>
 						                    <input name="hl7Code" ng-model="vm.source.hl7Code" size="35" maxlength="20" type="text">
 
 						            </li>
 						            <li>
-						                <div>Description<span class="required">*</span></div>
+						                <div>{{"Description" | translate}}<span class="required">*</span></div>
 										<div>
 						                    <textarea ng-model="vm.source.description" name="description" rows="3" cols="40"></textarea>
 						               	</div>
@@ -27,14 +27,14 @@
 						
 						            <li>
 
-						                <small>Created By&#160;</small>
+						                <small>{{"CreatedBy" | translate}}&#160;</small>
 
 						                    {{vm.source.auditInfo.creator.display}} -
 						                    {{vm.source.auditInfo.dateCreated|date:'medium'}}
 
 						            </li>
 					           		<li ng-show="vm.source.auditInfo.changedBy != null">
-						                <small>Changed By&#160;</small>
+						                <small>{{"ChangedBy" | translate}}&#160;</small>
 
 						                    {{vm.source.auditInfo.changedBy.display}} -
 						                    {{vm.source.auditInfo.dateChanged|date:'medium'}}
@@ -52,36 +52,38 @@
 				
 				    <div class ="info-section">
 						<div class="info-header"><h2>
-								<span ng-show="!vm.source.retired"><strong><i class="icon-lock"></i>Retire</strong></span>
-						        <span ng-show="vm.source.retired"><strong><i class="icon-reply"></i>Unretire</strong></span>
+								<span ng-show="!vm.source.retired"><strong><i class="icon-lock"></i>{{"Retire" | translate}}</strong></span>
+						        <span ng-show="vm.source.retired"><strong><i class="icon-reply"></i>{{"Unretire" | translate}}</strong></span>
 						</strong></h2></div>	
 							<div class="info-body">
 						
 						        <div ng-show="vm.source.retired">
 						        	<ul>
-							            <li>Retired by {{vm.source.auditInfo.retiredBy.display}} - 
-							            on {{vm.source.auditInfo.dateRetired|date: 'medium'}} </li>
-							            <li>Reason: {{vm.source.auditInfo.retireReason}}</li>
-							            <li><button ng-show="vm.source.retired" ng-click="vm.retire()"><i class="icon-reply"></i><strong>&#160;Unretire</strong></button></li>
+							            <li>{{"RetiredBy" | translate}} {{vm.source.auditInfo.retiredBy.display}} -
+											{{"RetiredOn" | translate}} {{vm.source.auditInfo.dateRetired|date: 'medium'}} </li>
+							            <li>{{"Reason" | translate}}: {{vm.source.auditInfo.retireReason}}</li>
+							            <li><button ng-show="vm.source.retired" ng-click="vm.retire()"><i class="icon-reply"></i><strong>&#160;{{"Unretire" | translate}}</strong></button></li>
 						        	</ul>
 								</div>
 						
 						        <div ng-show="!vm.source.retired">
 						            <div>
-						                <div valign="top">Retire reason<span class="required">*</span></dov>
+						                <div valign="top">{{"RetireReason" | translate}}<span class="required">*</span></dov>
 						                <div>
 						                    <textarea ng-model="vm.source.auditInfo.retireReason" rows="3" cols="50"></textarea>
 						                </div>
 						            </div>
 						        </div>
-							        <button ng-disabled="vm.source.auditInfo.retireReason.length() == 0" ng-click="vm.retire()"><i class="icon-lock"></i><strong>&#160;Retire</strong></button>
+							        <button ng-disabled="vm.source.auditInfo.retireReason.length() == 0" ng-click="vm.retire()">
+										<i class="icon-lock"></i><strong>&#160;Retire</strong>
+									</button>
 				    			</div>
 				    </div>
 			</div>
 
-		    <button ng-disabled="!vm.isSavePossible()" ng-click="vm.save()" ><i class="icon-ok"></i><strong>&#160;Save Concept Source</strong></button>
-		    <button ng-click="vm.cancel()" ><i class="icon-remove"></i><strong>&#160;Cancel</strong></button>
-		    <button ng-click="vm.deleteForever()"><i class="icon-trash"></i><strong>&#160;Delete forever</strong></button>
+		    <button ng-disabled="!vm.isSavePossible()" ng-click="vm.save()" ><i class="icon-ok"></i><strong>&#160;{{"ConceptSource.save" | translate}}</strong></button>
+		    <button ng-click="vm.cancel()" ><i class="icon-remove"></i><strong>&#160;{{"Concept.cancel" | translate}}</strong></button>
+		    <button ng-click="vm.deleteForever()"><i class="icon-trash"></i><strong>&#160;{{"DeleteForever" | translate}}</strong></button>
 		</div>
 	</div>
 </div>

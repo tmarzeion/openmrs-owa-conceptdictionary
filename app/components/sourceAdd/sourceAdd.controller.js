@@ -4,7 +4,7 @@ angular
 
 SourceAddController.$inject = ['openmrsRest', '$location'];
 
-function SourceAddController (openmrsRest, $location ){
+function SourceAddController (openmrsRest, $location){
 
     var vm = this;
 

@@ -8,6 +8,7 @@ ConceptStopWordListController.$inject =
 function ConceptStopWordListController (loadConceptStopWords, $location, $routeParams, openmrsRest) {
 
     var vm = this;
+
     //array of concept stop words0
     vm.conceptStopWords = loadConceptStopWords.results;
     //map of selected concept stop words

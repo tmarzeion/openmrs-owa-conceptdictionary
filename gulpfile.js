@@ -27,7 +27,7 @@ var plugins = gulpLoadPlugins();
 var THIS_APP_ID = 'conceptdictionary';
 
 var htmlGlob = ['app/**/*.html'];
-var resourcesGlob = ['app/**/*.{png,svg,jpg,gif}', 'app/**/*.{css,less}',
+var resourcesGlob = ['app/**/*.{png,svg,jpg,gif,json}', 'app/**/*.{css,less}',
   'app/**/*.js', '!app/**/*.spec.js', 'app/manifest.webapp', /* list extra resources here */
 ];
 

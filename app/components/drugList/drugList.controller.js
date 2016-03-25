@@ -3,15 +3,15 @@
 	
 	angular
 		.module('conceptDictionaryApp')
-		.controller('DrugsListController', DrugsListController)
+		.controller('DrugsListController', DrugsListController);
 		
 	DrugsListController.$inject = 
-		['loadDrugs', 'loadRetiredDrugs', '$location', 'openmrsRest', '$routeParams']
+		['loadDrugs', 'loadRetiredDrugs', '$location', 'openmrsRest', '$routeParams'];
 		
 	function DrugsListController(loadDrugs, loadRetiredDrugs, $location, openmrsRest, $routeParams){
 		
 		var vm = this;
-		
+
 		vm.drugsList;
 		vm.retiredOn = false;
 		

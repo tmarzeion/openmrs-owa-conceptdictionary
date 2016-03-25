@@ -8,7 +8,7 @@ angular
 	function DatatypeListController($scope, $routeParams, openmrsRest){
 
 		var vm = this;
-		
+
 		vm.currentPageResults;
 		
 		vm.isNext;
@@ -37,5 +37,4 @@ angular
 		function prevPage(){
 			activate(vm.currentPageResults.previousQuery)
 		}
-		
 	}

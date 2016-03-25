@@ -1,31 +1,41 @@
 <div class="container">
 	<div class="dashboard clear">
-		<div ng-show="vm.isError" id="error-message" class="note-container">
-	            <div class="note error">
-	                <div class="text">
-	                    <i class="icon-ok medium"></i>                    
-	                        <p>&#160;&#160;{{vm.responseMessage}}</p>                    
-	                </div>
-	            </div>
-		</div>   
-		<div class ="info-section">
-			<div class="info-header"><h1><strong><i class="icon-plus"></i>Concept Class Form</strong></h1></div>	
-			<form name="classAdd">
-				<div class="info-body">		
-						<div>Name<span class="required">*</span></div>
-						<div>		
-							<input type="text" name="name" size="35" ng-model="vm.class.name" required/>
-						</div>
-						<div>Description</div>
-						<div>			
-							<textarea name="description" rows="3" cols="40" ng-model="vm.class.description"></textarea>
-						</div>
+		<div class="info-section">
+			<div class="info-header">
+				<h1>
+					<strong>
+						<i class="icon-plus"></i>
+						{{"ConceptClass.title" | translate}}
+					</strong>
+				</h1>
+			</div>
+			<form method="post" name="class-add">
+				<div class="info-body">
+					<div>{{"Name" | translate}}<span class="required">*</span></div>
+					<div>
+						<input type="text" name="name" size="35" ng-model="vm.class.name" ng-required="true" value="">
+					</div>
+					<div>{{"Description" | translate}}</div>
+					<div>
+						<textarea name="description" rows="3" cols="40" ng-model="vm.class.description"></textarea>
+					</div>
 				</div>
-				
-				<div>				
-					<button ng-disabled="classAdd.$invalid" ng-click="vm.addClass()"><i class="icon-ok"></i><strong>&#160;Save Concept Class</strong></button>
-					<button ng-click="vm.cancel()"><i class="icon-remove"></i><strong>&#160;Cancel</strong></button>
-				</div>	
+
+				<div>
+					<a class="button" type="submit" ng-disabled="classForm.$invalid" ng-click="vm.addClass()">
+						<i class="icon-ok"></i>
+						<strong>
+							&#160;{{"ConceptClass.save" | translate}}
+						</strong>
+					</a>
+					<a class="button" type="submit" ng-click="vm.cancel()"><i class="icon-remove">
+					</i>
+						<strong>
+							&#160;{{"Concept.cancel" | translate}}
+						</strong>
+					</a>
+				</div>
+
 			</form>
 		</div>
 	</div>

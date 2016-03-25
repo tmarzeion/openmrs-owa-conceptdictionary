@@ -11,7 +11,7 @@
 	function DrugEditController($location, openmrsRest, loadDrug){
 		
 		var vm = this;
-		
+
 		vm.drug;
 		vm.responseMessage;
 		vm.isConceptCorrect = true;
