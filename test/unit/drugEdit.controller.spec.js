@@ -33,7 +33,8 @@ describe('Concept dictionary controllers', function() {
             $httpBackend.whenPOST('/ws/rest/v1/drug/2b22dc27-72ec-4ab5-9fa8-d98be91adc1c').
             respond({ name: 'Morphine', 
             		strength: 'high', 
-            		uuid: "2b22dc27-72ec-4ab5-9fa8-d98be91adc1c"});            
+            		uuid: "2b22dc27-72ec-4ab5-9fa8-d98be91adc1c"});   
+            $httpBackend.whenGET('/ws/rest/v1/drug?includeAll=true&v=full').respond();         
             $httpBackend.whenGET('/ws/rest/v1/conceptclass?v=full').respond({});      
             $httpBackend.whenGET('/ws/rest/v1/drug?v=full').respond({});
             $httpBackend.whenGET('partials/index-menu.html').respond();

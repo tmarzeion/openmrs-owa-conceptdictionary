@@ -2,44 +2,53 @@
 	<div class="dashboard clear">
 		<div class ="info-section">
 			<div class="info-header"><h1><strong><i class="icon-plus"></i>Concept Drug Form</strong></h1></div>	
-			<form name="drug-add">
-				<div class="info-body">	
-					<ul>
-						<li><div>Name<p class=left><input type="text" ng-model='vm.name'></div></li>	
-						<li>
-							
-								Concept<span class="required">*</span>
-								<p class=left><concept-auto-complete required='true'	limit-to-drugs='vm.limitToDrugs' concept='vm.concept' on-update='vm.updateConcept(isCorrect, concept)'></concept-auto-complete>
-								</p>
-						</li>	
-						<li>
-							Combination<p class='left'><input type="checkbox" ng-model='vm.combination'></p>
-						</li>	
-						<li>
-						
-								Dosage Form
-								<p class=left><concept-auto-complete	required='false' concept='vm.dosageForm' limit-to-drugs='false' on-update='vm.updateDosageForm(isCorrect, concept)'></concept-auto-complete>
-								</p>
-						</li>	
-						<li>
-							Strength<p class=left><input type="text" ng-model='vm.strength'></p>
-						</li>	
-						<li>Minimum Dose<p class=left><input type="text" ng-model='vm.minimumDailyDose'></p></li>	
-						<li>Maximum Dose<p class=left><input type="text" ng-model='vm.maximumDailyDose'></p></li>
-						<li>
-							
-								Route
-								<p class=left><concept-auto-complete	required='false' concept='vm.route' limit-to-drugs='false' on-update='vm.updateRoute(isCorrect, concept)'></concept-auto-complete>
-								</p>
-						</li>
-						<li>Drug Ingredients</li>
-					</ul>
-				</div>			
-				<div>				
+			<form name="drugAdd">
+				<fieldset>
+					<p class="input-position-class">
+				      <label name="input-name">Name</label>
+				      <input name='name' id="input-name" ng-model='vm.name' required/>
+				      <span class="error" ng-show='drugAdd.name.$error.required'>Name is required</span>
+				    </p>
+				    <p class="input-position-class">
+				      <label name="input-concept">Concept<span class="required">*</span></label>
+				      <concept-auto-complete required='true' limit-to-drugs='vm.limitToDrugs' concept='vm.concept' on-update='vm.updateConcept(isCorrect, concept)'></concept-auto-complete>
+				      <span class="error field-error" ng-show='!vm.isConceptCorrect'>This concept does not exist</span>
+				    </p>
+				    <p class="input-position-class">
+				      <label name="input-dosage">Dosage Form</label>
+				      <concept-auto-complete required='false' concept='vm.dosageForm' limit-to-drugs='false' on-update='vm.updateDosageForm(isCorrect, concept)'></concept-auto-complete>
+				      <span class="error field-error" ng-show='!vm.isDosageCorrect'>This concept does not exist</span>
+				    </p>
+				    <p class="input-position-class">
+				      <label name="input-strength">Strength</label>
+				      <input id="input-name" ng-model='vm.strength'/>
+				    </p>
+				    <p class="input-position-class">
+				      <label name="input-mindose">Minimum Dose</label>
+				      <input id="input-minDose" ng-model='vm.minimumDailyDose'/>
+				    </p>
+				    <p class="input-position-class">
+				      <label name="input-maxdose">Maximum Dose</label>
+				      <input id="input-name" ng-model='vm.maximumDailyDose'/>
+				    </p>
+				    <p class="input-position-class">
+				      <label name="input-route">Route</label>
+				      <concept-auto-complete required='false' concept='vm.route' limit-to-drugs='false' on-update='vm.updateRoute(isCorrect, concept)'></concept-auto-complete>
+				      <span class="error field-error" ng-show='!vm.isRouteCorrect'>This concept does not exist</span>
+				    </p>	
+				    <p class="input-position-class">
+				      <label name="input-ingredients">Drug Ingredients</label>
+				    </p>
+				    <p class="input-position-class">
+				      <input id="input-comb" type="checkbox" ng-model='vm.combination'/>
+				      <label name="input-comb">Combination</label>
+				    </p>
+				</fieldset>
+			</form>
+			<div>				
 				<button ng-click='vm.saveDrug()' ng-disabled="vm.isCorrect()"><i class="icon-ok"></i><strong>Save</strong></button>
 				<button ng-click='vm.redirectToList()'><i class="icon-remove"></i><strong>Cancel</strong></button>
-				</div>	
-			</form>
+			</div>	
 		</div>
 	</div>
 </div>
