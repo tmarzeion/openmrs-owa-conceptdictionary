@@ -5,14 +5,15 @@
 		.module('conceptDictionaryApp')
 		.controller('ConceptAddController', ConceptAddController)
 		
-	ConceptAddController.$inject = ['serverLocales', 'loadClasses', 'loadDataTypes'];
+	ConceptAddController.$inject = ['serverLocales', 'loadClasses', 'loadDataTypes', 'conceptsService'];
 		
-	function ConceptAddController(serverLocales, loadClasses, loadDataTypes){
+	function ConceptAddController(serverLocales, loadClasses, loadDataTypes, conceptsService){
 		var vm = this;
 		//assign injected objects to this
 		vm.serverLocales = serverLocales;
 		vm.classes = loadClasses;
 		vm.datatypes = loadDataTypes;
+		
 		vm.handlers = [ "UNIMPLEMENTED YET"];
 		//flags and objects for view
 		vm.isNumeric;
@@ -30,29 +31,12 @@
 		vm.pushSearchTerms = pushSearchTerms;
 		vm.deleteSynonym = deleteSynonym;
 		vm.deleteSearchTerm = deleteSearchTerm;
+		vm.postConcept = postConcept;
+		//on-update functions, receiving arrays of selected concepts
+		vm.onSetMemberTableUpdate = onSetMemberTableUpdate;
+		vm.onAnswerTableUpdate = onAnswerTableUpdate;
 		//concept data to create post request
-		vm.concept = {
-				version : "",
-				conceptClass : "",
-				datatype : "",
-				set : "",
-				//numeric data
-				hiAbsolute : "",
-				hiCritical : "",
-				hiNormal : "",
-				lowAbsolute : "",
-				lowCritical : "",
-				lowNormal : "",
-				units : "",
-				allowDecimal : "",
-				displayPrecision : "",
-				//arrays of concept data
-				names : [],
-				descriptions : [],
-				answers : [],
-				setMembers: [],
-				handler : ""
-		};	
+		vm.concept = conceptsService.getEmptyConcept();
 		
 		activate();
 		
@@ -60,8 +44,8 @@
 			createLocalized();
 			vm.goLocale(serverLocales[0]);
 			vm.concept.conceptClass = vm.classes[0].uuid;
-			vm.concept.datatype = vm.datatypes[0].uuid;
-			vm.concept.handler = vm.handlers[0]
+			vm.concept.datatype = vm.datatypes[1].uuid;
+			//vm.concept.handler = vm.handlers[0]
 			checkType();
 		}
 		
@@ -81,8 +65,9 @@
 		function createLocalized(){
 			for (var index=0; index < vm.serverLocales.length; index++){
 				vm.localizedConcepts[serverLocales[index]] = {};
+				vm.localizedConcepts[serverLocales[index]].locale = serverLocales[index];
 				vm.localizedConcepts[serverLocales[index]].fullname = {};
-				vm.localizedConcepts[serverLocales[index]].fullname.display = "";
+				vm.localizedConcepts[serverLocales[index]].fullname.display;
 				vm.localizedConcepts[serverLocales[index]].preferredName = "";
 				vm.localizedConcepts[serverLocales[index]].shortname;
 				vm.localizedConcepts[serverLocales[index]].searchTerms = [];
@@ -93,17 +78,32 @@
 		function pushSynonyms(){
 			vm.selectedLocaleData.synonyms.push({display : ''});
 		}
-		function pushSearchTerms(){
-			vm.selectedLocaleData.searchTerms.push({display : ''});
-		}
 		function deleteSynonym(synonym){
 			var index = vm.selectedLocaleData.synonyms.indexOf(synonym);
 			vm.selectedLocaleData.synonyms.splice(index, 1);
+		}
+		function pushSearchTerms(){
+			vm.selectedLocaleData.searchTerms.push({display : ''});
 		}
 		function deleteSearchTerm(term){
 			var index = vm.selectedLocaleData.searchTerms.indexOf(term);
 			vm.selectedLocaleData.searchTerms.splice(index, 1);
 		}
-			
+		
+		function onSetMemberTableUpdate(concepts){
+			vm.concept.setMembers = [];
+			for(var i=0;i<concepts.length;i++){
+				vm.concept.setMembers.push(concepts[i].uuid)
+			}
+		}
+		function onAnswerTableUpdate(concepts){
+			vm.concept.answers = [];
+			for(var i=0;i<concepts.length;i++){
+				vm.concept.answers.push(concepts[i].uuid)
+			}
+		}
+		function postConcept(){
+			conceptsService.postConcept(vm.concept, vm.localizedConcepts);
+		}
 	};
 })();

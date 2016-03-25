@@ -96,7 +96,7 @@
 												ng-repeat="term in vm.selectedLocaleData.searchTerms">
 												
 												<p class="left">
-													<input ng-model="term.name" value="" class="largeWidth" type="text">
+													<input ng-model="term.display" value="" class="largeWidth" type="text">
 												</p> 
 												<p class="left">
 													<input name="placeHolder" value=""
@@ -121,7 +121,7 @@
 													title="The text shown in report headers and other places where space is limited"
 													border="0">
 											</div> <input class="smallWidth"
-											ng-model="vm.selectedLocaleData.shortname" type="text">
+											ng-model="vm.selectedLocaleData.shortname.display" type="text">
 
 
 
@@ -164,70 +164,11 @@
 							</td>
 						</tr>
 
-						<tr ng-show="vm.concept.set" id="conceptSetRow">
-
-							<td valign="top">Set Members <input
-								name="concept.conceptSets" id="conceptSets" size="40" value=""
-								type="hidden">
-								<table cellpadding="0" cellspacing="0">
-									<tbody>
-										<tr>
-											<td valign="top"><select class="largeWidth" size="6"
-												id="conceptSetsNames" width="200"
-												onkeyup="listKeyPress('conceptSetsNames', 'conceptSets', ' ', event);">
-
-											</select></td>
-											<td class="buttons" valign="top"><span
-												id="OpenmrsPopup_0"><span style="white-space: nowrap"><span
-														dojoattachpoint="displayNode"></span> <input value=""
-														dojoattachpoint="hiddenInputNode" type="hidden"><input
-														value="" dojoattachpoint="hiddenCodedDatatype"
-														id="hiddenCodedDatatype" type="hidden"><input
-														value="Add" dojoattachpoint="changeButton"
-														class="smallButton" type="button"> </span><span
-													style="display: none;" dojoattachpoint="otherNode"><input
-														value="" dojoattachpoint="otherInputNode" type="text"></span>
-													<div class="description"
-														dojoattachpoint="descriptionDisplayNode"></div> <span
-													style="display: none;" class="popupSearchForm"
-													dojoinsertionindex="0"><input value="X"
-														class="closeButton" type="button">
-														<h4>Find Concept(s)</h4> <span style="white-space: nowrap"><span
-															dojoattachpoint="searchLabelNode"></span> <input
-															style="width: 190px;" id="sSearch" value=""
-															dojoattachpoint="inputNode" autocomplete="off"
-															type="text"> <input style="display: none"
-															dojoattachpoint="includeRetired" type="checkbox">
-															<input style="display: none"
-															dojoattachpoint="includeVoided" type="checkbox">
-															<input style="display: none"
-															dojoattachpoint="verboseListing" type="checkbox"></span><span
-														class="openmrsSearchDiv"><table
-																class="openmrsSearchTable" style="width: 100%"
-																cellpadding="2" cellspacing="0">
-																<thead>
-																	<tr style="display: none;" dojoattachpoint="headerRow"></tr>
-																</thead>
-																<tbody dojoattachpoint="objHitsTableBody"
-																	style="vertical-align: top">
-																	<tr>
-																		<td class="searchIndex"></td>
-																		<td></td>
-																	</tr>
-																</tbody>
-															</table></span></span></span> <input value="Remove" class="smallButton"
-												onclick="removeItem('conceptSetsNames', 'conceptSets', ' ');"
-												style="display: block" type="button"> <input
-												value="Move Up" class="smallButton"
-												onclick="moveUp('conceptSetsNames', 'conceptSets');"
-												style="display: block" type="button"> <input
-												value="Move Down" class="smallButton"
-												onclick="moveDown('conceptSetsNames', 'conceptSets');"
-												style="display: block" type="button"></td>
-										</tr>
-									</tbody>
-								</table>
-							</td>
+						<tr ng-show="vm.concept.set">
+							<td>
+								<p>Set Members</p>
+								<concept-table on-update="vm.onSetMemberTableUpdate(concepts)"></concept-table>
+							</td>														
 						</tr>
 
 						<tr>
@@ -242,36 +183,13 @@
 							</td>
 						</tr>
 
-						<tr id="codedDatatypeRow" ng-show='vm.isCoded'>
-							<td valign="top">Answers <img class="help_icon"
-								id="tooltipCodedIcon" src="/openmrs/images/help.gif"
-								title="Answer Concept(s) in case this concept is a question"
-								border="0"> <input name="concept.answers" id="answerIds"
-								size="40" value="" type="hidden">
-
-
-								<table cellpadding="0" cellspacing="0">
-									<tbody>
-										<tr>
-											<td valign="top"><select class="largeWidth" size="6"
-												id="answerNames" multiple="multiple"
-												onkeyup="listKeyPress('answerNames', 'answerIds', ' ', event)">
-
-											</select></td>
-											<td class="buttons" valign="top"><input value="Add"
-												class="smallButton" onclick="addAnswer();" type="button"><br>
-												<input value="Remove" class="smallButton"
-												onclick="removeItem('answerNames', 'answerIds', ' ');"
-												type="button"><br> <input value="Move Up"
-												class="smallButton"
-												onclick="moveUp('answerNames', 'answerIds');"
-												style="display: block" type="button"> <input
-												value="Move Down" class="smallButton"
-												onclick="moveDown('answerNames', 'answerIds');"
-												style="display: block" type="button"></td>
-										</tr>
-									</tbody>
-								</table>
+						<tr ng-show='vm.isCoded'>
+							<td valign="top">
+								<p>Answers<img class="help_icon"
+									id="tooltipCodedIcon" src="/openmrs/images/help.gif"
+									title="Answer Concept(s) in case this concept is a question"
+									border="0"></p>
+									<concept-table on-update="vm.onAnswerTableUpdate(concepts)"></concept-table>								
 							</td>
 						</tr>
 
@@ -529,13 +447,9 @@
 
 				<div id="saveDeleteButtons" style="margin-top: 15px">
 
-					<a class="button"
-						onmouseup="removeHiddenRows()" type="submit"><i class="icon-ok"></i><strong>&#160;Save Concept</strong></a> 
-					<a class ="button"
-						onmouseup="removeHiddenRows()" type="submit"><i class="icon-ok"></i><strong>&#160;Save and Continue</strong></a>
-					<a
-						class="button"
-						type="submit"><i class="icon-remove"></i><strong>&#160;Cancel</strong></a>
+					<button ng-click="vm.postConcept()"><i class="icon-ok"></i><strong>&#160;Save Concept</strong></button> 
+					<button ng-click=""><i class="icon-ok"></i><strong>&#160;Save and Continue</strong></button>
+					<button ng-click=""><i class="icon-remove"></i><strong>&#160;Cancel</strong></button>
 
 
 				</div>
