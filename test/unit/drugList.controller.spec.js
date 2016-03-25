@@ -57,11 +57,11 @@ describe('Concept dictionary controllers', function() {
 
             var loadDrugs;
             openmrsRest.listFull('drug').then(function(response){
-                loadDrugs = response;
+                loadDrugs = response.results;
             });
             var loadRetiredDrugs;
             openmrsRest.listFull('drug', {includeAll: true}).then(function(response){
-            	loadRetiredDrugs = response;
+            	loadRetiredDrugs = response.results;
             });
 
             $httpBackend.flush();

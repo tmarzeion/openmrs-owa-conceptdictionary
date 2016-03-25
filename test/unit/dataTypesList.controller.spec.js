@@ -47,7 +47,7 @@ describe('Concept dictionary controllers', function() {
 
         it('Should load all dataTypes', function(){
 
-            expect(ctrl.dataTypes).toEqualData([{name: 'Date Datatype', description: 'Date Field Gen Datatype Handler'},
+            expect(ctrl.dataTypeList).toEqualData([{name: 'Date Datatype', description: 'Date Field Gen Datatype Handler'},
                 {name: 'Boolean Datatype', description: 'Boolean Field Gen Datatype Handler'}]);
 
         });

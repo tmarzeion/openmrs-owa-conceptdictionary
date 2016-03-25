@@ -132,11 +132,11 @@ angular
             if (vm.query.length>0) {
                 openmrsRest.listFull('concept', {q: vm.query, limit: vm.entriesPerPage, includeAll: true}).then(function (firstResponse) {
                     vm.loadingMorePages = true;
-                    vm.concepts = firstResponse;
+                    vm.concepts = firstResponse.results;
                     updateResultNotification();
 
                     openmrsRest.listFull('concept',{q: vm.query, includeAll: true}).then(function (response) {
-                        vm.concepts = response;
+                        vm.concepts = response.results;
                         updateResultNotification();
                         vm.loadingMorePages = false;
                     });

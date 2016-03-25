@@ -21,13 +21,13 @@
 		activate();
 		
 		function activate(){
-			vm.drugsList = loadDrugs;
+			vm.drugsList = loadDrugs.results;
 		}
 		
 		function toggleRetire(){
 			if(!vm.retiredOn){
 				vm.drugsList = [];
-				vm.drugsList = loadRetiredDrugs;
+				vm.drugsList = loadRetiredDrugs.results;
 				vm.retiredOn = true;
 			}else{
 				vm.drugsList = [];

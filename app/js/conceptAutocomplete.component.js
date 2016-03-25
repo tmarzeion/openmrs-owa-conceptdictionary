@@ -66,7 +66,7 @@
 			}
 			if(display.length > 1){
 				openmrsRest.listFull('concept',{q: display, includeAll: true}).then(function (response){
-					vm.concepts = response;
+					vm.concepts = response.results;
 					for(var i=0; i<vm.concepts.length; i++){
 						if((!vm.limitToDrugs) || (vm.concepts[i].conceptClass.display === 'Drug' && vm.limitToDrugs)){
 							vm.suggestions.push(vm.concepts[i]);
