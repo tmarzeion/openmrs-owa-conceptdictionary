@@ -57,12 +57,16 @@ describe('Concept dictionary controllers', function() {
 
             var loadDrugs;
             openmrsRest.listFull('drug').then(function(response){
-                loadDrugs = response;
+                loadDrugs = response.results;
+            });
+            var loadRetiredDrugs;
+            openmrsRest.listFull('drug', {includeAll: true}).then(function(response){
+            	loadRetiredDrugs = response.results;
             });
 
             $httpBackend.flush();
 
-            ctrl = $controller('DrugsListController', {$scope: scope, loadDrugs: loadDrugs});
+            ctrl = $controller('DrugsListController', {$scope: scope, loadDrugs: loadDrugs, loadRetiredDrugs: loadRetiredDrugs});
 
         }));
 
@@ -78,7 +82,6 @@ describe('Concept dictionary controllers', function() {
         
         it('Should load all drugs', function(){
         	ctrl.toggleRetire();
-        	$httpBackend.flush();
             expect(ctrl.drugsList).toEqualData([{ name: 'Morphine', 
 													strength: 'high', 
 													uuid: "2b22dc27-72ec-4ab5-9fa8-d98be91adc1c"},

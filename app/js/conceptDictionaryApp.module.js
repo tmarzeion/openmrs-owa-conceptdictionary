@@ -130,7 +130,8 @@ angular
                         	controller: 'DrugsListController',
                         	controllerAs: 'vm',
                         	resolve: {
-                        		loadDrugs : loadDrugs
+                        		loadDrugs : loadDrugs,
+                        		loadRetiredDrugs: loadRetiredDrugs
                         	}
                         }).
                         when('/drugs-list/add-drug', {
@@ -197,4 +198,7 @@ function loadDrug($route, openmrsRest){
 	return openmrsRest.getFull('drug', 
 			{uuid: $route.current.params.drugUUID});
 }
+function loadRetiredDrugs (openmrsRest){
+	return openmrsRest.listFull('drug', {includeAll: true});
+};
 

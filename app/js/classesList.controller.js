@@ -9,7 +9,7 @@ ClassesListController.$inject =
 	
 		var vm = this;
 		//array of concept classes
-        vm.classes = loadClasses;
+        vm.classes = loadClasses.results;
         //map of selected classes
         vm.selected = {};
         //checks if any is selected
