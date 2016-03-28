@@ -12,22 +12,23 @@
 		
 		var vm = this;
 		
-		vm.drugList;
+		vm.drugsList;
 		vm.retiredOn = false;
 		
 		vm.gotToAddDrugPage = gotToAddDrugPage;
 		vm.toggleRetire = toggleRetire;
+		vm.activate = activate;
 		
 		activate();
 		
 		function activate(){
-			vm.drugsList = loadDrugs.results;
+			vm.drugsList = loadDrugs;
 		}
 		
 		function toggleRetire(){
 			if(!vm.retiredOn){
 				vm.drugsList = [];
-				vm.drugsList = loadRetiredDrugs.results;
+				vm.drugsList = loadRetiredDrugs;
 				vm.retiredOn = true;
 			}else{
 				vm.drugsList = [];

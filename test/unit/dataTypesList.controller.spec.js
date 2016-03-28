@@ -26,7 +26,7 @@ describe('Concept dictionary controllers', function() {
 
         beforeEach(inject(function(_$httpBackend_, $rootScope, $controller, $routeParams, openmrsRest){
             $httpBackend = _$httpBackend_;
-            $httpBackend.expectGET('/ws/rest/v1/conceptdatatype?v=full').
+            $httpBackend.whenGET('/ws/rest/v1/conceptdatatype?limit=10&v=full').
             respond({results:[{name: 'Date Datatype', description: 'Date Field Gen Datatype Handler'},
                 {name: 'Boolean Datatype', description: 'Boolean Field Gen Datatype Handler'}]});
             $httpBackend.whenGET('/ws/rest/v1/conceptclass?v=full').respond({});
@@ -34,19 +34,17 @@ describe('Concept dictionary controllers', function() {
 
             scope = $rootScope.$new();
 
-            var loadDataTypes;
-            openmrsRest.listFull('conceptdatatype').then(function(response){
-                loadDataTypes = response;
-            });
 
             $httpBackend.flush();
 
-            ctrl = $controller('DataTypesListController', {$scope: scope, loadDataTypes: loadDataTypes});
+            ctrl = $controller('DataTypesListController', {$scope: scope});
 
         }));
 
         it('Should load all dataTypes', function(){
 
+            ctrl.activate({limit: 10});
+            $httpBackend.flush();
             expect(ctrl.dataTypeList).toEqualData([{name: 'Date Datatype', description: 'Date Field Gen Datatype Handler'},
                 {name: 'Boolean Datatype', description: 'Boolean Field Gen Datatype Handler'}]);
 

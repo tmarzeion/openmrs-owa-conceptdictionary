@@ -3,19 +3,18 @@ angular
 	.controller('DataTypesListController', DataTypesListController);
 	
 	DataTypesListController.$inject = 
-		['$scope', 'loadDataTypes', '$routeParams', 'openmrsRest'];
+		['$scope', '$routeParams', 'openmrsRest'];
 		
-	function DataTypesListController($scope, loadDataTypes, $routeParams, openmrsRest){
+	function DataTypesListController($scope, $routeParams, openmrsRest){
+
 		var vm = this;
 		
-		vm.previousPageResults;
 		vm.currentPageResults;
-		vm.nextPageResults;
 		
 		vm.isNext;
 		vm.isPrev;
 		
-		vm.dataTypeList;
+		vm.dataTypeList = [];
 		
 		vm.activate = activate;
 		vm.nextPage = nextPage;
