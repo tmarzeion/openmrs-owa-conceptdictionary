@@ -71,6 +71,7 @@ describe('Concept dictionary controllers', function() {
         }));
 
         it('Should load non-retired drugs', function(){
+            ctrl.activate();       
             expect(ctrl.drugsList).toEqualData([{ name: 'Morphine', 
 													strength: 'high', 
 													uuid: "2b22dc27-72ec-4ab5-9fa8-d98be91adc1c"},
