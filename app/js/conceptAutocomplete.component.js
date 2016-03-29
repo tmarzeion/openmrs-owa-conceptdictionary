@@ -43,7 +43,7 @@
 					vm.newConcept = vm.suggestions[i]
 					break;
 				}else{
-					vm.correct = false;
+					vm.isCorrect = false;
 					break;
 				}
 			} 
