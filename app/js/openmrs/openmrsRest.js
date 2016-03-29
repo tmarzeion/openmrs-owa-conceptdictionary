@@ -4,7 +4,7 @@
 (function() {
 	'use strict';
 
-	angular.module('openmrs', ['ngResource'])
+	angular.module('openmrsRest', ['ngResource'])
 		.factory('openmrsApi', openmrsApi)
 		.provider('openmrsRest', openmrsRest);
 

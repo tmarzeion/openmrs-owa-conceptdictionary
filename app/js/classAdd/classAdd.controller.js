@@ -25,7 +25,7 @@ angular
             openmrsRest.create('conceptclass', vm.json).then(function(success) {
                 //Fix this
                 vm.success = true;
-                $location.path('/class-list').search({classAdded: vm.class.name});
+                $location.path('/class').search({classAdded: vm.class.name});
             }, function(exception) {
                 vm.responseMessage = exception.data.error.fieldErrors.name[0].message;
             });
@@ -34,7 +34,7 @@ angular
         //Method used to cancel class making
         function cancel () {
             vm.class.name = ' ';
-            $location.path('/class-list').search({classAdded: ''});
+            $location.path('/class').search({classAdded: ''});
         }
 
     }]);

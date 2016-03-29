@@ -1,7 +1,7 @@
 module.exports = function(config) {
   var configuration = {
 
-    basePath: '../',
+    basePath: './',
 
     files: [
       'bower_components/angular/angular.js',
@@ -11,7 +11,8 @@ module.exports = function(config) {
       'bower_components/angular-strap/dist/angular-strap.js',
       'app/js/conceptDictionaryApp.module.js',
       'app/js/**/*.js',
-      'test/unit/**/*.js'
+      'test/unit/**/*.js',
+	  'app/**/*.spec.js'
     ],
 
     autoWatch: true,

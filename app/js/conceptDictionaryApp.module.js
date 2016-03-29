@@ -5,7 +5,28 @@ angular
 	.config(['$routeProvider',
                     function($routeProvider, openmrsRest) {
                       $routeProvider.
-                        when('/concept-search', {
+					  when('/class', {
+						  templateUrl: 'js/classList/classList.html',
+						  controller: 'ClassListController',
+						  controllerAs: 'vm',
+						  resolve: {
+							  loadClasses : loadClasses
+						  }
+					  }).
+					  when('/class/add', {
+						  templateUrl: 'js/classAdd/classAdd.html',
+						  controller: 'ClassAddController',
+						  controllerAs: 'vm'
+					  }).
+					  when('/class/:classUUID', {
+						  templateUrl: 'js/classEdit/classEdit.html',
+						  controller: 'ClassEditController',
+						  controllerAs: 'vm',
+						  resolve: {
+							  singleClass : loadClass
+						  }
+					  }).
+					  when('/concept-search', {
                             templateUrl: 'partials/concept-search.html',
                             controller: 'ConceptSearchController',
                             controllerAs: 'vm'
@@ -15,14 +36,7 @@ angular
 						    controller: 'ReferenceSearchController',
 						    controllerAs: 'vm'
 					  }).
-                        when('/class-list', {
-                          templateUrl: 'partials/class-list.html',
-                          controller: 'ClassesListController',
-                          controllerAs: 'vm',
-                          resolve: {
-                        	  loadClasses : loadClasses
-                          }
-                        }).
+
 					    when('/source-list', {
 						    templateUrl: 'partials/source-list.html',
 						    controller: 'SourcesListController',
@@ -31,11 +45,7 @@ angular
 							    sources : loadSources
 						    }
 					    }).
-                        when('/class-list/add-class', {
-                        	templateUrl: 'partials/class-add.html',
-                            controller: 'ClassAddController',
-                            controllerAs: 'vm'
-                      }).
+
 					    when('/source-list/add-source', {
 						    templateUrl: 'partials/source-add.html',
 						    controller: 'SourceAddController',
@@ -65,14 +75,6 @@ angular
 							    loadConceptStopWords : loadConceptStopWords
 						    }
 					    }).
-                        when('/class-list/:classUUID', {
-                        	templateUrl: 'partials/class-edit.html',
-                        	controller: 'ClassesEditController',
-                        	controllerAs: 'vm',
-                        	resolve: {
-                        		singleClass : loadClass
-                        	}
-                        }).
                         when('/datatype-list', {
                         	templateUrl: 'partials/datatype-list.html',
                             controller: 'DataTypesListController',

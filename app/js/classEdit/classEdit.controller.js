@@ -1,10 +1,10 @@
 angular
     	.module('conceptDictionaryApp')
-    	.controller('ClassesEditController', ClassesEditController);
-    ClassesEditController.$inject =
-    	['singleClass', '$routeParams', '$location', 'openmrsRest']
+    	.controller('ClassEditController', ClassEditController);
+    ClassEditController.$inject =
+    	['singleClass', '$routeParams', '$location', 'openmrsRest'];
 
-	function ClassesEditController( singleClass, $routeParams, $location, openmrsRest ){
+	function ClassEditController( singleClass, $routeParams, $location, openmrsRest ){
 		
 		var vm = this;
 		//holds class information
@@ -25,7 +25,7 @@ angular
 		
 
         function redirectToList() {
-            $location.path('/class-list').search({classAdded: vm.class.name});
+            $location.path('/class').search({classAdded: vm.class.name});
         }
 
         function editClass() {
@@ -43,6 +43,6 @@ angular
 
         function cancel() {
             vm.class.name = '';
-            $location.path('/class-list').search({classAdded: ''});
+            $location.path('/class').search({classAdded: ''});
         }
 	}

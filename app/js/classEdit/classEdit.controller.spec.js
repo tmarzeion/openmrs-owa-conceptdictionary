@@ -21,7 +21,7 @@ describe('Concept dictionary controllers', function() {
 
     beforeEach(module('conceptDictionaryApp'));
 
-    describe('ClassesEditController', function() {
+    describe('ClassEditController', function() {
         var scope, ctrl, $httpBackend;
 
         beforeEach(inject(function(_$httpBackend_, $rootScope, $controller, openmrsRest, $routeParams) {
@@ -44,7 +44,7 @@ describe('Concept dictionary controllers', function() {
             
             $httpBackend.flush();
 
-            ctrl = $controller('ClassesEditController', {singleClass: singleClass, });
+            ctrl = $controller('ClassEditController', {singleClass: singleClass, });
             ctrl.editClass();
         }));
 

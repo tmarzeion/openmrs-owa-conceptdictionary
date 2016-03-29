@@ -28,7 +28,7 @@ var THIS_APP_ID = 'conceptdictionary';
 
 var htmlGlob = ['app/**/*.html'];
 var resourcesGlob = ['app/**/*.{png,svg,jpg,gif}', 'app/**/*.{css,less}',
-  'app/**/*.js', 'app/manifest.webapp', /* list extra resources here */
+  'app/**/*.js', '!app/**/*.spec.js', 'app/manifest.webapp', /* list extra resources here */
 ];
 
 var Server = require('karma').Server;
@@ -62,13 +62,13 @@ var getConfig = function() {
  */
 gulp.task('test', ['lint'], function(done) {
   new Server({
-    configFile: __dirname + '/test/karma.conf.js',
+    configFile: __dirname + '/karma.conf.js',
     singleRun: true
   }, done).start();
 });
 gulp.task('test-debug', function(done) {
   new Server({
-    configFile: __dirname + '/test/karma.conf.js',
+    configFile: __dirname + '/karma.conf.js',
     singleRun: false
   }, done).start();
 });
@@ -130,12 +130,18 @@ gulp.task('watch', function() {
 
 });
 
-gulp.task('deploy-local', ['build'], function() {
+gulp.task('deploy-local', ['build-local'], function() {
   var config = getConfig();
 
   return gulp.src(['dist/**/*', '!*.zip'])
     .pipe(gulp.dest(config.LOCAL_OWA_FOLDER + THIS_APP_ID));
 });
+
+gulp.task('build-local', ['resources', 'html'], function() {
+  return gulp.src('dist/**/*')
+    .pipe(gulp.dest('dist'));
+});
+
 
 gulp.task('build', ['resources', 'html'], function() {
   return gulp.src('dist/**/*')

@@ -1,11 +1,11 @@
 angular
 	.module('conceptDictionaryApp')
-	.controller('ClassesListController', ClassesListController);
+	.controller('ClassListController', ClassListController);
 
-ClassesListController.$inject =
-	    ['loadClasses', '$location', '$route', '$routeParams', 'openmrsRest']
+ClassListController.$inject =
+	    ['loadClasses', '$location', '$route', '$routeParams', 'openmrsRest'];
 	
-	function ClassesListController (loadClasses, $location, $route, $routeParams, openmrsRest) {
+	function ClassListController (loadClasses, $location, $route, $routeParams, openmrsRest) {
 	
 		var vm = this;
 		//array of concept classes
@@ -50,7 +50,7 @@ ClassesListController.$inject =
             //then updates classes list in scope after deletion
             openmrsRest.listFull('conceptclass').then(function(data) {
                 vm.classes = data;
-                $location.path("/class-list/").search({});
+                $location.path("/class/").search({});
             });
 
         }
