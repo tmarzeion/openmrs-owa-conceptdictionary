@@ -5,19 +5,17 @@
 			<form name="drugAdd">
 				<fieldset>
 					<p class="input-position-class">
-				      <label name="input-name">Name</label>
+				      <label name="input-name">Name<span class="required">*</span></label>
 				      <input name='name' id="input-name" ng-model='vm.name' required/>
 				      <span class="error" ng-show='drugAdd.name.$error.required'>Name is required</span>
 				    </p>
 				    <p class="input-position-class">
 				      <label name="input-concept">Concept<span class="required">*</span></label>
 				      <concept-auto-complete required='true' limit-to-drugs='vm.limitToDrugs' concept='vm.concept' on-update='vm.updateConcept(isCorrect, concept)'></concept-auto-complete>
-				      <span class="error field-error" ng-show='!vm.isConceptCorrect'>This concept does not exist</span>
 				    </p>
 				    <p class="input-position-class">
 				      <label name="input-dosage">Dosage Form</label>
 				      <concept-auto-complete required='false' concept='vm.dosageForm' limit-to-drugs='false' on-update='vm.updateDosageForm(isCorrect, concept)'></concept-auto-complete>
-				      <span class="error field-error" ng-show='!vm.isDosageCorrect'>This concept does not exist</span>
 				    </p>
 				    <p class="input-position-class">
 				      <label name="input-strength">Strength</label>
@@ -34,7 +32,6 @@
 				    <p class="input-position-class">
 				      <label name="input-route">Route</label>
 				      <concept-auto-complete required='false' concept='vm.route' limit-to-drugs='false' on-update='vm.updateRoute(isCorrect, concept)'></concept-auto-complete>
-				      <span class="error field-error" ng-show='!vm.isRouteCorrect'>This concept does not exist</span>
 				    </p>	
 				    <p class="input-position-class">
 				      <label name="input-ingredients">Drug Ingredients</label>

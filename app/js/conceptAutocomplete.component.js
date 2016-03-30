@@ -25,7 +25,7 @@
 			
 		vm.concepts =[];
 		vm.suggestions = [];
-		vm.isCorrect;
+		vm.isCorrect; 
 		vm.concept;
 		vm.newConcept;
 		
@@ -34,8 +34,13 @@
 		
 		function checkInput(){
 			var display = vm.searchText;
-			if(typeof vm.searchText.display !== "undefined"){
-				display = vm.searchText.display;
+			if(angular.isDefined(vm.searchText)){
+				if(angular.isDefined(vm.searchText.display)){
+					display = vm.searchText.display;
+				}
+			}
+			if(angular.isUndefined(display)){
+				display = '';
 			}
 			for(var i=0; i<vm.suggestions.length; i++){
 				if(display === vm.suggestions[i].display){
@@ -43,7 +48,7 @@
 					vm.newConcept = vm.suggestions[i]
 					break;
 				}else{
-					vm.correct = false;
+					vm.isCorrect = false;
 					break;
 				}
 			} 
@@ -61,8 +66,13 @@
 			vm.suggestions = [];
 			vm.isCorrect = false;
 			var display = vm.searchText;
-			if(typeof vm.searchText.display !== "undefined"){
-				display = vm.searchText.display;
+			if(angular.isDefined(vm.searchText)){
+				if(angular.isDefined(vm.searchText.display)){
+					display = vm.searchText.display;
+				}
+			}
+			if(angular.isUndefined(display)){
+				display = '';
 			}
 			if(display.length > 1){
 				openmrsRest.listFull('concept',{q: display, includeAll: true}).then(function (response){

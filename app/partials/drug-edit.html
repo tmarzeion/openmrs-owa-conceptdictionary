@@ -12,12 +12,10 @@
 				    <p class="input-position-class">
 				      <label name="input-concept">Concept<span class="required">*</span></label>
 				      <concept-auto-complete required='true' limit-to-drugs='vm.limitToDrugs' concept='vm.drug.concept' on-update='vm.updateConcept(isCorrect, concept)'></concept-auto-complete>
-				      <span class="error field-error" ng-show='!vm.isConceptCorrect'>This concept does not exist</span>
 				    </p>
 				    <p class="input-position-class">
 				      <label name="input-dosage">Dosage Form</label>
 				      <concept-auto-complete required='false' concept='vm.drug.dosageForm' limit-to-drugs='false' on-update='vm.updateDosageForm(isCorrect, concept)'></concept-auto-complete>
-				      <span class="error field-error" ng-show='!vm.isDosageCorrect'>This concept does not exist</span>
 				    </p>
 				    <p class="input-position-class">
 				      <label name="input-strength">Strength</label>
@@ -34,7 +32,6 @@
 				    <p class="input-position-class">
 				      <label name="input-route">Route</label>
 				      <concept-auto-complete required='false' concept='vm.drug.route' limit-to-drugs='false' on-update='vm.updateRoute(isCorrect, concept)'></concept-auto-complete>
-				      <span class="error field-error" ng-show='!vm.isRouteCorrect'>This concept does not exist</span>
 				    </p>	
 				    <p class="input-position-class">
 				      <label name="input-ingredients">Drug Ingredients</label>
