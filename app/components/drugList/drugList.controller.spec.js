@@ -51,7 +51,8 @@ describe('Concept dictionary controllers', function() {
             		uuid: "2b22dc27-72ec-4ab5-9fa8-d98be91adc1c"});
             
             $httpBackend.whenGET('/ws/rest/v1/conceptclass?v=full').respond({});
-            $httpBackend.whenGET('partials/index-menu.html').respond();
+            $httpBackend.whenGET('components/indexMenu/indexMenu.html').respond();
+            $httpBackend.whenGET('components/drugList/drugList.html').respond();
 
             scope = $rootScope.$new();
 

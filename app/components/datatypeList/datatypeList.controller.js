@@ -1,11 +1,11 @@
 angular
 	.module('conceptDictionaryApp')
-	.controller('DataTypesListController', DataTypesListController);
+	.controller('DatatypeListController', DatatypeListController);
 	
-	DataTypesListController.$inject = 
+	DatatypeListController.$inject = 
 		['$scope', '$routeParams', 'openmrsRest'];
 		
-	function DataTypesListController($scope, $routeParams, openmrsRest){
+	function DatatypeListController($scope, $routeParams, openmrsRest){
 
 		var vm = this;
 		

@@ -29,8 +29,8 @@ describe('Concept dictionary controllers', function() {
             $httpBackend.expectPOST('/ws/rest/v1/conceptclass').
             respond({results:{name: 'Anatomy', description: 'Anatomic sites / descriptors'}});
             $httpBackend.whenGET('/ws/rest/v1/conceptclass?v=full').respond({});
-            $httpBackend.whenGET('js/classList/classList.html').respond();
-            $httpBackend.whenGET('partials/index-menu.html').respond();
+            $httpBackend.whenGET('components/classList/classList.html').respond();
+            $httpBackend.whenGET('components/indexMenu/indexMenu.html').respond();
 
 
             scope = $rootScope.$new();

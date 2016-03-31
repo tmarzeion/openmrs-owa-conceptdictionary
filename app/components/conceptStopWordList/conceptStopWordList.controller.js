@@ -49,7 +49,7 @@ function ConceptStopWordListController (loadConceptStopWords, $location, $routeP
 
         openmrsRest.listFull('conceptstopword').then(function(data) {
             vm.conceptStopWords = data;
-            $location.path("/conceptstopword-list/").search({});
+            $location.path("/conceptstopword/").search({});
         });
     }
     //redirects to another location

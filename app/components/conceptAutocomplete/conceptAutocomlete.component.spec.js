@@ -27,7 +27,7 @@ beforeEach(module('conceptDictionaryApp'));
 
     	  beforeEach(inject(function(_$httpBackend_, $rootScope, _$componentController_, openmrsRest) {
     		  $httpBackend = _$httpBackend_;
-			  $httpBackend.whenGET('partials/index-menu.html').respond();
+              $httpBackend.whenGET('components/indexMenu/indexMenu.html').respond();
               $httpBackend.whenGET('/ws/rest/v1/conceptclass?v=full').respond({});
     		  $httpBackend.whenGET('/ws/rest/v1/concept').
               respond(

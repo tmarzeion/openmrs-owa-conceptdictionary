@@ -34,7 +34,7 @@
             openmrsRest.create('conceptstopword', vm.json).then(function (success) {
                 //Fix this
                 vm.success = true;
-                $location.path('/conceptstopword-list').search({conceptStopWordAdded: vm.conceptStopWord.value});
+                $location.path('/conceptstopword').search({conceptStopWordAdded: vm.conceptStopWord.value});
             }, function (error) {
                 vm.responseMessage = error.message;
             });
@@ -42,7 +42,7 @@
 
         //Method used to cancel class making
         function cancel() {
-            $location.path('/conceptstopword-list').search({conceptStopWordAdded: ''});
+            $location.path('/conceptstopword').search({conceptStopWordAdded: ''});
         }
 	}
 	

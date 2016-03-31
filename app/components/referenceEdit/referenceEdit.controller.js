@@ -36,20 +36,20 @@ function ReferenceEditController (reference, sources, openmrsRest, $location ){
 
 
     function cancel () {
-        $location.path('/reference-search');
+        $location.path('/reference');
     }
 
     function save() {
         vm.json = angular.toJson(vm.reference);
         openmrsRest.update('conceptreferenceterm', {uuid: vm.reference.uuid}, vm.json).then(function(success) {
             vm.success = true;
-            $location.path('/reference-search').search({referenceSaved: vm.reference.name});
+            $location.path('/reference').search({referenceSaved: vm.reference.name});
         });
     }
 
     function deleteForever() {
         openmrsRest.remove('conceptreferenceterm', {uuid : vm.reference.uuid, purge : true});
-        $location.path('/reference-search').search({referenceDeleted: vm.reference.name});
+        $location.path('/reference').search({referenceDeleted: vm.reference.name});
     }
 
     function retire() {

@@ -22,7 +22,7 @@ function SourceAddController (openmrsRest, $location ){
     vm.isSavePossible = isSavePossible;
 
     function cancel () {
-        $location.path('/source-list');
+        $location.path('/source');
     }
 
     function isSavePossible () {
@@ -34,7 +34,7 @@ function SourceAddController (openmrsRest, $location ){
         vm.json = angular.toJson(vm.source);
         openmrsRest.create('conceptsource', vm.json).then(function(success) {
             vm.success = true;
-            $location.path('/source-list').search({sourceSaved: vm.source.name});
+            $location.path('/source').search({sourceSaved: vm.source.name});
         }, function(exception) {
             //TODO Check exception response
             vm.responseMessage = exception.data.error.fieldErrors.code[0].message;

@@ -82,7 +82,7 @@
 			
 			openmrsRest.create('drug', vm.Drug).then(function(success) {
 				vm.responseMessage = success;
-                $location.path('/drugs-list');
+                $location.path('/drug');
             }, function(exception) {
             	vm.showMessage = true;
                 vm.responseMessage = exception.data.error.message;
@@ -90,7 +90,7 @@
 		}
 		
 		function redirectToList(){
-			$location.path('/drugs-list');
+			$location.path('/drug');
 		}
 		
 	};

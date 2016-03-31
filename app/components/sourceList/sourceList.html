@@ -35,7 +35,7 @@
 				            </tr>
 				            <tr ng-repeat="source in vm.sources" >
 				                <td valign="top">
-				                    <a href="#/source-list/{{source.uuid}}">
+				                    <a href="#/source/{{source.uuid}}">
 				                        <span ng-show="source.retired"><del>{{source.name}}</del></span>
 				                        <span ng-show="!source.retired">{{source.name}}</span>
 				                    </a>
@@ -46,7 +46,7 @@
 				            </tbody>
 				        </table>
 
-			        <button ng-click='vm.goTo("/source-list/add")'><i class="icon-plus"></i><strong>&#160;&#160;Add Concept Source</strong></button>
+			        <button ng-click='vm.goTo("/source/add")'><i class="icon-plus"></i><strong>&#160;&#160;Add Concept Source</strong></button>
 			    </form>
 	    	</div>
 		</div>

@@ -67,8 +67,8 @@ describe('Concept dictionary controllers', function() {
                 }
             );
             $httpBackend.whenGET('/ws/rest/v1/conceptclass?v=full').respond({});
-            $httpBackend.whenGET('partials/reference-search.html').respond();
-            $httpBackend.whenGET('partials/index-menu.html').respond();
+            $httpBackend.whenGET('components/indexMenu/indexMenu.html').respond();
+            $httpBackend.whenGET('components/referenceSearch/referenceSearch.html').respond();
             scope = $rootScope.$new();
 
             var reference;

@@ -58,7 +58,7 @@
 		function retire(){
 			openmrsRest.remove('drug', {uuid: vm.drug.uuid}).then(function(success){
 				vm.responseMessage = success;
-				$location.path('/drugs-list');
+				$location.path('/drug');
 			});
 		}
 		
@@ -99,7 +99,7 @@
 			}
 			openmrsRest.update('drug', {uuid: vm.drug.uuid}, vm.Drug).then(function(success) {
 				vm.responseMessage = success;
-                $location.path('/drugs-list');
+                $location.path('/drug');
             }, function(exception) {
             	vm.showMessage = true;
                 vm.responseMessage = exception.data.error.message;
@@ -107,7 +107,7 @@
 		}
 		
 		function redirectToList(){
-			$location.path('/drugs-list');
+			$location.path('/drug');
 		}
 		
 	};

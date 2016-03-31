@@ -21,7 +21,7 @@ describe('Concept dictionary controllers', function() {
 
     beforeEach(module('conceptDictionaryApp'));
 
-    describe('DataTypesDetailsController', function(){
+    describe('DatatypeDetailsController', function(){
         var scope, ctrl, $httpBackend;
 
         beforeEach(inject(function(_$httpBackend_, $rootScope, $controller, $routeParams, openmrsRest){
@@ -31,7 +31,7 @@ describe('Concept dictionary controllers', function() {
                 uuid: '8d4a505e-c2cc-11de-8d13-0010c6dffd0f', hl7Abbreviation: 'DT'
             });
             $httpBackend.whenGET('/ws/rest/v1/conceptclass?v=full').respond({});
-            $httpBackend.whenGET('partials/index-menu.html').respond();
+            $httpBackend.whenGET('components/indexMenu/indexMenu.html').respond();
 
             scope = $rootScope.$new();
             
@@ -42,7 +42,7 @@ describe('Concept dictionary controllers', function() {
             });
             $httpBackend.flush();
 
-            ctrl = $controller('DataTypesDetailsController', {$scope: scope, loadDataType: loadDataType});
+            ctrl = $controller('DatatypeDetailsController', {$scope: scope, loadDataType: loadDataType});
 
         }));
 

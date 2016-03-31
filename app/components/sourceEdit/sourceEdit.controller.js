@@ -20,7 +20,7 @@ function SourceEditController (sources ,openmrsRest, $location ){
     vm.deleteForever = deleteForever;
 
     function cancel () {
-        $location.path('/source-list');
+        $location.path('/source');
     }
 
     function isSavePossible () {
@@ -32,14 +32,14 @@ function SourceEditController (sources ,openmrsRest, $location ){
         vm.json = angular.toJson(vm.source);
         openmrsRest.update('conceptsource', {uuid: vm.source.uuid}, vm.json).then(function(success) {
             vm.success = true;
-            $location.path('/source-list').search({sourceSaved: vm.source.name});
+            $location.path('/source').search({sourceSaved: vm.source.name});
         });
     }
 
 
     function deleteForever() {
         openmrsRest.remove('conceptsource', {uuid : vm.source.uuid, purge : true}).then(function(){
-            $location.path('/source-list').search({sourceDeleted: vm.source.name});
+            $location.path('/source').search({sourceDeleted: vm.source.name});
         });
     }
 

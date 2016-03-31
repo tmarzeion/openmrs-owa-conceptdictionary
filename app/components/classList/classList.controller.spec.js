@@ -29,8 +29,8 @@ describe('Concept dictionary controllers', function() {
             $httpBackend.whenGET('/ws/rest/v1/conceptclass?v=full')
     		.respond({results:[{name: 'Anatomy', description: 'Anatomic sites / descriptors', uuid: 'ad491c7a-c2cc-11de-8d13-0010c6dffd0f'},
     		                   {name: 'Procedure', description: 'Describes a clinical procedure', uuid: 'bd490bf4-c2cc-11de-8d13-0010c6dffd0f'}]});
-            $httpBackend.whenGET('js/classList/classList.html').respond();
-            $httpBackend.whenGET('partials/index-menu.html').respond();
+            $httpBackend.whenGET('components/classList/classList.html').respond();
+            $httpBackend.whenGET('components/indexMenu/indexMenu.html').respond();
 
             openmrsRest.listFull('conceptclass').then(function(response){
                 loadClasses = response;
@@ -55,7 +55,7 @@ describe('Concept dictionary controllers', function() {
         it('should send delete request at uuid adress extracted from selection map', inject(function() {
             $httpBackend.whenDELETE('/ws/rest/v1/conceptclass/ad491c7a-c2cc-11de-8d13-0010c6dffd0f').respond("DELETE SUCCESS");
             $httpBackend.whenGET('js/classList/classList.html').respond();
-            $httpBackend.whenGET('partials/index-menu.html').respond();
+            $httpBackend.whenGET('components/indexMenu/indexMenu.html').respond();
 
             //deleteSelected function requests updated list.
             ctrl.selected = {'ad491c7a-c2cc-11de-8d13-0010c6dffd0f' : true }

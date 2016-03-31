@@ -33,8 +33,8 @@ describe('Concept dictionary controllers', function() {
             $httpBackend.whenGET('/ws/rest/v1/drug?includeAll=true&v=full').respond();          
             $httpBackend.whenGET('/ws/rest/v1/conceptclass?v=full').respond({});      
             $httpBackend.whenGET('/ws/rest/v1/drug?v=full').respond({});
-            $httpBackend.whenGET('partials/index-menu.html').respond();
-            $httpBackend.whenGET('partials/drugs-list.html').respond();
+            $httpBackend.whenGET('components/indexMenu/indexMenu.html').respond();
+            $httpBackend.whenGET('components/drugList/drugList.html').respond();
 
             scope = $rootScope.$new();
 

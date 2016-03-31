@@ -21,7 +21,7 @@ describe('Concept dictionary controllers', function() {
 
     beforeEach(module('conceptDictionaryApp'));
 
-    describe('DataTypesListController', function(){
+    describe('DatatypeListController', function(){
         var scope, ctrl, $httpBackend;
 
         beforeEach(inject(function(_$httpBackend_, $rootScope, $controller, $routeParams, openmrsRest){
@@ -30,14 +30,14 @@ describe('Concept dictionary controllers', function() {
             respond({results:[{name: 'Date Datatype', description: 'Date Field Gen Datatype Handler'},
                 {name: 'Boolean Datatype', description: 'Boolean Field Gen Datatype Handler'}]});
             $httpBackend.whenGET('/ws/rest/v1/conceptclass?v=full').respond({});
-            $httpBackend.whenGET('partials/index-menu.html').respond();
+            $httpBackend.whenGET('components/indexMenu/indexMenu.html').respond();
 
             scope = $rootScope.$new();
 
 
             $httpBackend.flush();
 
-            ctrl = $controller('DataTypesListController', {$scope: scope});
+            ctrl = $controller('DatatypeListController', {$scope: scope});
 
         }));
 

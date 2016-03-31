@@ -33,7 +33,7 @@ describe('Concept dictionary controllers', function() {
             respond({results:{uuid: '8d490bf4-c2cc-11de-8d13-0010c6dffd0f',
                 name: 'Question', description: 'Question (eg, patient history, SF36 items)'}});
             $httpBackend.whenGET('/ws/rest/v1/conceptclass?v=full').respond({});
-            $httpBackend.whenGET('partials/index-menu.html').respond();
+            $httpBackend.whenGET('components/indexMenu/indexMenu.html').respond();
             
             scope = $rootScope.$new();
 

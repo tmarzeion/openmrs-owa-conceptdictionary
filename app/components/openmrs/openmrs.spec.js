@@ -27,7 +27,7 @@ describe('OpenmrsRest service', function() {
         beforeEach(inject(function(_$httpBackend_, _openmrsRest_){
         	openmrsRest = _openmrsRest_;
             $httpBackend = _$httpBackend_;
-            $httpBackend.whenGET('partials/index-menu.html').respond();
+            $httpBackend.whenGET('components/indexMenu/indexMenu.html').respond();
             $httpBackend.whenGET('/ws/rest/v1/item?v=full').
             respond({results:[{ name: 'item1',  
             					uuid: '2b22dc27-72ec-4ab5-9fa8-d98be91adc1c'},
@@ -60,7 +60,7 @@ describe('OpenmrsRest service', function() {
         beforeEach(inject(function(_$httpBackend_, _openmrsRest_){
         	openmrsRest = _openmrsRest_;
             $httpBackend = _$httpBackend_;
-            $httpBackend.whenGET('partials/index-menu.html').respond();
+            $httpBackend.whenGET('components/indexMenu/indexMenu.html').respond();
             $httpBackend.whenGET('/ws/rest/v1/item/6g65dc56-72ec-4ab5-9fa8-d98be91adb5b').
             respond({ name: 'item3', 
                 	uuid: '6g65dc56-72ec-4ab5-9fa8-d98be91adb5b'});
@@ -82,7 +82,7 @@ describe('OpenmrsRest service', function() {
         beforeEach(inject(function(_$httpBackend_, _openmrsRest_){
 	    	openmrsRest = _openmrsRest_;
 	        $httpBackend = _$httpBackend_;
-	        $httpBackend.whenGET('partials/index-menu.html').respond();
+	        $httpBackend.whenGET('components/indexMenu/indexMenu.html').respond();
 	        $httpBackend.whenPOST('/ws/rest/v1/item').
 	        respond({ name: 'item4', 
 	            	uuid: '6g65dc56-72ec-4ab5-9fa8-d98be91adb5b'});
@@ -105,7 +105,7 @@ describe('OpenmrsRest service', function() {
         beforeEach(inject(function(_$httpBackend_, _openmrsRest_){
 	    	openmrsRest = _openmrsRest_;
 	        $httpBackend = _$httpBackend_;
-	        $httpBackend.whenGET('partials/index-menu.html').respond();
+	        $httpBackend.whenGET('components/indexMenu/indexMenu.html').respond();
 	        $httpBackend.whenPOST('/ws/rest/v1/item/6g65dc56-72ec-4ab5-9fa8-d98be91adb5b').
 	        respond({ name: 'item5', 
 	            	uuid: '6g65dc56-72ec-4ab5-9fa8-d98be91adb5b'});
@@ -128,7 +128,7 @@ describe('OpenmrsRest service', function() {
         beforeEach(inject(function(_$httpBackend_, _openmrsRest_){
 	    	openmrsRest = _openmrsRest_;
 	        $httpBackend = _$httpBackend_;
-	        $httpBackend.whenGET('partials/index-menu.html').respond();
+	        $httpBackend.whenGET('components/indexMenu/indexMenu.html').respond();
 	        $httpBackend.whenDELETE('/ws/rest/v1/item/6g65dc56-72ec-4ab5-9fa8-d98be91adb5b').
 	        respond({message: 'Item deleted'});
 	        

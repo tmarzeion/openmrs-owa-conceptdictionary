@@ -26,7 +26,7 @@ function ReferenceAddController (sources, openmrsRest, $location ){
     vm.isSavePossible = isSavePossible;
 
     function cancel () {
-        $location.path('/reference-search');
+        $location.path('/reference');
     }
 
     function isSavePossible () {
@@ -38,7 +38,7 @@ function ReferenceAddController (sources, openmrsRest, $location ){
         vm.json = angular.toJson(vm.reference);
         openmrsRest.create('conceptreferenceterm', vm.json).then(function(success) {
             vm.success = true;
-            $location.path('/reference-search').search({referenceSaved: vm.reference.name});
+            $location.path('/reference').search({referenceSaved: vm.reference.name});
         }, function(exception) {
             vm.responseMessage = exception.data.error.fieldErrors.code[0].message;
         });
