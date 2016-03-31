@@ -1,5 +1,21 @@
 <div class="container">
 	<div class="dashboard clear">
+		<div ng-show="vm.result.success" id="success-message" class="note-container">
+            <div class="note success">
+                <div class="text">
+                    <i class="icon-info-sign medium"></i>                    
+                        <p>&#160;&#160;{{vm.result.message}}.</p>                    
+                </div>
+            </div>
+		</div>   
+		<div ng-show="vm.result.success===false" id="error-message" class="note-container">
+            <div class="note error">
+                <div class="text">
+                    <i class="icon-remove medium"></i>                    
+                        <p>&#160;&#160;{{vm.result.message}}.</p>                    
+                </div>
+            </div>
+		</div>   
 		<div class="info-section">
 
 			<div class="info-header">
@@ -21,7 +37,7 @@
 									<button class="localeButtons-repeat"
 										ng-repeat="locale in vm.serverLocales"
 										ng-click='vm.goLocale(locale)'>
-										<small>{{locale}}</small>
+										<small><i class="icon-caret-right" ng-show="vm.selectedLocale===locale"></i>&#160;{{locale}}</small>
 									</button>
 								</div>
 								<div class="info-body">
@@ -34,7 +50,7 @@
 												title="The name to be used on forms, reports etc. in case no preferred name is set for the locale"
 												border="0">
 											</p>
-											<p class="left">
+											<p class="left" ng-show="vm.selectedLocaleData.synonyms.length > 0">
 												Preferred  <img class="help_icon"
 												src="/openmrs/images/help.gif"
 												title="Whether this name is the preferred name in its language and will be returned by default e.g on reports"
@@ -42,18 +58,21 @@
 											</p>
 											<div>
 												<p class="left">
-													<input class="one"
-													ng-model="vm.selectedLocaleData.fullname.display" type="text">
+													<concept-unique-name
+														required="true" 
+														concept='vm.selectedLocaleData.fullname'
+														on-update='vm.onFullnameUpdate(isCorrect, name, suggestions)'>
+													</concept-unique-name>
 												</p>
 												<!-- belown code displays (radio button, help icon and label) as a completed preffered group -->
-												<p class="left">
+												<p class="left" ng-show="vm.selectedLocaleData.synonyms.length > 0">
 													<input name="preferred name"
 													ng-model="vm.selectedLocaleData.preferredName"
 													ng-value="vm.selectedLocaleData.fullname" type="radio">
 												</p>
 											</div>
 										</li>
-										<li>
+										<li ng-show="vm.selectedLocaleData.fullname.display.length>0">
 											<div>
 												    Synonyms <img class="help_icon_bottom"
 													src="/openmrs/images/help.gif"
@@ -82,7 +101,7 @@
 											<a class="button confirm"
 											ng-click="vm.pushSynonyms()" valign="middle"><i class="icon-plus"></i>Add Synonym</a>
 										</li>
-										<li class="localeSpecific">
+										<li class="localeSpecific" ng-show="vm.selectedLocaleData.fullname.display.length>0">
 											<div valign="top">
 												Search Terms <img class="help_icon_bottom"
 													src="/openmrs/images/help.gif"
@@ -114,7 +133,7 @@
 
 
 										</li>
-										<li class="localeSpecific">
+										<li class="localeSpecific" ng-show="vm.selectedLocaleData.fullname.display.length>0">
 											<div>
 												Short Name <img class="help_icon_bottom"
 													src="/openmrs/images/help.gif"
@@ -126,7 +145,7 @@
 
 
 										</li>
-										<li class="localeSpecific">
+										<li class="localeSpecific" ng-show="vm.selectedLocaleData.fullname.display.length>0">
 											<div>
 												Description <img class="help_icon_top"
 													src="/openmrs/images/help.gif"
@@ -206,37 +225,37 @@
 										<tr>
 											<th valign="middle">Absolute High</th>
 											<td valign="middle"><input name="hiAbsolute" value=""
-												class="smallWidth" type="number"
+												class="smallWidth" type="number" step="any"
 												ng-model="vm.concept.hiAbsolute"></td>
 										</tr>
 										<tr>
 											<th valign="middle">Critical High</th>
 											<td valign="middle"><input name="hiCritical" value=""
-												class="smallWidth" type="number"
+												class="smallWidth" type="number" step="any"
 												ng-model="vm.concept.hiCritical"></td>
 										</tr>
 										<tr>
 											<th valign="middle">Normal High</th>
 											<td valign="middle"><input name="hiNormal" value=""
-												class="smallWidth" type="number"
+												class="smallWidth" type="number" step="any"
 												ng-model="vm.concept.hiNormal"></td>
 										</tr>
 										<tr>
 											<th valign="middle">Normal Low</th>
 											<td valign="middle"><input name="lowNormal" value=""
-												class="smallWidth" type="number"
+												class="smallWidth" type="number" step="any"
 												ng-model="vm.concept.lowNormal"></td>
 										</tr>
 										<tr>
 											<th valign="middle">Critical Low</th>
 											<td valign="middle"><input name="lowCritical" value=""
-												class="smallWidth" type="number"
+												class="smallWidth" type="number" step="any"
 												ng-model="vm.concept.lowCritical"></td>
 										</tr>
 										<tr>
 											<th valign="middle">Absolute Low</th>
 											<td valign="middle"><input name="lowAbsolute" value=""
-												class="smallWidth" type="number"
+												class="smallWidth" type="number" step="any"
 												ng-model="vm.concept.lowAbsolute"></td>
 										</tr>
 										<tr>
@@ -252,12 +271,11 @@
 											<td colspan="2"><input type="checkbox"
 												ng-model="vm.concept.allowDecimal"></td>
 										</tr>
-										<tr ng-show="vm.concept.allowDecimal">
+										<tr>
 											<th>Display Precision</th>
-											<td colspan="2"><input id="display_precision_textbox"
-												name="displayPrecision"
-												ng-model="vm.concept.displayPrecision" class="mediumWidth"
-												type="number"></td>
+											<td colspan="2"><input name="displayPrecision" value=""
+												class="smallWidth" type="number" step="any"
+												ng-model="vm.concept.displayPrecision"></td>
 										</tr>
 									</tbody>
 								</table>
@@ -272,159 +290,6 @@
 								ng-options="handler as handler for handler in vm.handlers"
 								ng-model="vm.concept.handler">
 							</select>
-							</td>
-						</tr>
-
-						<tr id="conceptMapRow">
-							<td valign="top">Mappings <img class="help_icon"
-								src="/openmrs/images/help.gif"
-								title="Defines mappings from this concept to any number of other concept sources (ICD9, SNOMED, etc)"
-								border="0">
-
-								<table id="conceptMapTable" cellpadding="3" cellspacing="1">
-									<tbody>
-										<tr style="display: none;" id="headerRow"
-											class="headerRow hideableEle">
-											<th>Relationship</th>
-											<th>Source</th>
-											<th>Code</th>
-											<th>Name</th>
-											<th class="removeButtonCol">&nbsp;</th>
-										</tr>
-
-										<tr id="newConceptMapping" style="display: none">
-											<td valign="top"><select name="type.name">
-
-
-													<option value="1">SAME-AS</option>
-
-
-													<option value="2">NARROWER-THAN</option>
-
-
-													<option value="3">BROADER-THAN</option>
-
-
-													<option value="4">Associated finding</option>
-
-
-													<option value="5">Associated morphology</option>
-
-
-													<option value="6">Associated procedure</option>
-
-
-													<option value="7">Associated with</option>
-
-
-													<option value="8">Causative agent</option>
-
-
-													<option value="9">Finding site</option>
-
-
-													<option value="10">Has specimen</option> 0
-													<option value="11">Laterality</option>
-
-
-													<option value="12">Severity</option>
-
-
-											</select></td>
-											<td valign="top"><select name="term.source">
-													<option value="">Search all sources</option>
-
-
-													<option value="1">SNOMED CT</option>
-
-
-													<option value="2">SNOMED NP</option>
-
-
-													<option value="3">ICD-10-WHO</option>
-
-
-													<option value="4">RxNORM</option>
-
-
-													<option value="5">RxNORM Comb</option>
-
-
-													<option value="6">LOINC</option>
-
-
-													<option value="11">PIH</option>
-
-
-													<option value="12">PIH Malawi</option>
-
-
-													<option value="13">AMPATH</option>
-
-
-													<option value="14">SNOMED MVP</option>
-
-
-													<option value="15">org.openmrs.module.mdrtb</option>
-
-
-													<option value="18">HL7 2.x Route of Administration
-													</option>
-
-
-													<option value="19">3BT</option>
-
-
-													<option value="20">ICPC2</option>
-
-
-													<option value="21">CIEL</option>
-
-
-													<option value="23">org.openmrs.module.emrapi</option>
-
-
-													<option value="24">IMO ProblemIT</option>
-
-
-													<option value="25">IMO ProcedureIT</option>
-
-
-													<option value="27">NDF-RT NUI</option>
-
-
-													<option value="28">FDA Route of Administration</option>
-
-
-													<option value="29">NCI Concept Code</option>
-
-											</select></td>
-											<td valign="top"><input name="term.code" size="25"
-												type="text"> <input name="termId" type="hidden">
-											</td>
-											<td><input name="term.name" size="25"
-												readonly="readonly" type="text"></td>
-											<td><input value="Remove" class="smallButton"
-												onclick="removeParentElement(this.parentNode)" type="button">
-											</td>
-										</tr>
-
-										<tr>
-											<td colspan="3" valign="top" align="left"><input
-												id="addMapButton" value="Add Mapping" class="smallButton"
-												onclick="addConceptMapping(0)" type="button"></td>
-											<td style="display: none;" class="hideableEle" align="right">
-
-												<input class="smallButton" value="Create New Term"
-												onclick="javascript:$j('#create-new-term-dialog').dialog('open')"
-												type="button">
-
-											</td>
-											<td></td>
-										</tr>
-
-									</tbody>
-								</table>
 							</td>
 						</tr>
 
@@ -447,8 +312,8 @@
 
 				<div id="saveDeleteButtons" style="margin-top: 15px">
 
-					<button ng-click="vm.postConcept()"><i class="icon-ok"></i><strong>&#160;Save Concept</strong></button> 
-					<button ng-click=""><i class="icon-ok"></i><strong>&#160;Save and Continue</strong></button>
+					<button ng-disabled="!vm.isFormValid" ng-click="vm.postConcept()"><i class="icon-ok"></i><strong>&#160;Save Concept</strong></button> 
+					<button ng-disabled="!vm.isFormValid" ng-click=""><i class="icon-ok"></i><strong>&#160;Save and Continue</strong></button>
 					<button ng-click=""><i class="icon-remove"></i><strong>&#160;Cancel</strong></button>
 
 

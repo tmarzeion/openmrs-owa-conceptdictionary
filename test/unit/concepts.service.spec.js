@@ -21,7 +21,7 @@ describe('Concept dictionary controllers', function() {
 
     beforeEach(module('conceptDictionaryApp'));
 
-    describe('conceptLocaleService', function(){
+    describe('conceptseService', function(){
         //declare variables
         var concept1;
         var expectedNames1;
@@ -64,24 +64,24 @@ describe('Concept dictionary controllers', function() {
             expectedDescr2 = "engDescr";
         });
 
-        it('should return array of locales', inject(function(conceptLocaleService){
-            expect(conceptLocaleService.getLocales(concept1.names, concept1.descriptions, serverLocales))
+        it('should return array of locales', inject(function(conceptsService){
+            expect(conceptsService.getLocales(concept1.names, concept1.descriptions, serverLocales))
                 .toEqualData(["en", "es"]);
-            expect(conceptLocaleService.getLocales(concept2.names, concept2.descriptions, serverLocales))
+            expect(conceptsService.getLocales(concept2.names, concept2.descriptions, serverLocales))
                 .toEqualData(["en", "es", "fr", "it"]);
         }));
 
-        it('should return Object containing english names', inject(function(conceptLocaleService){
-            var obtained1 = conceptLocaleService.getLocaleNames(concept1.names, "en");
+        it('should return Object containing english names', inject(function(conceptsService){
+            var obtained1 = conceptsService.getLocaleNames(concept1.names, "en");
             expect(obtained1).toEqualData(expectedNames1);
-            var obtained2 = conceptLocaleService.getLocaleNames(concept2.names, "en");
+            var obtained2 = conceptsService.getLocaleNames(concept2.names, "en");
             expect(obtained2).toEqualData(expectedNames2);
         }));
 
-        it('should return Object containing english descriptions', inject(function(conceptLocaleService){
-            var obtained1 = conceptLocaleService.getLocaleDescr(concept1.descriptions, "en");
+        it('should return Object containing english descriptions', inject(function(conceptsService){
+            var obtained1 = conceptsService.getLocaleDescr(concept1.descriptions, "en");
             expect(obtained1).toEqualData(expectedDescr1);
-            var obtained2 = conceptLocaleService.getLocaleDescr(concept2.descriptions, "en");
+            var obtained2 = conceptsService.getLocaleDescr(concept2.descriptions, "en");
             expect(obtained2).toEqualData(expectedDescr2);
         }));
     })

@@ -11,8 +11,8 @@
 		var vm = this;
 		//assign injected objects to this
 		vm.serverLocales = serverLocales;
-		vm.classes = loadClasses;
-		vm.datatypes = loadDataTypes;
+		vm.classes = loadClasses.results;
+		vm.datatypes = loadDataTypes.results;
 		
 		vm.handlers = [ "UNIMPLEMENTED YET"];
 		//flags and objects for view
@@ -35,8 +35,11 @@
 		//on-update functions, receiving arrays of selected concepts
 		vm.onSetMemberTableUpdate = onSetMemberTableUpdate;
 		vm.onAnswerTableUpdate = onAnswerTableUpdate;
+		vm.onFullnameUpdate = onFullnameUpdate;
 		//concept data to create post request
-		vm.concept = conceptsService.getEmptyConcept();
+		vm.concept = conceptsService.getEmptyConceptObject();
+		vm.isFormValid = false;
+		vm.result;
 		
 		activate();
 		
@@ -64,15 +67,8 @@
 		//for proper functioning of radio buttons
 		function createLocalized(){
 			for (var index=0; index < vm.serverLocales.length; index++){
-				vm.localizedConcepts[serverLocales[index]] = {};
-				vm.localizedConcepts[serverLocales[index]].locale = serverLocales[index];
-				vm.localizedConcepts[serverLocales[index]].fullname = {};
-				vm.localizedConcepts[serverLocales[index]].fullname.display;
-				vm.localizedConcepts[serverLocales[index]].preferredName = "";
-				vm.localizedConcepts[serverLocales[index]].shortname;
-				vm.localizedConcepts[serverLocales[index]].searchTerms = [];
-				vm.localizedConcepts[serverLocales[index]].synonyms = [];
-				vm.localizedConcepts[serverLocales[index]].description;
+				vm.localizedConcepts[vm.serverLocales[index]] = 
+					conceptsService.getEmptyLocaleConceptObject(vm.serverLocales[index]);
 			}
 		}
 		function pushSynonyms(){
@@ -102,8 +98,16 @@
 				vm.concept.answers.push(concepts[i].uuid)
 			}
 		}
+		function onFullnameUpdate(isCorrect, name, suggestions){
+			vm.selectedLocaleData.fullname.display = name;
+			vm.selectedLocaleData.fullname.valid = isCorrect;
+			validateForm()
+		}
 		function postConcept(){
-			conceptsService.postConcept(vm.concept, vm.localizedConcepts);
+			vm.result = conceptsService.postConcept(vm.concept, vm.localizedConcepts);
+		}
+		function validateForm(){
+			vm.isFormValid = vm.selectedLocaleData.fullname.valid
 		}
 	};
 })();

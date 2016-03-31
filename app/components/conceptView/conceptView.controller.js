@@ -7,9 +7,9 @@
 		.controller('ConceptViewController', ConceptViewController)
 		
 	//serverLocales = avalaible locales obtained from server
-ConceptViewController.$inject = ['$scope', 'concept', 'serverLocales', 'conceptLocaleService', '$location'];
+ConceptViewController.$inject = ['$scope', 'concept', 'serverLocales', 'conceptsService', '$location'];
 
-	function ConceptViewController ($scope, concept, serverLocales, conceptLocaleService, $location ){
+	function ConceptViewController ($scope, concept, serverLocales, conceptsService, $location ){
 
 		var vm = this;
 		//determines if Numeric content is shown
@@ -31,7 +31,7 @@ ConceptViewController.$inject = ['$scope', 'concept', 'serverLocales', 'conceptL
 		
 		//activation function
 		function activate(){
-			vm.locales = conceptLocaleService.getLocales(vm.concept.names,
+			vm.locales = conceptsService.getLocales(vm.concept.names,
 					vm.concept.descriptions,
 					serverLocales);
 			
@@ -41,9 +41,9 @@ ConceptViewController.$inject = ['$scope', 'concept', 'serverLocales', 'conceptL
 		//inserts descriptions and names for specified locale into conceptLocale, parsed from concept tables,
 		function goLocale (locale) {
 			vm.conceptLocale.description 
-				= conceptLocaleService.getLocaleDescr(vm.concept.descriptions, locale);
+				= conceptsService.getLocaleDescr(vm.concept.descriptions, locale);
 			vm.conceptLocale.names 
-				= conceptLocaleService.getLocaleNames(vm.concept.names, locale);
+				= conceptsService.getLocaleNames(vm.concept.names, locale);
 		}
 		//checks datatype of concept to determine
 		function checkType (){

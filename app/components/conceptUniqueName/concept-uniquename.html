@@ -1,0 +1,26 @@
+
+<div>		
+	<div ng-show="vm.isDuplicate" id="error-message" class="note-container">
+           <div class="note error">
+               <div class="text">
+                   <i class="icon-info-sign medium"></i>                    
+                       <p>&#160;&#160;This concept name is not unique</p>                    
+               </div>
+           </div>
+	</div>  
+</div>
+<form name='concept-input'>
+	<div>
+		<input id="concept name" type="text" placeholder='Enter concept name' ng-model="vm.searchText" 
+				class="form-control" ng-change="vm.search()" 
+				data-watch-options="true" bs-typeahead ng-required='vm.required'
+				bs-options="concept.display for concept in vm.suggestions">
+	</div>
+</form> 
+<div>
+	<div ng-show="vm.isDuplicate">
+		<p>You may want to view:</p>
+			<li ng-repeat="concept in vm.concepts"><i class="icon-chevron-right"></i><a href="#/concept/{{concept.uuid}}">{{concept.display}}</a></li>
+	</div>
+</div>
+

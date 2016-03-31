@@ -1,0 +1,41 @@
+<div ng-show="(!vm.isMemberAddView)">
+	<div class= "left">
+		<select id="member select" size=5
+				ng-model = "vm.selectedMember" 
+				ng-options="member as member.display for member in vm.members"> 
+					<option value="" ng-if="false"></option>
+		</select>
+	</div>
+	<label for= "member select" class = "left">
+		<div class="left">
+			<a class="button task" ng-click="vm.isMemberAddView=true" ><i class="icon-plus"></i>Add</a><br>
+			<a class="button task" ng-click="vm.deleteMember()"><i class="icon-remove"></i>Remove</a><br>
+			<a class="button task" ng-click="vm.swapMembers('up')"><i class="icon-angle-up"></i>Move Up</a><br>
+			<a class="button task" ng-click="vm.swapMembers('down')"><i class="icon-angle-down"></i>Move Down</a><br>
+		</div>
+	</label>
+</div>
+<div class = "left" ng-if="vm.isMemberAddView">
+	<div class="dialog">
+		<div class="dialog-header">Search Concepts</div>
+		<div class="dialog-content" align="center">
+					<div ng-show="vm.isAlreadyMember" id="error-message" class="note-container">
+			            <div class="note error">
+			                <div class="text">
+			                    <i class="icon-exclamation-sign"></i>                    
+			                        <p>This concept is added</p>                    
+			                </div>
+			            </div>
+					</div> 
+			<concept-auto-complete required="false" 
+									limit-to-drugs="false" 
+									concept='vm.cachedMember'
+									on-update='vm.onSearchBoxUpdate(isCorrect, concept)'>
+			</concept-auto-complete>
+			<div>
+				<button ng-disabled="(!vm.isCachedMemberCorrect)" ng-click="vm.pushMembers()"><i class="icon-ok"></i><strong>&#160;Add concept</strong></button>
+				<button ng-click="vm.resetSearchBox()"><i class="icon-remove"></i><strong>&#160;Cancel</strong></button>
+			</div>
+		</div>
+	</div>
+</div>	
