@@ -16,6 +16,7 @@ angular
         };
 		
 		vm.responseMessage = '';
+		vm.isError = false;
 		
 		vm.redirectToList = redirectToList;
 		
@@ -37,6 +38,7 @@ angular
             	vm.responseMessage = success;
                 vm.redirectToList();
             }, function(exception) {
+            	vm.isError = true;
                 vm.responseMessage = exception.data.error.fieldErrors.name[0].message;
             });
         }

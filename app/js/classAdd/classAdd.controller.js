@@ -11,12 +11,14 @@ angular
             description:''
         };
         vm.responseMessage = '';
+        vm.isError = false;
 
         //Method used to add class with current class params
         vm.addClass = addClass;
 
         //Method used to cancel class making
         vm.cancel = cancel;
+        
 
 
         //Method used to add class with current class params
@@ -27,6 +29,7 @@ angular
                 vm.success = true;
                 $location.path('/class').search({classAdded: vm.class.name});
             }, function(exception) {
+            	vm.isError = true;
                 vm.responseMessage = exception.data.error.fieldErrors.name[0].message;
             });
         }
