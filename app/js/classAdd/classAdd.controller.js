@@ -1,7 +1,13 @@
-angular
-    .module('conceptDictionaryApp')
-    .controller('ClassAddController', ['$location', 'openmrsRest',
-    function($location, openmrsRest){
+(function(){
+	'use strict';
+	
+	angular
+	    .module('conceptDictionaryApp')
+	    .controller('ClassAddController', ClassAddController)
+	    
+	    ClassAddController.$inject = ['$location', 'openmrsRest']
+	
+	function ClassAddController($location, openmrsRest){
 
         var vm = this;
 
@@ -40,4 +46,5 @@ angular
             $location.path('/class').search({classAdded: ''});
         }
 
-    }]);
+    }
+})();

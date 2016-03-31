@@ -30,7 +30,7 @@ function ReferenceEditController (reference, sources, openmrsRest, $location ){
     }
 
     function isSavePossible () {
-        return vm.reference.code.length > 0 && vm.reference.conceptSource.uuid !== undefined;
+        return vm.reference.code.length > 0 && angular.isDefined(vm.reference.conceptSource.uuid);
     }
 
 

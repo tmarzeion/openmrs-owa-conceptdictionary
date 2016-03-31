@@ -25,7 +25,7 @@
 			
 		vm.concepts =[];
 		vm.suggestions = [];
-		vm.isCorrect; 
+		vm.isCorrect = !vm.required; 
 		vm.concept;
 		vm.newConcept;
 		

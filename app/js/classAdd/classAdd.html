@@ -10,11 +10,11 @@
 		</div>   
 		<div class ="info-section">
 			<div class="info-header"><h1><strong><i class="icon-plus"></i>Concept Class Form</strong></h1></div>	
-			<form method="post" name="class-add">
+			<form name="classAdd">
 				<div class="info-body">		
 						<div>Name<span class="required">*</span></div>
 						<div>		
-							<input type="text" name="name" size="35" ng-model="vm.class.name" ng-required="true" value="">
+							<input type="text" name="name" size="35" ng-model="vm.class.name" required/>
 						</div>
 						<div>Description</div>
 						<div>			
@@ -23,10 +23,9 @@
 				</div>
 				
 				<div>				
-					<a class="button" type="submit" ng-disabled="classForm.$invalid" ng-click="vm.addClass()"><i class="icon-ok"></i><strong>&#160;Save Concept Class</strong></a>
-					<a class="button" type="submit" ng-click="vm.cancel()"><i class="icon-remove"></i><strong>&#160;Cancel</strong></a>
-				</div>		
-		
+					<button ng-disabled="classAdd.$invalid" ng-click="vm.addClass()"><i class="icon-ok"></i><strong>&#160;Save Concept Class</strong></button>
+					<button ng-click="vm.cancel()"><i class="icon-remove"></i><strong>&#160;Cancel</strong></button>
+				</div>	
 			</form>
 		</div>
 	</div>

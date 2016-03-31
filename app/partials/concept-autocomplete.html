@@ -1,7 +1,7 @@
-<from name='concept-input'>
+<form name='concept-input'>
 	<input type="text" placeholder='Enter concept name' ng-model="$ctrl.searchText" 
 			class="form-control" ng-change="$ctrl.search()" bs-options="concept.display for concept in $ctrl.suggestions" 
 			data-watch-options="true" bs-typeahead ng-required='$ctrl.required'>
 	<span ng-show='concept-input.input.$error.required'>This field is required</span>
 	<span ng-show='!$ctrl.isCorrect'>This concept does not exist</span>
-</from>
+</form>

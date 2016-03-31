@@ -8,7 +8,10 @@
 		.factory('openmrsApi', openmrsApi)
 		.provider('openmrsRest', openmrsRest);
 
-	function openmrsApi($resource) {
+	openmrsApi.$inject = ['$resource', '$window'];
+
+
+	function openmrsApi($resource, $window) {
 		var openmrsApi = {
 			defaultConfig: {
 				uuid: '@uuid'
@@ -51,11 +54,14 @@
 		}
 
 		function getOpenmrsContextPath() {
-			var pathname = window.location.pathname;
+			var pathname = $window.location.pathname;
 			return pathname.substring(0, pathname.indexOf('/owa/'));
 		}
 	}
 
+
+	
+	
 	function openmrsRest() {
 		return {
 			list: provideList,
@@ -74,8 +80,9 @@
 				return openmrsRest.get(resource, query);
 			}]
 		}
-
-		function provideOpenmrsRest(openmrsApi) {
+		
+		provideOpenmrsRest.$inject = ['$document'];
+		function provideOpenmrsRest(openmrsApi, $document) {
 			var openmrsRest = {
 				list: list,
 				listFull: listFull,
@@ -93,7 +100,7 @@
 			function list(resource, query) {
 				openmrsApi.add(resource);
 				return openmrsApi[resource].get(query).$promise.then(function (response) {
-					return new PartialList(resource, response);
+					return new PartialList(response, $document);
 				});
 			}
 
@@ -101,7 +108,7 @@
 				openmrsApi.add(resource);
 				query = addMode(query, 'full');
 				return openmrsApi[resource].get(query).$promise.then(function (response) {
-					return new PartialList(response);
+					return new PartialList(response, $document);
 				});
 			}
 
@@ -109,7 +116,7 @@
 				openmrsApi.add(resource);
 				query = addMode(query, 'ref');
 				return openmrsApi[resource].get(query).$promise.then(function (response) {
-					return new PartialList(response);
+					return new PartialList(response, $document);
 				});
 			}
 
@@ -155,7 +162,7 @@
 		}
 	}
 
-	function PartialList(response) {
+	function PartialList(response, doc) {
 		var results = response.results;
 		var nextQuery = null;
 		var previousQuery = null;
@@ -193,10 +200,10 @@
 		}
 
 		function toQuery(href) {
-			var parser = document.createElement('a');
+			var parser = doc[0].createElement('a');
 			parser.href = href;
 			var params = parser.search.slice(1).split('&');
-			var result = {};
+			var result = {}; 
 			params.forEach(function(param) {
 				if(param !== ''){
 					param = param.split('=');

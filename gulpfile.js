@@ -154,10 +154,9 @@ gulp.task('clean', del.bind(null, ['dist']));
 gulp.task('lint', function() {
   return gulp.src('app/**/*.js')
     .pipe(eslint())
-    .pipe(eslint.format());
-  // // TODO: Uncomment when linting looks good
-  // .pipe(eslint.failAfterError());
-});
+    .pipe(eslint.format())
+    .pipe(eslint.failAfterError());
+}); 
 
 gulp.task('default', ['clean', 'test'], function() {
   gulp.start('build');

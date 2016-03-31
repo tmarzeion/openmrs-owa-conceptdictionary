@@ -1,6 +1,13 @@
-angular
-    .module('conceptDictionaryApp')
-    .controller('ReferenceSearchController', ['$scope', '$routeParams' ,'openmrsRest', function($scope, $routeParams, openmrsRest) {
+(function(){
+	'use strict'
+	
+	angular
+    	.module('conceptDictionaryApp')
+    	.controller('ReferenceSearchController', ReferenceSearchController)
+    	
+    ReferenceSearchController.$inject = ['$scope', '$routeParams' ,'openmrsRest', '$timeout']
+	
+	function ReferenceSearchController($scope, $routeParams, openmrsRest, $timeout){
 
         var vm = this;
 
@@ -123,9 +130,8 @@ angular
         // Method used to prevent app from querying server with every letter input into search query panel
         var timeout = null;
         function timeoutRefresh()  {
-            clearTimeout(timeout);
             vm.isUserTyping = true;
-            timeout = setTimeout(function () {
+            $timeout(function () {
                 vm.refreshResponse();
             }, 250);
         };
@@ -157,7 +163,7 @@ angular
 
         //Init method
         function activate(){
-            if ($routeParams.redirectQuery !== undefined) {
+            if (angular.isDefined($routeParams.redirectQuery)) {
                 vm.query = $routeParams.redirectQuery;
                 refreshResponse();
             }
@@ -187,4 +193,5 @@ angular
             vm.isNextPagePossible = isNextPagePossible;
             vm.isPrevPagePossible = isPrevPagePossible;
         }
-    }]);
+    }
+})();
