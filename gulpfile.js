@@ -68,7 +68,7 @@ gulp.task('test', ['lint'], function(done) {
 });
 gulp.task('test-debug', function(done) {
   new Server({
-    configFile: __dirname + '/karma.conf.js',
+    configFile: __dirname + '/karma.debug.conf.js',
     singleRun: false
   }, done).start();
 });

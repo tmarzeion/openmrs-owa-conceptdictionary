@@ -45,7 +45,7 @@ function conceptDictionaryAppConfig($routeProvider, openmrsRest) {
 			    sources : loadSources
 		    }
 	  }).
-	  when('/source-list/add-source', {
+	  when('/source-list/add', {
 		    templateUrl: 'partials/source-add.html',
 		    controller: 'SourceAddController',
 		    controllerAs: 'vm'
@@ -58,7 +58,7 @@ function conceptDictionaryAppConfig($routeProvider, openmrsRest) {
 			  serverLocales : serverLocales
 		  }
       }).
-	  when('/reference/reference-add', {
+	  when('/reference/add', {
 	  	  templateUrl: 'partials/reference-add.html',
 	  	  controller: 'ReferenceAddController',
 	  	  controllerAs: 'vm',
@@ -135,7 +135,7 @@ function conceptDictionaryAppConfig($routeProvider, openmrsRest) {
         		loadRetiredDrugs: loadRetiredDrugs
         	}
       }).
-      when('/drugs-list/add-drug', {
+      when('/drugs-list/add', {
         	templateUrl: 'partials/drug-add.html',
         	controller: 'DrugAddController',
         	controllerAs: 'vm'

@@ -26,16 +26,21 @@ module.exports = function(config) {
       'karma-jasmine',
       'karma-coverage'
     ],
+//TODO: fix minification issue on debuging
+//    preprocessors: {
+//      'app/**/*.js': ['coverage']
+//    },
 
-    preprocessors: {
-      'app/**/*.js': ['coverage']
-    },
-
-    reporters: ['progress', 'coverage'],
+    reporters: ['progress'],//, 'coverage'],
 
     coverageReporter: {
       type: 'lcov',
-      dir: 'coverage/'
+      dir: 'coverage/',
+//	  instrumenterOptions : {
+//		istanbul : {
+//			noCompact : true
+//		}
+//	  }
     },
 
     junitReporter: {

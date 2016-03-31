@@ -18,7 +18,7 @@ function ReferenceAddController (sources, openmrsRest, $location ){
     };
 
 
-    vm.sources = sources;
+    vm.sources = sources.results;
     vm.responseMessage = '';
 
     vm.cancel = cancel;

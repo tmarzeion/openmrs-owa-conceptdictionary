@@ -35,8 +35,10 @@ describe('Concept dictionary controllers', function() {
 
             scope = $rootScope.$new();
             
-            loadDataType = openmrsRest.getFull('conceptdatatype', {uuid: "8d4a505e-c2cc-11de-8d13-0010c6dffd0f"}).then(function(response){
-            	return response;	
+            var loadDataType;
+            
+            openmrsRest.getFull('conceptdatatype', {uuid: "8d4a505e-c2cc-11de-8d13-0010c6dffd0f"}).then(function(response){
+            	loadDataType = response;	
             });
             $httpBackend.flush();
 
@@ -45,7 +47,7 @@ describe('Concept dictionary controllers', function() {
         }));
 
         it('Should load details of dataType', function(){
-            expect(ctrl.singleDataType.$$state.value).toEqualData({name: 'Date Datatype', description: 'Date Field Gen Datatype Handler',
+            expect(ctrl.singleDataType).toEqualData({name: 'Date Datatype', description: 'Date Field Gen Datatype Handler',
                 uuid: '8d4a505e-c2cc-11de-8d13-0010c6dffd0f', hl7Abbreviation: 'DT'});
 
         });
