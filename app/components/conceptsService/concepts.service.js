@@ -8,6 +8,8 @@ angular
 			var service = {
 					getEmptyConceptObject: getEmptyConceptObject,
 					getEmptyLocaleConceptObject: getEmptyLocaleConceptObject,
+					parseNames: parseNames,
+					parseDescriptions : parseDescriptions,
 					postConcept: postConcept,
 					getLocales: getLocales,
 					getLocaleNames: getLocaleNames,
@@ -15,13 +17,15 @@ angular
 			}
 			return service
 			
-			
+			/**
+			 * @returns empty concept object with defined non-localized fields
+			 */
 			function getEmptyConceptObject(){
 				return {
 						version : "",
 						conceptClass : "",
 						datatype : "",
-						set : "",
+						set : false,
 						//numeric data
 						hiAbsolute : "",
 						hiCritical : "",
@@ -33,7 +37,6 @@ angular
 						allowDecimal : false,
 						displayPrecision : "",
 						//arrays of concept data
-						descriptions : [],
 						answers : [],
 						setMembers: [],
 						handler : ""
