@@ -1,0 +1,333 @@
+<div class="container">
+	<div class="dashboard clear">
+		<div ng-show="vm.result.success" id="success-message" class="note-container">
+            <div class="note success">
+                <div class="text">
+                    <i class="icon-info-sign medium"></i>                    
+                        <p>&#160;&#160;{{vm.result.message}}.</p>                    
+                </div>
+            </div>
+		</div>   
+		<div ng-show="vm.result.success===false" id="error-message" class="note-container">
+            <div class="note error">
+                <div class="text">
+                    <i class="icon-remove medium"></i>                    
+                        <p>&#160;&#160;{{vm.result.message}}.</p>                    
+                </div>
+            </div>
+		</div>   
+		<div class="info-section">
+
+			<div class="info-header">
+				<h1>
+					<strong><i class="icon-edit"></i>Concept Form</strong>
+				</h1>
+			</div>
+			<form method="post">
+
+				<table id="conceptTable">
+
+					<tbody>
+						<tr>
+							<td title="The locale in which the concept name belongs ">
+
+								<div class="info-header">
+									<strong>Locale:&#160;&#160;</strong>
+
+									<button class="localeButtons-repeat"
+										ng-repeat="locale in vm.serverLocales"
+										ng-click='vm.goLocale(locale)'>
+										<small><i class="icon-caret-right" ng-show="vm.selectedLocale===locale"></i>&#160;{{locale}}</small>
+									</button>
+								</div>
+								<div class="info-body">
+									<ul>
+
+										<li>
+											<p class="left">
+												Fully Specified Name<span class="required">*</span> <img
+												class="help_icon" src="/openmrs/images/help.gif"
+												title="The name to be used on forms, reports etc. in case no preferred name is set for the locale"
+												border="0">
+											</p>
+											<p class="left" ng-show="vm.selectedLocaleData.synonyms.length > 0">
+												Preferred  <img class="help_icon"
+												src="/openmrs/images/help.gif"
+												title="Whether this name is the preferred name in its language and will be returned by default e.g on reports"
+												border="0">
+											</p>
+											<div>
+												<p class="left">
+													<concept-unique-name
+														required="true" 
+														concept='vm.selectedLocaleData.fullname'
+														on-update='vm.onFullnameUpdate(isCorrect, name, suggestions)'>
+													</concept-unique-name>
+												</p>
+												<!-- belown code displays (radio button, help icon and label) as a completed preffered group -->
+												<p class="left" ng-show="vm.selectedLocaleData.synonyms.length > 0">
+													<input name="preferred name"
+													ng-model="vm.selectedLocaleData.preferredName"
+													ng-value="vm.selectedLocaleData.fullname" type="radio">
+												</p>
+											</div>
+										</li>
+										<li ng-show="vm.selectedLocaleData.fullname.display.length>0">
+											<div>
+												    Synonyms <img class="help_icon_bottom"
+													src="/openmrs/images/help.gif"
+													title="Any label or name that refers to a primary concept."
+													border="0">
+											</div>
+
+											<div id="ConceptSynonyms"
+												ng-show="vm.selectedLocaleData.synonyms.length > 0"
+												ng-repeat="synonym in vm.selectedLocaleData.synonyms">
+												<p class="left">
+													<input ng-model="synonym.display" type="text"> 
+												</p>
+												<p class="left">
+													<input
+													name="preferred name"
+													ng-model="vm.selectedLocaleData.preferredName"
+													ng-value="synonym" type="radio">
+												</p>
+												<p class="left">
+													<a class="button cancel" valign="middle" ng-click="vm.deleteSynonym(synonym)" type="button"><i class="icon-remove"></i>Remove</a>
+												</p>	
+													
+											</div> 
+											
+											<a class="button confirm"
+											ng-click="vm.pushSynonyms()" valign="middle"><i class="icon-plus"></i>Add Synonym</a>
+										</li>
+										<li class="localeSpecific" ng-show="vm.selectedLocaleData.fullname.display.length>0">
+											<div valign="top">
+												Search Terms <img class="help_icon_bottom"
+													src="/openmrs/images/help.gif"
+													title="An index term or phrase that might be used to search for this concept but that is not valid for display purposes or storing in the record (e.g., common misspellings or pragmatic mapping term)"
+													border="0">
+											</div>
+
+
+											<div id="ConceptIndexTerm"
+												ng-show="vm.selectedLocaleData.searchTerms.length > 0"
+												ng-repeat="term in vm.selectedLocaleData.searchTerms">
+												
+												<p class="left">
+													<input ng-model="term.display" value="" class="largeWidth" type="text">
+												</p> 
+												<p class="left">
+													<input name="placeHolder" value=""
+													style="visibility: hidden" type="radio">
+												</p>
+												<p class="left">
+													<a class="button cancel"
+														ng-click="vm.deleteSearchTerm(term)" type="button"><i class="icon-remove"></i>Remove</a>
+												</p>	
+
+											</div> 
+											
+											<a class="button confirm"
+											ng-click="vm.pushSearchTerms()" type="button"><i class="icon-plus"></i>Add Search Term</a>
+
+
+										</li>
+										<li class="localeSpecific" ng-show="vm.selectedLocaleData.fullname.display.length>0">
+											<div>
+												Short Name <img class="help_icon_bottom"
+													src="/openmrs/images/help.gif"
+													title="The text shown in report headers and other places where space is limited"
+													border="0">
+											</div> <input class="smallWidth"
+											ng-model="vm.selectedLocaleData.shortname.display" type="text">
+
+
+
+										</li>
+										<li class="localeSpecific" ng-show="vm.selectedLocaleData.fullname.display.length>0">
+											<div>
+												Description <img class="help_icon_top"
+													src="/openmrs/images/help.gif"
+													title="Longer body of text used to fully describe this concept and how it is used."
+													border="0">
+											</div> <textarea name="description"
+												ng-model="vm.selectedLocaleData.description" rows="4"
+												cols="50"></textarea>
+
+
+										</li>
+									</ul>
+								</div>
+							</td>
+						</tr>
+
+						<tr>
+							<td>Class <img class="help_icon_bottom"
+								src="/openmrs/images/help.gif"
+								title="The classification of the medical concept" border="0">
+
+								<select name="repeatClass" id="repeatClass"
+								ng-model="vm.concept.conceptClass"
+								ng-options="class.uuid as class.name for class in vm.classes">
+							</select>
+							</td>
+						</tr>
+						<tr>
+							<td valign="top">Is Set <img class="help_icon"
+								src="/openmrs/images/help.gif"
+								title="Whether this concept is or not a set " border="0">
+
+								<input type="checkbox" ng-model="vm.concept.set"
+								name="conceptClassId">
+							</td>
+						</tr>
+
+						<tr ng-show="vm.concept.set">
+							<td>
+								<p>Set Members</p>
+								<concept-table on-update="vm.onSetMemberTableUpdate(concepts)"></concept-table>
+							</td>														
+						</tr>
+
+						<tr>
+							<td>Datatype <img class="help_icon"
+								src="/openmrs/images/help.gif"
+								title="If data is stored within this concept, this describes what it will look like"
+								border="0"> <select name="repeatDatatype"
+								id="repeatDatatype" ng-model="vm.concept.datatype"
+								ng-change="vm.checkType()">
+									<option ng-repeat="type in vm.datatypes" value="{{type.uuid}}">{{type.display}}</option>
+							</select>
+							</td>
+						</tr>
+
+						<tr ng-show='vm.isCoded'>
+							<td valign="top">
+								<p>Answers<img class="help_icon"
+									id="tooltipCodedIcon" src="/openmrs/images/help.gif"
+									title="Answer Concept(s) in case this concept is a question"
+									border="0"></p>
+									<concept-table on-update="vm.onAnswerTableUpdate(concepts)"></concept-table>								
+							</td>
+						</tr>
+
+						<tr id="numericDatatypeRow">
+							<td ng-show='vm.isNumeric' valign="top">
+								<div class="info-header">
+									<strong>Numeric</strong> <img class="help_icon"
+										id="tooltipNumericIcon" src="/openmrs/images/help.gif"
+										title="Numeric value ranges" border="0"> <small><em>(range
+											values are inclusive)</em></small>
+								</div>
+								<table border="0">
+									<tbody>
+										<tr>
+											<th valign="middle">Absolute High</th>
+											<td valign="middle"><input name="hiAbsolute" value=""
+												class="smallWidth" type="number" step="any"
+												ng-model="vm.concept.hiAbsolute"></td>
+										</tr>
+										<tr>
+											<th valign="middle">Critical High</th>
+											<td valign="middle"><input name="hiCritical" value=""
+												class="smallWidth" type="number" step="any"
+												ng-model="vm.concept.hiCritical"></td>
+										</tr>
+										<tr>
+											<th valign="middle">Normal High</th>
+											<td valign="middle"><input name="hiNormal" value=""
+												class="smallWidth" type="number" step="any"
+												ng-model="vm.concept.hiNormal"></td>
+										</tr>
+										<tr>
+											<th valign="middle">Normal Low</th>
+											<td valign="middle"><input name="lowNormal" value=""
+												class="smallWidth" type="number" step="any"
+												ng-model="vm.concept.lowNormal"></td>
+										</tr>
+										<tr>
+											<th valign="middle">Critical Low</th>
+											<td valign="middle"><input name="lowCritical" value=""
+												class="smallWidth" type="number" step="any"
+												ng-model="vm.concept.lowCritical"></td>
+										</tr>
+										<tr>
+											<th valign="middle">Absolute Low</th>
+											<td valign="middle"><input name="lowAbsolute" value=""
+												class="smallWidth" type="number" step="any"
+												ng-model="vm.concept.lowAbsolute"></td>
+										</tr>
+										<tr>
+											<th>Units</th>
+											<td colspan="2"><input name="units" value=""
+												class="mediumWidth" type="text" ng-model="vm.concept.units">
+
+
+											</td>
+										</tr>
+										<tr>
+											<th>Allow Decimal?</th>
+											<td colspan="2"><input type="checkbox"
+												ng-model="vm.concept.allowDecimal"></td>
+										</tr>
+										<tr>
+											<th>Display Precision</th>
+											<td colspan="2"><input name="displayPrecision" value=""
+												class="smallWidth" type="number" step="any"
+												ng-model="vm.concept.displayPrecision"></td>
+										</tr>
+									</tbody>
+								</table>
+							</td>
+						</tr>
+
+						<tr ng-show="vm.isComplex" id="complexDatatypeRow">
+							<td valign="top">Handler <img class="help_icon"
+								id="tooltipComplexIcon" src="/openmrs/images/help.gif"
+								title="Handlers for complex concept reponses e.g an x-ray image handler"
+								border="0"> <select name="handlerKey"
+								ng-options="handler as handler for handler in vm.handlers"
+								ng-model="vm.concept.handler">
+							</select>
+							</td>
+						</tr>
+
+						<tr>
+							<td>Version <img class="help_icon_bottom"
+								src="/openmrs/images/help.gif"
+								title="An optional way for you to keep track of which concepts came before others when changing/updating concepts"
+								border="0"> <input class="smallWidth"
+								name="concept.version" value="" type="text">
+							</td>
+						</tr>
+
+
+
+					</tbody>
+				</table>
+
+
+
+
+				<div id="saveDeleteButtons" style="margin-top: 15px">
+
+					<button ng-disabled="!vm.isFormValid" ng-click="vm.postConcept()"><i class="icon-ok"></i><strong>&#160;Save Concept</strong></button> 
+					<button ng-disabled="!vm.isFormValid" ng-click=""><i class="icon-ok"></i><strong>&#160;Save and Continue</strong></button>
+					<button ng-click=""><i class="icon-remove"></i><strong>&#160;Cancel</strong></button>
+
+
+				</div>
+
+			</form>
+		</div>
+	</div>
+</div>
+
+
+
+
+
+
+
+
