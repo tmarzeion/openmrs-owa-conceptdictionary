@@ -1,0 +1,22 @@
+<div class="container">
+	<div class="dashboard clear">
+		<div class ="info-section">
+			<div class="info-header">
+				<h1><strong><i class="icon-cogs"></i>Concept Datatype Management</strong></h1>
+				<div id="conceptDatatypeListReadOnly"><small>(Read Only)</small></div>
+			</div>
+			<div class="info-body">
+				<ul>
+					<li ng-repeat="dataType in vm.dataTypeList">				
+						<div>
+							<i class="icon-angle-right"></i><a href="#/datatype/{{dataType.uuid}}"><strong>{{dataType.display}}&#160;&#160;</strong></a><small>{{dataType.description}}</small>
+						</div>
+					</li>	
+				</ul>	
+				
+					<button ng-show='vm.isPrev' ng-click='vm.prevPage()'>Prev</button>
+					<button ng-show='vm.isNext' ng-click='vm.nextPage()'>Next</button>
+			</div>
+		</div>
+	</div>
+</div>

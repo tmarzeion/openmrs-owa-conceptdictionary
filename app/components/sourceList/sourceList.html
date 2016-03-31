@@ -1,0 +1,54 @@
+<div class="container">
+	<div class="dashboard clear">
+	    
+	    <div ng-show="vm.sourceSaved" id="success-message" class="note-container">
+            <div class="note success">
+                <div class="text">
+                    <i class="icon-ok medium"></i>                    
+                        <p>&#160;&#160;{{vm.sourceSaved}} has been saved.</p>                    
+                </div>
+            </div>
+		</div>  
+		
+	    <div ng-show="vm.sourceDeleted" id="error-message" class="note-container">
+            <div class="note error">
+                <div class="text">
+                    <i class="icon-trash medium"></i>                    
+                        <p>&#160;&#160;{{vm.sourceDeleted}} has been deleted.</p>                    
+                </div>
+            </div>
+		</div>    
+		
+		<div class="container">
+			<div class ="info-section">
+			
+				<div class="info-header"><h1><strong><i class="icon-cogs"></i>Concept Sources Management</strong></h1></div>
+
+			    <form method="post" class="box" name="source-list">
+
+			       
+				        <table class="info-body">
+				            <tbody><tr>
+				                <th>Name</th>
+				                <th>HL7 Code</th>
+				                <th>Description</th>
+				            </tr>
+				            <tr ng-repeat="source in vm.sources" >
+				                <td valign="top">
+				                    <a href="#/source/{{source.uuid}}">
+				                        <span ng-show="source.retired"><del>{{source.name}}</del></span>
+				                        <span ng-show="!source.retired">{{source.name}}</span>
+				                    </a>
+				                </td>
+				                <td valign="top">{{source.hl7Code}}</td>
+				                <td valign="top">{{source.description}}</td>
+				            </tr>
+				            </tbody>
+				        </table>
+
+			        <button ng-click='vm.goTo("/source/add")'><i class="icon-plus"></i><strong>&#160;&#160;Add Concept Source</strong></button>
+			    </form>
+	    	</div>
+		</div>
+	</div>
+</div>

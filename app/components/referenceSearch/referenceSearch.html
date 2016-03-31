@@ -1,0 +1,127 @@
+<div class = "container">
+	<div class="dashboard clear">
+		<div ng-show="vm.referenceSaved" id="success-message" class="note-container">
+            <div class="note success">
+                <div class="text">
+                    <i class="icon-ok medium"></i>                    
+                        <p>{{vm.referenceSaved}} has been saved</p>                    
+                </div>
+            </div>
+		</div>    
+		
+		<div ng-show="vm.referenceDeleted" id="delete-message" class="note-container">
+            <div class="note error">
+                <div class="text">
+                    <i class="icon-trash medium"></i>                    
+                        <p>{{vm.referenceDeleted}} has been deleted</p>                    
+                </div>
+            </div>
+		</div>   
+   		
+   		
+   		
+   		<div class = "info-section">
+    		<div class="info-header"><h1><strong><i class="icon-cogs"></i>Reference Term Management</strong></h1></div>	
+    		<div class="info-body">
+
+	   			 <div>
+	        		<div>
+		            <div>
+	                	<form class="patient-search form">
+		                	<i class="icon-search small"></i>&#160;Find a reference by typing in its name:
+		                	<div>
+		                		<div class="search-input" align="center">
+		                            <input class="field-display ui-autocomplete-input" id="inputNode" type="text" ng-model="vm.query" ng-change="vm.timeoutRefresh()">
+		                            <input id="searchButton" name="searchButton" value="Search" type="button" ng-click="vm.refreshResponse()">
+		                        </div>
+	                            <br>
+	                            <br>
+							</div>
+						</form>
+					</div>
+						 <div>
+							    <div align="center">	                            
+				                        <div ng-show="vm.isSearching()"><b>{{vm.searchNotification}}</b></div>
+				                        <img ng-show="vm.isSearching()" src="../../moduleResources/webservices/rest/js/swagger-ui/dist/images/inprogress.gif" width="64" height="64">
+				                        <span ng-show="vm.isQueryFieldEmpty()"><b>{{vm.noSearchInputNotification}}</b></span>
+				                        <span ng-show="vm.conceptsNotFound()"><b>{{vm.resultNotification}}</b></span>
+				                </div>
+				                <div ng-show="vm.showResults()">
+	                                <div class="info-header"><strong>
+	                                	<span valign="top">References</span>
+	                           		</strong></div>
+					                <div>
+				                        <table border="0">
+				                            <thead>
+				                            <tr>
+				                           		
+					                                <td><strong>Code </strong></td>
+					                                <td><strong> Name </strong></td>
+					                                <td><strong> Source </strong></td>
+				                               
+				                            </tr>
+				                            </thead>
+				                            <tbody class="info-body">
+				                            <tr ng-repeat="reference in vm.references.slice(vm.sliceFrom(),vm.sliceTo())">
+				                                <td valign="top">
+				                                    <a href="#/reference/{{reference.uuid}}">
+				                                        <span ng-show="reference.retired"><del>{{reference.code}}</del></span>
+				                                        <span ng-show="!reference.retired">{{reference.code}}</span>
+				                                    </a>
+				                                </td>
+				                                <td>
+				                                    {{reference.name}}
+				                                </td>
+				                                <td>
+				                                    {{reference.conceptSource.name}}
+				                                </td>
+				                            </tr>
+				                            </tbody>
+				                        </table>
+			                        </div>	
+		                        </div>
+						<div ng-show="!vm.isUserTyping && vm.references.length > 0" >
+							<div align="center">
+		                        <span ng-show="!vm.isUserTyping && vm.references.length && !vm.loadingMorePages> 0">
+		                            <i class="icon-ok-sign small"></i>&#160;Found <b>{{vm.references.length}}</b> entries
+		                        </span>
+		                        <br>
+		                        <span ng-show="!vm.isUserTyping && vm.references.length > 0">
+		                            View range: {{vm.viewRangeStart()}} to {{vm.viewRangeEnd()}}
+		                        </span>
+		                        <br>
+		                        <span ng-show="!vm.isUserTyping && vm.references.length > 0">
+		                            Page: {{vm.pageNumber}}
+		                        </span>
+	                        </div>
+				            <br>
+	                        <br>
+	                        <div align="center">
+			                        <button ng-disabled="vm.isPrevPagePossible()" ng-click="vm.firstPage()">
+			                        		<i class="icon-double-angle-left"></i>&#160;First Page</button>
+			                        <button class="button" ng-disabled="vm.isPrevPagePossible()" ng-click="vm.prevPage()">
+			                        		<i class="icon-angle-left"></i>&#160;Previous Page</button>
+			                        <button class="button" ng-disabled="vm.isNextPagePossible()" ng-click="vm.nextPage()">
+			                        		Next Page&#160;<i class="icon-angle-right"></i></button>
+			                        <button class="button" ng-disabled="vm.isNextPagePossible()" ng-click="vm.lastPage()">
+			                        		Last Page&#160;<i class="icon-double-angle-right"></i></button>
+							</div>
+			                <div align="left">
+		                            Show
+		                            <select size="1" ng-model="vm.entriesPerPage" ng-click="firstPage()">
+		                                <option selected="selected" value="5">5</option>
+		                                <option value="10">10</option>
+		                                <option value="25">25</option>
+		                                <option value="50">50</option>
+		                            </select>
+	                            entries
+		                    </div>
+		                    </div>
+		        		</div>
+		    		</div>
+	   	        </div>
+		    </div>
+		    <div><a class="button" href="#/reference/add"><i class="icon-plus"></i>&#160;Add reference</a></div>
+		</div>
+	</div>
+</div>
