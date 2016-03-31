@@ -52,7 +52,7 @@
 
 		function getOpenmrsContextPath() {
 			var pathname = window.location.pathname;
-			return pathname.substring(0, pathname.indexOf("/owa/"));
+			return pathname.substring(0, pathname.indexOf('/owa/'));
 		}
 	}
 
@@ -198,7 +198,7 @@
 			var params = parser.search.slice(1).split('&');
 			var result = {};
 			params.forEach(function(param) {
-				if(param != ''){
+				if(param !== ''){
 					param = param.split('=');
 					result[param[0]] = decodeURIComponent(param[1] || '');
 				}
