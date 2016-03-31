@@ -1,6 +1,14 @@
-angular
-    .module('conceptDictionaryApp')
-    .controller('ConceptSearchController', ['$scope', '$routeParams' ,'openmrsRest', function($scope, $routeParams, openmrsRest) {
+(function(){
+	'use strict';
+	
+	angular
+   		.module('conceptDictionaryApp')
+   		.controller('ConceptSearchController', ConceptSearchController)
+   	
+   	ConceptSearchController.$inject = ['$scope', '$routeParams' ,'openmrsRest', '$timeout']
+   				
+	
+	function ConceptSearchController($scope, $routeParams, openmrsRest, $timeout) {
 
         var vm = this;
 
@@ -117,11 +125,10 @@ angular
         // Method used to prevent app from querying server with every letter input into search query panel
         var timeout = null;
         function timeoutRefresh()  {
-            clearTimeout(timeout);
             vm.isUserTyping = true;
-            timeout = setTimeout(function () {
-                vm.refreshResponse();
-            }, 250);
+            $timeout(function () {
+            	vm.refreshResponse();
+            	}, 250);
         }
 
         // Method used to apply Rest response to controller variables and apply it on template
@@ -151,7 +158,7 @@ angular
 
         //Init method
         function activate(){
-            if ($routeParams.redirectQuery !== undefined) {
+            if (angular.isDefined($routeParams.redirectQuery)) {
                 vm.query = $routeParams.redirectQuery;
                 refreshResponse();
             }
@@ -181,4 +188,5 @@ angular
             vm.isNextPagePossible = isNextPagePossible;
             vm.isPrevPagePossible = isPrevPagePossible;
         }
-    }]);
+    };
+})(); 

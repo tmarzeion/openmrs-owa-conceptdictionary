@@ -30,7 +30,7 @@ function ReferenceAddController (sources, openmrsRest, $location ){
     }
 
     function isSavePossible () {
-        return vm.reference.code.length > 0 && vm.reference.conceptSource.uuid !== undefined;
+        return vm.reference.code.length > 0 && angular.isDefined(vm.reference.conceptSource.uuid);
     }
 
     //Method used to add class with current class params
