@@ -3,9 +3,10 @@
     <div class=info-section">
 
         <div class="info-header">
-            <h3 ng-show="vm.conceptStopWordAdded">{{vm.conceptStopWordAdded}} has been saved.</h3>
+            <h3 ng-show="vm.conceptStopWordAdded">
+                {{vm.conceptStopWordAdded}} {{"Concept.hasBeenSaved" | translate}}</h3>
             <strong>
-                <h1><i class="icon-cogs"></i>Concept Stop Word Management</h1>
+                <h1><i class="icon-cogs"></i>{{"ConceptStopWord.title" | translate}}</h1>
             </strong>
         </div>
 
@@ -25,11 +26,11 @@
 
     <button ng-click='vm.goTo("/conceptstopword/add")'>
         <i class="icon-plus"></i>
-        <strong>&#160;Add</strong>
+        <strong>&#160;{{"ConceptStopWord.add" | translate}}</strong>
     </button>
     <button value="" ng-disabled="!(vm.isSelected)" ng-click="vm.deleteSelected()">
         <i class="icon-remove"></i>
-        <strong>&#160;Delete</strong>
+        <strong>&#160;{{"ConceptStopWord.delete" | translate}}</strong>
     </button>
 
 </div>

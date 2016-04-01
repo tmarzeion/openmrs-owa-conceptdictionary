@@ -5,14 +5,14 @@
             <div class="note success">
                 <div class="text">
                     <i class="icon-ok medium"></i>                    
-                        <p>&#160;&#160;{{vm.classAdded}} has been saved.</p>                    
+                        <p>&#160;&#160;{{vm.classAdded}} {{"Concept.hasBeenSaved" | translate}}.</p>
                 </div>
             </div>
 		</div>                     
 	
 		<div class="container">
 			<div class ="info-section">
-				<div class="info-header"><h1><strong><i class="icon-cogs"></i>Concept Class Management</strong></h1></div>
+				<div class="info-header"><h1><strong><i class="icon-cogs"></i>{{"ConceptClass.title" | translate}}</strong></h1></div>
 					
 				<form method="post" name="class-list">
 					<div class="info-body">		
@@ -28,12 +28,10 @@
 							</li>
 						</ul>	
 					</div>
-					
-					<div>					
-						<a class="button" ng-click='vm.goTo("/class/add")'><i class="icon-plus"></i><strong>&#160;&#160;Add Concept Class</strong></a>
-						<a class="button" type="submit" ng-disabled="!(vm.isSelected)" ng-click="vm.deleteSelected()"><i class="icon-remove"></i><strong>&#160;Delete Selected Concept Classes</strong></a>				
-					</div>		
-				
+					<div>
+						<a class="button" ng-click='vm.goTo("/class/add")'><i class="icon-plus"></i><strong>&#160;&#160;{{"ConceptClass.add" | translate}}</strong></a>
+						<a class="button" type="submit" ng-disabled="!(vm.isSelected)" ng-click="vm.deleteSelected()"><i class="icon-remove"></i><strong>&#160;{{"ConceptClass.delete" | translate}}</strong></a>
+					</div>
 				</form>
 			</div>
 		</div>

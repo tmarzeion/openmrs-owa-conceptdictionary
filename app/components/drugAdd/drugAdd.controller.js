@@ -15,11 +15,13 @@
 		.controller('DrugAddController', DrugAddController)
 		
 	DrugAddController.$inject = 
-		['$location', 'openmrsRest']
+		['$location', 'openmrsRest'];
 	
 	function DrugAddController($location, openmrsRest){
 		
 		var vm = this;
+
+
 		vm.concept = {
 				display: ''
 		};

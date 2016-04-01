@@ -24,6 +24,10 @@
 </header>
 <div ng-view></div>
 
+<div ng-controller="IndexController as vm">
+    <button ng-click="vm.changeLanguage('en')">English</button>
+    <button ng-click="vm.changeLanguage('es')">Spanish</button>
+</div>
 
 <!-- bower:js -->
 <!-- endbower -->
@@ -31,6 +35,7 @@
 <script src="components/openmrs/openmrsRest.js"></script>
 <script src="components/openmrs/openmrs.js"></script>
 
+<script src="components/translateApp.module.js"></script>
 <script src="components/conceptDictionaryApp.module.js"></script>
 
 <script src="components/classList/classList.controller.js"></script>
@@ -59,11 +64,14 @@
 <script src="components/drugAdd/drugAdd.controller.js"></script>
 <script src="components/drugEdit/drugEdit.controller.js"></script>
 
-<script src="components/conceptAutocomplete\conceptAutocomplete.component.js"></script>
+<script src="components/conceptAutocomplete/conceptAutocomplete.component.js"></script>
 <script src="components/conceptTable/conceptTable.component.js"></script>
 <script src="components/conceptUniqueName/conceptUniqueName.component.js"></script>
 
 <script src="components/conceptsService/concepts.service.js"></script>
 
+<script src="components/translateApp.module.js"></script>
+
+<script src="components/index/index.controller.js"></script>
 </body>
 </html>

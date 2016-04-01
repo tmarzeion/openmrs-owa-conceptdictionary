@@ -31,8 +31,6 @@
         vm.isUserTyping = false;
 
         //Default values
-        vm.searchNotification = 'Searching...';
-        vm.noSearchInputNotification = 'Type query to search panel to find references';
         vm.entriesPerPage = 5;
         vm.pageNumber = 1;
         vm.references='';
@@ -55,9 +53,6 @@
         vm.viewRangeStart;
         vm.viewRangeEnd;
 
-        //Method used to display proper notification when there is no result
-        vm.updateResultNotification;
-
         // Method used to apply Rest response to controller variables and apply it on template
         vm.refreshResponse;
 
@@ -66,8 +61,6 @@
 
         //Init method
         activate();
-
-
 
         //ng-show logic
         function isSearching () {
@@ -126,16 +119,6 @@
             return vm.sliceTo();
         }
 
-        //Method used to display proper notification when there is no result
-        function updateResultNotification () {
-            if (vm.isUserTyping) {
-                vm.resultNotification = '';
-            }
-            else {
-                vm.resultNotification = 'There is no reference named ' + vm.query;
-            }
-        };
-
         // Method used to prevent app from querying server with every letter input into search query panel
         var timeout = null;
         function timeoutRefresh()  {
@@ -143,7 +126,7 @@
             $timeout(function () {
                 vm.refreshResponse();
             }, 250);
-        };
+        }
 
         // Method used to apply Rest response to controller variables and apply it on template
         function refreshResponse() {
@@ -154,21 +137,19 @@
                 openmrsRest.listFull('conceptreferenceterm', {q: vm.query, limit: vm.entriesPerPage, includeAll: true}).then(function (firstResponse) {
                     vm.loadingMorePages = true;
                     vm.references = firstResponse.results;
-                    updateResultNotification();
 
                     openmrsRest.listFull('conceptreferenceterm',{q: vm.query, includeAll: true}).then(function (response) {
                         vm.references = response.results;
-                        updateResultNotification();
                         vm.loadingMorePages = false;
                     });
                 });
             }
             else {
                 $scope.$apply(function () {
-                    vm.references='';
-                });
+                    vm.references = '';
+                })
             }
-        };
+        }
 
         //Init method
         function activate(){
@@ -189,7 +170,6 @@
             vm.viewRangeStart = viewRangeStart;
             vm.viewRangeEnd = viewRangeEnd;
             vm.refreshResponse = refreshResponse;
-            vm.updateResultNotification = updateResultNotification;
             vm.timeoutRefresh = timeoutRefresh;
 
             //ng-show logic

@@ -18,7 +18,10 @@ module.exports = function(config) {
       'bower_components/angular-resource/angular-resource.js',
       'bower_components/angular-mocks/angular-mocks.js',
       'bower_components/angular-strap/dist/angular-strap.js',
+      'bower_components/angular-translate/angular-translate.js',
+      'bower_components/angular-translate-loader-partial/angular-translate-loader-partial.js',
       'app/components/conceptDictionaryApp.module.js',
+      'app/components/translateApp.module.js',
       'app/components/**/*.js',
       'test/unit/**/*.js',
 	  'app/**/*.spec.js'

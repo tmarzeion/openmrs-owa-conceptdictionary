@@ -2,24 +2,24 @@
 	<div class="dashboard clear">
 		<div class ="info-section">
 			<div class="info-header">
-				<h1><strong><i class="icon-cog"></i>Concept Datatype Form</strong></h1>
-				<div id="concepdivatatypeFormReadOnly"><small>(Read Only)</small></div>
+				<h1><strong><i class="icon-cog"></i>{{"ConceptDatatype.title" | translate}}</strong></h1>
+				<div id="concepdivatatypeFormReadOnly"><small>{{"ConceptDatatype.ReadOnly" | translate}}</small></div>
 			</div>
 			<div class="info-body">
 				<div>
-					<div><small>Name:  </small><strong>{{vm.singleDataType.display}}</strong></div>
+					<div><small>{{"Name" | translate}}:  </small><strong>{{vm.singleDataType.display}}</strong></div>
 				</div>
 				<div>
-					<div><small>Description:</small><strong>{{vm.singleDataType.description}}</strong></div>
+					<div><small>{{"Description" | translate}}:</small><strong>{{vm.singleDataType.description}}</strong></div>
 				</div>	
 				<div>
-					<div><small>HL7 Abbreviation:</small><strong>{{vm.singleDataType.hl7Abbreviation}}</strong></div>
+					<div><small>{{"ConceptDatatype.hl7abbreviation" | translate}}:</small><strong>{{vm.singleDataType.hl7Abbreviation}}</strong></div>
 				</div>
 				<div>
 					<div><small>UUID:</small><strong>{{vm.singleDataType.uuid}}</strong></div>
 				</div>	
 				<div>
-					<div><small>Created By:</small>
+					<div><small>{{"CreatedBy" | translate}}:</small>
 						<strong>
 							{{vm.singleDataType.auditInfo.creator.display}} -
 							{{vm.singleDataType.auditInfo.dateCreated | date:'medium'}}

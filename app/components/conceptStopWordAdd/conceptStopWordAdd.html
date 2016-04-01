@@ -1,12 +1,14 @@
 <div class="dashboard clear">
     <div class="info-section">
-        <div class="info-header"><h1><strong>
-            <h3>{{vm.responseMessage}}</h3>
-            <i class="icon-edit"></i>Concept Stop Word Form</strong></h1>
+        <div class="info-header">
+            <h1><strong>
+                <h3>{{vm.responseMessage}}</h3>
+                <i class="icon-edit"></i>{{"ConceptStopWord.title" | translate}}</strong></h1>
         </div>
         <div class="info-body">
             <div>
-                Name<span class="required">*</span>
+                {{"Name" | translate}}
+                <span class="required">*</span>
                 <input type="text" name="name" size="35" ng-model="vm.conceptStopWord.value" ng-required="true"
                        value="">
 
@@ -18,8 +20,17 @@
             </div>
             <br>
         </div>
-        <button ng-disabled="!(vm.conceptStopWord.locale)" ng-click="vm.addConceptStopWord()"><i
-                class="icon-ok"></i><strong>&#160;Save</strong></button>
-        <button ng-click="vm.cancel()"><i class="icon-remove"></i><strong>&#160;Cancel</strong></button>
+        <button ng-disabled="!(vm.conceptStopWord.locale)" ng-click="vm.addConceptStopWord()">
+            <i class="icon-ok"></i>
+            <strong>
+                &#160;{{"ConceptStopWord.save" | translate}}
+            </strong>
+        </button>
+        <button ng-click="vm.cancel()">
+            <i class="icon-remove"></i>
+            <strong>
+                &#160;{{"Concept.cancel" | translate}}
+            </strong>
+        </button>
     </div>
 </div>

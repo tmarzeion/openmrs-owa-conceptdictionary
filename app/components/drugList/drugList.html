@@ -3,8 +3,7 @@
 	
 		<div class="container">
 			<div class ="info-section">
-				<div class="info-header"><h1><strong><i class="icon-cogs"></i>Concept Drug Management</strong></h1></div>
-				
+				<div class="info-header"><h1><strong><i class="icon-cogs"></i>{{"ConceptDrug.title" | translate}}</strong></h1></div>
 				<form name="drugs-list">
 					<div class="info-body">		
 						<ul>
@@ -21,9 +20,9 @@
 						</ul>	
 					</div>
 				</form>
-				<button ng-click='vm.gotToAddDrugPage("/drug/add")'><i class="icon-plus"></i><strong>&#160;&#160;Add</strong></button>
-				<button ng-show='!vm.retiredOn' ng-click='vm.toggleRetire()'><i class="icon-lock"></i><strong>&#160;&#160;Show retired</strong></button>
-				<button ng-show='vm.retiredOn' ng-click='vm.toggleRetire()'><i class="icon-lock"></i><strong>&#160;&#160;Show unretired</strong></button>
+				<button ng-click='vm.gotToAddDrugPage("/drug/add")'><i class="icon-plus"></i><strong>&#160;&#160;{{"ConceptDrug.add" | translate}}</strong></button>
+				<button ng-show='!vm.retiredOn' ng-click='vm.toggleRetire()'><i class="icon-lock"></i><strong>&#160;&#160;{{"ShowRetired" | translate}}</strong></button>
+				<button ng-show='vm.retiredOn' ng-click='vm.toggleRetire()'><i class="icon-lock"></i><strong>&#160;&#160;{{"ShowUnretired" | translate}}</strong></button>
 			</div>
 		</div>
 	</div>

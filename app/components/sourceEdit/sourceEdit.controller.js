@@ -13,7 +13,7 @@ angular
 
 SourceEditController.$inject = ['sources','openmrsRest', '$location'];
 
-function SourceEditController (sources ,openmrsRest, $location ){
+function SourceEditController (sources ,openmrsRest, $location){
 
     var vm = this;
 

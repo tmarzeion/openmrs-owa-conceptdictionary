@@ -5,7 +5,7 @@
             <div class="note success">
                 <div class="text">
                     <i class="icon-ok medium"></i>                    
-                        <p>&#160;&#160;{{vm.sourceSaved}} has been saved.</p>                    
+                        <p>&#160;&#160;{{vm.sourceSaved}} {{"Concept.hasBeenSaved" | translate}}.</p>
                 </div>
             </div>
 		</div>  
@@ -14,7 +14,7 @@
             <div class="note error">
                 <div class="text">
                     <i class="icon-trash medium"></i>                    
-                        <p>&#160;&#160;{{vm.sourceDeleted}} has been deleted.</p>                    
+                        <p>&#160;&#160;{{vm.sourceDeleted}} {{"ConceptSource.purged" | translate}}.</p>
                 </div>
             </div>
 		</div>    
@@ -22,16 +22,16 @@
 		<div class="container">
 			<div class ="info-section">
 			
-				<div class="info-header"><h1><strong><i class="icon-cogs"></i>Concept Sources Management</strong></h1></div>
+				<div class="info-header"><h1><strong><i class="icon-cogs"></i>{{"ConceptSource.title" | translate}}</strong></h1></div>
 
 			    <form method="post" class="box" name="source-list">
 
 			       
 				        <table class="info-body">
 				            <tbody><tr>
-				                <th>Name</th>
-				                <th>HL7 Code</th>
-				                <th>Description</th>
+				                <th>{{"Name" | translate}}</th>
+				                <th>{{"ConceptSource.hl7code" | translate}}</th>
+				                <th>{{"Description" | translate}}</th>
 				            </tr>
 				            <tr ng-repeat="source in vm.sources" >
 				                <td valign="top">
@@ -46,7 +46,9 @@
 				            </tbody>
 				        </table>
 
-			        <button ng-click='vm.goTo("/source/add")'><i class="icon-plus"></i><strong>&#160;&#160;Add Concept Source</strong></button>
+			        <button ng-click='vm.goTo("/source/add")'>
+						<i class="icon-plus"></i><strong>&#160;&#160;{{"ConceptSource.add" | translate}}</strong>
+					</button>
 			    </form>
 	    	</div>
 		</div>

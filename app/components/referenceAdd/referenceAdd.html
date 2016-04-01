@@ -1,75 +1,75 @@
 <div class="container">
-	<div class="dashboard clear">
-			<div ng-show="vm.responseMessage" id="error-message" class="note-container">
-		           <div class="note warning">
-		               <div class="text">
-		                   <i class="icon-ok medium"></i>                    
-		                       <p>{{vm.responseMessage}} has been saved</p>                    
-		               </div>
-		           </div>
-			</div> 
-			<div class ="info-section">
-   				<div class="info-header"><h1><strong><i class="icon-edit"></i>Reference Term Form</strong></h1></div>	
-					<form method="post" name="class-edit">
-						<div class="info-body">		
+    <div class="dashboard clear">
+        <div ng-show="vm.responseMessage" id="error-message" class="note-container">
+            <div class="note warning">
+                <div class="text">
+                    <i class="icon-ok medium"></i>
+                </div>
+            </div>
+        </div>
+        <div class="info-section">
+            <div class="info-header"><h1><strong><i class="icon-edit"></i>{{"ConceptReferenceTerm.form.title" |
+                translate}}</strong></h1></div>
+            <form method="post" name="class-edit">
+                <div class="info-body">
 
-            <div class="form_align_left" cellpadding="3" cellspacing="3">
-				<div>
-                    <div class="alignRight" valign="top">Code<span class="required">*</span></div>
-                    <div valign="top">
+                    <div class="form_align_left" cellpadding="3" cellspacing="3">
+                        <div>
+                            <div class="alignRight" valign="top">{{"Code" | translate}}<span class="required">*</span>
+                            </div>
+                            <div valign="top">
+                                <input name="conceptReferenceTerm.code" ng-model="vm.reference.code" type="text">
+                            </div>
+                        </div>
+                        <div>
+                            <div class="alignRight" valign="top">{{"Name" | translate}}</div>
+                            <div valign="top">
+                                <input name="conceptReferenceTerm.name" ng-model="vm.reference.name" type="text">
+                            </div>
+                        </div>
+                        <div>
+                            <th class="alignRight" valign="top">{{"ConceptReferenceTerm.source" | translate}}<span class="required">*</span>
+                            </th>
+                            <div valign="top">
+                                <select
+                                        ng-required="vm.reference.conceptSource"
+                                        ng-model="vm.reference.conceptSource"
+                                        ng-options="source as source.display for source in vm.sources">
+                                </select>
+                            </div>
+                        </div>
+                        <div>
+                            <div class="alignRight" valign="top">{{"Description" | translate}}</div>
+                            <div valign="top">
+                                <textarea name="conceptReferenceTerm.description" ng-model="vm.reference.description"
+                                          rows="3" cols="50"></textarea>
+                            </div>
+                        </div>
+                        <div>
+                            <div class="alignRight">{{"Version" | translate}}</div>
+                            <div>
 
-                        <input name="conceptReferenceTerm.code" ng-model="vm.reference.code" type="text">
+                                <input name="conceptReferenceTerm.version" ng-model="vm.reference.version" type="text">
 
-
+                            </div>
+                        </div>
+                        <div>
+                            <div>
+                                <div>
+                                    <a class="button" ng-click="vm.save()" ng-disabled="!vm.isSavePossible()">
+                                        <i class="icon-ok"></i><strong>&#160;{{"Save" | translate}}</strong></a>
+                                    <a class="button" ng-click="vm.cancel()">
+                                        <i class="icon-remove"></i>
+                                        <strong>&#160;{{"Concept.cancel" | translate}}
+                                        </strong>
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
                     </div>
                 </div>
-                <div>
-                    <div class="alignRight" valign="top">Name</div>
-                    <div valign="top">
-                        <input name="conceptReferenceTerm.name" ng-model="vm.reference.name" type="text">
-                    </div>
-                </div>
-               <div>
-                    <th class="alignRight" valign="top">Source<span class="required">*</span></th>
-                    <div valign="top">
-                        <select
-                                ng-required="vm.reference.conceptSource"
-                                ng-model="vm.reference.conceptSource"
-                                ng-options="source as source.display for source in vm.sources">
-                        </select>
-                    </div>
-                </div>
-                <div>
-                    <div class="alignRight" valign="top">Description</div>
-                    <div valign="top">
-
-                        <textarea name="conceptReferenceTerm.description" ng-model="vm.reference.description" rows="3" cols="50"></textarea>
-
-                    </div>
-                </div>
-                <div>
-                    <div class="alignRight">Version</div>
-                    <div>
-
-                        <input name="conceptReferenceTerm.version" ng-model="vm.reference.version" type="text">
-                        
-                    </div>
-                </div>
-                
-                <div>
-                    <div>
-                         <div>
-                             <a class="button" ng-click ="vm.save()" ng-disabled="!vm.isSavePossible()">
-                             		<i class="icon-ok"></i><strong>&#160;Save</strong></a>
-                             <a class="button" ng-click="vm.cancel()"><i class="icon-remove"></i><strong>&#160;Cancel</strong></a>
-                         </div>
-
-
-                    </div>
-                </div>
-                </div>
-    </form>
-</div>
-</div>
+            </form>
+        </div>
+    </div>
 </div>
 </div>

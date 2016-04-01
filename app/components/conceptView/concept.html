@@ -1,13 +1,13 @@
 <div class="container">
 	<div class="dashboard clear">
 		<div style="padding-bottom: 8px;">
-			<a class="button" ng-click='vm.goTo("/concept/add/")'>New</a>
+			<a class="button" ng-click='vm.goTo("/concept/add/")'>{{"New" | translate}}</a>
 		</div>
 		<div class="info-section">
 
 			<div class="info-header">
 				<h1>
-					<strong><i class="icon-edit"></i>Concept Form</strong>
+					<strong><i class="icon-edit"></i>{{"Concept.title" | translate}}</strong>
 				</h1>
 			</div>
 			<form method="post" name="concept-edit">
@@ -24,8 +24,8 @@
 							<td>
 								<div class="info-section">
 									<div class="info-header"
-										title="The locale in which the concept name belongs ">
-										<strong>Locale:&#160;&#160;</strong> <a class="button"
+										title="The locale in which the concept name belongs">
+										<strong>{{"Locale" | translate}}:&#160;&#160;</strong> <a class="button"
 											ng-repeat="locale in vm.locales"
 											ng-click='vm.goLocale(locale)'><small>{{locale}}</small></a>
 									</div>
@@ -33,7 +33,7 @@
 										<ul>
 											<li class="localeSpecific"
 												title="The name to be used on forms, reports etc. in case no preferred name is set for the locale">
-												Display: <strong>{{vm.conceptLocale.names.full}}</strong>
+												{{"Display" | translate}}: <strong>{{vm.conceptLocale.names.full}}</strong>
 											</li>
 
 
@@ -53,7 +53,7 @@
 												ng-show="vm.conceptLocale.names.searchTerms.length>0">
 												<div
 													title="An index term or phrase that might be used to search for this concept but that is not valid for display purposes or storing in the record (e.g., common misspellings or pragmatic mapping term)">Search
-													Terms:</div> <strong>
+													{{"Terms" | translate}}:</div> <strong>
 													<div class="searchTerm-repeat"
 														ng-repeat="searchTerm in vm.conceptLocale.names.searchTerms">
 														<i class="icon-double-angle-right"></i>{{searchTerm}}
@@ -62,12 +62,12 @@
 											</li>
 											<li class="localeSpecific"
 												title="The text shown in report headers and other places where space is limited">
-												Short Name: <strong class="en">{{vm.conceptLocale.names.short}}</strong>
+												{{"Concept.shortName" | translate}}: <strong class="en">{{vm.conceptLocale.names.short}}</strong>
 											</li>
 
 											<li class="localeSpecific"
 												title="Longer body of text used to fully describe this concept and how it is used.">
-												Description: <strong valign="top">{{vm.conceptLocale.description}}
+												{{"Description" | translate}}: <strong valign="top">{{vm.conceptLocale.description}}
 											</strong>
 
 											</li>
@@ -76,19 +76,15 @@
 								</div>
 							</td>
 						</tr>
-
-
-
-
 						<tr title="The classification of the medical concept">
-							<td>Class: <strong valign="top">
+							<td>{{"Concept.conceptClass" | translate}}: <strong valign="top">
 									{{vm.concept.conceptClass.display}} </strong>
 							</td>
 						</tr>
 
 						<tr>
 							<td ng-show="vm.concept.set">
-								<div>Set Members:</div>
+								<div>{{"Concept.conceptSets" | translate}}:</div>
 								<ul>
 									<li class="setMembers-repeat"
 										ng-repeat="member in vm.concept.setMembers"
@@ -103,14 +99,14 @@
 
 						<tr
 							title="If data is stored within this concept, this describes what it will look like">
-							<td>Datatype: <strong valign="top">
+							<td>{{"Concept.datatype" | translate}}: <strong valign="top">
 									{{vm.concept.datatype.display}} </strong>
 							</td>
 						</tr>
 
 
 						<tr>
-							<td ng-show="vm.isCoded">Answers:
+							<td ng-show="vm.isCoded">{{"Concept.answers" | translate}}:
 								<div>
 									<ul>
 										<li class="synonym-repeat"
@@ -124,49 +120,49 @@
 
 						<tr
 							title="An optional way for you to keep track of which concepts came before others when changing/updating concepts">
-							<td>Version: <strong> {{vm.concept.version}} </strong>
+							<td>{{"Version" | translate}}: <strong> {{vm.concept.version}} </strong>
 							</td>
 						</tr>
 
 						<tr>
 							<td ng-show="vm.isNumeric" class="ng-hide">
 								<div class="info-header">
-									<strong>Numeric</strong> <small><em>(range values
-											are inclusive)</em></small>
+									<strong>{{"ConceptNumeric.name" | translate}}</strong>
+									<small><em>({{"ConceptNumeric.inclusive" | translate}})</em></small>
 								</div>
 								<table class="info-body">
 
 									<tr>
-										<td valign="middle">Absolute High</td>
+										<td valign="middle">{{"ConceptNumeric.absoluteHigh" | translate}}</td>
 										<td valign="middle">{{vm.concept.hiAbsolute}}</td>
 
 									</tr>
 									<tr>
-										<td valign="middle">Critical High</td>
+										<td valign="middle">{{"ConceptNumeric.criticalHigh" | translate}}</td>
 										<td valign="middle">{{vm.concept.hiCritical}}</td>
 									</tr>
 									<tr>
-										<td valign="middle">Normal High</td>
+										<td valign="middle">{{"ConceptNumeric.normalHigh" | translate}}</td>
 										<td valign="middle">{{vm.concept.hiNormal}}</td>
 									</tr>
 									<tr>
-										<td valign="middle">Normal Low</td>
+										<td valign="middle">{{"ConceptNumeric.normalLow" | translate}}</td>
 										<td valign="middle">{{vm.concept.lowNormal}}</td>
 									</tr>
 									<tr>
-										<td valign="middle">Critical Low</td>
+										<td valign="middle">{{"ConceptNumeric.criticalLow" | translate}}</td>
 										<td valign="middle">{{vm.concept.lowCritical}}</td>
 									</tr>
 									<tr>
-										<td valign="middle">Absolute Low</td>
+										<td valign="middle">{{"ConceptNumeric.absoluteLow" | translate}}</td>
 										<td valign="middle">{{vm.concept.lowAbsolute}}</td>
 									</tr>
 									<tr>
-										<td>Units</td>
+										<td>{{"ConceptNumeric.units" | translate}}</td>
 										<td colspan="2">{{vm.concept.units}}</td>
 									</tr>
 									<tr>
-										<td>Allow Decimal?</td>
+										<td>{{"ConceptNumeric.allowDecimal" | translate}}</td>
 										<td colspan="2">{{vm.concept.allowDecimal}}</td>
 									</tr>
 
@@ -174,17 +170,15 @@
 							</td>
 						</tr>
 						<tr>
-							<td><small valign="top">Created By:</small> <strong>
+							<td><small valign="top">{{"CreatedBy" | translate}}:</small> <strong>
 									{{vm.concept.auditInfo.creator.display}} -
 									{{vm.concept.auditInfo.dateCreated|date:'medium'}} </strong></td>
 						</tr>
 						<tr>
-							<td><small valign="top">Changed By:</small> <strong>
+							<td><small valign="top">{{"ChangedBy" | translate}}:</small> <strong>
 									{{vm.concept.auditInfo.creator.display}} -
 									{{vm.concept.auditInfo.dateChanged|date:'medium'}} </strong></td>
 						</tr>
-
-
 					</tbody>
 				</table>
 			</form>
