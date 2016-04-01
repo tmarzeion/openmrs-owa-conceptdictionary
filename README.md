@@ -22,9 +22,14 @@ You need to setup a server (first time only) as follows:
 ````sh
 mvn openmrs-sdk:setup-platform -DserverId=conceptdictionary
 mvn openmrs-sdk:install -DartifactId=owa -Dversion=1.4-SNAPSHOT -DserverId=conceptdictionary
-mvn openmrs-sdk:install -DartifactId=webservices.rest -Dversion=2.13 -DserverId=conceptdictionary
 mvn openmrs-sdk:install -DartifactId=uiframework -Dversion=3.6 -DserverId=conceptdictionary
 mvn openmrs-sdk:install -DartifactId=uicommons -Dversion=1.7 -DserverId=conceptdictionary
+````
+
+You need to install latest version of REST webservices module
+````sh
+mvn openmrs-sdk:install -DartifactId=webservices.rest -Dversion=2.14-SNAPSHOT -DserverId=conceptdictionary
+# You can also add "-U" atribute to maven command to ensure that module is downloaded from Maven repository
 ````
 
 Now you can run the server:
