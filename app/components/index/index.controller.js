@@ -12,7 +12,7 @@ function IndexController($translate, $translatePartialLoader) {
     $translate.refresh();
 
     vm.changeLanguage = function (langKey) {
-       $translate.use(langKey);
+       return $translate.use(langKey);
     };
 
 }
