@@ -10,7 +10,7 @@
 angular
 	.module('conceptDictionaryApp')
 	.component('conceptUniqueName', {
-		  templateUrl: 'components/conceptUniquename/conceptUniquename.html',
+		  templateUrl: 'components/conceptUniqueName/conceptUniqueName.html',
 		  controller: conceptUniqueName,
 		  controllerAs : 'vm',
 		  bindings: {
@@ -47,8 +47,6 @@ function conceptUniqueName(openmrsRest){
 		for(var i=0; i<vm.concepts.length; i++){
 			if(display === vm.concepts[i].display){
 				vm.isDuplicate = true;
-			}else{
-				break;
 			}
 		}
 	}

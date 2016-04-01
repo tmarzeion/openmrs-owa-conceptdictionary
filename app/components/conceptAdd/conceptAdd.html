@@ -311,10 +311,10 @@
 
 				<div id="saveDeleteButtons" style="margin-top: 15px">
 
-					<button ng-disabled="!vm.isFormValid" ng-click="vm.postConcept()"><i class="icon-ok"></i><strong>&#160;{{"Concept.save" | translate}}</strong></button>
-					<button ng-disabled="!vm.isFormValid" ng-click=""><i class="icon-ok"></i><strong>&#160;{{"Concept.saveAndContinue" | translate}}</strong></button>
-					<button ng-click=""><i class="icon-remove"></i><strong>&#160;{{"Concept.cancel" | translate}}</strong></button>
-					
+					<button ng-disabled="!vm.isFormValid" ng-click="vm.postConcept()"><i class="icon-ok"></i><strong>&#160;{{"Concept.save" | translate}}</strong></button> 
+					<button ng-disabled="!vm.isFormValid" ng-click="vm.postConceptAndContinue()""><i class="icon-ok"></i><strong>&#160;{{"Concept.saveAndContinue" | translate}}</strong></button>
+					<a class = "button" href="#/concept/"><i class="icon-remove"></i><strong>&#160;{{"Concept.cancel" | translate}}</strong></a>
+
 				</div>
 			</form>
 		</div>

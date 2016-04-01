@@ -31,7 +31,7 @@ describe('Concept dictionary controllers', function() {
     beforeEach(module('conceptDictionaryApp'));
 
     describe('conceptsService', function(){
-    	function findNameObject(name, namesArray){
+    	function findNameObjectByName(name, namesArray){
         	for(var i=0;i<namesArray.length;i++){
         		if(namesArray[i].name === name) return namesArray[i];
         	}
@@ -49,7 +49,9 @@ describe('Concept dictionary controllers', function() {
         var localizedConcept2;
         var validLocalizedConcepts;
         
-        var invalidLocalizedConcept;
+        var invalidLocalizedConcepts;
+        
+        var createdConcept;
         
         var serverLocales = ["en", "es", "pt", "it", "fr"];
 
@@ -90,18 +92,26 @@ describe('Concept dictionary controllers', function() {
             					fullname : { display : "fullname1"},
             					shortname : { display : "shortname1"},
             					preferredName : {display : "fullname1"},
-            					searchTerms : [{ display : "searchTerm1"}, {display : "searchTerm2"}],
-            					synonyms : [{display : "synonym1"}, {display : "synonym2"}]}
+            					searchTerms : [],
+            					synonyms : [{display : "synonym11"}, {display : "synonym12"}],
+            					description : "english description"}
             localizedConcept2 = {locale : "es",
 								fullname : { display : "fullname2"},
 								shortname : { display : "shortname2"},
-								preferredName : {display :  "synonym2"},
-								searchTerms : [{ display : "searchTerm2"}, {display : "searchTerm2"}],
-								synonyms : [{display : "synonym2"}, {display : "synonym2"}]}
+								preferredName : {display :  "synonym22"},
+								searchTerms : [{ display : "searchTerm21"}, {display : "searchTerm22"}],
+								synonyms : [{display : "synonym21"}, {display : "synonym22"}],
+								description : "spanish description"}
             validLocalizedConcepts = [localizedConcept1, localizedConcept2];
             
-            invalidLocalizedConcept = { potato : "potato"};
+            invalidLocalizedConcepts = [{ potato : "potato"}, {invalid : "invalid"}];
             
+            createdConcept = {datatype : "8d4a4488-c2cc-11de-8d13-0010c6dffd0f",
+            					conceptClass : "classUuid",
+            					hiAbsolute : 2323,
+            					lowAbsolute : 33,
+            					set : true,
+            					setMembers : ["uuid1", "uuid2"]}            
             
         });
 
@@ -145,7 +155,48 @@ describe('Concept dictionary controllers', function() {
         }));
         it('parseNames should return table of names', inject(function(conceptsService){
             var names = conceptsService.parseNames(validLocalizedConcepts);
-            expect(names.length).toEqual(12);
+            expect(names.length).toEqual(10);
+            
+            var synonym2 = findNameObjectByName("synonym22", names);
+            expect(synonym2.localePreferred).toEqual(true);
+            expect(synonym2.locale).toEqual("es");
+            
+            var fullname2 = findNameObjectByName("fullname2", names);
+            expect(fullname2.localePreferred).toEqual(false);
+            expect(fullname2.conceptNameType).toEqual("FULLY_SPECIFIED");
         }));
+        
+        it('parseNames should throw error', inject(function(conceptsService){
+           expect(function(){conceptsService.parseNames(invalidLocalizedConcepts)}).toThrow("No fully specified name is present!");
+        }));
+        it('parseDescriptions should return table of descriptions', inject(function(conceptsService){
+            var descriptions = conceptsService.parseDescriptions(validLocalizedConcepts);
+            expect(descriptions.length).toEqual(2);
+            expect(descriptions[0].locale).toBeDefined();
+            expect(descriptions[1].locale).toBeDefined();
+        }));
+        it('parseDescriptions should return empty array', inject(function(conceptsService){
+            expect(conceptsService.parseDescriptions(invalidLocalizedConcepts)).toEqualData([])
+         }));
+        it('postConcept should return result message that there is no fully specified name', inject(function(conceptsService){
+            expect(conceptsService.postConcept(createdConcept, invalidLocalizedConcepts).message).toEqualData("No fully specified name is present!");
+         }));
+        it('postConcept should return result message that there is no fully specified name', inject(function(conceptsService){
+            expect(conceptsService.postConcept({}, validLocalizedConcepts).message).toEqualData("concept's datatype and class must be defined!");
+         }));
+        it('postConcept should send post request', inject(function(conceptsService, _$httpBackend_){
+        	_$httpBackend_.expectPOST("/ws/rest/v1/concept").respond("just expect the request")
+        	_$httpBackend_.expectGET("components/indexMenu/indexMenu.html").respond("just expect the request")
+        	var postResult = conceptsService.postConcept(createdConcept, validLocalizedConcepts);
+        	_$httpBackend_.flush();
+            
+        	expect(postResult.success).toBeTrue;
+            expect(postResult.message).toBeDefined;
+            
+            var requestBody = angular.fromJson(postResult.requestBody)
+            expect(requestBody.datatype).toEqualData("8d4a4488-c2cc-11de-8d13-0010c6dffd0f");
+            expect(requestBody.names.length).toEqualData(10);
+         }));
+
     })
 });

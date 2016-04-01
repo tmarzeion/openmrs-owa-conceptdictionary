@@ -51,6 +51,9 @@ angular
 						handler : ""
 				};	
 			}
+			/**
+			 * @returns empty localized concept data object for one locale
+			 */
 			function getEmptyLocaleConceptObject(locale){
 				var empty = {};
 				empty.locale = locale;
@@ -63,9 +66,18 @@ angular
 				empty.description;
 				return empty;
 			}
+			/**
+			 * sends proper POST request to create concept
+			 * @concept - concept object, it must contain datatype and conceptClass properties
+			 * @localizedConcepts = array of concept localized data objects
+			 * @returns result object, contains boolean property success and proper message
+			 */
 			function postConcept(concept, localizedConcepts){
+				//will be serialized to JSON request body
 				var conceptRequest = {};
+				//contain data abour result of postConcept operation
 				var result= {};
+				//parse names to array, return error message if no fully specified name
 				try{
 					conceptRequest.names = parseNames(localizedConcepts);
 				}catch(err){
@@ -73,10 +85,19 @@ angular
 					result.message = err;
 					return result;
 				}
+				var descriptions = parseDescriptions(localizedConcepts);
+				if(descriptions.length>0) conceptRequest.descriptions;
+				//return error message if conceptClass or datatype is undefined
+				if(angular.isDefined(concept.datatype)&&angular.isDefined(concept.conceptClass)){
+					conceptRequest.datatype = concept.datatype;
+					conceptRequest.conceptClass = concept.conceptClass;
+				}
+				else{
+					result.success = false;
+					result.message = "concept's datatype and class must be defined!"
+				}
 
-				conceptRequest.descriptions = parseDescriptions(localizedConcepts);
-				conceptRequest.datatype = concept.datatype;
-				conceptRequest.conceptClass = concept.conceptClass;
+				
 				if(concept.version !== "")conceptRequest.version = concept.version;
 				if(concept.set){
 					conceptRequest.set = concept.set;
@@ -90,9 +111,9 @@ angular
 				if(concept.datatype === "8d4a6242-c2cc-11de-8d13-0010c6dffd0f"){
 					
 				}
-				//if numeric
+				//if numeric, add numeric data fields if they are defined
 				if(concept.datatype === "8d4a4488-c2cc-11de-8d13-0010c6dffd0f"){
-					if(concept.hiAbsolute)conceptRequest.hiAbsolute = concept.hiAbsolute ;
+					if(concept.hiAbsolute)conceptRequest.hiAbsolute = concept.hiAbsolute;
 					if(concept.hiCritical)conceptRequest.hiCritical = concept.hiCritical;
 					if(concept.hiNormal)conceptRequest.hiNormal = concept.hiNormal;
 					if(concept.lowAbsolute)conceptRequest.lowAbsolute = concept.lowAbsolute;
@@ -102,29 +123,34 @@ angular
 					if(concept.units)conceptRequest.units = concept.units;
 					if(concept.allowDecimal !== null)conceptRequest.allowDecimal = concept.allowDecimal;
 				}
-				
+				//parse to json and send request
 				var conceptJson = angular.toJson(conceptRequest);
 	            openmrsRest.create('concept', conceptJson).then(
 			               function(success) {
-			            	   
+			            	result.requestBody = conceptJson;
 			                result.success = true;
 			                result.message = success.display + " had been saved";
 			                
 			            }, function(exception) {
-		
+			            	result.requestBody = conceptJson;
 		                	result.success = false;
 		                	result.message = exception.statusText;
 		
 			            });
 	            return result;
 			}
+			/**parse names to array of objects, which can be easily serialized to json to make request
+			 * @localizedNames array of concept localized data objects
+			 * @returns array of names
+			 */
 			function parseNames(localizedNames){
 				var isFullnamePresent = false;
 				var names = [];
 				angular.forEach(localizedNames, function(key, value){
 					var locale = localizedNames[value].locale;
 					//add fullname 
-					if(angular.isDefined(localizedNames[value].fullname.display) 
+					if(angular.isDefined(localizedNames[value].fullname)
+						&&angular.isDefined(localizedNames[value].fullname.display) 
 						&&localizedNames[value].fullname.display != ""){
 						
 						var isPreferred = 
@@ -144,7 +170,9 @@ angular
 								"conceptNameType" : "SHORT"});	
 
 					}
-					if(localizedNames[value].searchTerms.length > 0){
+					if(angular.isDefined(localizedNames[value].searchTerms)
+							&&localizedNames[value].searchTerms.length > 0){
+						
 						for(var j=0; j<localizedNames[value].searchTerms.length;j++){
 							if(localizedNames[value].searchTerms[j].display != "")
 								
@@ -153,7 +181,9 @@ angular
 											"conceptNameType" : "INDEX_TERM"});
 						}
 					}
-					if(localizedNames[value].synonyms.length > 0){
+					if(angular.isDefined(localizedNames[value].synonyms)
+							&&localizedNames[value].synonyms.length > 0){
+						
 						for(var j=0; j<localizedNames[value].synonyms.length;j++){
 							if(localizedNames[value].synonyms[j].display != ""){
 								
@@ -170,6 +200,10 @@ angular
 				if(isFullnamePresent) return names;
 				else throw "No fully specified name is present!"
 			}
+			/**parse descriptions to array of objects, which can be easily serialized to json to make request
+			 * @localizedNames array of concept localized data objects
+			 * @returns array of descriptions
+			 */
 			function parseDescriptions(localizedConcepts){
 				var descriptions = [];
 				angular.forEach(localizedConcepts, function(key, value){
@@ -181,6 +215,12 @@ angular
 				})
 				return descriptions
 			}
+			/**
+			 * @names array of names objects of concept
+			 * @descriptions array of descriptions objects of concept
+			 * @serverLocales array of avalaible locales
+			 * @returns array of locales which are contained in any name or description
+			 */
 			function getLocales (names, descriptions, serverLocales){
 				var locales = {};
 				//check names

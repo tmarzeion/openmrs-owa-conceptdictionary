@@ -1,7 +1,8 @@
 <div class="container">
 	<div class="dashboard clear">
 		<div style="padding-bottom: 8px;">
-			<a class="button" ng-click='vm.goTo("/concept/add/")'>{{"New" | translate}}</a>
+			<a class="button" href="#/concept/add/">{{"New" | translate}}</a>
+
 		</div>
 		<div class="info-section">
 
@@ -90,7 +91,7 @@
 										ng-repeat="member in vm.concept.setMembers"
 										style="list-style-type: none">
 									    <i class="icon-double-angle-right"></i>
-										<a ng-click="vm.goTo('/concept/'+member.uuid)">{{member.display}}</a>
+										<a href="/concept/{{member.uuid}}">{{member.display}}</a>
 									</li>
 								</ul>
 							</td>

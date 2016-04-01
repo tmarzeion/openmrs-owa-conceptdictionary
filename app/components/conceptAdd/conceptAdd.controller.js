@@ -14,9 +14,9 @@
 		.module('conceptDictionaryApp')
 		.controller('ConceptAddController', ConceptAddController)
 		
-	ConceptAddController.$inject = ['serverLocales', 'loadClasses', 'loadDataTypes', 'conceptsService'];
+	ConceptAddController.$inject = ['serverLocales', 'loadClasses', 'loadDataTypes', 'conceptsService', '$location'];
 		
-	function ConceptAddController(serverLocales, loadClasses, loadDataTypes, conceptsService){
+	function ConceptAddController(serverLocales, loadClasses, loadDataTypes, conceptsService, $location){
 		var vm = this;
 		//assign injected objects to this
 		vm.serverLocales = serverLocales;
@@ -41,6 +41,7 @@
 		vm.deleteSynonym = deleteSynonym;
 		vm.deleteSearchTerm = deleteSearchTerm;
 		vm.postConcept = postConcept;
+		vm.postConceptAndContinue = postConceptAndContinue;
 		//on-update functions, receiving arrays of selected concepts
 		vm.onSetMemberTableUpdate = onSetMemberTableUpdate;
 		vm.onAnswerTableUpdate = onAnswerTableUpdate;
@@ -49,6 +50,7 @@
 		vm.concept = conceptsService.getEmptyConceptObject();
 		vm.isFormValid = false;
 		vm.result;
+
 		
 		activate();
 		
@@ -114,6 +116,11 @@
 		}
 		function postConcept(){
 			vm.result = conceptsService.postConcept(vm.concept, vm.localizedConcepts);
+			if(angular.isDefined(vm.result)&&vm.result.success) $location.path('/concept');
+		}
+		function postConceptAndContinue(){
+			vm.result = conceptsService.postConcept(vm.concept, vm.localizedConcepts);
+			if(angular.isDefined(vm.result)&&vm.result.success) $location.path('/concept/add/');
 		}
 		function validateForm(){
 			vm.isFormValid = vm.selectedLocaleData.fullname.valid
