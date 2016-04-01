@@ -2,7 +2,7 @@
 angular
 	.module('conceptDictionaryApp')
 	.component('conceptUniqueName', {
-		  templateUrl: 'partials/concept-uniquename.html',
+		  templateUrl: 'components/conceptUniquename/conceptUniquename.html',
 		  controller: conceptUniqueName,
 		  controllerAs : 'vm',
 		  bindings: {

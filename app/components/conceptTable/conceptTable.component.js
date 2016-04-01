@@ -4,7 +4,7 @@
 	angular
 		.module('conceptDictionaryApp')
 		.component('conceptTable', {
-			  templateUrl: 'partials/concept-table.html',
+			  templateUrl: 'components/conceptTable/conceptTable.html',
 			  controller: conceptTable,
 			  controllerAs : 'vm',
 			  bindings: {
