@@ -1,10 +1,21 @@
 <div class = "container">
 	<div class="dashboard clear">
+	
+		<div ng-show="vm.added" id="success-message" class="note-container">
+            <div class="note success">
+                <div class="text">
+                    <i class="icon-info-sign medium"></i>                    
+                        <p>&#160;&#160;{{vm.added}}.</p>                    
+                </div>
+            </div>
+		</div> 
+		
 		<div class = "info-section">
 	    	<div class="info-header"><h1><strong><i class="icon-cogs"></i>{{"Concept.dictionaryMaintanace" | translate}}</strong></h1></div>
 		    	<div class="info-body">
 
 	            <div>
+	            <a href="#/concept/add/">{{"Add new concept" | translate}}</a>
 	                <div>
 	                	<form class="patient-search form">
 		                	<i class="icon-search small"></i>&#160;{{"Concept.typeQuery" | translate}}:

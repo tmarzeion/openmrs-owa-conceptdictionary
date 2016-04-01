@@ -11,8 +11,8 @@ angular
 		.module('conceptDictionaryApp')
 		.factory('conceptsService', conceptsService);				
 
-		conceptsService.$inject = ['openmrsRest']
-		function conceptsService(openmrsRest){
+		conceptsService.$inject = ['openmrsRest' ,'$q']
+		function conceptsService(openmrsRest, $q){
 
 			var service = {
 					getEmptyConceptObject: getEmptyConceptObject,
@@ -75,18 +75,22 @@ angular
 			function postConcept(concept, localizedConcepts){
 				//will be serialized to JSON request body
 				var conceptRequest = {};
-				//contain data abour result of postConcept operation
+				//contain data about result of postConcept operation
 				var result= {};
+				var deferred = $q.defer();
 				//parse names to array, return error message if no fully specified name
 				try{
 					conceptRequest.names = parseNames(localizedConcepts);
 				}catch(err){
 					result.success = false;
 					result.message = err;
-					return result;
+					deferred.resolve(result);
+					return deferred.promise;
 				}
 				var descriptions = parseDescriptions(localizedConcepts);
-				if(descriptions.length>0) conceptRequest.descriptions;
+				if(descriptions.length>0){
+					conceptRequest.descriptions;
+				}
 				//return error message if conceptClass or datatype is undefined
 				if(angular.isDefined(concept.datatype)&&angular.isDefined(concept.conceptClass)){
 					conceptRequest.datatype = concept.datatype;
@@ -94,11 +98,15 @@ angular
 				}
 				else{
 					result.success = false;
-					result.message = "concept's datatype and class must be defined!"
+					result.message = "concept's datatype and class must be defined!";
+					deferred.resolve(result);
+					return deferred.promise;
 				}
 
 				
-				if(concept.version !== "")conceptRequest.version = concept.version;
+				if(concept.version !== ""){
+					conceptRequest.version = concept.version;
+				}
 				if(concept.set){
 					conceptRequest.set = concept.set;
 					conceptRequest.setMembers = concept.setMembers;
@@ -123,21 +131,22 @@ angular
 					if(concept.units)conceptRequest.units = concept.units;
 					if(concept.allowDecimal !== null)conceptRequest.allowDecimal = concept.allowDecimal;
 				}
-				//parse to json and send request
+				//return in then clause to avoid returning undefined
 				var conceptJson = angular.toJson(conceptRequest);
 	            openmrsRest.create('concept', conceptJson).then(
 			               function(success) {
 			            	result.requestBody = conceptJson;
 			                result.success = true;
 			                result.message = success.display + " had been saved";
-			                
+				            deferred.resolve(result);
 			            }, function(exception) {
 			            	result.requestBody = conceptJson;
 		                	result.success = false;
 		                	result.message = exception.statusText;
-		
+		    	            deferred.resolve(result);
 			            });
-	            return result;
+	            return deferred.promise;
+
 			}
 			/**parse names to array of objects, which can be easily serialized to json to make request
 			 * @localizedNames array of concept localized data objects
