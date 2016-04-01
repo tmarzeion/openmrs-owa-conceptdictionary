@@ -75,7 +75,7 @@ function conceptDictionaryAppConfig($routeProvider, openmrsRest) {
 		    }
 	  }).
       when('/datatype', {
-        	templateUrl: 'components/dataTypeList/dataTypeList.html',
+        	templateUrl: 'components/datatypeList/datatypeList.html',
             controller: 'DatatypeListController',
         	controllerAs: 'vm',
             resolve: { 
@@ -85,13 +85,13 @@ function conceptDictionaryAppConfig($routeProvider, openmrsRest) {
 	  when('/source/:sourceUUID', {
 		    templateUrl: 'components/sourceEdit/sourceEdit.html',
 		    controller: 'SourceEditController',
-		    controllerAs: 'vm',
+		    controllerAs: 'vm', 
 		    resolve: {
 			    sources : loadSource
 		    }
 	  }).
       when('/datatype/:dataTypeUUID', {
-        	templateUrl: 'components/dataTypeDetails/dataTypeDetails.html',
+        	templateUrl: 'components/datatypeDetails/datatypeDetails.html',
         	controller: 'DatatypeDetailsController',
         	controllerAs: 'vm',
         	resolve: {
