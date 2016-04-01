@@ -56,6 +56,16 @@ gulp
 
 This will create a file called `conceptdictionary.zip` file in the `dist` directory, which can be uploaded to the OpenMRS Open Web Apps module.
 
+### Development Build
+
+Bulild project with scrpits minification using
+
+````sh
+gulp build-prod
+````
+
+This will create a file called `conceptdictionary.zip` file in the `dist` directory, which can be uploaded to the OpenMRS Open Web Apps module.
+
 ### Local Deploy
 
 To deploy directly to your local Open Web Apps directory, run:
