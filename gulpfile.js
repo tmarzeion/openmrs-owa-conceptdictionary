@@ -19,6 +19,7 @@ var wiredep = require('wiredep').stream;
 var gutil = require('gulp-util');
 var browserSync = require('browser-sync').create();
 var eslint = require('gulp-eslint');
+var uglify = require('gulp-uglify');
 
 var plugins = gulpLoadPlugins();
 
@@ -155,6 +156,18 @@ gulp.task('lint', function() {
     .pipe(eslint.format())
     .pipe(eslint.failAfterError());
 }); 
+
+gulp.task('compress', ['resources', 'html'], function() {
+	  return gulp.src('dist/**/*.js')
+	    .pipe(uglify())
+	    .pipe(gulp.dest('dist'))
+});
+
+gulp.task('build-prod', ['compress'], function(){
+	return gulp.src('dist/**/*')
+    	.pipe(plugins.zip(THIS_APP_ID + '.zip'))
+    	.pipe(gulp.dest('dist'));
+});
 
 gulp.task('default', ['clean', 'test'], function() {
   gulp.start('build');
