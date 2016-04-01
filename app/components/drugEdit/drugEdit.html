@@ -1,7 +1,7 @@
 <div class="container">
 	<div class="dashboard clear">
 		<div class ="info-section">
-			<div class="info-header"><h1><strong><i class="icon-plus"></i>{{"ConceptDrug.manage.title" | translate}}</strong></h1></div>
+			<div class="info-header"><h1><strong><i class="icon-pencil"></i>{{"ConceptDrug.manage.title" | translate}}</strong></h1></div>
 			<form name="drugAdd">
 				<fieldset>
 					<p class="input-position-class">
@@ -54,7 +54,12 @@
 			</div>	
 		</div>
 		<div class='info-section'>
-		<div class="info-header"><h1><strong>{{"ConceptDrug.retireDrug" | translate}}</strong></h1></div>
+			<div class="info-header">
+				<h1>
+					<span ng-show="!vm.drug.retired"><strong><i class="icon-lock"></i>{{"Retire" | translate}}</strong></span>
+					<span ng-show="vm.drug.retired"><strong><i class="icon-reply"></i>{{"Unretire" | translate}}</strong></span>
+				</h1>
+			</div>
 			<form ng-show='!vm.drug.retired'>
 				<fieldset>				
 					<b>{{"Reason" | translate}}</b>
