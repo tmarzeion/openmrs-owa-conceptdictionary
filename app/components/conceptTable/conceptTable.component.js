@@ -81,6 +81,7 @@
 			if(direction == "up") indexB = indexA-1;
 			else indexB = indexA+1;
 			swapInArray(vm.members, indexA, indexB)
+			update();
 		}
 		function swapInArray(array, a, b){
 			if(a<0 || b<0 || a>=array.length || b>=array.length) return false;

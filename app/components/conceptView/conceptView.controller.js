@@ -15,9 +15,9 @@
 		.controller('ConceptViewController', ConceptViewController)
 		
 	//serverLocales = avalaible locales obtained from server
-ConceptViewController.$inject = ['$scope', 'concept', 'serverLocales', 'conceptsService', '$location'];
+ConceptViewController.$inject = ['$scope', 'concept', 'serverLocales', 'conceptsService'];
 
-	function ConceptViewController ($scope, concept, serverLocales, conceptsService, $location ){
+	function ConceptViewController ($scope, concept, serverLocales, conceptsService){
 
 		var vm = this;
 		//determines if Numeric content is shown
@@ -32,8 +32,6 @@ ConceptViewController.$inject = ['$scope', 'concept', 'serverLocales', 'concepts
 		vm.locales;
 		//function invoked when user clicks locale button
 		vm.goLocale = goLocale;
-		//function invoked when user clicks other concept button
-		vm.goTo = goTo;
 		
 		activate();
 		
@@ -57,10 +55,6 @@ ConceptViewController.$inject = ['$scope', 'concept', 'serverLocales', 'concepts
 		function checkType (){
 			vm.isNumeric = (vm.concept.datatype.display == "Numeric");
 			vm.isCoded = (vm.concept.datatype.display == "Coded");
-		}
-		//
-		function goTo (hash){
-			$location.path(hash);
 		}
 	};
 })();

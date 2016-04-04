@@ -14,9 +14,12 @@
 		.module('conceptDictionaryApp')
 		.controller('ConceptAddController', ConceptAddController)
 		
-	ConceptAddController.$inject = ['serverLocales', 'loadClasses', 'loadDataTypes', 'conceptsService'];
+	ConceptAddController.$inject = 
+		['serverLocales', 'loadClasses', 'loadDataTypes', 'conceptsService', '$location', '$routeParams'];
 		
-	function ConceptAddController(serverLocales, loadClasses, loadDataTypes, conceptsService){
+	function ConceptAddController
+			(serverLocales, loadClasses, loadDataTypes, conceptsService, $location, $routeParams){
+		
 		var vm = this;
 		//assign injected objects to this
 		vm.serverLocales = serverLocales;
@@ -41,18 +44,22 @@
 		vm.deleteSynonym = deleteSynonym;
 		vm.deleteSearchTerm = deleteSearchTerm;
 		vm.postConcept = postConcept;
+		vm.postConceptAndContinue = postConceptAndContinue;
 		//on-update functions, receiving arrays of selected concepts
 		vm.onSetMemberTableUpdate = onSetMemberTableUpdate;
 		vm.onAnswerTableUpdate = onAnswerTableUpdate;
 		vm.onFullnameUpdate = onFullnameUpdate;
 		//concept data to create post request
-		vm.concept = conceptsService.getEmptyConceptObject();
+		vm.concept;
 		vm.isFormValid = false;
 		vm.result;
+		vm.added = $routeParams.added;
+
 		
 		activate();
 		
 		function activate(){
+			vm.concept = conceptsService.getEmptyConceptObject();
 			createLocalized();
 			vm.goLocale(serverLocales[0]);
 			vm.concept.conceptClass = vm.classes[0].uuid;
@@ -113,7 +120,20 @@
 			validateForm()
 		}
 		function postConcept(){
-			vm.result = conceptsService.postConcept(vm.concept, vm.localizedConcepts);
+			conceptsService.postConcept(vm.concept, vm.localizedConcepts).then(function(result){
+				if(angular.isDefined(result)&&result.success){
+					$location.path('/concept/').search({added : result.message});
+				}
+				else vm.result = result;
+			})
+		}
+		function postConceptAndContinue(){
+			conceptsService.postConcept(vm.concept, vm.localizedConcepts).then(function(result){
+				if(angular.isDefined(result)&&result.success){
+					$location.path("/concept/add/").search({added : result.message});
+				}
+				else vm.result = result;
+			})
 		}
 		function validateForm(){
 			vm.isFormValid = vm.selectedLocaleData.fullname.valid

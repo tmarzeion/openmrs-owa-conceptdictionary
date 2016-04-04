@@ -31,7 +31,7 @@ describe('Concept dictionary controllers', function() {
     beforeEach(module('conceptDictionaryApp'));
 
     describe('conceptsService', function(){
-    	function findNameObject(name, namesArray){
+    	function findNameObjectByName(name, namesArray){
         	for(var i=0;i<namesArray.length;i++){
         		if(namesArray[i].name === name) return namesArray[i];
         	}
@@ -49,7 +49,9 @@ describe('Concept dictionary controllers', function() {
         var localizedConcept2;
         var validLocalizedConcepts;
         
-        var invalidLocalizedConcept;
+        var invalidLocalizedConcepts;
+        
+        var createdConcept;
         
         var serverLocales = ["en", "es", "pt", "it", "fr"];
 
@@ -90,42 +92,54 @@ describe('Concept dictionary controllers', function() {
             					fullname : { display : "fullname1"},
             					shortname : { display : "shortname1"},
             					preferredName : {display : "fullname1"},
-            					searchTerms : [{ display : "searchTerm1"}, {display : "searchTerm2"}],
-            					synonyms : [{display : "synonym1"}, {display : "synonym2"}]}
+            					searchTerms : [],
+            					synonyms : [{display : "synonym11"}, {display : "synonym12"}],
+            					description : "english description"}
             localizedConcept2 = {locale : "es",
 								fullname : { display : "fullname2"},
 								shortname : { display : "shortname2"},
-								preferredName : {display :  "synonym2"},
-								searchTerms : [{ display : "searchTerm2"}, {display : "searchTerm2"}],
-								synonyms : [{display : "synonym2"}, {display : "synonym2"}]}
+								preferredName : {display :  "synonym22"},
+								searchTerms : [{ display : "searchTerm21"}, {display : "searchTerm22"}],
+								synonyms : [{display : "synonym21"}, {display : "synonym22"}],
+								description : "spanish description"}
             validLocalizedConcepts = [localizedConcept1, localizedConcept2];
             
-            invalidLocalizedConcept = { potato : "potato"};
+            invalidLocalizedConcepts = [{ potato : "potato"}, {invalid : "invalid"}];
             
+            createdConcept = {datatype : "8d4a4488-c2cc-11de-8d13-0010c6dffd0f",
+            					conceptClass : "classUuid",
+            					hiAbsolute : 2323,
+            					lowAbsolute : 33,
+            					set : true,
+            					setMembers : ["uuid1", "uuid2"]}            
             
         });
 
-        it('getLocales should return array of locales', inject(function(conceptsService){
+        it('getLocales should return array of locales', 
+        		inject(function(conceptsService){
             expect(conceptsService.getLocales(concept1.names, concept1.descriptions, serverLocales))
                 .toEqualData(["en", "es"]);
             expect(conceptsService.getLocales(concept2.names, concept2.descriptions, serverLocales))
                 .toEqualData(["en", "es", "fr", "it"]);
         }));
 
-        it('getLocaleNames should return Object containing english names', inject(function(conceptsService){
+        it('getLocaleNames should return Object containing english names', 
+        		inject(function(conceptsService){
             var obtained1 = conceptsService.getLocaleNames(concept1.names, "en");
             expect(obtained1).toEqualData(expectedNames1);
             var obtained2 = conceptsService.getLocaleNames(concept2.names, "en");
             expect(obtained2).toEqualData(expectedNames2);
         }));
 
-        it('getLocaleDescr should return Object containing english descriptions', inject(function(conceptsService){
+        it('getLocaleDescr should return Object containing english descriptions', 
+        		inject(function(conceptsService){
             var obtained1 = conceptsService.getLocaleDescr(concept1.descriptions, "en");
             expect(obtained1).toEqualData(expectedDescr1);
             var obtained2 = conceptsService.getLocaleDescr(concept2.descriptions, "en");
             expect(obtained2).toEqualData(expectedDescr2);
         }));
-        it('getEmptyConceptObject should return empty Concept object', inject(function(conceptsService){
+        it('getEmptyConceptObject should return empty Concept object', 
+        		inject(function(conceptsService){
             var emptyConcept = conceptsService.getEmptyConceptObject();
             expect(emptyConcept).toBeDefined();
             expect(emptyConcept.conceptClass).toBeDefined();
@@ -134,7 +148,8 @@ describe('Concept dictionary controllers', function() {
             expect(emptyConcept.setMembers).toBeDefined();
             expect(emptyConcept.set).toBeDefined();            
         }));
-        it('getEmptyLocaleConceptObject should return empty localized Concept data object', inject(function(conceptsService){
+        it('getEmptyLocaleConceptObject should return empty localized Concept data object', 
+        		inject(function(conceptsService){
             var emptyConcept = conceptsService.getEmptyLocaleConceptObject("en");
             expect(emptyConcept).toBeDefined();
             expect(emptyConcept.fullname).toBeDefined();
@@ -143,9 +158,68 @@ describe('Concept dictionary controllers', function() {
             expect(emptyConcept.synonyms).toBeDefined();
             expect(emptyConcept.locale).toEqualData("en");           
         }));
-        it('parseNames should return table of names', inject(function(conceptsService){
+        it('parseNames should return table of names', 
+        		inject(function(conceptsService){
             var names = conceptsService.parseNames(validLocalizedConcepts);
-            expect(names.length).toEqual(12);
+            expect(names.length).toEqual(10);
+            
+            var synonym2 = findNameObjectByName("synonym22", names);
+            expect(synonym2.localePreferred).toEqual(true);
+            expect(synonym2.locale).toEqual("es");
+            
+            var fullname2 = findNameObjectByName("fullname2", names);
+            expect(fullname2.localePreferred).toEqual(false);
+            expect(fullname2.conceptNameType).toEqual("FULLY_SPECIFIED");
         }));
+        
+        it('parseNames should throw error', inject(function(conceptsService){
+           expect(function(){conceptsService.parseNames(invalidLocalizedConcepts)})
+           			.toThrow("No fully specified name is present!");
+        }));
+        it('parseDescriptions should return table of descriptions', 
+        		inject(function(conceptsService){
+            var descriptions = conceptsService.parseDescriptions(validLocalizedConcepts);
+            expect(descriptions.length).toEqual(2);
+            expect(descriptions[0].locale).toBeDefined();
+            expect(descriptions[1].locale).toBeDefined();
+        }));
+        it('parseDescriptions should return empty array', inject(function(conceptsService){
+            expect(conceptsService.parseDescriptions(invalidLocalizedConcepts)).toEqualData([])
+         }));
+        it('postConcept should return result message that there is no fully specified name', 
+        		inject(function(conceptsService){
+			var message;
+        	conceptsService.postConcept({}, validLocalizedConcepts).then(function(result){
+        		message = result.message;
+        		expect(message).toEqualData("No fully specified name is present!");
+        	});
+         }));
+        it('postConcept should return result message that there is no datatype or concept class', 
+        		inject(function(conceptsService){
+        			
+        	var message;
+        	conceptsService.postConcept({}, validLocalizedConcepts).then(function(result){
+        		message = result.message;
+        		expect(message).toEqualData("concept's datatype and class must be defined!");
+        	});
+            
+            
+         }));
+        it('postConcept should send post request', inject(function(conceptsService, _$httpBackend_){
+        	_$httpBackend_.expectPOST("/ws/rest/v1/concept").respond("just expect the request")
+        	_$httpBackend_.expectGET("components/indexMenu/indexMenu.html").respond("just expect the request")
+        	var postResult;
+        	conceptsService.postConcept(createdConcept, validLocalizedConcepts).then(function(result){
+        		postResult = result;
+            	expect(postResult.success).toBeTrue;
+                expect(postResult.message).toBeDefined;
+                
+                var requestBody = angular.fromJson(postResult.requestBody)
+                expect(requestBody.datatype).toEqualData("8d4a4488-c2cc-11de-8d13-0010c6dffd0f");
+                expect(requestBody.names.length).toEqualData(10);
+        	})
+        	_$httpBackend_.flush();
+         }));
+
     })
 });

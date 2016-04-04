@@ -20,6 +20,8 @@
 	function ConceptSearchController($scope, $routeParams, openmrsRest, $timeout) {
 
         var vm = this;
+        
+        vm.added = $routeParams.added;
 
         //Default is undefined, but it could take data from URL if there is one
         vm.query;
