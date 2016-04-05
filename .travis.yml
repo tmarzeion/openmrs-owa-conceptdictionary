@@ -9,6 +9,7 @@ install:
   - npm install -g gulp bower codacy-coverage
   - npm install
   - bower install
+script: gulp
 after_script:
     - cat coverage/**/lcov.info | codacy-coverage
 deploy:
