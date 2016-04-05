@@ -17,6 +17,9 @@ ConceptStopWordListController.$inject =
 function ConceptStopWordListController (loadConceptStopWords, $location, $routeParams, openmrsRest) {
 
     var vm = this;
+    
+    vm.links = {};
+    vm.links["Concept Stop Word Management"] = "conceptstopword/";
 
     //array of concept stop words0
     vm.conceptStopWords = loadConceptStopWords.results;

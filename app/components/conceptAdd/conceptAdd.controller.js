@@ -20,7 +20,14 @@
 	function ConceptAddController
 			(serverLocales, loadClasses, loadDataTypes, conceptsService, $location, $routeParams){
 		
+
+		
 		var vm = this;
+		
+        vm.links = {};
+        vm.links["Concept Dictionary Management"] = "concept/";
+        vm.links["Concept Form"] = "concept/add/";
+        
 		//assign injected objects to this
 		vm.serverLocales = serverLocales;
 		vm.classes = loadClasses.results;

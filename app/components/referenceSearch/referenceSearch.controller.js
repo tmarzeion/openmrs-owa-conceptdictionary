@@ -19,6 +19,9 @@
 	function ReferenceSearchController($scope, $routeParams, openmrsRest, $timeout){
 
         var vm = this;
+        
+        vm.links = {};
+        vm.links["Reference Term Management"] = "reference/";
 
         //
         vm.referenceSaved = $routeParams.referenceSaved;

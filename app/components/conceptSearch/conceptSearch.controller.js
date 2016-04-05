@@ -21,6 +21,10 @@
 
         var vm = this;
         
+        vm.links = {};
+        vm.links["Concept Dictionary Maintanace"] = "concept";
+
+        
         vm.added = $routeParams.added;
 
         //Default is undefined, but it could take data from URL if there is one

@@ -20,7 +20,10 @@
 	function DrugAddController($location, openmrsRest){
 		
 		var vm = this;
-
+		
+        vm.links = {};
+        vm.links["Concept Drug Management"] = "drug/";
+        vm.links["Concept Drug Form"] = "drug/add/";
 
 		vm.concept = {
 				display: ''

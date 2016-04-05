@@ -20,6 +20,11 @@ ConceptViewController.$inject = ['$scope', 'concept', 'serverLocales', 'concepts
 	function ConceptViewController ($scope, concept, serverLocales, conceptsService){
 
 		var vm = this;
+		
+        vm.links = {};
+        vm.links["Concept Dictionary Management"] = "concept/";
+        vm.links["Concept Form"] = "concept/"+concept.uuid;
+        
 		//determines if Numeric content is shown
 		vm.isNumeric;
 		//determines if coded answer content is shown

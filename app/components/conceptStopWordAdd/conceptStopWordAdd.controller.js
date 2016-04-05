@@ -19,6 +19,10 @@
 	function ConceptStopWordAddController($location, openmrsRest, serverLocales){
 
         var vm = this;
+        
+        vm.links = {};
+        vm.links["Concept Stop Word Management"] = "conceptstopword/";
+        vm.links["Concept Stop Word"] = "conceptstopword/add/";
 
         vm.serverLocales = serverLocales;
 

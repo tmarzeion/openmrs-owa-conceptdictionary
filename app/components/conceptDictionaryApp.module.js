@@ -9,7 +9,8 @@
  */
 angular
     .module('conceptDictionaryApp',
-		['translateApp', 'ngRoute', 'openmrs', 'mgcrea.ngStrap.typeahead'])
+		['translateApp', 'ngRoute', 'openmrs', 'mgcrea.ngStrap.typeahead',
+		 'openmrs-contrib-uicommons.header', 'openmrs-contrib-uicommons.breadcrumbs'])
 
 	.config(['$routeProvider', conceptDictionaryAppConfig])
 	

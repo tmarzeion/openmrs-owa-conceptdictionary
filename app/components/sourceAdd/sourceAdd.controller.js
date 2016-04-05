@@ -16,6 +16,10 @@ SourceAddController.$inject = ['openmrsRest', '$location'];
 function SourceAddController (openmrsRest, $location){
 
     var vm = this;
+    
+    vm.links = {};
+    vm.links["Concept Source Management"] = "source/";
+    vm.links["Concept Source Form"] = "source/add/";
 
     vm.source = {
         name:'',

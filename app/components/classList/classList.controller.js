@@ -15,8 +15,14 @@ ClassListController.$inject =
 	    ['loadClasses', '$location', '$route', '$routeParams', 'openmrsRest'];
 	
 	function ClassListController (loadClasses, $location, $route, $routeParams, openmrsRest) {
+		
+		
 	
 		var vm = this;
+		
+        vm.links = {};
+        vm.links["Concept Class Management"] = "class";
+		
 		//array of concept classes
         vm.classes = loadClasses.results;
         //map of selected classes
