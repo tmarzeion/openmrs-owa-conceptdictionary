@@ -66,7 +66,7 @@ This will create a file called `conceptdictionary.zip` file in the `dist` direct
 Bulild project with scrpits minification using
 
 ````sh
-gulp build-prod
+gulp build-release
 ````
 
 This will create a file called `conceptdictionary.zip` file in the `dist` directory, which can be uploaded to the OpenMRS Open Web Apps module.
