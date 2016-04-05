@@ -163,12 +163,12 @@ gulp.task('compress', ['resources', 'html'], function() {
 	    .pipe(gulp.dest('dist'))
 });
 
-gulp.task('build-prod', ['compress'], function(){
+gulp.task('build-release', ['compress'], function(){
 	return gulp.src('dist/**/*')
     	.pipe(plugins.zip(THIS_APP_ID + '.zip'))
     	.pipe(gulp.dest('dist'));
 });
 
 gulp.task('default', ['clean', 'test'], function() {
-  gulp.start('build');
+  gulp.start('build-release');
 });
