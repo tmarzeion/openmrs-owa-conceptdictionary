@@ -125,7 +125,7 @@ When on Reference Application Menu, enter `System Administration` -> `Manage App
     "order": 0,
     "extensions": [
         {
-            "id": "use owa.conceptdictionary.adminGroup",
+            "id": "owa.conceptdictionary.adminGroup",
             "extensionPointId": "org.openmrs.module.adminui.adminGroups",
             "type": "group",
             "label": "Concepts",
