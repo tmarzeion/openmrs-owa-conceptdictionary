@@ -16,6 +16,10 @@ ReferenceEditController.$inject = ['reference', 'sources', 'openmrsRest', '$loca
 function ReferenceEditController (reference, sources, openmrsRest, $location ){
 
     var vm = this;
+    
+    vm.links = {};
+    vm.links["Reference Term Management"] = "reference/";
+    vm.links["Reference Term Form"] = "reference/"+reference.uuid;
 
     vm.reference = reference;
     vm.sources = sources;

@@ -19,6 +19,10 @@ angular
 		//holds class information
 		vm.singleClass = singleClass;
 		
+        vm.links = {};
+        vm.links["Concept Class Management"] = "class";
+        vm.links["Concept Class Form"] = "class/"+vm.singleClass.uuid;
+		
 		vm.class = {
             name : '',
             description : ''

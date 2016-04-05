@@ -16,6 +16,10 @@ SourceEditController.$inject = ['sources','openmrsRest', '$location'];
 function SourceEditController (sources ,openmrsRest, $location){
 
     var vm = this;
+    
+    vm.links = {};
+    vm.links["Concept Source Management"] = "source/";
+    vm.links["Concept Source Form"] = "source/"+sources.uuid;
 
     vm.source = sources;
 

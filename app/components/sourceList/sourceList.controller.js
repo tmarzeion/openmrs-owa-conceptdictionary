@@ -17,6 +17,9 @@ SourcesListController.$inject =
 function SourcesListController (sources, $location, $routeParams) {
 
     var vm = this;
+    
+    vm.links = {};
+    vm.links["Concept Source Management"] = "source/";
 
 
     //array of concept sources

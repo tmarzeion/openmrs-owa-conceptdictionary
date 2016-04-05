@@ -19,6 +19,10 @@
 	function ClassAddController($location, openmrsRest){
 
         var vm = this;
+        
+        vm.links = {};
+        vm.links["Concept Class Management"] = "class";
+        vm.links["Concept Class Form"] = "class/add/";
 
         //Default values for class and response message
         vm.class = {

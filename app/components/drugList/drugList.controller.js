@@ -20,6 +20,9 @@
 	function DrugsListController(loadDrugs, loadRetiredDrugs, $location, openmrsRest, $routeParams){
 		
 		var vm = this;
+		
+        vm.links = {};
+        vm.links["Concept Drug Management"] = "drug/";
 
 		vm.drugsList;
 		vm.retiredOn = false;

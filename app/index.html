@@ -14,14 +14,13 @@
 
 </head>
 <body>
-<header>
-    <div class="logo">
-        <a href="../../">
-            <img src="img/openmrs-with-title-small.png"/>
-        </a>
-    </div>
-    <span class="app-title">Concept Dictionary</span>
-</header>
+
+<div>
+  	<div ng-controller="IndexController as vm">
+		<openmrs-header title="vm.appTitle"></openmrs-header>
+	</div>
+</div>
+
 <div ng-view></div>
 
 <div ng-controller="IndexController as vm">

@@ -17,6 +17,9 @@ angular
 	function DatatypeListController($scope, $routeParams, openmrsRest){
 
 		var vm = this;
+		
+        vm.links = {};
+        vm.links["Concept Datatype Management"] = "datatype/";
 
 		vm.currentPageResults;
 		
