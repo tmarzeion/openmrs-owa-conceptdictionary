@@ -10,9 +10,6 @@
         "released": "2016-04-05"
     },
 
-    "files":
-        [
-        {"includePattern": "dist/(.*\.zip)"}
-        ],
+    "files":[{"includePattern": "dist/(.*\\.zip)"}],
     "publish": true
 }

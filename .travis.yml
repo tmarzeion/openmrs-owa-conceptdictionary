@@ -17,6 +17,6 @@ deploy:
   file: "bintray.json"
   user: "rkorytkowski"
   key: $BINTRAY_API_KEY
-  dry-run: false
+  dry-run: true
   on:
     tags: true
