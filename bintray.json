@@ -1,0 +1,18 @@
+{
+    "package": {
+        "name": "openmrs-owa-conceptdictionary",
+        "repo": "owa",
+        "subject": "openmrs"
+    },
+
+    "version": {
+        "name": "1.0-beta",
+        "released": "2016-04-05"
+    },
+
+    "files":
+        [
+        {"includePattern": "dist/(.*\.zip)"}
+        ],
+    "publish": true
+}
