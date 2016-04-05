@@ -11,3 +11,11 @@ install:
   - bower install
 after_script:
     - cat coverage/**/lcov.info | codacy-coverage
+deploy:
+  provider: bintray
+  file: "bintray.json"
+  user: "rkorytkowski"
+  key: "Bintray API key"
+  dry-run: true
+  on:
+    tags: true
