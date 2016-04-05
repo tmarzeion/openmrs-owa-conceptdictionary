@@ -20,6 +20,7 @@ module.exports = function(config) {
       'bower_components/angular-strap/dist/angular-strap.js',
       'bower_components/angular-translate/angular-translate.js',
       'bower_components/angular-translate-loader-partial/angular-translate-loader-partial.js',
+      'bower_components/openmrs-contrib-uicommons/lib/openmrs-contrib-uicommons.min.js',
       'app/components/conceptDictionaryApp.module.js',
       'app/components/translateApp.module.js',
       'app/components/**/*.js',
