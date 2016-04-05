@@ -63,7 +63,7 @@ This will create a file called `conceptdictionary.zip` file in the `dist` direct
 
 ### Releasing
 
-Set version in bintray.json and package.json to the version you want to release. Next create a new tag named after the version or create a release from [GitHub Releases](https://github.com/rkorytkowski/openmrs-owa-conceptdictionary/releases). The zip will be automatically pushed to Bintray by Travis-ci. Set version in bintray.json and package.json the next development version.
+Set version in bintray.json and package.json to the version you want to release. Next create a new tag named after the version or create a release from [GitHub Releases](https://github.com/rkorytkowski/openmrs-owa-conceptdictionary/releases). The zip will be automatically pushed to Bintray by Travis-ci. Set version in bintray.json and package.json to the next development version.
 
 ### Local Deploy
 
