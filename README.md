@@ -1,7 +1,7 @@
 <img src="https://cloud.githubusercontent.com/assets/668093/12567089/0ac42774-c372-11e5-97eb-00baf0fccc37.jpg" alt="OpenMRS"/>
 
 # Concept Dictionary
-[![Build Status](https://travis-ci.org/rkorytkowski/openmrs-owa-conceptdictionary.svg?branch=master)](https://travis-ci.org/rkorytkowski/openmrs-owa-conceptdictionary) [![Codacy Badge](https://api.codacy.com/project/badge/grade/a7b282f69c44458297ec61d65d4b3baf)](https://www.codacy.com/app/pascal_2/openmrs-owa-conceptdictionary) [![Codacy Badge](https://api.codacy.com/project/badge/coverage/a7b282f69c44458297ec61d65d4b3baf)](https://www.codacy.com/app/pascal_2/openmrs-owa-conceptdictionary) [ ![Download](https://api.bintray.com/packages/openmrs/owa/openmrs-owa-conceptdictionary/images/download.svg) ](https://bintray.com/openmrs/owa/openmrs-owa-conceptdictionary/_latestVersion)
+[![Build Status](https://travis-ci.org/rkorytkowski/openmrs-owa-conceptdictionary.svg?branch=master)](https://travis-ci.org/rkorytkowski/openmrs-owa-conceptdictionary) [![Codacy Badge](https://api.codacy.com/project/badge/grade/a7b282f69c44458297ec61d65d4b3baf)](https://www.codacy.com/app/pascal_2/openmrs-owa-conceptdictionary) [![Codacy Badge](https://api.codacy.com/project/badge/coverage/a7b282f69c44458297ec61d65d4b3baf)](https://www.codacy.com/app/pascal_2/openmrs-owa-conceptdictionary) [ ![Download Latest Version](https://api.bintray.com/packages/openmrs/owa/openmrs-owa-conceptdictionary/images/download.svg) ](https://bintray.com/openmrs/owa/openmrs-owa-conceptdictionary/_latestVersion)
 
 This repository contains the Concept Dictionary OpenMRS Open Web App.
 
