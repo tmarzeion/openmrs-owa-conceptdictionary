@@ -35,6 +35,7 @@ describe('Concept dictionary controllers', function() {
 
         beforeEach(inject(function(_$httpBackend_, $rootScope, $controller, openmrsRest, $routeParams) {
             $httpBackend = _$httpBackend_;
+			$httpBackend.whenGET(/translation.*/).respond();
             $httpBackend.whenGET('/ws/rest/v1/conceptclass/8d490bf4-c2cc-11de-8d13-0010c6dffd0f?v=full').
             respond({results:{uuid: '8d490bf4-c2cc-11de-8d13-0010c6dffd0f',
                 name: 'Question', description: 'Question (eg, patient history, SF36 items)'}});

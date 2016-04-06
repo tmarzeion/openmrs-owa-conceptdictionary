@@ -24,8 +24,11 @@
 <div ng-view></div>
 
 <div ng-controller="IndexController as vm">
-    <button ng-click="vm.changeLanguage('en')">English</button>
-    <button ng-click="vm.changeLanguage('es')">Spanish</button>
+    <small>
+        Choose language:
+        <a ng-click="vm.changeLanguage('en')">English</a>,
+        <a ng-click="vm.changeLanguage('es')">Spanish</a>
+    </small>
 </div>
 
 <!-- bower:js -->

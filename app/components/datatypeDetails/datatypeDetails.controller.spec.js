@@ -35,6 +35,7 @@ describe('Concept dictionary controllers', function() {
 
         beforeEach(inject(function(_$httpBackend_, $rootScope, $controller, $routeParams, openmrsRest){
             $httpBackend = _$httpBackend_;
+			$httpBackend.whenGET(/translation.*/).respond();
             $httpBackend.whenGET('/ws/rest/v1/conceptdatatype/8d4a505e-c2cc-11de-8d13-0010c6dffd0f?v=full').
             respond({name: 'Date Datatype', description: 'Date Field Gen Datatype Handler',
                 uuid: '8d4a505e-c2cc-11de-8d13-0010c6dffd0f', hl7Abbreviation: 'DT'

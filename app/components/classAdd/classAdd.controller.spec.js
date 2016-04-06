@@ -35,9 +35,10 @@ describe('Concept dictionary controllers', function() {
 
         beforeEach(inject(function(_$httpBackend_, $rootScope, $controller) {
             $httpBackend = _$httpBackend_;
+			$httpBackend.whenGET(/translation.*/).respond();
             $httpBackend.expectPOST('/ws/rest/v1/conceptclass').
             respond({results:{name: 'Anatomy', description: 'Anatomic sites / descriptors'}});
-            $httpBackend.whenGET('/ws/rest/v1/conceptclass?v=full').respond({});
+            $httpBackend.whenGET('/ws/rest/v1/conceptclass?includeAll=true&v=full').respond({});
             $httpBackend.whenGET('components/classList/classList.html').respond();
             $httpBackend.whenGET('components/indexMenu/indexMenu.html').respond();
 

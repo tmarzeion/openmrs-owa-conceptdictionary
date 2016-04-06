@@ -1,37 +1,30 @@
-<div class="dashboard clear">
 <openmrs-breadcrumbs links="vm.links"></openmrs-breadcrumbs>
-    <div class="info-section">
-        <div class="info-header">
-            <h1><strong>
-                <h3>{{vm.responseMessage}}</h3>
-                <i class="icon-edit"></i>{{"ConceptStopWord.title" | translate}}</strong></h1>
-        </div>
-        <div class="info-body">
-            <div>
-                {{"Name" | translate}}
-                <span class="required">*</span>
-                <input type="text" name="name" size="35" ng-model="vm.conceptStopWord.value" ng-required="true"
-                       value="">
-
-                <select
-                        ng-required="true"
-                        ng-model="vm.conceptStopWord.locale"
-                        ng-options="serverLocale as serverLocale for serverLocale in vm.serverLocales">
-                </select>
-            </div>
-            <br>
-        </div>
+<div id="body-wrapper">
+    <div id="content" class="container">
+        <h2>Add Concept Stop Word</h2>
+        <form>
+            <label>
+            {{"Name" | translate}}<span class="required">*</span>
+            </label>
+            <input type="text" name="name" size="35" ng-model="vm.conceptStopWord.value" ng-required="true"
+                   value=""/>
+            <label>
+                Locale
+            </label>
+            <select
+                    ng-required="true"
+                    ng-model="vm.conceptStopWord.locale"
+                    ng-options="serverLocale as serverLocale for serverLocale in vm.serverLocales">
+            </select>
+        </form>
+        <br>
         <button ng-disabled="!(vm.conceptStopWord.locale)" ng-click="vm.addConceptStopWord()">
             <i class="icon-ok"></i>
-            <strong>
                 &#160;{{"ConceptStopWord.save" | translate}}
-            </strong>
         </button>
         <button ng-click="vm.cancel()">
             <i class="icon-remove"></i>
-            <strong>
                 &#160;{{"Concept.cancel" | translate}}
-            </strong>
         </button>
     </div>
 </div>

@@ -24,17 +24,14 @@ describe('Concept dictionary controllers', function() {
     describe('IndexController', function(){
         var ctrl, $httpBackend;
 
-        beforeEach(inject(function(_$httpBackend_, $rootScope, $controller, $translate, $translatePartialLoader){
+        beforeEach(inject(function(_$httpBackend_, $rootScope, $controller, $translate){
             $httpBackend = _$httpBackend_;
-
+			$httpBackend.whenGET(/translation.*/).respond();
             $httpBackend.whenGET('components/indexMenu/indexMenu.html').respond();
-            $httpBackend.whenGET('translation/messages_en.json').respond();
-            $httpBackend.whenGET('translation/messages_es.json').respond();
 
             ctrl = $controller('IndexController',
                 {
-                    $translate: $translate,
-                    $translatePartialLoader: $translatePartialLoader
+                    $translate: $translate
                 });
 
         }));

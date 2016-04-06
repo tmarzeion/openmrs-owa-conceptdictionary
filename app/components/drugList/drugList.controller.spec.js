@@ -35,6 +35,7 @@ describe('Concept dictionary controllers', function() {
 
         beforeEach(inject(function(_$httpBackend_, $rootScope, $controller, openmrsRest){
             $httpBackend = _$httpBackend_;
+			$httpBackend.whenGET(/translation.*/).respond();
             $httpBackend.whenGET('/ws/rest/v1/drug?v=full').
             respond({results:[{ name: 'Morphine', 
             					strength: 'high', 

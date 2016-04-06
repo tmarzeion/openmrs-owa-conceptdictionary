@@ -36,6 +36,7 @@ describe('Concept dictionary controllers', function() {
         beforeEach(inject(function(_$httpBackend_, $rootScope, $controller, openmrsRest) {
             var testQuery = 'Ana';
             $httpBackend = _$httpBackend_;
+			$httpBackend.whenGET(/translation.*/).respond();
             $httpBackend.whenGET('/ws/rest/v1/concept?includeAll=true&limit=5&q=' + testQuery + '&v=full').
             respond(
                 {results: [

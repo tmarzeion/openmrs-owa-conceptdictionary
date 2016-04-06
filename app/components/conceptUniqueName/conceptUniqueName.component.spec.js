@@ -65,6 +65,7 @@ beforeEach(module('conceptDictionaryApp'));
     		                             display: 'concept name',
     		                         }]}
     		  $httpBackend = _$httpBackend_;
+			  $httpBackend.whenGET(/translation.*/).respond();
               $httpBackend.whenGET('components/indexMenu/indexMenu.html').respond();
               $httpBackend.whenGET('/ws/rest/v1/conceptclass?v=full').respond({});
     		  $httpBackend.whenGET('/ws/rest/v1/concept').respond(response1);

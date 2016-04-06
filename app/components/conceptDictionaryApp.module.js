@@ -176,7 +176,7 @@ function serverLocales(openmrsRest){
 					  });
 };
 function loadClasses(openmrsRest){
-	  return openmrsRest.listFull('conceptclass');
+	  return openmrsRest.listFull('conceptclass', {includeAll: true});
 };
 function loadDataTypes (openmrsRest){
 	  return openmrsRest.listFull('conceptdatatype');

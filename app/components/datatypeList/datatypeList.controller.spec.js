@@ -35,6 +35,7 @@ describe('Concept dictionary controllers', function() {
 
         beforeEach(inject(function(_$httpBackend_, $rootScope, $controller, $routeParams, openmrsRest){
             $httpBackend = _$httpBackend_;
+			$httpBackend.whenGET(/translation.*/).respond();
             $httpBackend.whenGET('/ws/rest/v1/conceptdatatype?limit=10&v=full').
             respond({results:[{name: 'Date Datatype', description: 'Date Field Gen Datatype Handler'},
                 {name: 'Boolean Datatype', description: 'Boolean Field Gen Datatype Handler'}]});

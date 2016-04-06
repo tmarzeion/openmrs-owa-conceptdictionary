@@ -101,7 +101,10 @@
 				getRef: getRef,
 				create: create,
 				update: update,
-				remove: remove
+				remove: remove,
+				retire: remove,
+				unretire: unretire,
+				purge: purge
 			};
 
 			return openmrsRest;
@@ -158,6 +161,21 @@
 
 			function remove(resource, query) {
 				openmrsApi.add(resource);
+				return openmrsApi[resource].remove(query).$promise;
+			}
+
+			function unretire(resource, query) {
+				openmrsApi.add(resource);
+				return openmrsApi[resource].save(query, {retired: false}).$promise;
+			}
+
+			function purge(resource, query) {
+				openmrsApi.add(resource);
+				if (query == null) {
+					query = {purge: true};
+				} else {
+					angular.extend(query, {purge: true});
+				}
 				return openmrsApi[resource].remove(query).$promise;
 			}
 

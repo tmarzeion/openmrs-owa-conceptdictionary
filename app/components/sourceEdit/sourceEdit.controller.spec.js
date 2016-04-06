@@ -35,6 +35,7 @@ describe('Concept dictionary controllers', function() {
 
         beforeEach(inject(function(_$httpBackend_, $rootScope, $controller, openmrsRest) {
             $httpBackend = _$httpBackend_;
+			$httpBackend.whenGET(/translation.*/).respond();
             $httpBackend.whenGET('/ws/rest/v1/conceptclass?v=full').respond({});
             $httpBackend.whenGET('components/sourceList/sourceList.html').respond();
             $httpBackend.whenGET('components/indexMenu/indexMenu.html').respond();

@@ -1,36 +1,33 @@
-<div class="dashboard clear" xmlns="http://www.w3.org/1999/html">
-	<openmrs-breadcrumbs links="vm.links"></openmrs-breadcrumbs>
-    <div class=info-section">
+<openmrs-breadcrumbs links="vm.links"></openmrs-breadcrumbs>
+<div id="body-wrapper">
+    <div id="content" class="container">
 
-        <div class="info-header">
-            <h3 ng-show="vm.conceptStopWordAdded">
-                {{vm.conceptStopWordAdded}} {{"Concept.hasBeenSaved" | translate}}</h3>
-            <strong>
-                <h1><i class="icon-cogs"></i>{{"ConceptStopWord.title" | translate}}</h1>
-            </strong>
-        </div>
+        <button ng-click='vm.goTo("/conceptstopword/add")'>
+            {{"ConceptStopWord.add" | translate}}
+        </button>
 
-        <div class="info-body">
+        <br/><br/>
 
-            <ul>
-                <li ng-repeat="conceptStopWord in vm.conceptStopWords">
-                    <i class="icon-angle-right"></i>
-                    <input type="checkbox" ng-change="vm.refreshButtonState()" ng-model="vm.selected[conceptStopWord.uuid]"
-                           name="conceptStopWordId" value="{{conceptStopWord.uuid}}">
-                    {{conceptStopWord.display}}
-                    <span style="color: #D0D0D0; ">({{conceptStopWord.locale}})</span>
-                </li>
-            </ul>
-        </div>
+        <table>
+            <thead>
+                <tr>
+                    <th>Word</th>
+                    <th>Locale</th>
+                    <th>Action</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr ng-repeat="word in vm.conceptStopWords">
+                    <td>{{word.display}}</td>
+                    <td>{{word.locale}}</td>
+                    <td>
+                        <a ng-click="vm.purge(word)">
+                            <i class="icon-trash delete-action right" title="Delete forever"></i>
+                        </a>
+                    </td>
+                </tr>
+            </tbody>
+
+        </table>
     </div>
-
-    <button ng-click='vm.goTo("/conceptstopword/add")'>
-        <i class="icon-plus"></i>
-        <strong>&#160;{{"ConceptStopWord.add" | translate}}</strong>
-    </button>
-    <button value="" ng-disabled="!(vm.isSelected)" ng-click="vm.deleteSelected()">
-        <i class="icon-remove"></i>
-        <strong>&#160;{{"ConceptStopWord.delete" | translate}}</strong>
-    </button>
-
 </div>
