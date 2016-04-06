@@ -1,14 +1,12 @@
-var translationsPath = 'translation/messages_{lang}.json';
-var prefferedLang = 'en';
-
 angular
     .module('translateApp', ['pascalprecht.translate'])
-    .config(['$translateProvider', '$translatePartialLoaderProvider', translateAppConfig]);
+    .config(['$translateProvider', translateAppConfig]);
 
 function translateAppConfig($translateProvider) {
-        $translateProvider.useLoader('$translatePartialLoader', {
-            urlTemplate: translationsPath
-        });
+		$translateProvider.useStaticFilesLoader({
+			prefix: 'translation/messages_',
+			suffix: '.json'
+		});
         $translateProvider.fallbackLanguage('en');
-        $translateProvider.preferredLanguage(prefferedLang);
+        $translateProvider.preferredLanguage('en');
 }
