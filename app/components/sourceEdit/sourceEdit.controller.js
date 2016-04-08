@@ -23,7 +23,6 @@ function SourceEditController (sources ,openmrsRest, $location){
 
     vm.source = sources;
 
-
     vm.responseMessage = '';
 
     vm.cancel = cancel;
@@ -31,6 +30,17 @@ function SourceEditController (sources ,openmrsRest, $location){
     vm.isSavePossible = isSavePossible;
     vm.retire = retire;
     vm.deleteForever = deleteForever;
+    
+    activate();
+    
+    
+    
+    function activate(){
+    	if(angular.isDefined(vm.source.auditInfo)&&
+    	   angular.isUndefined(vm.source.auditInfo.retireReason)){
+    			vm.source.auditInfo.retireReason = ""; 
+    	}
+    }
 
     function cancel () {
         $location.path('/source');

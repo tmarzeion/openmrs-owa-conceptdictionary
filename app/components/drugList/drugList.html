@@ -14,8 +14,8 @@
 			</tr>
 			</thead>
 			<tbody>
-			<tr ng-repeat="drug in vm.drugsList" ng-class="{retired: drug.retired}">
-				<td>{{drug.name}}</td>
+			<tr ng-repeat="drug in vm.drugsList" >
+				<td ng-class="{retired: drug.retired}">{{drug.name}}</td>
 				<td>
 					<a href="#/drug/{{drug.uuid}}"><i class="icon-pencil edit-action" title="Edit"></i></a>
 					<a ng-show="!drug.retired" ng-click="vm.retire(drug)">
