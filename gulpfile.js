@@ -156,11 +156,11 @@ gulp.task('lint', function() {
     .pipe(eslint())
     .pipe(eslint.format())
     .pipe(eslint.failAfterError());
-}); 
+});
 
 gulp.task('compress', ['resources', 'html'], function() {
 	  return gulp.src('dist/**/*.js')
-	    .pipe(uglify())
+	    .pipe(uglify({ mangle: false }))
 	    .pipe(gulp.dest('dist'))
 });
 
