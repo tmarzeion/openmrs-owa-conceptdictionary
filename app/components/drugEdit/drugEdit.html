@@ -15,7 +15,7 @@
 				      <concept-auto-complete required='true' limit-to-drugs='vm.limitToDrugs' concept='vm.drug.concept' on-update='vm.updateConcept(isCorrect, concept)'></concept-auto-complete>
 				    </p>
 				    <p class="input-position-class">
-				      <label name="input-dosage">{{"ConceptDrug.combination" | translate}}</label>
+				      <label name="input-dosage">{{"ConceptDrug.dosageForm" | translate}}</label>
 				      <concept-auto-complete required='false' concept='vm.drug.dosageForm' limit-to-drugs='false' on-update='vm.updateDosageForm(isCorrect, concept)'></concept-auto-complete>
 				    </p>
 				    <p class="input-position-class">
@@ -36,7 +36,7 @@
 				    </p>
 				    <p class="input-position-class">
 				      <input id="input-comb" type="checkbox" ng-model='vm.drug.combination'/>
-				      <label name="input-comb">{{"ConceptDrug.ingredients" | translate}}</label>
+				      <label name="input-comb">{{"ConceptDrug.combination" | translate}}</label>
 				    </p>
 				    <p class="input-position-class">
 				      <label name="input-maxdose">{{"CreatedBy" | translate}}
@@ -49,6 +49,14 @@
 				    </p>
 				</fieldset>
 			</form>
+			<div ng-show="vm.showMessage" id="error-message" class="note-container">
+				<div class="note error">
+					<div class="text">
+						<i class="icon-ok medium"></i>
+						<p>&#160;&#160;{{vm.responseMessage}}</p>
+					</div>
+				</div>
+			</div>
 			<div>				
 				<button ng-click='vm.saveDrug()' ng-disabled="vm.isCorrect()"><i class="icon-ok"></i><strong>{{"ConceptDrug.save" | translate}}</strong></button>
 				<button ng-click='vm.redirectToList()'><i class="icon-remove"></i><strong>{{"Concept.cancel" | translate}}</strong></button>
