@@ -6,8 +6,8 @@
     },
 
     "version": {
-        "name": "1.0.0-alpha",
-        "released": "2016-04-05"
+        "name": "1.0.0-beta",
+        "released": "2016-04-08"
     },
 
     "files":[{"includePattern": "dist/(.*\\.zip)", "uploadPattern": "$1"}],

@@ -143,8 +143,9 @@ gulp.task('build-local', ['resources', 'html'], function() {
 
 
 gulp.task('build', ['resources', 'html'], function() {
+  var npm = require('./package.json');
   return gulp.src('dist/**/*')
-    .pipe(plugins.zip(THIS_APP_ID + '.zip'))
+    .pipe(plugins.zip(THIS_APP_ID + "-" + npm.version + '.zip'))
     .pipe(gulp.dest('dist'));
 });
 
@@ -164,8 +165,9 @@ gulp.task('compress', ['resources', 'html'], function() {
 });
 
 gulp.task('build-release', ['compress'], function(){
-	return gulp.src('dist/**/*')
-    	.pipe(plugins.zip(THIS_APP_ID + '.zip'))
+  var npm = require('./package.json');
+  return gulp.src('dist/**/*')
+    	.pipe(plugins.zip(THIS_APP_ID + "-" + npm.version + '.zip'))
     	.pipe(gulp.dest('dist'));
 });
 
