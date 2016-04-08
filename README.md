@@ -7,8 +7,8 @@ This repository contains the Concept Dictionary OpenMRS Open Web App.
 
 # Installing Concepts OWA
 
-First, You need to [ ![Download](https://api.bintray.com/packages/openmrs/owa/openmrs-owa-conceptdictionary/images/download.svg) ](https://bintray.com/openmrs/owa/openmrs-owa-conceptdictionary/_latestVersion) *.zip package with Concept OWA.
-To add this package to Reference App, enter advanced administration panel (default at: `openmrs/admin/index.htm`), then go to `Manage Apps` in `Open Web Apps Module` menu, click "Browse", find `conceptdictionary.zip` file and then upload it via button.
+First, you need to [![Download](https://api.bintray.com/packages/openmrs/owa/openmrs-owa-conceptdictionary/images/download.svg) ](https://bintray.com/openmrs/owa/openmrs-owa-conceptdictionary/_latestVersion) the zip package with Concept Dictionary OWA.
+To add this package to Reference App, enter advanced administration panel (default at: `openmrs/admin/index.htm`), then go to `Manage Apps` in `Open Web Apps Module` menu, click "Browse", find the `zip` file and then upload it via button.
 When application is installed, it can be accessed under `owa/conceptdictionary/index.html`.
 
 <p><b>Adding Application link to "Configure Metadata" menu:</b> </p>
