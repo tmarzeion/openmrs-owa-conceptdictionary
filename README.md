@@ -5,7 +5,7 @@
 
 This repository contains the Concept Dictionary OpenMRS Open Web App.
 
-# Installing Concepts OWA on OpenMRS Reference Application
+# Installing Concepts OWA
 
 First, You need to download *.zip package with Concept OWA.
 To add this package to Reference App, enter advanced administration panel (default at: `openmrs/admin/index.htm`), then go to `Manage Apps` in `Open Web Apps Module` menu, click "Browse", find `conceptdictionary.zip` file and then upload it via button.
