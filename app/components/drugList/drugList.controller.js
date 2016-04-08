@@ -15,9 +15,9 @@
 		.controller('DrugsListController', DrugsListController);
 		
 	DrugsListController.$inject = 
-		['loadDrugs', 'loadRetiredDrugs', '$location', 'openmrsRest', '$routeParams'];
+		['loadDrugs', '$location', 'openmrsRest'];
 		
-	function DrugsListController(loadDrugs, loadRetiredDrugs, $location, openmrsRest, $routeParams){
+	function DrugsListController(loadDrugs, $location, openmrsRest){
 		
 		var vm = this;
 		
@@ -28,26 +28,41 @@
 		vm.retiredOn = false;
 		
 		vm.gotToAddDrugPage = gotToAddDrugPage;
-		vm.toggleRetire = toggleRetire;
 		vm.activate = activate;
+		vm.retire = retire;
+		vm.unretire = unretire;
+		vm.purge = purge;
+
+		function retire(item) {
+			openmrsRest.retire('drug', {uuid: item.uuid}).then(function(data) {
+				openmrsRest.listFull('drug', {includeAll: true}).then(function(data) {
+					vm.drugsList = data.results;
+				});
+			});
+		}
+
+		function unretire(item) {
+			openmrsRest.unretire('drug', {uuid: item.uuid}).then(function(data) {
+				openmrsRest.listFull('drug', {includeAll: true}).then(function(data) {
+					vm.drugsList = data.results;
+				});
+			});
+		}
+
+		function purge(item) {
+			openmrsRest.purge('drug', {uuid: item.uuid}).then(function(data) {
+				openmrsRest.listFull('drug', {includeAll: true}).then(function(data) {
+					vm.drugsList = data.results;
+				});
+			});
+
+
+		}
 		
 		activate();
 		
-		function activate(){
+		function activate() {
 			vm.drugsList = loadDrugs.results;
-		}
-		
-		function toggleRetire(){
-			if(!vm.retiredOn){
-				vm.drugsList = [];
-				vm.drugsList = loadRetiredDrugs.results;
-				vm.retiredOn = true;
-			}else{
-				vm.drugsList = [];
-				activate();
-				vm.retiredOn = false;
-			}
-			
 		}
 			
 		

@@ -1,47 +1,32 @@
-<div class="container">
-	<div class="dashboard clear">
 <openmrs-breadcrumbs links="vm.links"></openmrs-breadcrumbs>
-		<div class ="info-section">
-			<div class="info-header">
-                <h1>
-                <strong>
-                    <i class="icon-plus"></i>
-                    {{"ConceptSource.title" | translate}}
-                </strong>
-                </h1>
-            </div>
+<div id="body-wrapper">
+    <div id="content" class="container">
+       <h2>{{"ConceptSource.title" | translate}}</h2>
 
-            <div class="info-body">
-                <div>
-                    <div>{{"Name" | translate}}<span class="required">*</span></div>
-                    <div>
-                        <input name="name" ng-model="vm.source.name"size="35" type="text">
-                    </div>
-                </div>
-                <div>
-                    <div>{{"ConceptSource.hl7Code" | translate}}</div>
-                    <div>
-                        <input name="hl7Code" ng-model="vm.source.hl7Code" size="35" maxlength="20" type="text">
-                    </div>
-                </div>
-                <div>
-                    <div valign="top">{{"Description" | translate}}<span class="required">*</span></div>
-                    <div>
-                        <textarea ng-model="vm.source.description" name="description" rows="3" cols="40"></textarea>
-                    </div>
-                </div>
-            </div>
+       <form>
+           <label>{{"Name" | translate}}<span class="required">*</span></label>
+           <input name="name" ng-model="vm.source.name"size="35" type="text">
+
+           <label>{{"ConceptSource.hl7Code" | translate}}</label>
+           <input name="hl7Code" ng-model="vm.source.hl7Code" size="35" maxlength="20" type="text">
+
+           <label>{{"Description" | translate}}<span class="required">*</span></label>
+           <textarea ng-model="vm.source.description" name="description" rows="3" cols="40"></textarea>
+
+           <br/>
+
+           <button ng-disabled="!vm.isSavePossible()" ng-click="vm.save()"><i class="icon-ok"></i>
+               <strong>
+                   {{"ConceptSource.save" | translate}}
+               </strong>
+           </button>
+           <button ng-click="vm.cancel()"><i class="icon-remove"></i>
+               <strong>
+                   {{"Concept.cancel" | translate}}
+               </strong>
+           </button>
+       </form>
             
-        <button ng-disabled="!vm.isSavePossible()" ng-click="vm.save()"><i class="icon-ok"></i>
-            <strong>
-            {{"ConceptSource.save" | translate}}
-            </strong>
-        </button>
-        <button ng-click="vm.cancel()"><i class="icon-remove"></i>
-            <strong>
-                {{"Concept.cancel" | translate}}
-            </strong>
-        </button>
-</div>
+
 </div>
 </div>

@@ -1,18 +1,11 @@
-<div class="container">
-	<div class="dashboard clear">
-	<openmrs-breadcrumbs links="vm.links"></openmrs-breadcrumbs>
-		<div style="padding-bottom: 8px;">
-			<a class="button" href="#/concept/add/"><i class="icon-plus"></i>&#160;{{"New concept" | translate}}</a>
-			<a class="button" href="#/concept/"><i class="icon-search"></i>&#160;{{"Search concepts" | translate}}</a>
-
-		</div>
+<openmrs-breadcrumbs links="vm.links"></openmrs-breadcrumbs>
+<div id="body-wrapper">
+	<div id="content" class="container">
 		<div class="info-section">
 
-			<div class="info-header">
-				<h1>
-					<strong><i class="icon-pencil"></i>{{"Concept.title" | translate}}</strong>
-				</h1>
-			</div>
+			<h2>
+				<i class="icon-eye-open"></i>{{"Concept.title" | translate}}
+			</h2>
 			<form method="post" name="concept-edit">
 				<table class="info-body">
 					<tbody>

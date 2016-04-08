@@ -141,8 +141,7 @@ function conceptDictionaryAppConfig($routeProvider, openmrsRest) {
         	controller: 'DrugsListController',
         	controllerAs: 'vm',
         	resolve: {
-        		loadDrugs : loadDrugs,
-        		loadRetiredDrugs: loadRetiredDrugs
+        		loadDrugs : loadDrugs
         	}
       }).
       when('/drug/add', {
@@ -204,13 +203,9 @@ function loadReference ($route, openmrsRest){
 		{uuid: $route.current.params.referenceUUID});
 };
 function loadDrugs (openmrsRest){
-	return openmrsRest.listFull('drug');
+	return openmrsRest.listFull('drug', {includeAll: true});
 };
 function loadDrug($route, openmrsRest){
 	return openmrsRest.getFull('drug', 
 			{uuid: $route.current.params.drugUUID});
 }
-
-function loadRetiredDrugs (openmrsRest){
-	return openmrsRest.listFull('drug', {includeAll: true});
-};

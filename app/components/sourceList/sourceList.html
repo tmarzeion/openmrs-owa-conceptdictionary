@@ -35,16 +35,26 @@
 							<th>{{"Name" | translate}}</th>
 							<th>{{"ConceptSource.hl7code" | translate}}</th>
 							<th>{{"Description" | translate}}</th>
+							<th>{{"Action" | translate}}</th>
 						</tr>
-						<tr ng-repeat="source in vm.sources" >
+						<tr ng-repeat="source in vm.sources"  ng-class="{retired: source.retired}">
 							<td valign="top">
-								<a href="#/source/{{source.uuid}}">
-									<span ng-show="source.retired"><del>{{source.name}}</del></span>
-									<span ng-show="!source.retired">{{source.name}}</span>
-								</a>
+								{{source.name}}
 							</td>
 							<td valign="top">{{source.hl7Code}}</td>
 							<td valign="top">{{source.description}}</td>
+							<td>
+								<a href="#/source/{{source.uuid}}"><i class="icon-pencil edit-action" title="Edit"></i></a>
+								<a ng-show="!source.retired" ng-click="vm.retire(source)">
+									<i class="icon-remove delete-action" title="Delete"></i>
+								</a>
+								<a ng-show="source.retired" ng-click="vm.unretire(source)">
+									<i class="icon-reply edit-action" title="Unretire"></i>
+								</a>
+								<a ng-click="vm.purge(source)">
+									<i class="icon-trash delete-action right" title="Delete forever"></i>
+								</a>
+							</td>
 						</tr>
 						</tbody>
 					</table>

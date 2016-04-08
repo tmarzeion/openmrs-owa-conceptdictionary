@@ -13,7 +13,7 @@
 	angular
 		.module('conceptDictionaryApp')
 		.component('conceptAutoComplete', {
-			  templateUrl: 'partials/concept-autocomplete.html',
+			  templateUrl: 'components/conceptAutocomplete/conceptAutocomplete.html',
 			  controller: conceptAutoComplete,
 			  bindings: {
 			    limitToDrugs: '<',

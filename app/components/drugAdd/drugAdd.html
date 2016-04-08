@@ -1,10 +1,8 @@
-<div class="container">
-	<div class="dashboard clear">
-	<openmrs-breadcrumbs links="vm.links"></openmrs-breadcrumbs>
-		<div class ="info-section">
-			<div class="info-header"><h1><strong><i class="icon-plus"></i>{{"ConceptDrug.manage.title" | translate}}</strong></h1></div>
+<openmrs-breadcrumbs links="vm.links"></openmrs-breadcrumbs>
+<div id="body-wrapper">
+	<div id="content" class="container">
+		<h2><i class="icon-pencil"></i>{{"ConceptDrug.manage.title" | translate}}</h2>
 			<form name="drugAdd">
-				<fieldset>
 					<p class="input-position-class">
 				      <label name="input-name">{{"Name" | translate}}<span class="required">*</span></label>
 				      <input name='name' id="input-name" ng-model='vm.name' required/>
@@ -38,7 +36,6 @@
 				      <input id="input-comb" type="checkbox" ng-model='vm.combination'/>
 				      <label name="input-comb">{{"ConceptDrug.ingredients" | translate}}</label>
 				    </p>
-				</fieldset>
 			</form>
 			<div>				
 				<button ng-click='vm.saveDrug()' ng-disabled="vm.isCorrect()"><i class="icon-ok"></i><strong>{{"ConceptDrug.save" | translate}}</strong></button>
