@@ -5,13 +5,48 @@
 
 This repository contains the Concept Dictionary OpenMRS Open Web App.
 
-> Concept dictionary functionality implemented as an OWA
+# Installing Concepts OWA on OpenMRS Reference Application
+
+First, You need to download *.zip package with Concept OWA.
+To add this package to Reference App, enter advanced administration panel (default at: `openmrs/admin/index.htm`), then go to `Manage Apps` in `Open Web Apps Module` menu, click "Browse", find `conceptdictionary.zip` file and then upload it via button.
+When application is installed, it can be accessed under `owa/conceptdictionary/index.html`.
+
+<p><b>Adding Application link to "Configure Metadata" menu:</b> </p>
+When on Reference Application Menu, enter `System Administration` -> `Manage Apps` -> `Add App Definition` and input following text inside:
+
+````sh
+{
+    "id": "owa.conceptdictionary",
+    "description": "Concept OWA Dictionary",
+    "order": 0,
+    "extensions": [
+        {
+            "id": "owa.conceptdictionary.adminGroup",
+            "extensionPointId": "org.openmrs.module.adminui.adminGroups",
+            "type": "group",
+            "label": "Concepts",
+            "icon": "icon-book"
+        },
+        {
+            "id": "owa.conceptdictionary.adminLink",
+            "extensionPointId": "org.openmrs.module.adminui.adminLinks",
+            "type": "link",
+            "label": "Manage Concept Dictionary",
+            "url": "owa/conceptdictionary/index.html",
+            "extensionParams": {
+                "group": "owa.conceptdictionary.adminGroup"
+            }
+        }
+    ]
+}
+````
+Save changes, now Concept OWA is visible at `adminui/metadata/configureMetadata.page`
 
 For further documentation about OpenMRS Open Web Apps see [the wiki page](https://wiki.openmrs.org/display/docs/Open+Web+Apps+Module).
 
-Please follow [the style guide](https://github.com/rkorytkowski/angular-styleguide/blob/master/a1/README.md) for AngularJS development.
-
 ## Development
+
+Please follow [the style guide](https://github.com/rkorytkowski/angular-styleguide/blob/master/a1/README.md) for AngularJS development.
 
 ### Setup OpenMRS server
 
@@ -109,42 +144,9 @@ gulp watch
 
 While it runs, it watches all files for changes and automatically updates your browser.
 
-### Installing Concepts OWA on OpenMRS Reference Application
+###UI elements
 
-First, You need to download *.zip package with Concept OWA.
-To add this package to Reference App, enter advanced administration panel (default at: `openmrs/admin/index.htm`), then go to `Manage Apps` in `Open Web Apps Module` menu, click "Browse", find `conceptdictionary.zip` file and then upload it via button.
-When application is installed, it can be accessed under `owa/conceptdictionary/index.html`.
-
-<p><b>Adding Application link to "Configure Metadata" menu:</b> </p>
-When on Reference Application Menu, enter `System Administration` -> `Manage Apps` -> `Add App Definition` and input following text inside:
-
-````sh
-{
-    "id": "owa.conceptdictionary",
-    "description": "Concept OWA Dictionary",
-    "order": 0,
-    "extensions": [
-        {
-            "id": "owa.conceptdictionary.adminGroup",
-            "extensionPointId": "org.openmrs.module.adminui.adminGroups",
-            "type": "group",
-            "label": "Concepts",
-            "icon": "icon-book"
-        },
-        {
-            "id": "owa.conceptdictionary.adminLink",
-            "extensionPointId": "org.openmrs.module.adminui.adminLinks",
-            "type": "link",
-            "label": "Manage Concept Dictionary",
-            "url": "owa/conceptdictionary/index.html",
-            "extensionParams": {
-                "group": "owa.conceptdictionary.adminGroup"
-            }
-        }
-    ]
-}
-````
-Save changes, now Concept OWA is visible at `adminui/metadata/configureMetadata.page`
+Styles css, fonts and some UI components like openmrs-header and openmrs-breadcrums come from the [openmrs-contrib-uicommons](https://github.com/PawelGutkowski/openmrs-contrib-uicommons) dependency. Please refer to the other project, if you want to contribute to them.
 
 ### Extending
 
