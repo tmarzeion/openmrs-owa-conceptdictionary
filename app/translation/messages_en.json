@@ -213,7 +213,7 @@
   "ConceptClass.deleted": "Concept Class deleted",
   "ConceptClass.cannot.delete": "Cannot delete Concept Class. Database constraints will be violated.",
   "ConceptClass.select": "You must select at least one concept class.",
-  "ConceptDatatype.manage": "Manage Concept Datatypes",
+  "ConceptDatatype.manage": "View Concept Datatypes",
   "ConceptDatatype.manage.title": "Concept Datatype Management",
   "ConceptDatatype.title": "Concept Datatype Form",
   "ConceptDatatype.save": "Save Concept Datatype",
