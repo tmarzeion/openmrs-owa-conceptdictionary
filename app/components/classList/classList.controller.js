@@ -20,7 +20,10 @@ ClassListController.$inject =
         vm.links = {};
         vm.links["Concept Dictionary"] = "";
         vm.links["Concept Class Management"] = "class";
-		
+
+        vm.deleteClicked = false;
+        vm.deleteItem;
+
 		//array of concept classes
         vm.classes = loadClasses.results;
 
@@ -31,6 +34,8 @@ ClassListController.$inject =
         vm.retire = retire;
         vm.unretire = unretire;
         vm.purge = purge;
+        vm.showAlert = showAlert;
+        vm.updateDeleteConfirmation = updateDeleteConfirmation;
 
         function retire(item) {
             openmrsRest.retire('conceptclass', {uuid: item.uuid}).then(function(data) {
@@ -54,14 +59,22 @@ ClassListController.$inject =
                     vm.classes = data.results;
                 });
             });
+        }
 
+        function showAlert(item) {
+            vm.deleteClicked = true;
+            vm.deleteItem = item;
+        }
 
+        function updateDeleteConfirmation(isConfirmed) {
+            if (isConfirmed) {
+                purge(vm.deleteItem);
+            }
+            vm.deleteClicked = false;
         }
 
         //redirects to another location
 		function goTo (hash){
 			$location.path(hash);
 		}
-
-
     }
