@@ -21,11 +21,17 @@ function ConceptStopWordListController (loadConceptStopWords, $location, $routeP
     vm.links = {};
     vm.links["Concept Dictionary"] = "";
     vm.links["Concept Stop Word Management"] = "conceptstopword/";
+    
+    vm.deleteClicked = false;
+    vm.deleteItem;
 
     //array of concept stop words0
     vm.conceptStopWords = loadConceptStopWords.results;
     //determines whether concept stop word has been added in previous view
     vm.conceptStopWordAdded = $routeParams.conceptStopWordAdded;
+
+    vm.showAlert = showAlert;
+    vm.updateDeleteConfirmation = updateDeleteConfirmation;
 
     vm.goTo = goTo;
     vm.purge = purge;
@@ -36,6 +42,18 @@ function ConceptStopWordListController (loadConceptStopWords, $location, $routeP
                 vm.conceptStopWords = data.results;
             });
         });
+    }
+    
+    function showAlert(item) {
+        vm.deleteClicked = true;
+        vm.deleteItem = item;
+    }
+
+    function updateDeleteConfirmation(isConfirmed) {
+        if (isConfirmed) {
+            purge(vm.deleteItem);
+        }
+        vm.deleteClicked = false;
     }
 
     //redirects to another location

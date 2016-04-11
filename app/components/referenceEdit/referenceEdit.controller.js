@@ -22,6 +22,8 @@ function ReferenceEditController (reference, sources, openmrsRest, $location ){
     vm.links["Reference Term Management"] = "reference/";
     vm.links["Reference Term Form"] = "reference/"+reference.uuid;
 
+    vm.deleteClicked = false;
+
     vm.reference = reference;
     vm.sources = sources;
     vm.selectedConceptSource = vm.reference.conceptSource.name;
@@ -32,6 +34,8 @@ function ReferenceEditController (reference, sources, openmrsRest, $location ){
     vm.retire = retire;
     vm.updateConceptSource = updateConceptSource;
     vm.isSavePossible = isSavePossible;
+    vm.showAlert = showAlert;
+    vm.updateDeleteConfirmation = updateDeleteConfirmation;
 
 
     function updateConceptSource() {
@@ -64,6 +68,17 @@ function ReferenceEditController (reference, sources, openmrsRest, $location ){
     function deleteForever() {
         openmrsRest.remove('conceptreferenceterm', {uuid : vm.reference.uuid, purge : true});
         $location.path('/reference').search({referenceDeleted: vm.reference.name});
+    }
+
+    function showAlert(item) {
+        vm.deleteClicked = true;
+    }
+
+    function updateDeleteConfirmation(isConfirmed) {
+        if (isConfirmed) {
+        	deleteForever();
+        }
+        vm.deleteClicked = false;
     }
 
     function retire() {

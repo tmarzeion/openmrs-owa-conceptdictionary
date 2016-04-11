@@ -2,7 +2,8 @@
 <div id="body-wrapper">
 	<label id="content" class="container">
 		<h2>Edit Concept Source</h2>
-		<form>
+		<delete-alert ng-show="vm.deleteClicked" on-update="vm.updateDeleteConfirmation(isConfirmed)"></delete-alert>
+		<form ng-show="!vm.deleteClicked">
 			<label>{{"Name" | translate}}<span class="required">*</span></label>
 			<input name="name" ng-model="vm.source.name"size="35" type="text" />
 
@@ -34,7 +35,7 @@
 
 			<button ng-disabled="!vm.isSavePossible()" ng-click="vm.save()" ><i class="icon-ok"></i>&#160;{{"ConceptSource.save" | translate}}</button>
 			<button ng-click="vm.cancel()" ><i class="icon-remove"></i>&#160;{{"Concept.cancel" | translate}}</button>
-			<button ng-click="vm.deleteForever()"><i class="icon-trash"></i>&#160;{{"DeleteForever" | translate}}</button>
+			<button ng-click="vm.showAlert()"><i class="icon-trash"></i>&#160;{{"DeleteForever" | translate}}</button>
 
 			<br/>
 
