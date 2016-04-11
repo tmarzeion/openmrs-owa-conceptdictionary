@@ -21,6 +21,7 @@
         var vm = this;
         
         vm.links = {};
+        vm.links["Concept Dictionary"] = "";
         vm.links["Reference Term Management"] = "reference/";
 
         //

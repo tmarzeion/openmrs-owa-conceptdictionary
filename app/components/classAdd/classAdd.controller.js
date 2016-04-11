@@ -21,6 +21,7 @@
         var vm = this;
         
         vm.links = {};
+        vm.links["Concept Dictionary"] = "";
         vm.links["Concept Class Management"] = "class";
         vm.links["Concept Class Form"] = "class/add/";
 

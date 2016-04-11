@@ -159,7 +159,9 @@ function conceptDictionaryAppConfig($routeProvider, openmrsRest) {
       }).
       otherwise({
 		  redirectTo: '/',
-		  templateUrl: 'components/indexMenu/indexMenu.html'
+		  templateUrl: 'components/indexMenu/indexMenu.html',
+		  controller: 'IndexMenuController',
+		  controllerAs: 'vm'
 	  });
 };
 

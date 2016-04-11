@@ -19,6 +19,7 @@ angular
 		var vm = this;
 		
         vm.links = {};
+		vm.links["Concept Dictionary"] = "";
         vm.links["Concept Datatype Management"] = "datatype/";
 
 		vm.currentPageResults;

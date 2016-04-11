@@ -21,6 +21,7 @@
         var vm = this;
         
         vm.links = {};
+        vm.links["Concept Dictionary"] = "";
         vm.links["Concept Stop Word Management"] = "conceptstopword/";
         vm.links["Concept Stop Word"] = "conceptstopword/add/";
 

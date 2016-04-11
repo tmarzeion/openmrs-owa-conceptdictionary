@@ -20,6 +20,7 @@ angular
 		vm.singleClass = singleClass;
 		
         vm.links = {};
+        vm.links["Concept Dictionary"] = "";
         vm.links["Concept Class Management"] = "class";
         vm.links["Concept Class Form"] = "class/"+vm.singleClass.uuid;
 		

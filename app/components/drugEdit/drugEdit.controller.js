@@ -22,6 +22,7 @@
 		var vm = this;
 		
         vm.links = {};
+		vm.links["Concept Dictionary"] = "";
         vm.links["Concept Drug Management"] = "drug/";
         vm.links["Concept Drug Form"] = "drug/"+loadDrug.uuid;
 
