@@ -3,7 +3,7 @@
 	<div id="content" class="container">
 		<h2>Add Concept Class</h2>
 
-		<form method="post" name="class-add">
+		<form method="post" name="classAdd">
 			<div class="info-body">
 				<div>{{"Name" | translate}}<span class="required">*</span></div>
 				<div>
@@ -25,14 +25,14 @@
 			</div>
 
 			<div>
-				<a class="button" type="submit" ng-disabled="classForm.$invalid" ng-click="vm.addClass()">
+				<button class="button" ng-disabled="classAdd.$invalid" ng-click="vm.addClass()">
 					<i class="icon-ok"></i>
 					{{"ConceptClass.save" | translate}}
-				</a>
-				<a class="button" type="submit" ng-click="vm.cancel()"><i class="icon-remove">
+				</button>
+				<button class="button"ng-click="vm.cancel()"><i class="icon-remove">
 				</i>
 					{{"Concept.cancel" | translate}}
-				</a>
+				</button>
 			</div>
 
 		</form>
