@@ -22,6 +22,8 @@ function SourceEditController (sources ,openmrsRest, $location){
     vm.links["Concept Source Management"] = "source/";
     vm.links["Concept Source Form"] = "source/"+sources.uuid;
 
+    vm.deleteClicked = false;
+
     vm.source = sources;
 
     vm.responseMessage = '';
@@ -31,6 +33,8 @@ function SourceEditController (sources ,openmrsRest, $location){
     vm.isSavePossible = isSavePossible;
     vm.retire = retire;
     vm.deleteForever = deleteForever;
+    vm.showAlert = showAlert;
+    vm.updateDeleteConfirmation = updateDeleteConfirmation;
     
     activate();
     
@@ -65,6 +69,17 @@ function SourceEditController (sources ,openmrsRest, $location){
         openmrsRest.remove('conceptsource', {uuid : vm.source.uuid, purge : true}).then(function(){
             $location.path('/source').search({sourceDeleted: vm.source.name});
         });
+    }
+
+    function showAlert(item) {
+        vm.deleteClicked = true;
+    }
+
+    function updateDeleteConfirmation(isConfirmed) {
+        if (isConfirmed) {
+        	deleteForever();
+        }
+        vm.deleteClicked = false;
     }
 
     function retire() {

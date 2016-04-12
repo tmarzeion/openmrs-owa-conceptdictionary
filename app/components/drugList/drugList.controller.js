@@ -24,6 +24,9 @@
         vm.links = {};
 		vm.links["Concept Dictionary"] = "";
         vm.links["Concept Drug Management"] = "drug/";
+        
+        vm.deleteClicked = false;
+        vm.deleteItem;
 
 		vm.drugsList;
 		vm.retiredOn = false;
@@ -33,6 +36,8 @@
 		vm.retire = retire;
 		vm.unretire = unretire;
 		vm.purge = purge;
+        vm.showAlert = showAlert;
+        vm.updateDeleteConfirmation = updateDeleteConfirmation;
 
 		function retire(item) {
 			openmrsRest.retire('drug', {uuid: item.uuid}).then(function(data) {
@@ -59,6 +64,18 @@
 
 
 		}
+		
+        function showAlert(item) {
+            vm.deleteClicked = true;
+            vm.deleteItem = item;
+        }
+
+        function updateDeleteConfirmation(isConfirmed) {
+            if (isConfirmed) {
+                purge(vm.deleteItem);
+            }
+            vm.deleteClicked = false;
+        }
 		
 		activate();
 		
