@@ -15,7 +15,7 @@
 			</tr>
 			</thead>
 			<tbody>
-			<tr ng-repeat="drug in vm.drugsList" >
+			<tr ng-repeat="drug in vm.drugsList | orderBy: 'retired'" >
 				<td ng-class="{retired: drug.retired}">{{drug.name}}</td>
 				<td>
 					<a href="#/drug/{{drug.uuid}}"><i class="icon-pencil edit-action" title="Edit"></i></a>

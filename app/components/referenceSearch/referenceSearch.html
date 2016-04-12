@@ -107,10 +107,10 @@
 				<div align="left">
 					{{"Show" | translate}}
 						<select size="1" ng-model="vm.entriesPerPage" ng-click="firstPage()">
-							<option selected="selected" value="5">5</option>
-							<option value="10">10</option>
-							<option value="25">25</option>
-							<option value="50">50</option>
+							<option ng-click="vm.firstPage()" selected="selected" value="5">5</option>
+							<option ng-click="vm.firstPage()" value="10">10</option>
+							<option ng-click="vm.firstPage()" value="25">25</option>
+							<option ng-click="vm.firstPage()" value="50">50</option>
 						</select>
 					{{"Entries" | translate}}
 				</div>

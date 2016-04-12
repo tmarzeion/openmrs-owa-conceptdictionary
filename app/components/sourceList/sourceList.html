@@ -34,11 +34,11 @@
 					<table class="info-body">
 						<tbody><tr>
 							<th>{{"Name" | translate}}</th>
-							<th>{{"ConceptSource.hl7code" | translate}}</th>
+							<th>{{"ConceptSource.hl7Code" | translate}}</th>
 							<th>{{"Description" | translate}}</th>
 							<th>{{"Action" | translate}}</th>
 						</tr>
-						<tr ng-repeat="source in vm.sources"  ng-class="{retired: source.retired}">
+						<tr ng-repeat="source in vm.sources | orderBy: 'retired"  ng-class="{retired: source.retired}">
 							<td valign="top">
 								{{source.name}}
 							</td>
