@@ -1,4 +1,5 @@
 #!/usr/bin/env bash
+
 echo "Deploying the app to GitHub Pages"
 
 cd dist
