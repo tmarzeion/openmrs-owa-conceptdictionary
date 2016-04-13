@@ -13,7 +13,9 @@ script: gulp
 after_script:
     - cat coverage/**/lcov.info | codacy-coverage
 after_success:
-  script: ./deploy.sh
+  if ([ "$TRAVIS_BRANCH" == "master" ]); then
+    ./deploy.sh
+  fi
 deploy:
   provider: bintray
   file: "bintray.json"
