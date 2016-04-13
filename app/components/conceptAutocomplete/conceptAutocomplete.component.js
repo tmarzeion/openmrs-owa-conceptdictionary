@@ -41,6 +41,14 @@
 		vm.search = search;
 		vm.checkInput = checkInput;
 		
+		activate();
+		
+		function activate(){
+			if(vm.concept.display.length > 0){
+				vm.isCorrect = true;
+			}
+		}
+		
 		function checkInput(){
 			var display = vm.searchText;
 			if(angular.isDefined(vm.searchText)){

@@ -38,6 +38,18 @@ angular
 		
 		vm.cancel = cancel;
 		
+		vm.retire = retire;	
+		vm.unretire = unretire;
+		
+		activate();
+		
+		function activate(){
+	    	if(angular.isDefined(vm.singleClass.auditInfo)&&
+	    	   angular.isUndefined(vm.singleClass.auditInfo.retireReason)){
+	    			vm.singleClass.auditInfo.retireReason = ""; 
+	    	}
+	    }
+		
 
         function redirectToList() {
             $location.path('/class').search({classAdded: vm.class.name});
@@ -60,5 +72,17 @@ angular
         function cancel() {
             vm.class.name = '';
             $location.path('/class').search({classAdded: ''});
+        }
+        
+        function retire() {
+            openmrsRest.retire('conceptclass', {uuid: singleClass.uuid}).then(function(data) {
+            	vm.redirectToList();
+            });
+        }
+        
+        function unretire() {
+            openmrsRest.unretire('conceptclass', {uuid: singleClass.uuid}).then(function(data) {
+            	vm.redirectToList();
+            });
         }
 	}

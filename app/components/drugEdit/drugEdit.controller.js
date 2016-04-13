@@ -67,6 +67,9 @@
 						display: ''
 				};
 			};
+			if(angular.isDefined(vm.drug.auditInfo)&&angular.isUndefined(vm.drug.auditInfo.retireReason)){
+				vm.drug.auditInfo.retireReason = ""; 
+			};
 		};
 		
 		function retire(){
@@ -77,12 +80,14 @@
 		}
 		
 		function unRetire(){
-			vm.drug.retired = false;
-			saveDrug();
+			openmrsRest.unretire('drug', {uuid: vm.drug.uuid}).then(function(success){
+				vm.responseMessage = success;
+				$location.path('/drug');
+			});
 		}
 		
 		function isCorrect(){	
-			return !(vm.isConceptCorrect && vm.isDosageCorrect && vm.isRouteCorrect);
+			return !(vm.isConceptCorrect && vm.isDosageCorrect && vm.isRouteCorrect && !(vm.drug.name.length < 1));
 		}
 		
 		function updateConcept(isCorrect, concept) {

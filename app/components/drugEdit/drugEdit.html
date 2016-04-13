@@ -3,7 +3,7 @@
 	<div id="content" class="container">
 		<h2><i class="icon-pencil"></i>{{"ConceptDrug.manage.title" | translate}}</h2>
 
-			<form name="drugAdd">
+			<form name="drugEdit">
 				<fieldset>
 					<p class="input-position-class">
 				      <label name="input-name">{{"Name" | translate}}</label>
@@ -68,12 +68,19 @@
 			<form ng-show='!vm.drug.retired'>
 				<fieldset>				
 					<b>{{"Reason" | translate}}</b>
-					<input type="text" value="" size="40" name="retireReason">
-					<button ng-click='vm.retire()'>{{"ConceptDrug.retireDrug" | translate}}</button>
+					<textarea ng-model="vm.drug.auditInfo.retireReason" rows="3" cols="37"></textarea>
+					<button ng-disabled="vm.drug.auditInfo.retireReason.length < 1" ng-click='vm.retire()'>{{"ConceptDrug.retireDrug" | translate}}</button>
 				</fieldset>
 			</form>
 			<form ng-show='vm.drug.retired'>
 				<fieldset>
+					<p>
+						<label>{{"RetiredBy" | translate}}</label>
+						<i>{{vm.drug.auditInfo.retiredBy.display}} -
+						{{"RetiredOn" | translate}} {{vm.drug.auditInfo.dateRetired|date: 'medium'}} </i>
+						<label>{{"Reason" | translate}}</label>
+						<i>{{vm.drug.auditInfo.retireReason}}</i>
+					</p>
 					<button ng-click='vm.unRetire()'>{{"Unretire" | translate}}</button>
 				</fieldset>
 			</form>
