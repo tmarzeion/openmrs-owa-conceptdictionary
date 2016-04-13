@@ -1,4 +1,5 @@
 #!/usr/bin/env bash
+set -ev
 
 echo "Deploying the app to GitHub Pages"
 
