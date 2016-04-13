@@ -1,17 +1,21 @@
 #!/bin/bash
+echo "Running deployment script..."
+
 set -e # exit with nonzero exit code if anything fails
 
-# go to the dist directory and remove zip
+echo "Opening the dist directory and removing the zip zip"
 cd dist
-rm -f *zip || exit 0;
+rm -f *zip
 
-# create a *new* Git repo
+echo "Creating a new Git repo and committing changes"
 git init
 
 # The first and only commit to this new Git repo contains all the
 # files present with the commit message "Deploy to GitHub Pages".
 git add .
 git commit -m "Deploy to GitHub Pages"
+
+echo "Pushing changes to GitHub Pages"
 
 # Force push from the current repo's master branch to the remote
 # repo's gh-pages branch. (All previous history on the gh-pages branch
