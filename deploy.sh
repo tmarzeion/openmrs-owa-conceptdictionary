@@ -1,6 +1,8 @@
 #!/usr/bin/env bash
 set -ev
 
+if [ "$TRAVIS_BRANCH" == "master" ]; then
+
 echo "Deploying the app to GitHub Pages"
 
 cd dist
@@ -19,3 +21,5 @@ echo "Pushing changes to the gh-pages branch"
 # will be lost, since we are overwriting it.) We redirect any output to
 # /dev/null to hide any sensitive credential data that might otherwise be exposed.
 git push --force --quiet "https://$GITHUB_PAGES_TOKEN@github.com/rkorytkowski/openmrs-owa-conceptdictionary.git" HEAD:gh-pages > /dev/null 2>&1
+
+fi

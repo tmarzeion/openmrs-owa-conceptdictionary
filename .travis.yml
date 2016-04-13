@@ -11,11 +11,9 @@ install:
   - bower install
 script: gulp
 after_script:
-    - cat coverage/**/lcov.info | codacy-coverage
+  - cat coverage/**/lcov.info | codacy-coverage
 after_success:
-  if ([ "$TRAVIS_BRANCH" == "master" ]); then
-    ./deploy.sh
-  fi
+  - ./deploy.sh
 deploy:
   provider: bintray
   file: "bintray.json"
