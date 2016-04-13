@@ -12,15 +12,13 @@ install:
 script: gulp
 after_script:
     - cat coverage/**/lcov.info | codacy-coverage
+after_success:
+  script: ./deploy.sh
 deploy:
-  - provider: bintray
-    file: "bintray.json"
-    user: "rkorytkowski"
-    key: $BINTRAY_API_KEY
-    dry-run: false
-    on:
-      tags: true
-  - provider: script
-    script: ./deploy.sh
-    on:
-      branch: master
+  provider: bintray
+  file: "bintray.json"
+  user: "rkorytkowski"
+  key: $BINTRAY_API_KEY
+  dry-run: false
+  on:
+    tags: true
