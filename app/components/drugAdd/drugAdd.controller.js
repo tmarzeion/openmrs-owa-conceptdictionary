@@ -65,7 +65,7 @@
 		vm.isCorrect = isCorrect;
 		
 		function isCorrect(){
-			return !(vm.isConceptCorrect && vm.isDosageCorrect && vm.isRouteCorrect);
+			return !(vm.isConceptCorrect && vm.isDosageCorrect && vm.isRouteCorrect && !(vm.name.length < 1));
 		}
 		
 		function updateConcept(isCorrect, concept) {

@@ -3,6 +3,7 @@
 	<div id="content" class="container">
 		<h2><i class="icon-pencil"></i>{{"ConceptDrug.manage.title" | translate}}</h2>
 			<form name="drugAdd">
+				
 					<p class="input-position-class">
 				      <label name="input-name">{{"Name" | translate}}<span class="required">*</span></label>
 				      <input name='name' id="input-name" ng-model='vm.name' required/>
@@ -32,10 +33,10 @@
 				      <label name="input-route">{{"ConceptDrug.route" | translate}}</label>
 				      <concept-auto-complete required='false' concept='vm.route' limit-to-drugs='false' on-update='vm.updateRoute(isCorrect, concept)'></concept-auto-complete>
 				    </p>
-				    <p class="input-position-class">
-				      <input id="input-comb" type="checkbox" ng-model='vm.combination'/>
+				    <p class="input-position-class left">
 				      <label name="input-comb">{{"ConceptDrug.combination" | translate}}</label>
-				    </p>
+				      <input id="input-comb" type="checkbox" ng-model='vm.combination'/>
+				    </p></br>
 			</form>
 			<div ng-show="vm.showMessage" id="error-message" class="note-container">
 				<div class="note error">
