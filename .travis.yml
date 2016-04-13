@@ -11,9 +11,8 @@ install:
   - bower install
 script: gulp
 after_script:
-  - cat coverage/**/lcov.info | codacy-coverage
-after_success:
   - ./deploy.sh
+  - cat coverage/**/lcov.info | codacy-coverage
 deploy:
   provider: bintray
   file: "bintray.json"
