@@ -8,7 +8,6 @@ echo "Deploying the app to GitHub Pages..."
 cd dist
 rm -f *.zip
 
-echo "Committing changes."
 # The first and only commit to this new Git repo contains all the
 # files present with the commit message "Deploy to GitHub Pages".
 git init
@@ -27,6 +26,6 @@ echo "Pushing changes to the gh-pages branch."
 # /dev/null to hide any sensitive credential data that might otherwise be exposed.
 git push --force --quiet "https://$GITHUB_PAGES_TOKEN@github.com/rkorytkowski/openmrs-owa-conceptdictionary.git" HEAD:gh-pages > /dev/null 2>&1
 
-echo "Done deploying."
+echo "Done deploying the app to GitHub Pages."
 
 fi
