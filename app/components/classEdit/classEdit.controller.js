@@ -24,11 +24,6 @@ angular
         vm.links["Concept Class Management"] = "class";
         vm.links["Concept Class Form"] = "class/"+vm.singleClass.uuid;
 		
-		vm.class = {
-            name : '',
-            description : ''
-        };
-		
 		vm.responseMessage = '';
 		vm.isError = false;
 		
@@ -37,6 +32,16 @@ angular
 		vm.editClass = editClass;
 		
 		vm.cancel = cancel;
+        
+        activate();
+        
+        function activate(){
+            if(singleClass.name == ''){
+                vm.addingOption = true;
+            }else{
+                vm.addingOption = false;
+            }
+        }
 		
 		vm.retire = retire;	
 		vm.unretire = unretire;
@@ -52,15 +57,12 @@ angular
 		
 
         function redirectToList() {
-            $location.path('/class').search({classAdded: vm.class.name});
+            $location.path('/class').search({classAdded: vm.singleClass.name});
         }
 
         function editClass() {
-            vm.class.name = vm.singleClass.name;
-            vm.class.description = vm.singleClass.description;
-            vm.json = angular.toJson(vm.class);
 
-            openmrsRest.update('conceptclass', {uuid: vm.singleClass.uuid}, vm.json).then(function(success) {
+            openmrsRest.update('conceptclass', {uuid: vm.singleClass.uuid}, vm.singleClass).then(function(success) {
             	vm.responseMessage = success;
                 vm.redirectToList();
             }, function(exception) {
@@ -70,7 +72,6 @@ angular
         }
 
         function cancel() {
-            vm.class.name = '';
             $location.path('/class').search({classAdded: ''});
         }
         

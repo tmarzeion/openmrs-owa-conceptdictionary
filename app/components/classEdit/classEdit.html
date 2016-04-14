@@ -14,11 +14,11 @@
 						<textarea name="description" rows="3" cols="40" ng-model="vm.singleClass.description"></textarea>
 					</div>
 
-					<div>
+					<div ng-show="!vm.addingOption">
 						{{"CreatedBy" | translate}}:&#160;&#160;{{vm.singleClass.auditInfo.creator.display}} - {{vm.singleClass.auditInfo.dateCreated | date:'medium'}}
 					</div>
 
-					<div>
+					<div ng-show="!vm.addingOption">
 						<font color="#D0D0D0"><sub>UUID:&#160;&#160;</sub></font>
 						<font color="#D0D0D0"><sub>{{vm.singleClass.uuid}}</sub></font>
 					</div>

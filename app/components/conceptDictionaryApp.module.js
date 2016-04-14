@@ -25,9 +25,14 @@ function conceptDictionaryAppConfig($routeProvider, openmrsRest) {
 		  }
 	  }).
 	  when('/class/add', {
-		  templateUrl: 'components/classAdd/classAdd.html',
-		  controller: 'ClassAddController',
-		  controllerAs: 'vm'
+		  templateUrl: 'components/classEdit/classEdit.html',
+		  controller: 'ClassEditController',
+		  controllerAs: 'vm',
+		  resolve: {
+			  singleClass : function(){
+				  return {name: '', description: ''};
+			  }
+		  }
 	  }).
 	  when('/class/:classUUID', {
 		  templateUrl: 'components/classEdit/classEdit.html',
