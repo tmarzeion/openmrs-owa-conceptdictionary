@@ -24,8 +24,9 @@
 		</button>
 		<br/>
 		<br/>
-
-		<div class ="info-section">
+		<delete-alert ng-show="vm.deleteClicked" on-update="vm.updateDeleteConfirmation(isConfirmed)"></delete-alert>
+		
+		<div class ="info-section" ng-show="!vm.deleteClicked">
 
 			<form method="post" class="box" name="source-list">
 
@@ -33,11 +34,11 @@
 					<table class="info-body">
 						<tbody><tr>
 							<th>{{"Name" | translate}}</th>
-							<th>{{"ConceptSource.hl7code" | translate}}</th>
+							<th>{{"ConceptSource.hl7Code" | translate}}</th>
 							<th>{{"Description" | translate}}</th>
 							<th>{{"Action" | translate}}</th>
 						</tr>
-						<tr ng-repeat="source in vm.sources"  ng-class="{retired: source.retired}">
+						<tr ng-repeat="source in vm.sources | orderBy: 'retired"  ng-class="{retired: source.retired}">
 							<td valign="top">
 								{{source.name}}
 							</td>
@@ -51,7 +52,7 @@
 								<a ng-show="source.retired" ng-click="vm.unretire(source)">
 									<i class="icon-reply edit-action" title="Unretire"></i>
 								</a>
-								<a ng-click="vm.purge(source)">
+								<a ng-click="vm.showAlert(source)">
 									<i class="icon-trash delete-action right" title="Delete forever"></i>
 								</a>
 							</td>

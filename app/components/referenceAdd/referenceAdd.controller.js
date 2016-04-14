@@ -18,6 +18,7 @@ function ReferenceAddController (sources, openmrsRest, $location ){
     var vm = this;
     
     vm.links = {};
+    vm.links["Concept Dictionary"] = "";
     vm.links["Reference Term Management"] = "reference/";
     vm.links["Reference Term Form"] = "reference/add/";
 

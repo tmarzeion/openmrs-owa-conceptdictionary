@@ -25,6 +25,7 @@
 		var vm = this;
 		
         vm.links = {};
+		vm.links["Concept Dictionary"] = "";
         vm.links["Concept Dictionary Management"] = "concept/";
         vm.links["Concept Form"] = "concept/add/";
         

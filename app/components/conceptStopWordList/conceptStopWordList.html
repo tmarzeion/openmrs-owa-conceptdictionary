@@ -7,8 +7,9 @@
         </button>
 
         <br/><br/>
-
-        <table>
+        
+		<delete-alert ng-show="vm.deleteClicked" on-update="vm.updateDeleteConfirmation(isConfirmed)"></delete-alert>
+        <table ng-show="!vm.deleteClicked">
             <thead>
                 <tr>
                     <th>Word</th>
@@ -21,7 +22,7 @@
                     <td>{{word.display}}</td>
                     <td>{{word.locale}}</td>
                     <td>
-                        <a ng-click="vm.purge(word)">
+                        <a ng-click="vm.showAlert(word)">
                             <i class="icon-trash delete-action right" title="Delete forever"></i>
                         </a>
                     </td>

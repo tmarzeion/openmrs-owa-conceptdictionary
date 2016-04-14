@@ -19,7 +19,11 @@ function SourcesListController (sources, $location, $routeParams, openmrsRest) {
     var vm = this;
     
     vm.links = {};
+    vm.links["Concept Dictionary"] = "";
     vm.links["Concept Source Management"] = "source/";
+    
+    vm.deleteClicked = false;
+    vm.deleteItem;
 
 
     //array of concept sources
@@ -27,6 +31,8 @@ function SourcesListController (sources, $location, $routeParams, openmrsRest) {
     //determines whether source class has been saved or deleted in previous view
     vm.sourceSaved = $routeParams.sourceSaved;
     vm.sourceDeleted = $routeParams.sourceDeleted;
+    vm.showAlert = showAlert;
+    vm.updateDeleteConfirmation = updateDeleteConfirmation;
 
     vm.goTo = goTo;
     vm.retire = retire;
@@ -60,5 +66,17 @@ function SourcesListController (sources, $location, $routeParams, openmrsRest) {
                 vm.sources = data.results;
             });
         });
+    }
+    
+    function showAlert(item) {
+        vm.deleteClicked = true;
+        vm.deleteItem = item;
+    }
+
+    function updateDeleteConfirmation(isConfirmed) {
+        if (isConfirmed) {
+            purge(vm.deleteItem);
+        }
+        vm.deleteClicked = false;
     }
 }

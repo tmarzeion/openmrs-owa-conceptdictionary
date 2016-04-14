@@ -22,6 +22,7 @@
 		var vm = this;
 		
         vm.links = {};
+		vm.links["Concept Dictionary"] = "";
         vm.links["Concept Drug Management"] = "drug/";
         vm.links["Concept Drug Form"] = "drug/add/";
 
@@ -64,7 +65,7 @@
 		vm.isCorrect = isCorrect;
 		
 		function isCorrect(){
-			return !(vm.isConceptCorrect && vm.isDosageCorrect && vm.isRouteCorrect);
+			return !(vm.isConceptCorrect && vm.isDosageCorrect && vm.isRouteCorrect && !(vm.name.length < 1));
 		}
 		
 		function updateConcept(isCorrect, concept) {

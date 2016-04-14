@@ -18,6 +18,7 @@ function SourceAddController (openmrsRest, $location){
     var vm = this;
     
     vm.links = {};
+    vm.links["Concept Dictionary"] = "";
     vm.links["Concept Source Management"] = "source/";
     vm.links["Concept Source Form"] = "source/add/";
 

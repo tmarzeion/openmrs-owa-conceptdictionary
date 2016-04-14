@@ -6,7 +6,8 @@
 		</button>
 		<br/>
 		<br/>
-		<table>
+		<delete-alert ng-show="vm.deleteClicked" on-update="vm.updateDeleteConfirmation(isConfirmed)"></delete-alert>
+		<table ng-show="!vm.deleteClicked">
 			<thead>
 			<tr>
 				<th>Name</th>
@@ -14,7 +15,7 @@
 			</tr>
 			</thead>
 			<tbody>
-			<tr ng-repeat="drug in vm.drugsList" >
+			<tr ng-repeat="drug in vm.drugsList | orderBy: 'retired'" >
 				<td ng-class="{retired: drug.retired}">{{drug.name}}</td>
 				<td>
 					<a href="#/drug/{{drug.uuid}}"><i class="icon-pencil edit-action" title="Edit"></i></a>
@@ -24,7 +25,7 @@
 					<a ng-show="drug.retired" ng-click="vm.unretire(drug)">
 						<i class="icon-reply edit-action" title="Unretire"></i>
 					</a>
-					<a ng-click="vm.purge(drug)">
+					<a ng-click="vm.showAlert(drug)">
 						<i class="icon-trash delete-action right" title="Delete forever"></i>
 					</a>
 				</td>

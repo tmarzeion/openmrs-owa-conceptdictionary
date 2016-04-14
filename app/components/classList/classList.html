@@ -12,7 +12,8 @@
 
 		<button ng-click='vm.goTo("/class/add")'>{{"ConceptClass.add" | translate}}</button>
 		<br/><br/>
-		<table>
+		<delete-alert ng-show="vm.deleteClicked" on-update="vm.updateDeleteConfirmation(isConfirmed)"></delete-alert>
+		<table ng-show="!vm.deleteClicked">
 			<thead>
 				<tr>
 					<th>Name</th>
@@ -21,7 +22,7 @@
 				</tr>
 			</thead>
 			<tbody>
-				<tr ng-repeat="class in vm.classes" ng-class="{retired: class.retired}">
+				<tr ng-repeat="class in vm.classes | orderBy:'retired'"  ng-class="{retired: class.retired}" >
 					<td>{{class.name}}</td>
 					<td>{{class.description}}</td>
 					<td>
@@ -32,7 +33,7 @@
 						<a ng-show="class.retired" ng-click="vm.unretire(class)">
 							<i class="icon-reply edit-action" title="Unretire"></i>
 						</a>
-						<a ng-click="vm.purge(class)">
+						<a ng-click="vm.showAlert(class)">
 							<i class="icon-trash delete-action right" title="Delete forever"></i>
 						</a>
 					</td>

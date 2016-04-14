@@ -1,7 +1,9 @@
 <openmrs-breadcrumbs links="vm.links"></openmrs-breadcrumbs>
 <div id="body-wrapper">
     <div id="content" class="container">
-            <form method="post" name="class-edit">
+    		<h2>Edit Reference Term</h2>
+    		<delete-alert ng-show="vm.deleteClicked" on-update="vm.updateDeleteConfirmation(isConfirmed)"></delete-alert>
+    		<form method="post" ng-show="!vm.deleteClicked" name="class-edit">
                 <div class="info-body">
                     <div class="form_align_left" cellpadding="3" cellspacing="3">
                         <div>
@@ -76,7 +78,7 @@
                                             class="icon-lock"></i><strong>&#160;{{"Retire" | translate}}</strong></a>
                                     <a class="button" ng-show="vm.reference.retired" ng-click="vm.retire()"><i
                                             class="icon-reply"></i><strong>&#160;{{"Unretire" | translate}}</strong></a>
-                                    <a class="button" ng-click="vm.deleteForever()"><i class="icon-trash"></i><strong>
+                                    <a class="button" ng-click="vm.showAlert()"><i class="icon-trash"></i><strong>
                                         &#160;{{"DeleteForever" | translate}}</strong></a>
                                 </div>
                             </div>
