@@ -148,6 +148,16 @@ While it runs, it watches all files for changes and automatically updates your b
 
 Styles css, fonts and some UI components like openmrs-header and openmrs-breadcrums come from the [openmrs-contrib-uicommons](https://github.com/PawelGutkowski/openmrs-contrib-uicommons) dependency. Please refer to the other project, if you want to contribute to them.
 
+###Deplyoing to GitHub Pages
+
+The master branch of this repo is being deployed to http://rkorytkowski.github.io/openmrs-owa-conceptdictionary with every commit. If you want to have the same behavior in your fork you need to make sure deploy.sh has the execution bit set using: 
+
+````sh
+git update-index --chmod=+x deploy.sh
+````
+
+You will also need to change the url to point to your fork in deploy.sh line 27 and set the GITHUB_PAGES_TOKEN variable in travis-ci to your token generated from https://github.com/settings/tokens
+
 ### Extending
 
 Install [Bower](http://bower.io/) packages dependencies as follows:
