@@ -61,9 +61,22 @@ function conceptDictionaryAppConfig($routeProvider, openmrsRest) {
 		    }
 	  }).
 	  when('/source/add', {
-		    templateUrl: 'components/sourceAdd/sourceAdd.html',
-		    controller: 'SourceAddController',
-		    controllerAs: 'vm'
+		  templateUrl: 'components/sourceEdit/sourceEdit.html',
+		  controller: 'SourceEditController',
+		  controllerAs: 'vm',
+		  resolve: {
+			  sources : function(){
+				  return {};
+			  }
+		  }
+	  }).
+	  when('/source/:sourceUUID', {
+		  templateUrl: 'components/sourceEdit/sourceEdit.html',
+		  controller: 'SourceEditController',
+		  controllerAs: 'vm',
+		  resolve: {
+			  sources : loadSource
+		  }
 	  }).
       when('/conceptstopword/add', {
       	  templateUrl: 'components/conceptStopWordAdd/conceptStopWordAdd.html',
@@ -73,14 +86,6 @@ function conceptDictionaryAppConfig($routeProvider, openmrsRest) {
 			  serverLocales : serverLocales
 		  }
       }).
-	  when('/reference/add', {
-	  	  templateUrl: 'components/referenceAdd/referenceAdd.html',
-	  	  controller: 'ReferenceAddController',
-	  	  controllerAs: 'vm',
-		  resolve: {
-			  sources : loadSources
-		  }
-	  }).
 	  when('/conceptstopword', {
 		    templateUrl: 'components/conceptStopWordList/conceptStopWordList.html',
 		    controller: 'ConceptStopWordListController',
@@ -97,14 +102,6 @@ function conceptDictionaryAppConfig($routeProvider, openmrsRest) {
               	 loadDataTypes : loadDataTypes
             }
       }).
-	  when('/source/:sourceUUID', {
-		    templateUrl: 'components/sourceEdit/sourceEdit.html',
-		    controller: 'SourceEditController',
-		    controllerAs: 'vm', 
-		    resolve: {
-			    sources : loadSource
-		    }
-	  }).
       when('/datatype/:dataTypeUUID', {
         	templateUrl: 'components/datatypeDetails/datatypeDetails.html',
         	controller: 'DatatypeDetailsController',
@@ -123,6 +120,17 @@ function conceptDictionaryAppConfig($routeProvider, openmrsRest) {
         		loadDataTypes : loadDataTypes
         	}
       }).
+	  when('/reference/add', {
+		  templateUrl: 'components/referenceEdit/referenceEdit.html',
+		  controller: 'ReferenceEditController',
+		  controllerAs: 'vm',
+		  resolve: {
+			  sources : loadSources,
+			  reference : function(){
+				  return {};
+			  }
+		  }
+	  }).
 	  when('/reference/:referenceUUID/', {
 		    templateUrl: 'components/referenceEdit/referenceEdit.html',
 		    controller: 'ReferenceEditController',
@@ -150,9 +158,14 @@ function conceptDictionaryAppConfig($routeProvider, openmrsRest) {
         	}
       }).
       when('/drug/add', {
-        	templateUrl: 'components/drugAdd/drugAdd.html',
-        	controller: 'DrugAddController',
-        	controllerAs: 'vm'
+		  templateUrl: 'components/drugEdit/drugEdit.html',
+		  controller: 'DrugEditController',
+        	controllerAs: 'vm',
+		  resolve: {
+			  loadDrug: function(){
+				  return {};
+			  }
+		  }
       }).
       when('/drug/:drugUUID', {
         	templateUrl: 'components/drugEdit/drugEdit.html',

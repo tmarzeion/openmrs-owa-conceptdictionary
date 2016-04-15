@@ -38,7 +38,7 @@
 							<th>{{"Description" | translate}}</th>
 							<th>{{"Action" | translate}}</th>
 						</tr>
-						<tr ng-repeat="source in vm.sources | orderBy: 'retired"  ng-class="{retired: source.retired}">
+						<tr ng-repeat="source in vm.sources | orderBy: 'retired'"  ng-class="{retired: source.retired}">
 							<td valign="top">
 								{{source.name}}
 							</td>

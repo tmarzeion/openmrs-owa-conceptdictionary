@@ -60,6 +60,7 @@ describe('Concept dictionary controllers', function() {
 
 
         it('should edit existing class ', function() {
+            ctrl.editClass();
             expect(ctrl.responseMessage).toEqualData('');
         });
 

@@ -57,20 +57,32 @@
 		
 		function activate(){
 			vm.drug = loadDrug;
-			if(vm.drug.route === null){
+			if(angular.isDefined(vm.drug.name)){
+				if(vm.drug.route === null){
+					vm.drug.route = {
+							display: ''
+						};
+				}
+				if(vm.drug.dosageForm === null){
+					vm.drug.dosageForm = {
+							display: ''
+						};
+				}
+				if (angular.isDefined(vm.drug.auditInfo) && angular.isUndefined(vm.drug.auditInfo.retireReason)) {
+					vm.drug.auditInfo.retireReason = "";
+				}
+            } else {
+				vm.drug.concept = {
+					display: ''
+				};
 				vm.drug.route = {
-						display: ''
+					display: ''
 				};
-			};
-			if(vm.drug.dosageForm === null){
 				vm.drug.dosageForm = {
-						display: ''
+					display: ''
 				};
-			};
-			if(angular.isDefined(vm.drug.auditInfo)&&angular.isUndefined(vm.drug.auditInfo.retireReason)){
-				vm.drug.auditInfo.retireReason = ""; 
-			};
-		};
+			}
+		}
 		
 		function retire(){
 			openmrsRest.remove('drug', {uuid: vm.drug.uuid}).then(function(success){
@@ -87,7 +99,7 @@
 		}
 		
 		function isCorrect(){	
-			return !(vm.isConceptCorrect && vm.isDosageCorrect && vm.isRouteCorrect && !(vm.drug.name.length < 1));
+			return !(vm.isConceptCorrect && vm.isDosageCorrect && vm.isRouteCorrect && angular.isDefined(vm.drug.name));
 		}
 		
 		function updateConcept(isCorrect, concept) {

@@ -32,17 +32,7 @@ angular
 		vm.editClass = editClass;
 		
 		vm.cancel = cancel;
-        
-        activate();
-        
-        function activate(){
-            if(singleClass.name == ''){
-                vm.addingOption = true;
-            }else{
-                vm.addingOption = false;
-            }
-        }
-		
+
 		vm.retire = retire;	
 		vm.unretire = unretire;
 		

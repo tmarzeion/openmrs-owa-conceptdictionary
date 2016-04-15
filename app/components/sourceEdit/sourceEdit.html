@@ -14,20 +14,21 @@
 			<label>{{"Description" | translate}}<span class="required">*</span></label>
 			<textarea ng-model="vm.source.description" name="description" rows="3" cols="40"></textarea>
 
-			<label><small>{{"CreatedBy" | translate}}&#160;</small>
+			<label ng-show="vm.source.auditInfo">
+				<small>{{"CreatedBy" | translate}}&#160;</small>
 					{{vm.source.auditInfo.creator.display}} -
 					{{vm.source.auditInfo.dateCreated|date:'medium'}}
 			</label>
 
-			<label ng-show="vm.source.auditInfo.changedBy != null">
+			<label ng-show="vm.source.auditInfo">
 				<small>{{"ChangedBy" | translate}}&#160;</small>
 
 					{{vm.source.auditInfo.changedBy.display}} -
 					{{vm.source.auditInfo.dateChanged|date:'medium'}}
 
 			</label>
-			<label>
-				<font color="#D0D0D0"><sub>UUID</sub></font>
+			<label ng-show="vm.source.uuid">
+				<font color="#D0D0D0"><sub>UUID - </sub></font>
 				<font color="#D0D0D0"><sub>{{vm.source.uuid}}</sub></font>
 			</label>
 
@@ -35,11 +36,11 @@
 
 			<button ng-disabled="!vm.isSavePossible()" ng-click="vm.save()" ><i class="icon-ok"></i>&#160;{{"ConceptSource.save" | translate}}</button>
 			<button ng-click="vm.cancel()" ><i class="icon-remove"></i>&#160;{{"Concept.cancel" | translate}}</button>
-			<button ng-click="vm.showAlert()"><i class="icon-trash"></i>&#160;{{"DeleteForever" | translate}}</button>
+			<button ng-click="vm.showAlert()" ng-show="vm.source.uuid"><i class="icon-trash"></i>&#160;{{"DeleteForever" | translate}}</button>
 
 			<br/>
 
-			<div ng-show="vm.source.retired">
+			<div ng-show="vm.source.retired&&vm.source.uuid">
 				<h2><i class="icon-reply"></i>{{"Unretire" | translate}}</h2>
 				<label>{{"RetiredBy" | translate}}</label>
 					<i>{{vm.source.auditInfo.retiredBy.display}} -
@@ -52,7 +53,7 @@
 				</button>
 			</div>
 
-			<div ng-show="!vm.source.retired">
+			<div ng-show="!vm.source.retired&&vm.source.uuid">
 				<h2><i class="icon-lock"></i>{{"Retire" | translate}}</h2>
 				<label>{{"RetireReason" | translate}}<span class="required">*</span></label>
 				<textarea ng-model="vm.source.auditInfo.retireReason" rows="3" cols="50"></textarea>
