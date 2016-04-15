@@ -38,12 +38,12 @@
 				      <input id="input-comb" type="checkbox" ng-model='vm.drug.combination'/>
 				      <label name="input-comb">{{"ConceptDrug.combination" | translate}}</label>
 				    </p>
-				    <p class="input-position-class">
+				    <p class="input-position-class" ng-show='vm.drug.auditInfo'>
 				      <label name="input-maxdose">{{"CreatedBy" | translate}}
 						{{vm.drug.auditInfo.creator.display}} -
 						{{vm.drug.auditInfo.dateCreated | date: 'medium'}}</label>
 				    </p>
-				    <p class="input-position-class">
+				    <p class="input-position-class" ng-show='vm.drug.uuid'>
 				    	<label name="input-maxdose"><span style="color: #D0D0D0; "><sub>UUID</sub></span>
 				    	<span style="color: #D0D0D0; "><sub>{{vm.drug.uuid}}</sub></span></label>
 				    </p>
@@ -61,18 +61,18 @@
 				<button ng-click='vm.saveDrug()' ng-disabled="vm.isCorrect()"><i class="icon-ok"></i><strong>{{"ConceptDrug.save" | translate}}</strong></button>
 				<button ng-click='vm.redirectToList()'><i class="icon-remove"></i><strong>{{"Concept.cancel" | translate}}</strong></button>
 			</div>
-			<h1>
+			<h1 ng-show='vm.drug.uuid'>
 				<span ng-show="!vm.drug.retired"><strong><i class="icon-lock"></i>{{"Retire" | translate}}</strong></span>
 				<span ng-show="vm.drug.retired"><strong><i class="icon-reply"></i>{{"Unretire" | translate}}</strong></span>
 			</h1>
-			<form ng-show='!vm.drug.retired'>
+			<form ng-show='!vm.drug.retired&&vm.drug.uuid'>
 				<fieldset>				
 					<b>{{"Reason" | translate}}</b>
 					<textarea ng-model="vm.drug.auditInfo.retireReason" rows="3" cols="37"></textarea>
 					<button ng-disabled="vm.drug.auditInfo.retireReason.length < 1" ng-click='vm.retire()'>{{"ConceptDrug.retireDrug" | translate}}</button>
 				</fieldset>
 			</form>
-			<form ng-show='vm.drug.retired'>
+			<form ng-show='vm.drug.retired&&vm.drug.uuid'>
 				<fieldset>
 					<p>
 						<label>{{"RetiredBy" | translate}}</label>

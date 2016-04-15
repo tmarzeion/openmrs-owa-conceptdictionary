@@ -24,19 +24,29 @@ function ReferenceEditController (reference, sources, openmrsRest, $location ){
 
     vm.deleteClicked = false;
 
-    vm.reference = reference;
-    vm.sources = sources;
-    vm.selectedConceptSource = vm.reference.conceptSource.name;
-
     vm.cancel = cancel;
     vm.save = save;
     vm.deleteForever = deleteForever;
     vm.retire = retire;
+    vm.unretire = unretire;
     vm.updateConceptSource = updateConceptSource;
     vm.isSavePossible = isSavePossible;
     vm.showAlert = showAlert;
     vm.updateDeleteConfirmation = updateDeleteConfirmation;
 
+    activate();
+
+    function activate() {
+        vm.reference = reference;
+        vm.sources = sources.results;
+
+        if(angular.isDefined(vm.reference.name)){
+            vm.selectedConceptSource = vm.reference.conceptSource.name;
+        }
+        else{
+            vm.reference.conceptSource = {};
+        }
+    }
 
     function updateConceptSource() {
         for (i = 0; i < vm.sources.length; i++) {
@@ -48,7 +58,7 @@ function ReferenceEditController (reference, sources, openmrsRest, $location ){
     }
 
     function isSavePossible () {
-        return vm.reference.code.length > 0 && angular.isDefined(vm.reference.conceptSource.uuid);
+        return angular.isDefined(vm.reference.code) && angular.isDefined(vm.reference.conceptSource.uuid);
     }
 
 
@@ -81,9 +91,15 @@ function ReferenceEditController (reference, sources, openmrsRest, $location ){
         vm.deleteClicked = false;
     }
 
+    function unretire() {
+        openmrsRest.unretire('conceptreferenceterm', {uuid: reference.uuid}).then(function() {
+            cancel();
+        });
+    }
+
     function retire() {
-        //wololo
-        vm.reference.retired = !(vm.reference.retired);
-        save();
+        openmrsRest.retire('conceptreferenceterm', {uuid: reference.uuid}).then(function() {
+            cancel();
+        });
     }
 }

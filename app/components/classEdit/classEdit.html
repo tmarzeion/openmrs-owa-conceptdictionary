@@ -2,23 +2,23 @@
 <div id="body-wrapper">
 	<div id="content" class="container">
 		<h2>Edit Concept Class</h2>
-		<form method="post" name="class-edit">
+		<form name="classEdit">
 			<div class="info-body">
 
 					<div>{{"Name" | translate}}
 						<span class="required">*</span>
-						<input type="text" name="name" size="35" ng-model="vm.singleClass.name" ng-required="true">
+						<input type="text" name="name" ng-model="vm.singleClass.name" ng-required="true">
 					</div>
 
 					<div>{{"Description" | translate}}
 						<textarea name="description" rows="3" cols="40" ng-model="vm.singleClass.description"></textarea>
 					</div>
 
-					<div>
+					<div ng-show="vm.singleClass.auditInfo.creator">
 						{{"CreatedBy" | translate}}:&#160;&#160;{{vm.singleClass.auditInfo.creator.display}} - {{vm.singleClass.auditInfo.dateCreated | date:'medium'}}
 					</div>
 
-					<div>
+					<div ng-show="vm.singleClass.uuid">
 						<font color="#D0D0D0"><sub>UUID:&#160;&#160;</sub></font>
 						<font color="#D0D0D0"><sub>{{vm.singleClass.uuid}}</sub></font>
 					</div>
@@ -36,16 +36,16 @@
 
 			<div>
 
-				<a class="button" type="submit" ng-disabled="classForm.$invalid" ng-click="vm.editClass()">
+				<button ng-disabled="classEdit.$invalid" ng-click="vm.editClass()">
 					<i class="icon-ok"></i>
 					{{"ConceptClass.save" | translate}}
-				</a>
-				<a class="button" type="submit" ng-click="vm.cancel()">
+				</button>
+				<button ng-click="vm.cancel()">
 					<i class="icon-remove"></i>
 					{{"Concept.cancel" | translate}}
-				</a>
+				</button>
 			</div>
-			<div ng-show="vm.singleClass.retired">
+			<div ng-show="vm.singleClass.retired&&vm.singleClass.uuid">
 				<h2><i class="icon-reply"></i>{{"Unretire" | translate}}</h2>
 				<p>
 					<label>{{"RetiredBy" | translate}}</label>
@@ -58,7 +58,7 @@
 					<i class="icon-reply"></i>&#160;{{"Unretire" | translate}}
 				</button>
 			</div>
-			<div ng-show="!vm.singleClass.retired">
+			<div ng-show="!vm.singleClass.retired&&vm.singleClass.uuid">
 				<h2><i class="icon-lock"></i>{{"Retire" | translate}}</h2>
 				<label>{{"RetireReason" | translate}}<span class="required">*</span></label>
 				<textarea ng-model="vm.singleClass.auditInfo.retireReason" rows="3" cols="50"></textarea>

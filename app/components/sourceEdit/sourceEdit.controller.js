@@ -24,8 +24,6 @@ function SourceEditController (sources ,openmrsRest, $location){
 
     vm.deleteClicked = false;
 
-    vm.source = sources;
-
     vm.responseMessage = '';
 
     vm.cancel = cancel;
@@ -38,9 +36,8 @@ function SourceEditController (sources ,openmrsRest, $location){
     
     activate();
     
-    
-    
     function activate(){
+        vm.source = sources;
     	if(angular.isDefined(vm.source.auditInfo)&&
     	   angular.isUndefined(vm.source.auditInfo.retireReason)){
     			vm.source.auditInfo.retireReason = ""; 
@@ -52,7 +49,7 @@ function SourceEditController (sources ,openmrsRest, $location){
     }
 
     function isSavePossible () {
-        return vm.source.name.length > 0 && vm.source.description.length > 0;
+        return angular.isDefined(vm.source.name) && angular.isDefined(vm.source.description);
     }
 
     //Method used to add class with current class params
