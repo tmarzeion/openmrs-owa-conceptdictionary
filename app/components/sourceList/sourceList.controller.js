@@ -7,71 +7,58 @@
  * Copyright (C) OpenMRS Inc. OpenMRS is a registered trademark and the OpenMRS
  * graphic logo is a trademark of OpenMRS Inc.
  */
-SourcesListController.$inject = ['sources', '$location', '$routeParams', 'openmrsRest'];
+SourcesListController.$inject = ['$routeParams'];
 
-export default function SourcesListController (sources, $location, $routeParams, openmrsRest) {
+export default function SourcesListController ($routeParams) {
 
     var vm = this;
-    
+
+    //Properties for list component
+    vm.resource = "conceptsource";
+    vm.redirectionParam = "source";
+    vm.columns= [
+        {
+            "property": "name",
+            "label": "Name"
+        },
+        {
+            "property": "hl7Code",
+            "label":"HL7 Code"
+        },
+        {
+            "property": "description",
+            "label":"Description"
+        }];
+    vm.actions = [
+        {
+            "action":"edit",
+            "label":"Edit",
+            "icon":"icon-pencil edit-action left"
+        },
+        {
+            "action":"retire",
+            "label":"Retire",
+            "icon":"icon-remove delete-action"
+        },
+        {
+            "action":"unretire",
+            "label":"unretire",
+            "icon":"icon-reply edit-action"
+        },
+        {
+            "action":"purge",
+            "label":"Delete",
+            "icon":"icon-trash delete-action right"
+        }
+    ];
+
+    //Breadcrumbs properties
     vm.links = {};
     vm.links["Concept Dictionary"] = "";
     vm.links["Concept Source Management"] = "source/";
-    
-    vm.deleteClicked = false;
-    vm.deleteItem;
 
-
-    //array of concept sources
-    vm.sources = sources.results;
     //determines whether source class has been saved or deleted in previous view
     vm.sourceSaved = $routeParams.sourceSaved;
     vm.sourceDeleted = $routeParams.sourceDeleted;
-    vm.showAlert = showAlert;
-    vm.updateDeleteConfirmation = updateDeleteConfirmation;
 
-    vm.goTo = goTo;
-    vm.retire = retire;
-    vm.unretire = unretire;
-    vm.purge = purge;
-
-    //redirects to another location
-    function goTo (hash){
-        $location.path(hash);
-    }
-
-    function retire(item) {
-        openmrsRest.retire('conceptsource', {uuid: item.uuid}).then(function(data) {
-            openmrsRest.listFull('conceptsource', {includeAll: true}).then(function(data) {
-                vm.sources = data.results;
-            });
-        });
-    }
-
-    function unretire(item) {
-        openmrsRest.unretire('conceptsource', {uuid: item.uuid}).then(function(data) {
-            openmrsRest.listFull('conceptsource', {includeAll: true}).then(function(data) {
-                vm.sources = data.results;
-            });
-        });
-    }
-
-    function purge(item) {
-        openmrsRest.purge('conceptsource', {uuid: item.uuid}).then(function (data) {
-            openmrsRest.listFull('conceptsource', {includeAll: true}).then(function (data) {
-                vm.sources = data.results;
-            });
-        });
-    }
-    
-    function showAlert(item) {
-        vm.deleteClicked = true;
-        vm.deleteItem = item;
-    }
-
-    function updateDeleteConfirmation(isConfirmed) {
-        if (isConfirmed) {
-            purge(vm.deleteItem);
-        }
-        vm.deleteClicked = false;
-    }
 }

@@ -9,52 +9,37 @@
  */
 
 ConceptStopWordListController.$inject =
-    ['loadConceptStopWords','$location', '$routeParams', 'openmrsRest'];
+    ['$routeParams'];
 
-export default function ConceptStopWordListController (loadConceptStopWords, $location, $routeParams, openmrsRest) {
+export default function ConceptStopWordListController ($routeParams) {
 
     var vm = this;
+
+    //Properties for list component
+    vm.resource = "conceptstopword";
+    vm.limit = 20; //Default
+    vm.columns= [
+        {
+            "property": "display",
+            "label": "Word"
+        },
+        {
+            "property": "locale",
+            "label":"Locale"
+        }];
+    vm.actions = [{
+            "action":"purge",
+            "label":"Delete",
+            "icon":"icon-trash delete-action center"
+    }];
     
+    //Breadcrumbs properties
     vm.links = {};
     vm.links["Concept Dictionary"] = "";
     vm.links["Concept Stop Word Management"] = "conceptstopword/";
     
-    vm.deleteClicked = false;
-    vm.deleteItem;
 
-    //array of concept stop words0
-    vm.conceptStopWords = loadConceptStopWords.results;
     //determines whether concept stop word has been added in previous view
     vm.conceptStopWordAdded = $routeParams.conceptStopWordAdded;
-
-    vm.showAlert = showAlert;
-    vm.updateDeleteConfirmation = updateDeleteConfirmation;
-
-    vm.goTo = goTo;
-    vm.purge = purge;
-
-    function purge(word) {
-        openmrsRest.purge('conceptstopword', {uuid : word.uuid}).then(function(data) {
-            openmrsRest.listFull('conceptstopword').then(function(data) {
-                vm.conceptStopWords = data.results;
-            });
-        });
-    }
     
-    function showAlert(item) {
-        vm.deleteClicked = true;
-        vm.deleteItem = item;
-    }
-
-    function updateDeleteConfirmation(isConfirmed) {
-        if (isConfirmed) {
-            purge(vm.deleteItem);
-        }
-        vm.deleteClicked = false;
-    }
-
-    //redirects to another location
-    function goTo (hash){
-        $location.path(hash);
-    }
 }

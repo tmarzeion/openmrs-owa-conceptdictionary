@@ -9,36 +9,8 @@
 				</div>
 			</div>
 		</div>
-
-		<button ng-click='vm.goTo("/class/add")'>{{"ConceptClass.add" | translate}}</button>
+		<a href="#/class/add"><button>{{"ConceptClass.add" | translate}}</button></a>
 		<br/><br/>
-		<delete-alert ng-show="vm.deleteClicked" on-update="vm.updateDeleteConfirmation(isConfirmed)"></delete-alert>
-		<table ng-show="!vm.deleteClicked">
-			<thead>
-				<tr>
-					<th>Name</th>
-					<th>Description</th>
-					<th>Action</th>
-				</tr>
-			</thead>
-			<tbody>
-				<tr ng-repeat="class in vm.classes | orderBy:'retired'"  ng-class="{retired: class.retired}" >
-					<td>{{class.name}}</td>
-					<td>{{class.description}}</td>
-					<td>
-						<a href="#/class/{{class.uuid}}"><i class="icon-pencil edit-action" title="Edit"></i></a>
-						<a ng-show="!class.retired" ng-click="vm.retire(class)">
-							<i class="icon-remove delete-action" title="Delete"></i>
-						</a>
-						<a ng-show="class.retired" ng-click="vm.unretire(class)">
-							<i class="icon-reply edit-action" title="Unretire"></i>
-						</a>
-						<a ng-click="vm.showAlert(class)">
-							<i class="icon-trash delete-action right" title="Delete forever"></i>
-						</a>
-					</td>
-				</tr>
-			</tbody>
-		</table>
+		<openmrs-list resource="vm.resource" columns="vm.columns" actions="vm.actions" redirection-param="vm.redirectionParam" limit="vm.limit"></openmrs-list>
 	</div>
 </div>

@@ -9,69 +9,52 @@
  */
 
 ClassListController.$inject =
-	    ['loadClasses', '$location', '$route', '$routeParams', 'openmrsRest'];
+	    ['$routeParams'];
 	
-export default function ClassListController (loadClasses, $location, $route, $routeParams, openmrsRest) {
+export default function ClassListController ($routeParams) {
 	var vm = this;
-	
+    
+    //Properties for list component
+    vm.resource = "conceptclass";
+    vm.redirectionParam = "class";
+    vm.limit = 10; //Default value
+    vm.columns= [
+        {
+            "property": "name",
+            "label": "Name"
+        },
+        {
+            "property": "description",
+            "label":"Description"
+        }];
+    vm.actions = [
+        {
+            "action":"edit",
+            "label":"Edit",
+            "icon":"icon-pencil edit-action left"
+        },
+        {
+            "action":"retire",
+            "label":"Retire",
+            "icon":"icon-remove delete-action"
+        },
+        {
+            "action":"unretire",
+            "label":"unretire",
+            "icon":"icon-reply edit-action"
+        },
+        {
+            "action":"purge",
+            "label":"Delete",
+            "icon":"icon-trash delete-action right"
+        }
+    ];
+
+    //Breadcrumbs properties
     vm.links = {};
     vm.links["Concept Dictionary"] = "";
     vm.links["Concept Class Management"] = "class";
 
-    vm.deleteClicked = false;
-    vm.deleteItem;
-
-	//array of concept classes
-    vm.classes = loadClasses.results;
-
     //determines whether class has been added in previous view
     vm.classAdded = $routeParams.classAdded;
-
-    vm.goTo = goTo;
-    vm.retire = retire;
-    vm.unretire = unretire;
-    vm.purge = purge;
-    vm.showAlert = showAlert;
-    vm.updateDeleteConfirmation = updateDeleteConfirmation;
-
-    function retire(item) {
-        openmrsRest.retire('conceptclass', {uuid: item.uuid}).then(function(data) {
-            openmrsRest.listFull('conceptclass', {includeAll: true}).then(function(data) {
-                vm.classes = data.results;
-            });
-        });
-    }
-
-    function unretire(item) {
-        openmrsRest.unretire('conceptclass', {uuid: item.uuid}).then(function(data) {
-            openmrsRest.listFull('conceptclass', {includeAll: true}).then(function(data) {
-                vm.classes = data.results;
-            });
-        });
-    }
-
-    function purge(item) {
-        openmrsRest.purge('conceptclass', {uuid: item.uuid}).then(function(data) {
-            openmrsRest.listFull('conceptclass', {includeAll: true}).then(function(data) {
-                vm.classes = data.results;
-            });
-        });
-    }
-
-    function showAlert(item) {
-        vm.deleteClicked = true;
-        vm.deleteItem = item;
-    }
-
-    function updateDeleteConfirmation(isConfirmed) {
-        if (isConfirmed) {
-            purge(vm.deleteItem);
-        }
-        vm.deleteClicked = false;
-    }
-
-    //redirects to another location
-	function goTo (hash){
-		$location.path(hash);
-	}
 }

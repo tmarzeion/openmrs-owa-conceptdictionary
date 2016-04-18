@@ -1,36 +1,13 @@
 <openmrs-breadcrumbs links="vm.links"></openmrs-breadcrumbs>
 <div id="body-wrapper">
 	<div id="content" class="container">
-		<button ng-click='vm.gotToAddDrugPage("/drug/add")'>
+		<a href="#/drug/add"><button ng-click='vm.gotToAddDrugPage("/drug/add")'>
 			<i class="icon-plus"></i>&#160;&#160;{{"ConceptDrug.add" | translate}}
-		</button>
+		</button></a>
 		<br/>
 		<br/>
-		<delete-alert ng-show="vm.deleteClicked" on-update="vm.updateDeleteConfirmation(isConfirmed)"></delete-alert>
-		<table ng-show="!vm.deleteClicked">
-			<thead>
-			<tr>
-				<th>Name</th>
-				<th>Action</th>
-			</tr>
-			</thead>
-			<tbody>
-			<tr ng-repeat="drug in vm.drugsList | orderBy: 'retired'" >
-				<td ng-class="{retired: drug.retired}">{{drug.name}}</td>
-				<td>
-					<a href="#/drug/{{drug.uuid}}"><i class="icon-pencil edit-action" title="Edit"></i></a>
-					<a ng-show="!drug.retired" ng-click="vm.retire(drug)">
-						<i class="icon-remove delete-action" title="Delete"></i>
-					</a>
-					<a ng-show="drug.retired" ng-click="vm.unretire(drug)">
-						<i class="icon-reply edit-action" title="Unretire"></i>
-					</a>
-					<a ng-click="vm.showAlert(drug)">
-						<i class="icon-trash delete-action right" title="Delete forever"></i>
-					</a>
-				</td>
-			</tr>
-			</tbody>
-		</table>
+
+		<openmrs-list resource="vm.resource" columns="vm.columns" actions="vm.actions" redirection-param="vm.redirectionParam" limit="vm.limit"></openmrs-list>
+
 	</div>
 </div>
