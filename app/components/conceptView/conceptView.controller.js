@@ -7,60 +7,51 @@
  * Copyright (C) OpenMRS Inc. OpenMRS is a registered trademark and the OpenMRS
  * graphic logo is a trademark of OpenMRS Inc.
  */
-(function() {
-    'use strict';
-    
-	angular
-		.module('conceptDictionaryApp')
-		.controller('ConceptViewController', ConceptViewController)
-		
-	//serverLocales = avalaible locales obtained from server
 ConceptViewController.$inject = ['$scope', 'concept', 'serverLocales', 'conceptsService'];
 
-	function ConceptViewController ($scope, concept, serverLocales, conceptsService){
+export default function ConceptViewController ($scope, concept, serverLocales, conceptsService){
 
-		var vm = this;
+	var vm = this;
+	
+    vm.links = {};
+	vm.links["Concept Dictionary"] = "";
+    vm.links["Concept Dictionary Management"] = "concept/";
+    vm.links["Concept Form"] = "concept/"+concept.uuid;
+    
+	//determines if Numeric content is shown
+	vm.isNumeric;
+	//determines if coded answer content is shown
+	vm.isCoded;
+	//holds names and description of concept for currently selected locale
+	vm.conceptLocale = {};
+	//holds concept
+	vm.concept = concept;
+	//array of locales of concept
+	vm.locales;
+	//function invoked when user clicks locale button
+	vm.goLocale = goLocale;
+	
+	activate();
+	
+	//activation function
+	function activate(){
+		vm.locales = conceptsService.getLocales(vm.concept.names,
+				vm.concept.descriptions,
+				serverLocales);
 		
-        vm.links = {};
-		vm.links["Concept Dictionary"] = "";
-        vm.links["Concept Dictionary Management"] = "concept/";
-        vm.links["Concept Form"] = "concept/"+concept.uuid;
-        
-		//determines if Numeric content is shown
-		vm.isNumeric;
-		//determines if coded answer content is shown
-		vm.isCoded;
-		//holds names and description of concept for currently selected locale
-		vm.conceptLocale = {};
-		//holds concept
-		vm.concept = concept;
-		//array of locales of concept
-		vm.locales;
-		//function invoked when user clicks locale button
-		vm.goLocale = goLocale;
-		
-		activate();
-		
-		//activation function
-		function activate(){
-			vm.locales = conceptsService.getLocales(vm.concept.names,
-					vm.concept.descriptions,
-					serverLocales);
-			
-			checkType();
-			goLocale(vm.concept.name.locale);
-		}
-		//inserts descriptions and names for specified locale into conceptLocale, parsed from concept tables,
-		function goLocale (locale) {
-			vm.conceptLocale.description 
-				= conceptsService.getLocaleDescr(vm.concept.descriptions, locale);
-			vm.conceptLocale.names 
-				= conceptsService.getLocaleNames(vm.concept.names, locale);
-		}
-		//checks datatype of concept to determine
-		function checkType (){
-			vm.isNumeric = (vm.concept.datatype.display == "Numeric");
-			vm.isCoded = (vm.concept.datatype.display == "Coded");
-		}
-	};
-})();
+		checkType();
+		goLocale(vm.concept.name.locale);
+	}
+	//inserts descriptions and names for specified locale into conceptLocale, parsed from concept tables,
+	function goLocale (locale) {
+		vm.conceptLocale.description 
+			= conceptsService.getLocaleDescr(vm.concept.descriptions, locale);
+		vm.conceptLocale.names 
+			= conceptsService.getLocaleNames(vm.concept.names, locale);
+	}
+	//checks datatype of concept to determine
+	function checkType (){
+		vm.isNumeric = (vm.concept.datatype.display == "Numeric");
+		vm.isCoded = (vm.concept.datatype.display == "Coded");
+	}
+};

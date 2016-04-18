@@ -28,7 +28,7 @@ describe('Concept dictionary controllers', function() {
         });
     });
 
-beforeEach(module('conceptDictionaryApp'));
+beforeEach(angular.mock.module('conceptDictionaryApp'));
 
     describe('controller: ConceptAddController', function() {
     	  var ctrl, scope, $controller, serverLocales, serviceSpy, classes, datatypes, location;    	  

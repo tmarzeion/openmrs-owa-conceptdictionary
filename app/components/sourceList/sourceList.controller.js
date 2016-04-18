@@ -7,14 +7,9 @@
  * Copyright (C) OpenMRS Inc. OpenMRS is a registered trademark and the OpenMRS
  * graphic logo is a trademark of OpenMRS Inc.
  */
-angular
-    .module('conceptDictionaryApp')
-    .controller('SourcesListController', SourcesListController);
+SourcesListController.$inject = ['sources', '$location', '$routeParams', 'openmrsRest'];
 
-SourcesListController.$inject =
-    ['sources', '$location', '$routeParams', 'openmrsRest'];
-
-function SourcesListController (sources, $location, $routeParams, openmrsRest) {
+export default function SourcesListController (sources, $location, $routeParams, openmrsRest) {
 
     var vm = this;
     

@@ -6,88 +6,79 @@
  *
  * Copyright (C) OpenMRS Inc. OpenMRS is a registered trademark and the OpenMRS
  * graphic logo is a trademark of OpenMRS Inc.
- */
-(function(){
-	'use strict';
+ */		
+DrugsListController.$inject = 
+	['loadDrugs', '$location', 'openmrsRest'];
 	
-	angular
-		.module('conceptDictionaryApp')
-		.controller('DrugsListController', DrugsListController);
-		
-	DrugsListController.$inject = 
-		['loadDrugs', '$location', 'openmrsRest'];
-		
-	function DrugsListController(loadDrugs, $location, openmrsRest){
-		
-		var vm = this;
-		
-        vm.links = {};
-		vm.links["Concept Dictionary"] = "";
-        vm.links["Concept Drug Management"] = "drug/";
-        
+export default function DrugsListController(loadDrugs, $location, openmrsRest){
+	
+	var vm = this;
+	
+    vm.links = {};
+	vm.links["Concept Dictionary"] = "";
+    vm.links["Concept Drug Management"] = "drug/";
+    
+    vm.deleteClicked = false;
+    vm.deleteItem;
+
+	vm.drugsList;
+	vm.retiredOn = false;
+	
+	vm.gotToAddDrugPage = gotToAddDrugPage;
+	vm.activate = activate;
+	vm.retire = retire;
+	vm.unretire = unretire;
+	vm.purge = purge;
+    vm.showAlert = showAlert;
+    vm.updateDeleteConfirmation = updateDeleteConfirmation;
+
+	function retire(item) {
+		openmrsRest.retire('drug', {uuid: item.uuid}).then(function(data) {
+			openmrsRest.listFull('drug', {includeAll: true}).then(function(data) {
+				vm.drugsList = data.results;
+			});
+		});
+	}
+
+	function unretire(item) {
+		openmrsRest.unretire('drug', {uuid: item.uuid}).then(function(data) {
+			openmrsRest.listFull('drug', {includeAll: true}).then(function(data) {
+				vm.drugsList = data.results;
+			});
+		});
+	}
+
+	function purge(item) {
+		openmrsRest.purge('drug', {uuid: item.uuid}).then(function(data) {
+			openmrsRest.listFull('drug', {includeAll: true}).then(function(data) {
+				vm.drugsList = data.results;
+			});
+		});
+
+
+	}
+	
+    function showAlert(item) {
+        vm.deleteClicked = true;
+        vm.deleteItem = item;
+    }
+
+    function updateDeleteConfirmation(isConfirmed) {
+        if (isConfirmed) {
+            purge(vm.deleteItem);
+        }
         vm.deleteClicked = false;
-        vm.deleteItem;
-
-		vm.drugsList;
-		vm.retiredOn = false;
-		
-		vm.gotToAddDrugPage = gotToAddDrugPage;
-		vm.activate = activate;
-		vm.retire = retire;
-		vm.unretire = unretire;
-		vm.purge = purge;
-        vm.showAlert = showAlert;
-        vm.updateDeleteConfirmation = updateDeleteConfirmation;
-
-		function retire(item) {
-			openmrsRest.retire('drug', {uuid: item.uuid}).then(function(data) {
-				openmrsRest.listFull('drug', {includeAll: true}).then(function(data) {
-					vm.drugsList = data.results;
-				});
-			});
-		}
-
-		function unretire(item) {
-			openmrsRest.unretire('drug', {uuid: item.uuid}).then(function(data) {
-				openmrsRest.listFull('drug', {includeAll: true}).then(function(data) {
-					vm.drugsList = data.results;
-				});
-			});
-		}
-
-		function purge(item) {
-			openmrsRest.purge('drug', {uuid: item.uuid}).then(function(data) {
-				openmrsRest.listFull('drug', {includeAll: true}).then(function(data) {
-					vm.drugsList = data.results;
-				});
-			});
-
-
-		}
-		
-        function showAlert(item) {
-            vm.deleteClicked = true;
-            vm.deleteItem = item;
-        }
-
-        function updateDeleteConfirmation(isConfirmed) {
-            if (isConfirmed) {
-                purge(vm.deleteItem);
-            }
-            vm.deleteClicked = false;
-        }
-		
-		activate();
-		
-		function activate() {
-			vm.drugsList = loadDrugs.results;
-		}
-			
-		
-		function gotToAddDrugPage(hash){
-			$location.path(hash);
-		}
-		
-	};
+    }
 	
-})();
+	activate();
+	
+	function activate() {
+		vm.drugsList = loadDrugs.results;
+	}
+		
+	
+	function gotToAddDrugPage(hash){
+		$location.path(hash);
+	}
+	
+};

@@ -5,22 +5,15 @@
     <!-- openmrs favicon -->
     <link rel="shortcut icon" type="image/ico" href="../../images/openmrs-favicon.ico"/>
     <link rel="icon" type="image/png" href="../../images/openmrs-favicon.png"/>
-
-    <link rel="stylesheet" href="css/conceptdictionary.css" type="text/css"/>
-    <!-- bower:css -->
-    <!-- endbower -->
-    <!-- owa styles -->
     <link rel="stylesheet" href="../uicommons/css/openmrs-refapp.css" type="text/css"/>
 
 </head>
-<body>
-
-<div>
+<header>
   	<div ng-controller="IndexController as vm">
 		<openmrs-header title="vm.appTitle"></openmrs-header>
 	</div>
-</div>
-
+</header>
+<body>
 <div ng-view></div>
 
 <div ng-controller="IndexController as vm">
@@ -30,52 +23,8 @@
         <a ng-click="vm.changeLanguage('es')">Spanish</a>
     </small>
 </div>
-
-<!-- bower:js -->
-<!-- endbower -->
-<!-- owa scripts -->
-<script src="components/openmrs/openmrsRest.js"></script>
-<script src="components/openmrs/openmrs.js"></script>
-
-<script src="components/translateApp.module.js"></script>
-<script src="components/conceptDictionaryApp.module.js"></script>
-
-<script src="components/classList/classList.controller.js"></script>
-<script src="components/classAdd/classAdd.controller.js"></script>
-<script src="components/classEdit/classEdit.controller.js"></script>
-
-<script src="components/sourceList/sourceList.controller.js"></script>
-<script src="components/sourceEdit/sourceEdit.controller.js"></script>
-<script src="components/sourceAdd/sourceAdd.controller.js"></script>
-
-<script src="components/conceptStopWordList/conceptStopWordList.controller.js"></script>
-<script src="components/conceptStopWordAdd/conceptStopWordAdd.controller.js"></script>
-
-<script src="components/conceptSearch/conceptSearch.controller.js"></script>
-<script src="components/conceptView/conceptView.controller.js"></script>
-<script src="components/conceptAdd/conceptAdd.controller.js"></script> 
-
-<script src="components/referenceSearch/referenceSearch.controller.js"></script>
-<script src="components/referenceEdit/referenceEdit.controller.js"></script>
-<script src="components/referenceAdd/referenceAdd.controller.js"></script>
-
-<script src="components/datatypeDetails/datatypeDetails.controller.js"></script>
-<script src="components/datatypeList/datatypeList.controller.js"></script>
-
-<script src="components/drugList/drugList.controller.js"></script>
-<script src="components/drugAdd/drugAdd.controller.js"></script>
-<script src="components/drugEdit/drugEdit.controller.js"></script>
-
-<script src="components/conceptAutocomplete/conceptAutocomplete.component.js"></script>
-<script src="components/conceptTable/conceptTable.component.js"></script>
-<script src="components/conceptUniqueName/conceptUniqueName.component.js"></script>
-<script src="components/deleteAlert/deleteAlert.component.js"></script>
-
-<script src="components/conceptsService/concepts.service.js"></script>
-
-<script src="components/translateApp.module.js"></script>
-
-<script src="components/index/index.controller.js"></script>
-<script src="components/indexMenu/indexMenu.controller.js"></script>
+<script type='text/javascript' id="__bs_script__">//<![CDATA[
+    document.write("<script async src='http://HOST:3000/browser-sync/browser-sync-client.2.11.1.js'><\/script>".replace("HOST", location.hostname));
+//]]></script>
 </body>
 </html>

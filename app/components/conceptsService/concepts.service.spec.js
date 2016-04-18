@@ -28,7 +28,7 @@ describe('Concept dictionary controllers', function() {
         });
     });
 
-    beforeEach(module('conceptDictionaryApp'));
+    beforeEach(angular.mock.module('conceptDictionaryApp'));
 
     describe('conceptsService', function(){
     	function findNameObjectByName(name, namesArray){
@@ -207,8 +207,7 @@ describe('Concept dictionary controllers', function() {
          }));
         it('postConcept should send post request', inject(function(conceptsService, _$httpBackend_){
 			_$httpBackend_.whenGET(/translation.*/).respond();
-        	_$httpBackend_.expectPOST("/ws/rest/v1/concept").respond("just expect the request")
-        	_$httpBackend_.expectGET("components/indexMenu/indexMenu.html").respond("just expect the request")
+        	_$httpBackend_.expectPOST("/ws/rest/v1/concept").respond("just expect the request");
         	var postResult;
         	conceptsService.postConcept(createdConcept, validLocalizedConcepts).then(function(result){
         		postResult = result;
