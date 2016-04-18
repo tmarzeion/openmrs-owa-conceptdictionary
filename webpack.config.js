@@ -63,7 +63,7 @@ if (env === 'production') {
     }
   }));
   outputFile = `${outputFile}.min.js`;
-  outputPath = `${__dirname}/dist`
+  outputPath = `${__dirname}/dist/`
 } else if (env === 'dev') {
   outputFile = `${outputFile}.js`;
   outputPath = `${localOwaFolder}${appName}`;
