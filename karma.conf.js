@@ -1,73 +1,108 @@
-/*
- * This Source Code Form is subject to the terms of the Mozilla Public License,
- * v. 2.0. If a copy of the MPL was not distributed with this file, You can
- * obtain one at http://mozilla.org/MPL/2.0/. OpenMRS is also distributed under
- * the terms of the Healthcare Disclaimer located at http://openmrs.org/license.
- *
- * Copyright (C) OpenMRS Inc. OpenMRS is a registered trademark and the OpenMRS
- * graphic logo is a trademark of OpenMRS Inc.
- */
-module.exports = function(config) {
+
+var path = require('path');
+
+module.exports = function (config) {
+  var webpackConfig = {
+		  entry: {},
+		  devtool: 'inline-source-map',
+		  module: {
+		    loaders: [{
+			    test: /\.jsx?$/,
+			    loader: 'babel-loader',
+			    exclude: /node_modules/,
+			    query: {
+			        presets: ['es2015']
+		    }
+		    },{
+			    test: /\.css$/,
+			    loader: 'css'
+			}, {
+			    test: /\.(png|jpg|jpeg|gif|svg)$/,
+			    loader: 'url'
+			}, {
+			    test: /\.html$/,
+			    loader: 'raw'
+			},{
+			    test: /\.json$/,
+			    loader: 'file?name=translation/[name].[ext]'
+			},{
+		        test: /\.scss$/,
+		        loader: "style!css!sass?outputStyle=expanded&includePaths[]=" 
+		        		+ path.resolve(__dirname, "./node_modules/compass-mixins/lib")
+		      },
+		        {test: /\.woff(\?v=\d+\.\d+\.\d+)?$/, loader: 'url'},
+		        {test: /\.woff2(\?v=\d+\.\d+\.\d+)?$/, loader: 'url'},
+		        {test: /\.ttf(\?v=\d+\.\d+\.\d+)?$/, loader: 'url'},
+		        {test: /\.svg(\?v=\d+\.\d+\.\d+)?$/, loader: 'url'},
+		        {test: /\.eot(\?v=\d+\.\d+\.\d+)?$/, loader: 'url'},],
+		  },
+		  resolve: {
+		    root: path.resolve('./src'),
+		    extensions: ['', '.js'],
+		  },
+		};
   var configuration = {
 
-    basePath: './',
+    // base path that will be used to resolve all patterns (eg. files, exclude)
+    basePath: '',
 
-    files: [
-      'bower_components/angular/angular.js',
-      'bower_components/angular-route/angular-route.js',
-      'bower_components/angular-resource/angular-resource.js',
-      'bower_components/angular-mocks/angular-mocks.js',
-      'bower_components/angular-strap/dist/angular-strap.js',
-      'bower_components/angular-translate/angular-translate.js',
-      'bower_components/angular-translate-loader-static-files/angular-translate-loader-static-files.min.js',
-      'bower_components/openmrs-contrib-uicommons/lib/openmrs-contrib-uicommons.bundle.min.js',
-      'app/components/conceptDictionaryApp.module.js',
-      'app/components/translateApp.module.js',
-      'app/components/**/*.js',
-      'test/unit/**/*.js',
-	  'app/**/*.spec.js'
-    ],
-
-    autoWatch: true,
-
+    // frameworks to use
+    // available frameworks: https://npmjs.org/browse/keyword/karma-adapter
     frameworks: ['jasmine'],
 
+    // list of files / patterns to load in the browser
+    files: [
+      './test.webpack.config.js'
+    ],
+    
+    // preprocess matching files before serving them to the browser
+    // available preprocessors: https://npmjs.org/browse/keyword/karma-preprocessor
+    preprocessors: {
+    	'./test.webpack.config.js': ['webpack', 'sourcemap']
+    },
+    
+    webpackMiddleware: {
+        noInfo: true
+    },
+    
+    webpack: webpackConfig,
+    
+    // enable / disable watching file and executing tests whenever any file changes
+    autoWatch: true,
+
+    // start these browsers
+    // available browser launchers: https://npmjs.org/browse/keyword/karma-launcher
     browsers: ['Chrome'],
 
+    // Which plugins to enable
     plugins: [
-      'karma-chrome-launcher',
-      'karma-jasmine',
-      'karma-coverage'
+      require('karma-jasmine'),
+      require('karma-chrome-launcher'),
+      require("karma-webpack"),
+      require('karma-sourcemap-loader'),
+      require('karma-coverage')
     ],
-
-    preprocessors: {
-      'app/**/*.js': ['coverage']
-    },
-
-    reporters: ['progress', 'coverage'],
-
-    coverageReporter: {
-      type: 'lcov',
-      dir: 'coverage/'
-    },
-
+    
     junitReporter: {
-      outputFile: 'test_out/unit.xml',
-      suite: 'unit'
-    },
+        outputFile: 'test_out/unit.xml',
+        suite: 'unit'
+      },
 
-    customLaunchers: {
-      Chrome_travis_ci: {
-        base: 'Chrome',
-        flags: ['--no-sandbox']
-      }
-    }
+     customLaunchers: {
+        Chrome_travis_ci: {
+          base: 'Chrome',
+          flags: ['--no-sandbox']
+        }
+      },
 
+
+    // Continuous Integration mode
+    // if true, Karma captures browsers, runs the tests and exits
+    singleRun: false,    
   }
-
   if (process.env.TRAVIS) {
-    configuration.browsers = ['Chrome_travis_ci'];
-  }
-
+	    configuration.browsers = ['Chrome_travis_ci'];
+	  }
+  
   config.set(configuration);
 };

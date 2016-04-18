@@ -7,21 +7,17 @@
  * Copyright (C) OpenMRS Inc. OpenMRS is a registered trademark and the OpenMRS
  * graphic logo is a trademark of OpenMRS Inc.
  */
-angular
-	.module('conceptDictionaryApp')
-	.controller('DatatypeDetailsController', DatatypeDetailsController);
-		
-	DatatypeDetailsController.$inject = 
-		['$scope', 'loadDataType', '$routeParams', 'openmrsRest']
+DatatypeDetailsController.$inject = 
+	['$scope', 'loadDataType', '$routeParams', 'openmrsRest']
+
+export default function DatatypeDetailsController($scope, loadDataType, $routeParams, openmrsRest){
 	
-	function DatatypeDetailsController($scope, loadDataType, $routeParams, openmrsRest){
-		
-		var vm = this;
-		
-        vm.links = {};
-		vm.links["Concept Dictionary"] = "";
-        vm.links["Concept Datatype Management"] = "datatype/";
-        vm.links["Concept Datatype Form"] = "datatype/"+loadDataType.uuid;
-		
-		vm.singleDataType = loadDataType;
-	}
+	var vm = this;
+	
+    vm.links = {};
+	vm.links["Concept Dictionary"] = "";
+    vm.links["Concept Datatype Management"] = "datatype/";
+    vm.links["Concept Datatype Form"] = "datatype/"+loadDataType.uuid;
+	
+	vm.singleDataType = loadDataType;
+}

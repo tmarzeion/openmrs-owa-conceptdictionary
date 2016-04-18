@@ -7,22 +7,10 @@
  * Copyright (C) OpenMRS Inc. OpenMRS is a registered trademark and the OpenMRS
  * graphic logo is a trademark of OpenMRS Inc.
  */
-angular
-	.module('conceptDictionaryApp')
-	.component('conceptUniqueName', {
-		  templateUrl: 'components/conceptUniqueName/conceptUniqueName.html',
-		  controller: conceptUniqueName,
-		  controllerAs : 'vm',
-		  bindings: {
-		    required: '<',
-		    concept: '<',
-		    onUpdate: '&' 
-		  }});
-
 conceptUniqueName.$inject = ['openmrsRest']
 
 	
-function conceptUniqueName(openmrsRest){
+export default function conceptUniqueName(openmrsRest){
 	var vm = this;
 	
 	

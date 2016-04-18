@@ -7,13 +7,9 @@
  * Copyright (C) OpenMRS Inc. OpenMRS is a registered trademark and the OpenMRS
  * graphic logo is a trademark of OpenMRS Inc.
  */
-angular
-    .module('conceptDictionaryApp')
-    .controller('SourceEditController', SourceEditController);
-
 SourceEditController.$inject = ['sources','openmrsRest', '$location'];
 
-function SourceEditController (sources ,openmrsRest, $location){
+export default function SourceEditController (sources ,openmrsRest, $location){
 
     var vm = this;
     

@@ -28,7 +28,7 @@ describe('Concept dictionary controllers', function() {
         });
     });
 
-    beforeEach(module('conceptDictionaryApp'));
+    beforeEach(angular.mock.module('conceptDictionaryApp'));
 
     describe('ReferenceSearchController', function() {
         var scope, ctrl, $httpBackend;
@@ -42,12 +42,12 @@ describe('Concept dictionary controllers', function() {
                 {results: [
                     {
                         uuid: '83f9cdf3-b374-42d0-9b70-1a4020a0ee42',
-                        display: 'org.openmrs.module.mdrtb: Weight (WEIGHT)',
+                        display: 'org.openmrs.angular.mock.module.mdrtb: Weight (WEIGHT)',
                         name: 'Weight',
                         conceptSource:
                         {
                             uuid: '17318d62-4237-4d68-86d4-f9d176872859',
-                            display: 'org.openmrs.module.mdrtb'
+                            display: 'org.openmrs.angular.mock.module.mdrtb'
                         },
                         description: 'Weight description',
                         code:'WEIGHT',
@@ -56,12 +56,12 @@ describe('Concept dictionary controllers', function() {
                     },
                     {
                         uuid: '15f9c4f3-b344-42d0-9b70-1a4130a0e514',
-                        display: 'org.openmrs.module.mdrtb: Temperature (TEMPERATURE)',
+                        display: 'org.openmrs.angular.mock.module.mdrtb: Temperature (TEMPERATURE)',
                         name: 'Temperature',
                         conceptSource:
                         {
                             uuid: '17128d62-4237-4d68-86d4-f9d176872813',
-                            display: 'org.openmrs.module.mdrtb'
+                            display: 'org.openmrs.angular.mock.module.mdrtb'
                         },
                         description: 'Temperature description',
                         code:'TEMPERATURE',
@@ -75,12 +75,12 @@ describe('Concept dictionary controllers', function() {
                 {results: [
                     {
                         uuid: '83f9cdf3-b374-42d0-9b70-1a4020a0ee42',
-                        display: 'org.openmrs.module.mdrtb: Respiratory rate (RESPIRATORY RATE)',
+                        display: 'org.openmrs.angular.mock.module.mdrtb: Respiratory rate (RESPIRATORY RATE)',
                         name: 'Respiratory rate',
                         conceptSource:
                         {
                             uuid: '17318d62-4237-4d68-86d4-f9d176872859',
-                            display: 'org.openmrs.module.mdrtb'
+                            display: 'org.openmrs.angular.mock.module.mdrtb'
                         },
                         description: 'Respiratory rate description',
                         code:'RESPIRATORY RATE',
@@ -89,12 +89,12 @@ describe('Concept dictionary controllers', function() {
                     },
                     {
                         uuid: '15f9c4f3-b344-42d0-9b70-1a4130a0e514',
-                        display: 'org.openmrs.module.mdrtb: Temperature (TEMPERATURE)',
+                        display: 'org.openmrs.angular.mock.module.mdrtb: Temperature (TEMPERATURE)',
                         name: 'Temperature',
                         conceptSource:
                         {
                             uuid: '17128d62-4237-4d68-86d4-f9d176872813',
-                            display: 'org.openmrs.module.mdrtb'
+                            display: 'org.openmrs.angular.mock.module.mdrtb'
                         },
                         description: 'Temperature description',
                         code:'TEMPERATURE',
@@ -121,12 +121,12 @@ describe('Concept dictionary controllers', function() {
                 [
                     {
                         uuid: '83f9cdf3-b374-42d0-9b70-1a4020a0ee42',
-                        display: 'org.openmrs.module.mdrtb: Respiratory rate (RESPIRATORY RATE)',
+                        display: 'org.openmrs.angular.mock.module.mdrtb: Respiratory rate (RESPIRATORY RATE)',
                         name: 'Respiratory rate',
                         conceptSource:
                         {
                             uuid: '17318d62-4237-4d68-86d4-f9d176872859',
-                            display: 'org.openmrs.module.mdrtb'
+                            display: 'org.openmrs.angular.mock.module.mdrtb'
                         },
                         description: 'Respiratory rate description',
                         code:'RESPIRATORY RATE',
@@ -135,12 +135,12 @@ describe('Concept dictionary controllers', function() {
                     },
                     {
                         uuid: '15f9c4f3-b344-42d0-9b70-1a4130a0e514',
-                        display: 'org.openmrs.module.mdrtb: Temperature (TEMPERATURE)',
+                        display: 'org.openmrs.angular.mock.module.mdrtb: Temperature (TEMPERATURE)',
                         name: 'Temperature',
                         conceptSource:
                         {
                             uuid: '17128d62-4237-4d68-86d4-f9d176872813',
-                            display: 'org.openmrs.module.mdrtb'
+                            display: 'org.openmrs.angular.mock.module.mdrtb'
                         },
                         description: 'Temperature description',
                         code:'TEMPERATURE',

@@ -28,7 +28,7 @@ describe('Concept dictionary controllers', function() {
         });
     });
 
-    beforeEach(module('conceptDictionaryApp'));
+    beforeEach(angular.mock.module('conceptDictionaryApp'));
 
     describe('ClassListController', function(){
         var ctrl, $httpBackend, loadClasses;

@@ -6,30 +6,16 @@
  *
  * Copyright (C) OpenMRS Inc. OpenMRS is a registered trademark and the OpenMRS
  * graphic logo is a trademark of OpenMRS Inc.
- */
-(function(){
-	'use strict';
-	
-	angular
-		.module('conceptDictionaryApp')
-		.component('deleteAlert', {
-			  templateUrl: 'components/deleteAlert/deleteAlert.html',
-			  controller: DeleteAlertController,
-			  controllerAs: 'vm',
-			  bindings: {
-			    onUpdate: '&' 
-			  }});
+ */	
+export default function DeleteAlertController(){
+	var vm = this;
 
-	function DeleteAlertController(){
-		var vm = this;
+	vm.isConfirmed = false;
 
-		vm.isConfirmed = false;
+	vm.confirm = confirm;
 
-		vm.confirm = confirm;
-
-		function confirm(isConfirmed) {
-			vm.isConfirmed = isConfirmed;
-			vm.onUpdate({isConfirmed : vm.isConfirmed});
-		}
+	function confirm(isConfirmed) {
+		vm.isConfirmed = isConfirmed;
+		vm.onUpdate({isConfirmed : vm.isConfirmed});
 	}
-})();
+}

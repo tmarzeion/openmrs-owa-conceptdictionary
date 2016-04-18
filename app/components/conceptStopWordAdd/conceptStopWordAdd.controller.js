@@ -7,57 +7,49 @@
  * Copyright (C) OpenMRS Inc. OpenMRS is a registered trademark and the OpenMRS
  * graphic logo is a trademark of OpenMRS Inc.
  */
-(function(){
-	'use strict';
-	
-	angular
-    	.module('conceptDictionaryApp')
-    	.controller('ConceptStopWordAddController', ConceptStopWordAddController)
-    	
-    	ConceptStopWordAddController.$inject = ['$location', 'openmrsRest', 'serverLocales']
-	
-	function ConceptStopWordAddController($location, openmrsRest, serverLocales){
 
-        var vm = this;
-        
-        vm.links = {};
-        vm.links["Concept Dictionary"] = "";
-        vm.links["Concept Stop Word Management"] = "conceptstopword/";
-        vm.links["Concept Stop Word"] = "conceptstopword/add/";
+ConceptStopWordAddController.$inject = ['$location', 'openmrsRest', 'serverLocales']
 
-        vm.serverLocales = serverLocales;
+export default function ConceptStopWordAddController($location, openmrsRest, serverLocales){
 
-        //Default values for concept stop word and response message
-        vm.conceptStopWord = {
-            value: '',
-            locale: ''
-        };
-        vm.responseMessage = '';
+    var vm = this;
+    
+    vm.links = {};
+    vm.links["Concept Dictionary"] = "";
+    vm.links["Concept Stop Word Management"] = "conceptstopword/";
+    vm.links["Concept Stop Word"] = "conceptstopword/add/";
 
-        vm.selectedLocale = '';
+    vm.serverLocales = serverLocales;
 
-        //Method used to add concept stop word with current concept stop word params
-        vm.addConceptStopWord = addConceptStopWord;
+    //Default values for concept stop word and response message
+    vm.conceptStopWord = {
+        value: '',
+        locale: ''
+    };
+    vm.responseMessage = '';
 
-        //Method used to cancel concept stop word making
-        vm.cancel = cancel;
+    vm.selectedLocale = '';
 
-        //Method used to add concept stop word with current class params
-        function addConceptStopWord() {
-            vm.json = angular.toJson(vm.conceptStopWord);
-            openmrsRest.create('conceptstopword', vm.json).then(function (success) {
-                //Fix this
-                vm.success = true;
-                $location.path('/conceptstopword').search({conceptStopWordAdded: vm.conceptStopWord.value});
-            }, function (error) {
-                vm.responseMessage = error.message;
-            });
-        }
+    //Method used to add concept stop word with current concept stop word params
+    vm.addConceptStopWord = addConceptStopWord;
 
-        //Method used to cancel class making
-        function cancel() {
-            $location.path('/conceptstopword').search({conceptStopWordAdded: ''});
-        }
-	}
-	
-})();
+    //Method used to cancel concept stop word making
+    vm.cancel = cancel;
+
+    //Method used to add concept stop word with current class params
+    function addConceptStopWord() {
+        vm.json = angular.toJson(vm.conceptStopWord);
+        openmrsRest.create('conceptstopword', vm.json).then(function (success) {
+            //Fix this
+            vm.success = true;
+            $location.path('/conceptstopword').search({conceptStopWordAdded: vm.conceptStopWord.value});
+        }, function (error) {
+            vm.responseMessage = error.message;
+        });
+    }
+
+    //Method used to cancel class making
+    function cancel() {
+        $location.path('/conceptstopword').search({conceptStopWordAdded: ''});
+    }
+}

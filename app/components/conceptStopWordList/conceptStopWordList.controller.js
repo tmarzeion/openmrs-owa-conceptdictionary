@@ -7,14 +7,11 @@
  * Copyright (C) OpenMRS Inc. OpenMRS is a registered trademark and the OpenMRS
  * graphic logo is a trademark of OpenMRS Inc.
  */
-angular
-    .module('conceptDictionaryApp')
-    .controller('ConceptStopWordListController', ConceptStopWordListController);
 
 ConceptStopWordListController.$inject =
     ['loadConceptStopWords','$location', '$routeParams', 'openmrsRest'];
 
-function ConceptStopWordListController (loadConceptStopWords, $location, $routeParams, openmrsRest) {
+export default function ConceptStopWordListController (loadConceptStopWords, $location, $routeParams, openmrsRest) {
 
     var vm = this;
     
