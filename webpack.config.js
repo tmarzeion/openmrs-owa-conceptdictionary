@@ -5,11 +5,15 @@ const path = require('path');
 const fs = require('fs');
 const env = require('yargs').argv.mode;
 const target = require('yargs').argv.target;
+
 const UglifyPlugin = webpack.optimize.UglifyJsPlugin;
 const CommonsChunkPlugin =  webpack.optimize.CommonsChunkPlugin
+const DedupePlugin = webpack.optimize.DedupePlugin;
+
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 var BrowserSyncPlugin = require('browser-sync-webpack-plugin')
 var nodeModulesDir = path.resolve(__dirname, '../node_modules');
+
 
 const fileName = 'app';
 const appName = 'conceptdictionary'
@@ -58,12 +62,14 @@ if (env === 'production') {
     output: {
       comments: false,
     },
+    mangle: false,
     minimize: true,
     sourceMap: false,
     compress: {
         warnings: false
     }
   }));
+  plugins.push(new DedupePlugin());
   outputFile = `${outputFile}.min.js`;
   outputPath = `${__dirname}/dist/`;
   devtool = 'source-map';
