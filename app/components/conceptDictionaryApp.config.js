@@ -13,10 +13,7 @@ export default function conceptDictionaryAppConfig($routeProvider, openmrsRest )
 	  when('/class', {
 		  template: require('./classList/classList.html'),
 		  controller: 'ClassListController',
-		  controllerAs: 'vm',
-		  resolve: {
-			  loadClasses : loadClasses
-		  }
+		  controllerAs: 'vm'
 	  }).
 	  when('/class/add', {
 		  template: require('./classEdit/classEdit.html'),
@@ -49,10 +46,7 @@ export default function conceptDictionaryAppConfig($routeProvider, openmrsRest )
 	  when('/source', {
 		    template: require('./sourceList/sourceList.html'),
 		    controller: 'SourcesListController',
-		    controllerAs: 'vm',
-		    resolve: {
-			    sources : loadSources
-		    }
+		    controllerAs: 'vm'
 	  }).
 	  when('/source/add', {
 		  template: require('./sourceEdit/sourceEdit.html'),
@@ -83,10 +77,7 @@ export default function conceptDictionaryAppConfig($routeProvider, openmrsRest )
 	  when('/conceptstopword', {
 		    template: require('./conceptStopWordList/conceptStopWordList.html'),
 		    controller: 'ConceptStopWordListController',
-		    controllerAs: 'vm',
-		    resolve: {
-			    loadConceptStopWords : loadConceptStopWords
-		    }
+		    controllerAs: 'vm'
 	  }).
       when('/datatype', {
         	template: require('./datatypeList/datatypeList.html'),
@@ -146,10 +137,7 @@ export default function conceptDictionaryAppConfig($routeProvider, openmrsRest )
       when('/drug', {
         	template: require('./drugList/drugList.html'),
         	controller: 'DrugsListController',
-        	controllerAs: 'vm',
-        	resolve: {
-        		loadDrugs : loadDrugs
-        	}
+        	controllerAs: 'vm'
       }).
       when('/drug/add', {
 		  template:  require('./drugEdit/drugEdit.html'),

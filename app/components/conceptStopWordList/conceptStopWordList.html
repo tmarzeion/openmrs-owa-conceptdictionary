@@ -2,33 +2,13 @@
 <div id="body-wrapper">
     <div id="content" class="container">
 
-        <button ng-click='vm.goTo("/conceptstopword/add")'>
+        <a href="#/conceptstopword/add"><button ng-click='vm.goTo("/conceptstopword/add")'>
             {{"ConceptStopWord.add" | translate}}
-        </button>
+        </button></a>
 
         <br/><br/>
-        
-		<delete-alert ng-show="vm.deleteClicked" on-update="vm.updateDeleteConfirmation(isConfirmed)"></delete-alert>
-        <table ng-show="!vm.deleteClicked">
-            <thead>
-                <tr>
-                    <th>Word</th>
-                    <th>Locale</th>
-                    <th>Action</th>
-                </tr>
-            </thead>
-            <tbody>
-                <tr ng-repeat="word in vm.conceptStopWords">
-                    <td>{{word.display}}</td>
-                    <td>{{word.locale}}</td>
-                    <td>
-                        <a ng-click="vm.showAlert(word)">
-                            <i class="icon-trash delete-action right" title="Delete forever"></i>
-                        </a>
-                    </td>
-                </tr>
-            </tbody>
 
-        </table>
+        <openmrs-list resource="vm.resource" columns="vm.columns" actions="vm.actions" limit="vm.limit"></openmrs-list>
+
     </div>
 </div>

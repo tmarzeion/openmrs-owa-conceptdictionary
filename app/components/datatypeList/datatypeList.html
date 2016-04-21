@@ -1,27 +1,8 @@
 <openmrs-breadcrumbs links="vm.links"></openmrs-breadcrumbs>
 <div id="body-wrapper">
 	<div id="content" class="container">
-		<table>
-			<thead>
-				<tr>
-					<th>Name</th>
-					<th>Description</th>
-					<th>Action</th>
-				</tr>
-			</thead>
-			<tbody>
-				<tr ng-repeat="dataType in vm.dataTypeList">
-					<td>{{dataType.name}}</td>
-					<td>{{dataType.description}}</td>
-					<td>
-						<a href="#/datatype/{{dataType.uuid}}">
-							<i class="icon-eye-open view-action" title="View"></i>
-						</a>
-					</td>
-				</tr>
-			</tbody>
-		</table>
-		<br/>
+		<openmrs-list resource="vm.resource" columns="vm.columns" actions="vm.actions" redirection-param="vm.redirectionParam" limit="vm.limit"></openmrs-list>
+		<br>
 
 		<button ng-show='vm.isPrev' ng-click='vm.prevPage()'>Previous page</button>
 		<button ng-show='vm.isNext' ng-click='vm.nextPage()'>Next page</button>
