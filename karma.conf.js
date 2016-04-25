@@ -78,6 +78,7 @@ module.exports = function (config) {
     plugins: [
       require('karma-jasmine'),
       require('karma-chrome-launcher'),
+      require('karma-firefox-launcher'),
       require("karma-webpack"),
       require('karma-sourcemap-loader'),
       require('karma-coverage')
@@ -89,8 +90,8 @@ module.exports = function (config) {
       },
 
      customLaunchers: {
-        Chrome_travis_ci: {
-          base: 'Chrome',
+        Firefox_travis_ci: {
+          base: 'Firefox',
           flags: ['--no-sandbox']
         }
       },
@@ -101,7 +102,7 @@ module.exports = function (config) {
     singleRun: false,    
   }
   if (process.env.TRAVIS) {
-	    configuration.browsers = ['Chrome_travis_ci'];
+	    configuration.browsers = ['Firefox_travis_ci'];
 	  }
   
   config.set(configuration);
