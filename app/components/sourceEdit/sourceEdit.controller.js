@@ -17,9 +17,7 @@ export default function SourceEditController (sources ,openmrsRest, $location){
     vm.links["Concept Dictionary"] = "";
     vm.links["Concept Source Management"] = "source/";
     vm.links["Concept Source Form"] = "source/"+sources.uuid;
-
-    vm.deleteClicked = false;
-
+    
     vm.responseMessage = '';
 
     vm.cancel = cancel;
@@ -57,26 +55,28 @@ export default function SourceEditController (sources ,openmrsRest, $location){
         });
     }
 
-
+    function retire() {
+        vm.source.retired = !(vm.source.retired);
+        save();
+    }
+    
+    
+    /**
+     * Logic for delete-alert component
+     */
+    vm.deleteClicked = false;
     function deleteForever() {
         openmrsRest.remove('conceptsource', {uuid : vm.source.uuid, purge : true}).then(function(){
             $location.path('/source').search({sourceDeleted: vm.source.name});
         });
     }
-
     function showAlert(item) {
         vm.deleteClicked = true;
     }
-
     function updateDeleteConfirmation(isConfirmed) {
         if (isConfirmed) {
         	deleteForever();
         }
         vm.deleteClicked = false;
-    }
-
-    function retire() {
-        vm.source.retired = !(vm.source.retired);
-        save();
     }
 }

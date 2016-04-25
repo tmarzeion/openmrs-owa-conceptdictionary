@@ -34,7 +34,6 @@ import SourcesListController from './sourceList/sourceList.controller.js';
 
 import conceptTableComponent from './conceptTable/conceptTable.component.js';
 import conceptUniqueNameComponent from './conceptUniqueName/conceptUniqueName.component.js';
-import deleteAlertComponent from './deleteAlert/deleteAlert.component.js';
 
 import conceptDictionaryAppConfig from './conceptDictionaryApp.config.js';
 
@@ -80,12 +79,4 @@ export default angular
 		    concept: '<',
 		    onUpdate: '&' 
 		  }})
-	.component('deleteAlert', {
-		  template: require('./deleteAlert/deleteAlert.html'),
-		  controller: deleteAlertComponent,
-		  controllerAs: 'vm',
-		  bindings: {
-		    onUpdate: '&' 
-		  }})
-
 	.config(['$routeProvider', conceptDictionaryAppConfig]);
