@@ -45,14 +45,15 @@
 							{{"Concept.fullySpecifiedName" | translate}}<span class="required">*</span>
 							<concept-unique-name
 								required="true"
-								concept='vm.selectedLocaleData.fullname'
+								concept-uuid= 'vm.concept.uuid'
+								name='vm.selectedLocaleData.fullname'
 								on-update='vm.onFullnameUpdate(isCorrect, name, suggestions)'>
 							</concept-unique-name>
 						</td>
 						<td>
 							<input name="preferred name"
 								   ng-model="vm.selectedLocaleData.preferredName"
-								   ng-value="vm.selectedLocaleData.fullname" type="radio">
+								   ng-value="vm.selectedLocaleData.fullname.name" type="radio">
 						</td>
 						<td></td>
 					</tr>
@@ -60,13 +61,13 @@
 					<tr ng-repeat="synonym in vm.selectedLocaleData.synonyms">
 						<td>
 							{{"Concept.synonyms" | translate}}
-							<input ng-model="synonym.display" type="text" />
+							<input ng-model="synonym.name" type="text" />
 						</td>
 						<td>
 							<input
 									name="preferred name"
 									ng-model="vm.selectedLocaleData.preferredName"
-									ng-value="synonym" type="radio">
+									ng-value="synonym.name" type="radio">
 						</td>
 						<td><a valign="middle" ng-click="vm.deleteSynonym(synonym)">
 							<i class="icon-remove"></i>{{"Remove" | translate}}
@@ -85,7 +86,7 @@
 					<tr ng-repeat="term in vm.selectedLocaleData.searchTerms">
 						<td>
 							{{"Concept.indexTerms" | translate}}
-							<input ng-model="term.display" value="" class="largeWidth" type="text">
+							<input ng-model="term.name" value="" class="largeWidth" type="text">
 						</td>
 						<td></td>
 						<td>
@@ -105,14 +106,14 @@
 				</tbody>
 			</table>
 			<ul>
-				<li class="localeSpecific" ng-show="vm.selectedLocaleData.fullname.display.length>0">
+				<li class="localeSpecific" ng-show="vm.selectedLocaleData.fullname.name.length>0">
 					<div>
 						{{"Concept.shortName" | translate}} <img class="help_icon_bottom"
 							src="/openmrs/images/help.gif"
 							title="The text shown in report headers and other places where space is limited"
 							border="0">
 					</div> <input class="smallWidth"
-					ng-model="vm.selectedLocaleData.shortname.display" type="text">
+					ng-model="vm.selectedLocaleData.shortname.name" type="text">
 
 
 
@@ -124,7 +125,7 @@
 							title="Longer body of text used to fully describe this concept and how it is used."
 							border="0">
 					</div> <textarea name="description"
-						ng-model="vm.selectedLocaleData.description" rows="4"
+						ng-model="vm.selectedLocaleData.description.description" rows="4"
 						cols="50"></textarea>
 
 
@@ -137,7 +138,7 @@
 
 					<select name="repeatClass" id="repeatClass"
 					ng-model="vm.concept.conceptClass"
-					ng-options="class.uuid as class.name for class in vm.classes">
+					ng-options="class as class.name for class in vm.classes track by class.uuid">
 				</select>
 
 			<label>{{"Concept.set" | translate}} <img class="help_icon"
@@ -150,7 +151,7 @@
 
 			<div ng-show="vm.concept.set">
 				<label>{{"Concept.conceptSets" | translate}}</label>
-				<concept-table on-update="vm.onSetMemberTableUpdate(concepts)"></concept-table>
+				<concept-table members="vm.concept.setMembers" on-update="vm.onSetMemberTableUpdate(concepts)"></concept-table>
 			</div>
 
 			<div class="clear"></div>
@@ -163,8 +164,8 @@
 
 			<select name="repeatDatatype"
 					id="repeatDatatype" ng-model="vm.concept.datatype"
-					ng-change="vm.checkType()">
-						<option ng-repeat="type in vm.datatypes" value="{{type.uuid}}">{{type.display}}</option>
+					ng-change="vm.checkType()"
+					ng-options="type as type.name for type in vm.datatypes track by type.uuid">
 			</select>
 
 			<div ng-show='vm.isCoded'>
@@ -173,7 +174,7 @@
 						title="Answer Concept(s) in case this concept is a question"
 						border="0">
 				</label>
-				<concept-table on-update="vm.onAnswerTableUpdate(concepts)"></concept-table>
+				<concept-table members="vm.concept.answers" on-update="vm.onAnswerTableUpdate(concepts)"></concept-table>
 			</div>
 
 			<br/>
@@ -245,8 +246,19 @@
 					title="An optional way for you to keep track of which concepts came before others when changing/updating concepts"
 					border="0">
 			</label>
-			<input class="smallWidth"
-					name="concept.version" value="" type="text">
+			<input class="smallWidth" ng-model="vm.concept.version" type="text">
+			<div ng-if="vm.concept.uuid">
+				<p>
+					<small valign="top">{{"CreatedBy" | translate}}:</small> <strong>
+							{{vm.concept.auditInfo.creator.display}} -
+							{{vm.concept.auditInfo.dateCreated|date:'medium'}} </strong>
+				</p>
+				<p>
+					<small valign="top">{{"ChangedBy" | translate}}:</small> <strong>
+							{{vm.concept.auditInfo.creator.display}} -
+							{{vm.concept.auditInfo.dateChanged|date:'medium'}} </strong>
+				</p>
+			</div>
 
 			<div id="saveDeleteButtons" style="margin-top: 15px">
 

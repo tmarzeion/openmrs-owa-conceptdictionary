@@ -10,7 +10,6 @@
 export default function conceptTable(){
 	var vm = this;
 	
-	vm.members = [];
 	vm.cachedMember = {display : ""};
 	vm.isCachedMemberCorrect = false;
 	vm.selectedMember;

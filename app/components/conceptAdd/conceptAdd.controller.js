@@ -9,19 +9,16 @@
  */
 
 ConceptAddController.$inject = 
-	['serverLocales', 'loadClasses', 'loadDataTypes', 'conceptsService', '$location', '$routeParams'];
+	['concept','serverLocales', 'loadClasses', 'loadDataTypes', 'conceptsService', '$location', '$routeParams'];
 	
 export default function ConceptAddController
-		(serverLocales, loadClasses, loadDataTypes, conceptsService, $location, $routeParams){
-	
-
+		(concept, serverLocales, loadClasses, loadDataTypes, conceptsService, $location, $routeParams){
 	
 	var vm = this;
 	
     vm.links = {};
 	vm.links["Concept Dictionary"] = "";
     vm.links["Concept Dictionary Management"] = "concept/";
-    vm.links["Concept Form"] = "concept/add/";
     
 	//assign injected objects to this
 	vm.serverLocales = serverLocales;
@@ -61,12 +58,23 @@ export default function ConceptAddController
 	activate();
 	
 	function activate(){
-		vm.concept = conceptsService.getEmptyConceptObject();
+		//edit mode
+		if(angular.isDefined($routeParams.conceptUUID)){
+			vm.concept = concept;
+		    vm.isFormValid = true;
+		    vm.links["Concept Form"] = "concept/edit/"+$routeParams.conceptUUID;
+		} 
+		//add mode
+		else {
+			vm.concept = conceptsService.getEmptyConceptObject();
+			vm.concept.conceptClass = vm.classes[0];
+			vm.concept.datatype = vm.datatypes[1];
+			vm.concept.setMembers = [];
+			vm.concept.answers = [];
+		    vm.links["Concept Form"] = "concept/add/";
+		}
 		createLocalized();
 		vm.goLocale(serverLocales[0]);
-		vm.concept.conceptClass = vm.classes[0].uuid;
-		vm.concept.datatype = vm.datatypes[1].uuid;
-		//vm.concept.handler = vm.handlers[0]
 		checkType();
 	}
 	
@@ -77,27 +85,29 @@ export default function ConceptAddController
 		}
 	};
 	function checkType(){
-		vm.isNumeric = (vm.concept.datatype === "8d4a4488-c2cc-11de-8d13-0010c6dffd0f");
-		vm.isCoded = (vm.concept.datatype === "8d4a48b6-c2cc-11de-8d13-0010c6dffd0f");
-		vm.isComplex = (vm.concept.datatype === "8d4a6242-c2cc-11de-8d13-0010c6dffd0f");
+		vm.isNumeric = (vm.concept.datatype.uuid === "8d4a4488-c2cc-11de-8d13-0010c6dffd0f");
+		vm.isCoded = (vm.concept.datatype.uuid === "8d4a48b6-c2cc-11de-8d13-0010c6dffd0f");
+		vm.isComplex = (vm.concept.datatype.uuid === "8d4a6242-c2cc-11de-8d13-0010c6dffd0f");
 	}
-	//synonyms and fullname have to be objects, which hold their display string
-	//for proper functioning of radio buttons
 	function createLocalized(){
-		for (var index=0; index < vm.serverLocales.length; index++){
-			vm.localizedConcepts[vm.serverLocales[index]] = 
-				conceptsService.getEmptyLocaleConceptObject(vm.serverLocales[index]);
+		if(angular.isDefined($routeParams.conceptUUID)){
+			vm.localizedConcepts = conceptsService.getLocalizedConcepts(vm.concept.names,
+																		vm.concept.descriptions,
+																		vm.serverLocales)
+		}
+		else{
+			vm.localizedConcepts = conceptsService.getEmptyLocalizedConcepts(vm.serverLocales)
 		}
 	}
 	function pushSynonyms(){
-		vm.selectedLocaleData.synonyms.push({display : ''});
+		vm.selectedLocaleData.synonyms.push({name : ''});
 	}
 	function deleteSynonym(synonym){
 		var index = vm.selectedLocaleData.synonyms.indexOf(synonym);
 		vm.selectedLocaleData.synonyms.splice(index, 1);
 	}
 	function pushSearchTerms(){
-		vm.selectedLocaleData.searchTerms.push({display : ''});
+		vm.selectedLocaleData.searchTerms.push({name : ''});
 	}
 	function deleteSearchTerm(term){
 		var index = vm.selectedLocaleData.searchTerms.indexOf(term);
@@ -107,17 +117,17 @@ export default function ConceptAddController
 	function onSetMemberTableUpdate(concepts){
 		vm.concept.setMembers = [];
 		for(var i=0;i<concepts.length;i++){
-			vm.concept.setMembers.push(concepts[i].uuid)
+			vm.concept.setMembers.push(concepts[i])
 		}
 	}
 	function onAnswerTableUpdate(concepts){
 		vm.concept.answers = [];
 		for(var i=0;i<concepts.length;i++){
-			vm.concept.answers.push(concepts[i].uuid)
+			vm.concept.answers.push(concepts[i])
 		}
 	}
 	function onFullnameUpdate(isCorrect, name, suggestions){
-		vm.selectedLocaleData.fullname.display = name;
+		vm.selectedLocaleData.fullname.name = name;
 		vm.selectedLocaleData.fullname.valid = isCorrect;
 		validateForm()
 	}
@@ -132,7 +142,7 @@ export default function ConceptAddController
 	function postConceptAndContinue(){
 		conceptsService.postConcept(vm.concept, vm.localizedConcepts).then(function(result){
 			if(angular.isDefined(result)&&result.success){
-				$location.path("/concept/add/").search({added : result.message});
+				$location.path($location.path()).search({added : result.message});
 			}
 			else vm.result = result;
 		})

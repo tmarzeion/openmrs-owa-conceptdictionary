@@ -100,10 +100,24 @@ export default function conceptDictionaryAppConfig($routeProvider, openmrsRest )
         	controller: 'ConceptAddController',
         	controllerAs: 'vm',
         	resolve: {
+        		concept: function(){
+  				  	return {};
+  			  	},
         		serverLocales: serverLocales,
         		loadClasses : loadClasses,
         		loadDataTypes : loadDataTypes
         	}
+      }).
+      when('/concept/edit/:conceptUUID', {
+      	template: require('./conceptAdd/conceptAdd.html'),
+      	controller: 'ConceptAddController',
+      	controllerAs: 'vm',
+      	resolve: {
+      		concept: loadConcept,
+      		serverLocales: serverLocales,
+      		loadClasses : loadClasses,
+      		loadDataTypes : loadDataTypes
+      	}
       }).
 	  when('/reference/add', {
 		  template: require('./referenceEdit/referenceEdit.html'),

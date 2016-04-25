@@ -35,7 +35,7 @@ beforeEach(angular.mock.module('conceptDictionaryApp'));
 
     	  beforeEach(inject(function($rootScope, $controller) {
 
-    		  concept = {datatype : {display : "Numeric"},
+    		  concept = {datatype : {uuid : "8d4a4488-c2cc-11de-8d13-0010c6dffd0f"},
     				  	 name : {locale : "en"},
     				  	 names : {},
     				  	 descriptions : {}};

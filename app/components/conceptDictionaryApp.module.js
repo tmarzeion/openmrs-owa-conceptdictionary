@@ -69,7 +69,8 @@ export default angular
 			  controller: conceptTableComponent,
 			  controllerAs : 'vm',
 			  bindings: {
-			    onUpdate: '&' 
+			    onUpdate: '&',
+			    members: '<'
 			  }})
 	.component('conceptUniqueName', {
 		  template: require('./conceptUniqueName/conceptUniqueName.html'),
@@ -77,7 +78,8 @@ export default angular
 		  controllerAs : 'vm',
 		  bindings: {
 		    required: '<',
-		    concept: '<',
+		    conceptUuid: '<',
+		    name: '<',
 		    onUpdate: '&' 
 		  }})
 	.component('deleteAlert', {

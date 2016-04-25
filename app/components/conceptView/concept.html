@@ -5,7 +5,7 @@
 
 			<h2>
 				<i class="icon-eye-open"></i>{{"Concept.title" | translate}}
-			</h2>
+			</h2><a class="button" ng-href="#/concept/edit/{{vm.concept.uuid}}"><i class="icon-edit"></i>Edit</a>
 			<form method="post" name="concept-edit">
 				<table class="info-body">
 					<tbody>
@@ -29,7 +29,7 @@
 										<ul>
 											<li class="localeSpecific"
 												title="The name to be used on forms, reports etc. in case no preferred name is set for the locale">
-												{{"Display" | translate}}: <strong>{{vm.conceptLocale.names.full}}</strong>
+												{{"Display" | translate}}: <strong>{{vm.conceptLocale.names.fullname.display}}</strong>
 											</li>
 
 
@@ -40,7 +40,7 @@
 												<strong>
 													<div class="synonym-repeat"
 														ng-repeat="synonym in vm.conceptLocale.names.synonyms">
-														<i class="icon-double-angle-right"></i>{{synonym}}
+														<i class="icon-double-angle-right"></i>{{synonym.display}}
 													</div>
 											</strong>
 											</li>
@@ -52,18 +52,18 @@
 													{{"Terms" | translate}}:</div> <strong>
 													<div class="searchTerm-repeat"
 														ng-repeat="searchTerm in vm.conceptLocale.names.searchTerms">
-														<i class="icon-double-angle-right"></i>{{searchTerm}}
+														<i class="icon-double-angle-right"></i>{{searchTerm.display}}
 													</div>
 											</strong>
 											</li>
 											<li class="localeSpecific"
 												title="The text shown in report headers and other places where space is limited">
-												{{"Concept.shortName" | translate}}: <strong class="en">{{vm.conceptLocale.names.short}}</strong>
+												{{"Concept.shortName" | translate}}: <strong class="en">{{vm.conceptLocale.names.shortname.display}}</strong>
 											</li>
 
 											<li class="localeSpecific"
 												title="Longer body of text used to fully describe this concept and how it is used.">
-												{{"Description" | translate}}: <strong valign="top">{{vm.conceptLocale.description}}
+												{{"Description" | translate}}: <strong valign="top">{{vm.conceptLocale.description.display}}
 											</strong>
 
 											</li>
