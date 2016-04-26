@@ -29,8 +29,7 @@ export default function ConceptStopWordListController ($routeParams) {
         }];
     vm.actions = [{
             "action":"purge",
-            "label":"Delete",
-            "icon":"icon-trash delete-action center"
+            "label":"Delete"
     }];
     
     //Breadcrumbs properties

@@ -27,8 +27,7 @@ export default function DatatypeListController(){
 	vm.actions = [
 		{
 			"action":"view",
-			"label":"View",
-			"icon":"icon-eye-open view-action"
+			"label":"View"
 		}];
 
 	//Breadcrumbs properties
