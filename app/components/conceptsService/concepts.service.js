@@ -65,15 +65,12 @@ export default function conceptsService(openmrsRest, $q){
 		//parse names to array, return error message if no fully specified name
 		try{
 			conceptRequest.names = parseNames(localizedConcepts);
+			conceptRequest.descriptions = parseDescriptions(localizedConcepts);
 		}catch(err){
 			result.success = false;
 			result.message = err;
 			deferred.resolve(result);
 			return deferred.promise;
-		}
-		var descriptions = parseDescriptions(localizedConcepts);
-		if(descriptions.length>0 && angular.isDefined(concept.uuid)){
-			conceptRequest.descriptions;
 		}
 		//return error message if conceptClass or datatype is undefined
 		if(angular.isDefined(concept.datatype)&&angular.isDefined(concept.conceptClass)){
@@ -236,8 +233,9 @@ export default function conceptsService(openmrsRest, $q){
 		var descriptions = [];
 		angular.forEach(localizedConcepts, function(key, value){
 			//add fullname 
-			if(angular.isDefined(localizedConcepts[value].description)){
-				var description = {"description" : localizedConcepts[value].description,
+			if(angular.isDefined(localizedConcepts[value].description)
+					&&localizedConcepts[value].description.description != ""){
+				var description = {"description" : localizedConcepts[value].description.description,
 									"locale" : localizedConcepts[value].locale};	
 				setUuidIfDefined(description, localizedConcepts[value].description)
 				descriptions.push(description);
