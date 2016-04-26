@@ -51,7 +51,7 @@ export default function ConceptViewController ($scope, concept, serverLocales, c
 	}
 	//checks datatype of concept to determine
 	function checkType (){
-		vm.isNumeric = (vm.concept.datatype.display == "Numeric");
-		vm.isCoded = (vm.concept.datatype.display == "Coded");
+		vm.isNumeric = (vm.concept.datatype.uuid === "8d4a4488-c2cc-11de-8d13-0010c6dffd0f");
+		vm.isCoded = (vm.concept.datatype.uuid === "8d4a48b6-c2cc-11de-8d13-0010c6dffd0f");
 	}
 };

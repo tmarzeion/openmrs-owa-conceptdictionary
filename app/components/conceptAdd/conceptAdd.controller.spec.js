@@ -31,7 +31,7 @@ describe('Concept dictionary controllers', function() {
 beforeEach(angular.mock.module('conceptDictionaryApp'));
 
     describe('controller: ConceptAddController', function() {
-    	  var ctrl, scope, $controller, serverLocales, serviceSpy, classes, datatypes, location;    	  
+    	  var ctrl, scope, $controller, serverLocales, serviceSpy, classes, datatypes, location, concept;    	  
 
     	  beforeEach(inject(function($rootScope, $controller) {
     		  location = {path: function(){}};
@@ -44,13 +44,15 @@ beforeEach(angular.mock.module('conceptDictionaryApp'));
     		  
     		  serverLocales = ["en", "es"];
     		  serviceSpy = {
-    		    		getEmptyLocaleConceptObject: function() {},
+    				  	getEmptyLocalizedConcepts: function() {},
     		    		getEmptyConceptObject: function() {},
     		    	    postConcept: function() {}
-    		    	    };    
+    		  };  
     		  
-      		  spyOn(serviceSpy, "getEmptyLocaleConceptObject")
-      		  			.and.returnValue({synonyms : [], searchTerms : [], fullname : {}})
+    		  concept = {};
+    		  
+      		  spyOn(serviceSpy, "getEmptyLocalizedConcepts")
+      		  			.and.returnValue({"en": {synonyms : [], searchTerms : [], fullname : {}}})
 	  		  spyOn(serviceSpy, "getEmptyConceptObject")
 	  		  			.and.returnValue({conceptClass : "", datatype : "", answers : []})
 	  		  spyOn(serviceSpy, "postConcept")
@@ -60,15 +62,15 @@ beforeEach(angular.mock.module('conceptDictionaryApp'));
     	  
     	  it('should invoke activate', inject(function($rootScope, $controller){
       		  scope = $rootScope.$new();
-    		  ctrl = $controller('ConceptAddController', {$scope: scope, 
+    		  ctrl = $controller('ConceptAddController', {concept : concept,
+    			  											  $scope: scope, 
 											    			  loadClasses : classes,
 											    			  loadDataTypes : datatypes,
 											    			  serverLocales : serverLocales,
 											    			  conceptsService : serviceSpy,
 											    			  $location : location});
     		  
-    		  expect(serviceSpy.getEmptyLocaleConceptObject)
-    		  				.toHaveBeenCalledTimes(serverLocales.length);
+    		  expect(serviceSpy.getEmptyLocalizedConcepts).toHaveBeenCalled();
     		  expect(serviceSpy.getEmptyConceptObject).toHaveBeenCalled();
     		  expect(ctrl.isNumeric).toEqualData(true)
     		  expect(ctrl.isCoded).toEqualData(false)   
@@ -78,7 +80,8 @@ beforeEach(angular.mock.module('conceptDictionaryApp'));
 			  
 			  beforeEach(inject(function($rootScope, $controller) {
 				  scope = $rootScope.$new();
-	    		  ctrl = $controller('ConceptAddController', {$scope: scope, 
+	    		  ctrl = $controller('ConceptAddController', {$scope: scope,
+	    			  											  concept : concept,
 												    			  loadClasses : classes,
 												    			  loadDataTypes : datatypes,
 												    			  serverLocales : serverLocales,
@@ -108,7 +111,7 @@ beforeEach(angular.mock.module('conceptDictionaryApp'));
 	    		  var isValid = true;
 	    		  ctrl.onFullnameUpdate(isValid, name)
 	    		  expect(ctrl.isFormValid).toEqualData(isValid);
-	    		  expect(ctrl.selectedLocaleData.fullname.display).toEqualData(name);
+	    		  expect(ctrl.selectedLocaleData.fullname.name).toEqualData(name);
 	    	  }));
 		  })
 

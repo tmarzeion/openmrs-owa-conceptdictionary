@@ -40,10 +40,14 @@ describe('Concept dictionary controllers', function() {
         var concept1;
         var expectedNames1;
         var expectedDescr1;
+        var engFullName1;
+        var engShortName1;
 
         var concept2;
         var expectedNames2;
         var expectedDescr2;
+        var engFullName2;
+        var engShortName2;
         
         var localizedConcept1;
         var localizedConcept2;
@@ -56,57 +60,66 @@ describe('Concept dictionary controllers', function() {
         var serverLocales = ["en", "es", "pt", "it", "fr"];
 
         beforeEach(function(){
+            engFullName1 = {name: 'engName1', locale: 'en', conceptNameType: 'FULLY_SPECIFIED'};
+            engShortName1  =  {name: 'engName1', locale: 'en', conceptNameType: 'SHORT'};
             //initialize variables and insert values
-            concept1 = {datatype: { display : 'Numeric'},
-                names: [{display: 'engName1', locale: 'en', conceptNameType: 'FULLY_SPECIFIED'},
-                    {display: 'engName1', locale: 'en', conceptNameType: 'SHORT'},
-                    {display: 'EspName1', locale: 'es', conceptNameType: 'FULLY_SPECIFIED'},
-                    {display: 'EspName1', locale: 'es', conceptNameType: 'INDEX_TERM'}],
-                descriptions: [{display: "engDescr", locale: "en"},
-                    {display: "EspDescr", locale: "es"}]};
+            concept1 = {datatype: { uuid : "8d4a4488-c2cc-11de-8d13-0010c6dffd0f"},
+                names: [engFullName1, engShortName1,
+                    {name: 'EspName1', locale: 'es', conceptNameType: 'FULLY_SPECIFIED'},
+                    {name: 'EspName1', locale: 'es', conceptNameType: 'INDEX_TERM'}],
+                descriptions: [{description: "engDescr", locale: "en"},
+                    {description: "EspDescr", locale: "es"}]};
             
             expectedNames1={}
-            expectedNames1.short = 'engName1';
-            expectedNames1.full = 'engName1';
+            expectedNames1.shortname = engShortName1;
+            expectedNames1.fullname = engFullName1;
             expectedNames1.synonyms = [];
             expectedNames1.searchTerms = [];
+            expectedNames1.locale = "en";
 
-            expectedDescr1 = 'engDescr';
+            expectedDescr1 = {};
+            expectedDescr1.description = "engDescr";
+            expectedDescr1.locale = "en";
 
-            concept2 = {datatype: { display : "Numeric"},
-                names: [{display: "engName2", locale: "en", conceptNameType: "FULLY_SPECIFIED"},
-                    {display: "engName2", locale: "es", conceptNameType: "SHORT"},
-                    {display: "EspName2", locale: "fr", conceptNameType: "FULLY_SPECIFIED"},
-                    {display: "EspName2", locale: "it", conceptNameType: "INDEX_TERM"}],
-                descriptions: [{display: "engDescr", locale: "en"},
-                    {display: "EspDescr", locale: "es"}]}
+            engFullName2 = {name: "engName2", locale: "en", conceptNameType: "FULLY_SPECIFIED"};
+            
+            concept2 = {datatype: { uuid : "8d4a4488-c2cc-11de-8d13-0010c6dffd0f"},
+                names: [engFullName2, 
+                    {name: "engName2", locale: "es", conceptNameType: "SHORT"},
+                    {name: "EspName2", locale: "fr", conceptNameType: "FULLY_SPECIFIED"},
+                    {name: "EspName2", locale: "it", conceptNameType: "INDEX_TERM"}],
+                descriptions: [{description: "engDescr", locale: "en"},
+                    {description: "EspDescr", locale: "es"}]}
             
             expectedNames2={};
-            expectedNames2.full = "engName2";
+            expectedNames2.fullname = engFullName2;
             expectedNames2.synonyms = [];
             expectedNames2.searchTerms = [];
+            expectedNames2.locale = "en";
             
-            expectedDescr2 = "engDescr";
+            expectedDescr2 = {};
+            expectedDescr2.description = "engDescr";
+            expectedDescr2.locale = "en";
             
             localizedConcept1 = {locale : "en",
-            					fullname : { display : "fullname1"},
-            					shortname : { display : "shortname1"},
-            					preferredName : {display : "fullname1"},
+            					fullname : { name : "fullname1"},
+            					shortname : { name : "shortname1"},
+            					preferredName : {name : "fullname1"},
             					searchTerms : [],
-            					synonyms : [{display : "synonym11"}, {display : "synonym12"}],
+            					synonyms : [{name : "synonym11"}, {name : "synonym12"}],
             					description : "english description"}
             localizedConcept2 = {locale : "es",
-								fullname : { display : "fullname2"},
-								shortname : { display : "shortname2"},
-								preferredName : {display :  "synonym22"},
-								searchTerms : [{ display : "searchTerm21"}, {display : "searchTerm22"}],
-								synonyms : [{display : "synonym21"}, {display : "synonym22"}],
+								fullname : { name : "fullname2"},
+								shortname : { name : "shortname2"},
+								preferredName : {name :  "synonym22"},
+								searchTerms : [{ name : "searchTerm21"}, {name : "searchTerm22"}],
+								synonyms : [{name : "synonym21"}, {name : "synonym22"}],
 								description : "spanish description"}
             validLocalizedConcepts = [localizedConcept1, localizedConcept2];
             
             invalidLocalizedConcepts = [{ potato : "potato"}, {invalid : "invalid"}];
             
-            createdConcept = {datatype : "8d4a4488-c2cc-11de-8d13-0010c6dffd0f",
+            createdConcept = {datatype :{uuid: "8d4a4488-c2cc-11de-8d13-0010c6dffd0f"},
             					conceptClass : "classUuid",
             					hiAbsolute : 2323,
             					lowAbsolute : 33,

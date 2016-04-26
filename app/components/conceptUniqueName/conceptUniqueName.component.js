@@ -14,7 +14,7 @@ export default function conceptUniqueName(openmrsRest){
 	var vm = this;
 	
 	
-	vm.searchText = vm.concept.display;
+	vm.searchText = vm.name.name;
 	
 		
 	vm.concepts =[];
@@ -25,15 +25,15 @@ export default function conceptUniqueName(openmrsRest){
 	vm.checkInput = checkInput;
 	
 	vm.$onChanges = function(changesObj){
-		vm.searchText = changesObj.concept.currentValue.display;
+		vm.searchText = changesObj.name.currentValue.name;
 		vm.isCorrect = false;
 	}
 	
 	function checkInput(){
 		var display = vm.searchText;
-
 		for(var i=0; i<vm.concepts.length; i++){
-			if(display === vm.concepts[i].display){
+			//check for duplicates except concept in edition
+			if(display === vm.concepts[i].display && vm.conceptUuid!=vm.concepts[i].uuid){
 				vm.isDuplicate = true;
 			}
 		}

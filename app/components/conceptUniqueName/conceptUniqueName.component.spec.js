@@ -32,7 +32,7 @@ beforeEach(angular.mock.module('conceptDictionaryApp'));
 
     describe('component: conceptUniqueName', function() {
     	  var component, scope, $componentController, $httpBackend, 
-    	  	  concept, onUpdate, response1, response2, response3, updateSpy;
+    	  	  name, onUpdate, response1, response2, response3, updateSpy;
     	  
 
     	  beforeEach(inject(function(_$httpBackend_, $rootScope, _$componentController_, openmrsRest) {
@@ -77,21 +77,21 @@ beforeEach(angular.mock.module('conceptDictionaryApp'));
     	  }));
 
     	  it('should update concept property when it is changed in outer scope', function(){
-      	      concept = {
-      	    		  display:'init query'
+      	      name = {
+      	    		  name:'init query'
       	      }
-    		  component = $componentController('conceptUniqueName', {$scope: scope}, {concept: concept});
-      	      expect(component.concept.display).toEqualData("init query");
-      	      concept.display = "next query";
-      	      expect(component.concept.display).toEqualData("next query");
+    		  component = $componentController('conceptUniqueName', {$scope: scope}, {name: name});
+      	      expect(component.name.name).toEqualData("init query");
+      	      name.name = "next query";
+      	      expect(component.name.name).toEqualData("next query");
     	  });
     	  it('should send request with specific query and invoke onUpdate', function(){
-      	      concept = {
-      	    		  display:'some'
+      	      name = {
+      	    		  name:'some'
       	      }
       	      updateSpy = jasmine.createSpy('updateSpy');
     		  component = $componentController('conceptUniqueName', 
-    				  {$scope: scope}, {concept: concept, onUpdate : updateSpy});
+    				  {$scope: scope}, {name: name, onUpdate : updateSpy});
       	      component.search();
     		  $httpBackend.flush();
     		  expect(component.concepts).toEqualData(response2.results);
@@ -99,12 +99,12 @@ beforeEach(angular.mock.module('conceptDictionaryApp'));
     		  expect(updateSpy).toHaveBeenCalled();
     	  });
     	  it('should send request with specific query and find out that name is duplicate', function(){
-      	      concept = {
-      	    		  display:'concept name'
+      	      name = {
+      	    		  name:'concept name'
       	      }
       	      updateSpy = jasmine.createSpy('updateSpy');
     		  component = $componentController('conceptUniqueName', 
-    				  {$scope: scope}, {concept: concept, onUpdate : updateSpy});
+    				  {$scope: scope}, {name: name, onUpdate : updateSpy});
       	      component.search();
     		  $httpBackend.flush();
     		  expect(component.isDuplicate).toEqualData(true);

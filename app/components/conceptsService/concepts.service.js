@@ -14,12 +14,14 @@ export default function conceptsService(openmrsRest, $q){
 	var service = {
 			getEmptyConceptObject: getEmptyConceptObject,
 			getEmptyLocaleConceptObject: getEmptyLocaleConceptObject,
-			parseNames: parseNames,
-			parseDescriptions : parseDescriptions,
 			postConcept: postConcept,
 			getLocales: getLocales,
 			getLocaleNames: getLocaleNames,
-			getLocaleDescr: getLocaleDescr
+			getLocaleDescr: getLocaleDescr,
+			getEmptyLocalizedConcepts : getEmptyLocalizedConcepts,
+			getLocalizedConcepts : getLocalizedConcepts,
+			parseNames : parseNames,
+			parseDescriptions : parseDescriptions,
 	}
 	return service
 	
@@ -49,21 +51,6 @@ export default function conceptsService(openmrsRest, $q){
 		};	
 	}
 	/**
-	 * @returns empty localized concept data object for one locale
-	 */
-	function getEmptyLocaleConceptObject(locale){
-		var empty = {};
-		empty.locale = locale;
-		empty.fullname = {};
-		empty.fullname.display;
-		empty.preferredName = "";
-		empty.shortname;
-		empty.searchTerms = [];
-		empty.synonyms = [];
-		empty.description;
-		return empty;
-	}
-	/**
 	 * sends proper POST request to create concept
 	 * @concept - concept object, it must contain datatype and conceptClass properties
 	 * @localizedConcepts = array of concept localized data objects
@@ -85,13 +72,13 @@ export default function conceptsService(openmrsRest, $q){
 			return deferred.promise;
 		}
 		var descriptions = parseDescriptions(localizedConcepts);
-		if(descriptions.length>0){
+		if(descriptions.length>0 && angular.isDefined(concept.uuid)){
 			conceptRequest.descriptions;
 		}
 		//return error message if conceptClass or datatype is undefined
 		if(angular.isDefined(concept.datatype)&&angular.isDefined(concept.conceptClass)){
-			conceptRequest.datatype = concept.datatype;
-			conceptRequest.conceptClass = concept.conceptClass;
+			conceptRequest.datatype = concept.datatype.uuid;
+			conceptRequest.conceptClass = concept.conceptClass.uuid;
 		}
 		else{
 			result.success = false;
@@ -106,18 +93,24 @@ export default function conceptsService(openmrsRest, $q){
 		}
 		if(concept.set){
 			conceptRequest.set = concept.set;
-			conceptRequest.setMembers = concept.setMembers;
+			conceptRequest.setMembers = []
+			for(var i =0; i<concept.setMembers.length;i++){
+				conceptRequest.setMembers.push(concept.setMembers[i].uuid);
+			}
 		}
 		//if coded
-		if(concept.datatype === "8d4a48b6-c2cc-11de-8d13-0010c6dffd0f"){
-			conceptRequest.answers = concept.answers;
+		if(concept.datatype.uuid === "8d4a48b6-c2cc-11de-8d13-0010c6dffd0f"){
+			conceptRequest.answers = [];
+			for(var i =0; i<concept.answers.length;i++){
+				conceptRequest.answers.push(concept.answers[i].uuid);
+			}
 		}
 		//if complex TODO implement
-		if(concept.datatype === "8d4a6242-c2cc-11de-8d13-0010c6dffd0f"){
+		if(concept.datatype.uuid === "8d4a6242-c2cc-11de-8d13-0010c6dffd0f"){
 			
 		}
 		//if numeric, add numeric data fields if they are defined
-		if(concept.datatype === "8d4a4488-c2cc-11de-8d13-0010c6dffd0f"){
+		if(concept.datatype.uuid === "8d4a4488-c2cc-11de-8d13-0010c6dffd0f"){
 			if(concept.hiAbsolute)conceptRequest.hiAbsolute = concept.hiAbsolute;
 			if(concept.hiCritical)conceptRequest.hiCritical = concept.hiCritical;
 			if(concept.hiNormal)conceptRequest.hiNormal = concept.hiNormal;
@@ -130,19 +123,32 @@ export default function conceptsService(openmrsRest, $q){
 		}
 		//return in then clause to avoid returning undefined
 		var conceptJson = angular.toJson(conceptRequest);
-        openmrsRest.create('concept', conceptJson).then(
-	               function(success) {
-	            	result.requestBody = conceptJson;
-	                result.success = true;
-	                result.message = success.display + " had been saved";
-		            deferred.resolve(result);
-	            }, function(exception) {
-	            	result.requestBody = conceptJson;
-                	result.success = false;
-                	result.message = exception.statusText;
-    	            deferred.resolve(result);
-	            });
+		
+		if(angular.isDefined(concept.uuid)){
+	        openmrsRest.update('concept', {uuid: concept.uuid}, conceptJson)
+				        .then(function(success){handleSuccess(success)}, 
+			  				  function(exceptions){handleException(exception)});
+		}
+		else{
+	        openmrsRest.create('concept', conceptJson)
+	        			.then(function(success){handleSuccess(success)}, 
+	        				  function(exceptions){handleException(exception)});
+		}
         return deferred.promise;
+        
+        function handleSuccess(success){
+        	result.requestBody = conceptJson;
+            result.success = true;
+            result.message = success.display + " had been saved";
+            deferred.resolve(result);
+        };
+        function handleException(exception){
+        	result.requestBody = conceptJson;
+        	result.success = false;
+        	result.message = exception.statusText;
+            deferred.resolve(result);
+        }
+        
 
 	}
 	/**parse names to array of objects, which can be easily serialized to json to make request
@@ -156,55 +162,71 @@ export default function conceptsService(openmrsRest, $q){
 			var locale = localizedNames[value].locale;
 			//add fullname 
 			if(angular.isDefined(localizedNames[value].fullname)
-				&&angular.isDefined(localizedNames[value].fullname.display) 
-				&&localizedNames[value].fullname.display != ""){
+				&&angular.isDefined(localizedNames[value].fullname.name) 
+				&&localizedNames[value].fullname.name != ""){
 				
 				var isPreferred = 
-					(localizedNames[value].preferredName.display === localizedNames[value].fullname.display);
+					(localizedNames[value].preferredName.name === localizedNames[value].fullname.name);
 				
-				names.push({"name" : localizedNames[value].fullname.display,
+				var name = {"name" : localizedNames[value].fullname.name,
 							"locale" : locale,
 							"conceptNameType" : "FULLY_SPECIFIED",
-							"localePreferred" : isPreferred});
+							"localePreferred" : isPreferred};
+				setUuidIfDefined(name, localizedNames[value].fullname);				
+				names.push(name);
 				isFullnamePresent = true;						
 			}
 			if(angular.isDefined(localizedNames[value].shortname)
-				&&localizedNames[value].shortname.display != ""){
+				&&localizedNames[value].shortname.name != ""){
 
-					names.push({"name" : localizedNames[value].shortname.display,
+					var name = {"name" : localizedNames[value].shortname.name,
 						"locale" : locale,
-						"conceptNameType" : "SHORT"});	
+						"conceptNameType" : "SHORT"};	
+					
+					setUuidIfDefined(name, localizedNames[value].shortname);
+					
+					names.push(name);
 
 			}
 			if(angular.isDefined(localizedNames[value].searchTerms)
 					&&localizedNames[value].searchTerms.length > 0){
 				
 				for(var j=0; j<localizedNames[value].searchTerms.length;j++){
-					if(localizedNames[value].searchTerms[j].display != "")
-						
-						names.push({"name" : localizedNames[value].searchTerms[j].display,
-									"locale" : locale,
-									"conceptNameType" : "INDEX_TERM"});
+					if(localizedNames[value].searchTerms[j].name != ""){
+						var name = {"name" : localizedNames[value].searchTerms[j].name,
+								"locale" : locale,
+								"conceptNameType" : "INDEX_TERM"};
+						setUuidIfDefined(name, localizedNames[value].searchTerms[j]);
+						names.push(name);
+					}
 				}
 			}
 			if(angular.isDefined(localizedNames[value].synonyms)
 					&&localizedNames[value].synonyms.length > 0){
 				
 				for(var j=0; j<localizedNames[value].synonyms.length;j++){
-					if(localizedNames[value].synonyms[j].display != ""){
+					if(localizedNames[value].synonyms[j].name != ""){
 						
 						var isPreferred = 
-							(localizedNames[value].preferredName.display === localizedNames[value].synonyms[j].display);
+							(localizedNames[value].preferredName.name === localizedNames[value].synonyms[j].name);
 
-						names.push({"name" : localizedNames[value].synonyms[j].display,
+						var name = {"name" : localizedNames[value].synonyms[j].name,
 									"locale" : locale,
-									"localePreferred" : isPreferred});
+									"localePreferred" : isPreferred};
+						
+						setUuidIfDefined(name, localizedNames[value].synonyms[j]);
+						names.push(name);						
 					}
 				}
 			}					
 		});
 		if(isFullnamePresent) return names;
 		else throw "No fully specified name is present!"
+	}
+	function setUuidIfDefined(requestObj, formObj){
+		if(angular.isDefined(formObj.uuid)){
+			requestObj.uuid = formObj.uuid;
+		}
 	}
 	/**parse descriptions to array of objects, which can be easily serialized to json to make request
 	 * @localizedNames array of concept localized data objects
@@ -215,8 +237,10 @@ export default function conceptsService(openmrsRest, $q){
 		angular.forEach(localizedConcepts, function(key, value){
 			//add fullname 
 			if(angular.isDefined(localizedConcepts[value].description)){
-				descriptions.push({"description" : localizedConcepts[value].description,
-									"locale" : localizedConcepts[value].locale});						
+				var description = {"description" : localizedConcepts[value].description,
+									"locale" : localizedConcepts[value].locale};	
+				setUuidIfDefined(description, localizedConcepts[value].description)
+				descriptions.push(description);
 			}			
 		})
 		return descriptions
@@ -257,19 +281,21 @@ export default function conceptsService(openmrsRest, $q){
 			var fullFlag = "FULLY_SPECIFIED";
 			var searchFlag = "INDEX_TERM";
 			//holds full, short names and synonyms array
-			var localNames = {};
-			localNames.synonyms = [];
-			localNames.searchTerms = [];
+			var localeNames = {};
+			localeNames.synonyms = [];
+			localeNames.searchTerms = [];
+			localeNames.locale = locale;
 
 			for (var index=0;index<names.length;index++){
 				if(names[index].locale === locale){
-					if(names[index].conceptNameType === shortFlag) localNames.short = names[index].display;
-					else if(names[index].conceptNameType === fullFlag) localNames.full = names[index].display;
-					else if(names[index].conceptNameType === searchFlag) localNames.searchTerms.push(names[index].display);
-					else localNames.synonyms.push(names[index].display);
+					if(names[index].localePreferred === true) localeNames.preferredName = names[index].name;
+					if(names[index].conceptNameType === shortFlag) localeNames.shortname = names[index];
+					else if(names[index].conceptNameType === fullFlag) localeNames.fullname = names[index];
+					else if(names[index].conceptNameType === searchFlag) localeNames.searchTerms.push(names[index]);
+					else localeNames.synonyms.push(names[index]);
 				}
 			}
-		return localNames;
+		return localeNames;
 	};
 	/**
 	 * @descriptions array of descriptions objects of concept
@@ -279,9 +305,50 @@ export default function conceptsService(openmrsRest, $q){
 	function getLocaleDescr(descriptions, locale){
 		for (var index=0;index<descriptions.length;index++){
 			if(descriptions[index].locale === locale){
-				return descriptions[index].display;
+				return descriptions[index];
 			}
 		}
 	};
+	
+	function getLocalizedConcepts(names, descriptions, serverLocales){
+		var locales = getLocales(names, descriptions, serverLocales);
+		var localizedConcepts = {};
+		for (var index=0; index < locales.length; index++){
+			localizedConcepts[locales[index]] = getLocaleNames(names, locales[index]);
+			localizedConcepts[locales[index]].description = getLocaleDescr(descriptions, locales[index]);
+			localizedConcepts[locales[index]].locale = locales[index];
+		}
+		//if there's no data for given locale, create empty locale concept object
+		for (var index=0; index < serverLocales.length; index++){
+			if(angular.isUndefined(localizedConcepts[serverLocales[index]])){
+				localizedConcepts[serverLocales[index]] = getEmptyLocaleConceptObject(serverLocales[index]);
+			}
+		}
+		return localizedConcepts;
+	}
+	
+	function getEmptyLocalizedConcepts(serverLocales){
+		var localizedConcepts = {};
+		for (var index=0; index < serverLocales.length; index++){
+			localizedConcepts[serverLocales[index]] = getEmptyLocaleConceptObject(serverLocales[index]);
+		}
+		return localizedConcepts;
+	}
+	/**
+	 * @returns empty localized concept data object for one locale
+	 */
+	function getEmptyLocaleConceptObject(locale){
+		var empty = {};
+		empty.locale = locale;
+		empty.fullname = {};
+		empty.fullname.name;
+		empty.preferredName = "";
+		empty.shortname;
+		empty.searchTerms = [];
+		empty.synonyms = [];
+		empty.description = {};
+		empty.description.description = ""
+		return empty;
+	}
 }
 		
