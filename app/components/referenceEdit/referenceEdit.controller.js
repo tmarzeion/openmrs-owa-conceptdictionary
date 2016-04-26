@@ -40,12 +40,15 @@ export default function ReferenceEditController (reference, sources, openmrsRest
     }
 
     function updateConceptSource() {
-        for (i = 0; i < vm.sources.length; i++) {
+        var i = 0;
+        do {
             if (vm.sources[i].name === vm.selectedConceptSource) {
                 vm.reference.conceptSource = vm.sources[i];
                 break;
             }
+            i++;
         }
+        while(i < vm.sources.length);
     }
 
     function isSavePossible () {
