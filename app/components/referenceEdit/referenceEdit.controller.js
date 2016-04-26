@@ -17,18 +17,13 @@ export default function ReferenceEditController (reference, sources, openmrsRest
     vm.links["Concept Dictionary"] = "";
     vm.links["Reference Term Management"] = "reference/";
     vm.links["Reference Term Form"] = "reference/"+reference.uuid;
-
-    vm.deleteClicked = false;
-
-    vm.cancel = cancel;
+    
     vm.save = save;
-    vm.deleteForever = deleteForever;
+    vm.cancel = cancel;
     vm.retire = retire;
     vm.unretire = unretire;
     vm.updateConceptSource = updateConceptSource;
     vm.isSavePossible = isSavePossible;
-    vm.showAlert = showAlert;
-    vm.updateDeleteConfirmation = updateDeleteConfirmation;
 
     activate();
 
@@ -71,22 +66,6 @@ export default function ReferenceEditController (reference, sources, openmrsRest
         });
     }
 
-    function deleteForever() {
-        openmrsRest.remove('conceptreferenceterm', {uuid : vm.reference.uuid, purge : true});
-        $location.path('/reference').search({referenceDeleted: vm.reference.name});
-    }
-
-    function showAlert(item) {
-        vm.deleteClicked = true;
-    }
-
-    function updateDeleteConfirmation(isConfirmed) {
-        if (isConfirmed) {
-        	deleteForever();
-        }
-        vm.deleteClicked = false;
-    }
-
     function unretire() {
         openmrsRest.unretire('conceptreferenceterm', {uuid: reference.uuid}).then(function() {
             cancel();
@@ -97,5 +76,30 @@ export default function ReferenceEditController (reference, sources, openmrsRest
         openmrsRest.retire('conceptreferenceterm', {uuid: reference.uuid}).then(function() {
             cancel();
         });
+    }
+    
+
+    /**
+     * Logic for delete-alert component
+     */
+
+    vm.deleteForever = deleteForever;
+    vm.showAlert = showAlert;
+    vm.updateDeleteConfirmation = updateDeleteConfirmation;
+    
+    vm.deleteClicked = false;
+    
+    function deleteForever() {
+        openmrsRest.remove('conceptreferenceterm', {uuid : vm.reference.uuid, purge : true});
+        $location.path('/reference').search({referenceDeleted: vm.reference.name});
+    }
+    function showAlert(item) {
+        vm.deleteClicked = true;
+    }
+    function updateDeleteConfirmation(isConfirmed) {
+        if (isConfirmed) {
+            deleteForever();
+        }
+        vm.deleteClicked = false;
     }
 }
