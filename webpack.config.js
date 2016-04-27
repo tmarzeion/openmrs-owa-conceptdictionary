@@ -12,6 +12,8 @@ const DedupePlugin = webpack.optimize.DedupePlugin;
 
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 var BrowserSyncPlugin = require('browser-sync-webpack-plugin')
+var CopyWebpackPlugin = require('copy-webpack-plugin')
+
 var nodeModulesDir = path.resolve(__dirname, '../node_modules');
 
 
@@ -94,6 +96,10 @@ plugins.push(new HtmlWebpackPlugin({
     inject: 'body'
 }));
 
+plugins.push(new CopyWebpackPlugin([{
+    from: './app/manifest.webapp'
+}]));
+
 var config = {
   entry: {
 	  app : `${__dirname}/app/components/conceptDictionaryApp.module.js`,
@@ -119,8 +125,8 @@ var config = {
 	    query: {
 	        presets: ['es2015'],
 	        cacheDirectory : true
-    }
-    },{
+        }
+    }, {
 	    test: /\.css$/,
 	    loader: 'css'
 	}, {
@@ -129,10 +135,10 @@ var config = {
 	}, {
 	    test: /\.html$/,
 	    loader: 'raw'
-	},{
-	    test: /\.json$/,
-	    loader: 'file?name=translation/[name].[ext]'
-	},{
+	}, {
+        test: /\.json$/,
+        loader: 'file?name=translation/[name].[ext]'
+    }, {
         test: /\.scss$/,
         loader: "style!css!sass?outputStyle=expanded&includePaths[]=" 
         		+ path.resolve(__dirname, "./node_modules/compass-mixins/lib")

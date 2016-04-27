@@ -62,7 +62,7 @@
   "author": "rkorytkowski",
   "license": "MPL-2.0",
   "scripts": {
-    "clean": "rimraf dist && rimraf coverage*",
+    "clean": "rimraf dist && rimraf conceptdictionary.zip && rimraf coverage*",
     "build": "webpack --progress --colors --mode=production --target=web",
     "build:prod": "npm run clean && npm run test && npm run build && npm run zip",
     "build:travis": "npm run build:prod",
@@ -70,7 +70,7 @@
     "watch": "npm run clean && webpack --progress --colors --watch --mode=dev --target=web",
     "test": "karma start --singleRun=true",
     "test:debug": "karma start",
-    "zip": "bestzip dist/conceptdictionary.zip dist/*",
+    "zip": "bestzip conceptdictionary.zip dist/*",
     "lint": "eslint ./",
     "lint:fix": "eslint --fix ./"
   }
