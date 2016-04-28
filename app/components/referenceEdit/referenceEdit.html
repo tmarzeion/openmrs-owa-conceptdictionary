@@ -7,6 +7,17 @@
                 <div class="info-body">
                     <div class="form_align_left" cellpadding="3" cellspacing="3">
                         <div>
+                            <div class="alignRight" valign="top">{{"ConceptReferenceTerm.source" | translate}}<span class="required">*</span>
+                            </div>
+                            <div valign="top">
+                                <select
+                                        ng-model="vm.selectedConceptSource"
+                                        ng-options="source.name as source.name for source in vm.sources"
+                                        ng-change="vm.updateConceptSource()">
+                                </select>
+                            </div>
+                        </div>
+                        <div>
                             <div class="alignRight" valign="top">{{"Code" | translate}}<span class="required">*</span>
                             </div>
                             <div valign="top">
@@ -19,17 +30,7 @@
                                 <input name="conceptReferenceTerm.name" ng-model="vm.reference.name" type="text">
                             </div>
                         </div>
-                        <div>
-                            <div class="alignRight" valign="top">{{"ConceptReferenceTerm.source" | translate}}<span class="required">*</span>
-                            </div>
-                            <div valign="top">
-                                <select
-                                        ng-model="vm.selectedConceptSource"
-                                        ng-options="source.name as source.name for source in vm.sources"
-                                        ng-change="vm.updateConceptSource()">
-                                </select>
-                            </div>
-                        </div>
+
                         <div>
                             <div class="alignRight" valign="top">{{"Description" | translate}}</div>
                             <div valign="top">
@@ -44,49 +45,68 @@
                                 <input name="conceptReferenceTerm.version" ng-model="vm.reference.version" type="text">
                             </div>
                         </div>
-                        <div ng-show="vm.reference.auditInfo">
-                            <div>
-                                <small>{{"CreatedBy" | translate}}</small>
-                                <strong>
-                                    {{vm.reference.auditInfo.creator.display}},
-                                    {{vm.reference.auditInfo.dateCreated|date:'medium'}}
-                                </strong>
-                            </div>
-                        </div>
-                        <div ng-show="vm.reference.auditInfo.changedBy">
-                            <div>
-                                <small>{{"ChangedBy" | translate}}</small>
-                                <strong>
-                                    {{vm.reference.auditInfo.changedBy.display}},
-                                    {{vm.reference.auditInfo.dateChanged|date:'medium'}}
-                                </strong>
-                            </div>
-                        </div>
+                        <label ng-show="vm.reference.auditInfo">
+                            <small>{{"CreatedBy" | translate}}&#160;</small>
+                            {{vm.reference.auditInfo.creator.display}} -
+                            {{vm.reference.auditInfo.dateCreated|date:'medium'}}
+                        </label>
+
+                        <label ng-show="vm.reference.auditInfo.changedBy">
+                            <small>{{"ChangedBy" | translate}}&#160;</small>
+                            {{vm.reference.auditInfo.changedBy.display}} -
+                            {{vm.reference.auditInfo.dateChanged|date:'medium'}}
+                        </label>
                         <div ng-show="vm.reference.uuid">
                             <div class="alignRight"><font color="#D0D0D0">
                                 <small>UUID</sub></small>
                                 <small>{{vm.reference.uuid}}</small>
+                                <br>
                             </font></div>
                         </div>
                         <div>
-                            <div>
-                                <div>
-                                    <button ng-click="vm.save()" ng-disabled="!vm.isSavePossible()">
-                                        <i class="icon-ok"></i><strong>&#160;{{"Save" | translate}}</strong></button>
-                                    <a class="button" ng-click="vm.cancel()"><i class="icon-remove"></i><strong>&#160;{{"Concept.cancel" | translate}}</strong></a>
-                                    <a class="button" ng-show="!(vm.reference.retired)&&vm.reference.uuid" ng-click="vm.retire()"><i
-                                            class="icon-lock"></i><strong>&#160;{{"Retire" | translate}}</strong></a>
-                                    <a class="button" ng-show="vm.reference.retired&&vm.reference.uuid" ng-click="vm.unretire()"><i
-                                            class="icon-reply"></i><strong>&#160;{{"Unretire" | translate}}</strong></a>
-                                    <a class="button" ng-show="vm.reference.uuid" ng-click="vm.showAlert()"><i class="icon-trash"></i><strong>
-                                        &#160;{{"DeleteForever" | translate}}</strong></a>
-                                </div>
-                            </div>
+                            <button ng-click="vm.save()" ng-disabled="!vm.isSavePossible()">
+                                <i class="icon-ok"></i><strong>&#160;{{"Save" | translate}}</strong></button>
+                            <a class="button" ng-click="vm.cancel()"><i class="icon-remove"></i><strong>&#160;{{"Concept.cancel"
+                                | translate}}</strong></a>
+                            <a class="button" ng-show="vm.reference.uuid" ng-click="vm.showAlert()"><i
+                                    class="icon-trash"></i><strong>
+                                &#160;{{"DeleteForever" | translate}}</strong></a>
                         </div>
+
+
+
+
+
+                        <div ng-show="vm.reference.retired&&vm.reference.uuid">
+                            <h2><i class="icon-reply"></i>{{"Unretire" | translate}}</h2>
+                            <label>{{"RetiredBy" | translate}}</label>
+                            <i>{{vm.reference.auditInfo.retiredBy.display}} -
+                                {{"RetiredOn" | translate}} {{vm.reference.auditInfo.dateRetired|date: 'medium'}} </i>
+                            <label>{{"Reason" | translate}}</label>
+                            <i>{{vm.reference.auditInfo.retireReason}}</i>
+                            <br/>
+                            <button ng-show="vm.reference.retired" ng-click="vm.unretire()">
+                                <i class="icon-reply"></i>&#160;{{"Unretire" | translate}}
+                            </button>
+                        </div>
+
+                        <div ng-show="!vm.reference.retired&&vm.reference.uuid">
+                            <h2><i class="icon-lock"></i>{{"Retire" | translate}}</h2>
+                            <label>{{"RetireReason" | translate}}<span class="required">*</span></label>
+                            <textarea ng-model="vm.reference.auditInfo.retireReason" rows="3" cols="50"></textarea>
+                            <button ng-disabled="vm.reference.auditInfo.retireReason.length < 1" ng-click="vm.retire()">
+                                <i class="icon-lock"></i>&#160;Retire
+                            </button>
+                        </div>
+
+
+
+
+
+
+
                     </div>
                 </div>
             </form>
-        </div>
     </div>
-</div>
 </div>
