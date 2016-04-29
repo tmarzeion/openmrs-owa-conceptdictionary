@@ -64,7 +64,6 @@ if (env === 'production') {
     output: {
       comments: false,
     },
-    mangle: false,
     minimize: true,
     sourceMap: false,
     compress: {
@@ -78,7 +77,7 @@ if (env === 'production') {
 } else if (env === 'dev') {
   outputFile = `${outputFile}.js`;
   outputPath = `${localOwaFolder}${appName}`;
-  devtool = 'eval-source-map';
+  devtool = 'source-map';
 }
 
 plugins.push(new BrowserSyncPlugin({

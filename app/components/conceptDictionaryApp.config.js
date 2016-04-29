@@ -178,50 +178,63 @@ export default function conceptDictionaryAppConfig($routeProvider, openmrsRest )
 		  controllerAs: 'vm'
 	  });
       
+      loadConcept.$inject = ['$route', 'openmrsRest'];
       function loadConcept ($route, openmrsRest){
-    		return openmrsRest.getFull('concept',
-    				{uuid : $route.current.params.conceptUUID});
-    	};
-  	function serverLocales(openmrsRest){
-  		return openmrsRest.getFull('systemsetting',{q : 'locale.allowed.list'})
-  						  .then(function(response){
-  							  return response.results[0].value.split(", "); 
-  						  });
-  	};
-  	function loadClasses(openmrsRest){
-  		  return openmrsRest.listFull('conceptclass', {includeAll: true});
-  	};
-  	function loadDataTypes (openmrsRest){
-  		  return openmrsRest.listFull('conceptdatatype');
-  	};
-  	function loadSources (openmrsRest){
-  		return openmrsRest.listFull('conceptsource', {includeAll : true});
-  	};
-  	function loadSource ($route, openmrsRest){
-  		return openmrsRest.getFull('conceptsource',
-  			{uuid: $route.current.params.sourceUUID});
-  	};
-  	function loadConceptStopWords (openmrsRest){
-  		return openmrsRest.listFull('conceptstopword');
-  	};
-  	function loadClass ($route, openmrsRest){
-  		return openmrsRest.getFull('conceptclass',
-  				{uuid: $route.current.params.classUUID});
-  	};
-  	function loadDataType ($route, openmrsRest){
-  		return openmrsRest.getFull('conceptdatatype', 
-  				{uuid: $route.current.params.dataTypeUUID});
-  	};
-  	function loadReference ($route, openmrsRest){
-  		return openmrsRest.getFull('conceptreferenceterm',
-  			{uuid: $route.current.params.referenceUUID});
-  	};
-  	function loadDrugs (openmrsRest){
-  		return openmrsRest.listFull('drug', {includeAll: true});
-  	};
-  	function loadDrug($route, openmrsRest){
-  		return openmrsRest.getFull('drug', 
-  				{uuid: $route.current.params.drugUUID});
-  	}
+    	  return openmrsRest.getFull('concept',
+    			  {uuid : $route.current.params.conceptUUID});
+      };
+      
+      serverLocales.$inject = ['openmrsRest'];
+      function serverLocales(openmrsRest){
+    	  return openmrsRest.getFull('systemsetting',{q : 'locale.allowed.list'})
+    	  .then(function(response){
+    		  return response.results[0].value.split(", "); 
+    	  });
+      };
+      loadClasses.$inject = ['openmrsRest'];
+      function loadClasses(openmrsRest){
+    	  return openmrsRest.listFull('conceptclass', {includeAll: true});
+      };
+      loadDataTypes.$inject = ['openmrsRest'];
+      function loadDataTypes (openmrsRest){
+    	  return openmrsRest.listFull('conceptdatatype');
+      };
+      loadSources.$inject = ['openmrsRest'];
+      function loadSources (openmrsRest){
+    	  return openmrsRest.listFull('conceptsource', {includeAll : true});
+      };
+      loadSource.$inject = ['$route', 'openmrsRest'];
+      function loadSource ($route, openmrsRest){
+    	  return openmrsRest.getFull('conceptsource',
+    			  {uuid: $route.current.params.sourceUUID});
+      };
+      loadConceptStopWords.$inject = ['openmrsRest'];
+      function loadConceptStopWords (openmrsRest){
+    	  return openmrsRest.listFull('conceptstopword');
+      };
+      loadClass.$inject = ['$route', 'openmrsRest'];
+      function loadClass ($route, openmrsRest){
+    	  return openmrsRest.getFull('conceptclass',
+    			  {uuid: $route.current.params.classUUID});
+      };
+      loadDataType.$inject = ['$route', 'openmrsRest'];
+      function loadDataType ($route, openmrsRest){
+    	  return openmrsRest.getFull('conceptdatatype', 
+    			  {uuid: $route.current.params.dataTypeUUID});
+      };
+      loadReference.$inject = ['$route', 'openmrsRest'];
+      function loadReference ($route, openmrsRest){
+    	  return openmrsRest.getFull('conceptreferenceterm',
+    			  {uuid: $route.current.params.referenceUUID});
+      };
+      loadDrugs.$inject = ['openmrsRest'];
+      function loadDrugs (openmrsRest){
+    	  return openmrsRest.listFull('drug', {includeAll: true});
+      };
+      loadDrug.$inject = ['$route', 'openmrsRest'];
+      function loadDrug($route, openmrsRest){
+    	  return openmrsRest.getFull('drug', 
+    			  {uuid: $route.current.params.drugUUID});
+      }
 };
 
