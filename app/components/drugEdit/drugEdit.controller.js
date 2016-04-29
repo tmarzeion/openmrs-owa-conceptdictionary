@@ -27,6 +27,7 @@ export default function DrugEditController($location, openmrsRest, loadDrug){
 	vm.isRouteCorrect = true;
 	vm.showMessage;
 	vm.Drug;
+	vm.limitToClass = 'Drug';
 	
 	//redirects to drug list after success
 	vm.redirectToList = redirectToList;
@@ -45,8 +46,6 @@ export default function DrugEditController($location, openmrsRest, loadDrug){
 	vm.isCorrect = isCorrect;
 	
 	vm.activate();
-	
-	vm.limitToDrugs = true;
 	
 	
 	function activate(){
