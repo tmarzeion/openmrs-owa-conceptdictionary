@@ -55,8 +55,6 @@ export default function ReferenceEditController (reference, sources, openmrsRest
         return angular.isDefined(vm.reference.code) && angular.isDefined(vm.reference.conceptSource.uuid);
     }
 
-
-
     function cancel () {
         $location.path('/reference');
     }
@@ -76,11 +74,9 @@ export default function ReferenceEditController (reference, sources, openmrsRest
     }
 
     function retire() {
-        openmrsRest.retire('conceptreferenceterm', {uuid: reference.uuid}).then(function() {
-            cancel();
-        });
+        vm.retired = true;
+        save();
     }
-    
 
     /**
      * Logic for delete-alert component

@@ -20,7 +20,7 @@
 					{{vm.source.auditInfo.dateCreated|date:'medium'}}
 			</label>
 
-			<label ng-show="vm.source.auditInfo">
+			<label ng-show="vm.source.auditInfo.changedBy">
 				<small>{{"ChangedBy" | translate}}&#160;</small>
 
 					{{vm.source.auditInfo.changedBy.display}} -
