@@ -12,15 +12,15 @@
 				    </p>
 				    <p class="input-position-class">
 				      <label name="input-concept">{{"Concept" | translate}}<span class="required">*</span></label>
-				      <concept-auto-complete required='true' limit-to-drugs='vm.limitToDrugs' concept='vm.drug.concept' on-update='vm.updateConcept(isCorrect, concept)'></concept-auto-complete>
+				      <concept-auto-complete required='true' limit-to='vm.limitToClass' concept='vm.drug.concept' on-update='vm.updateConcept(isCorrect, concept)'></concept-auto-complete>
 				    </p>
 				    <p class="input-position-class">
 				      <label name="input-dosage">{{"ConceptDrug.dosageForm" | translate}}</label>
-				      <concept-auto-complete required='false' concept='vm.drug.dosageForm' limit-to-drugs='false' on-update='vm.updateDosageForm(isCorrect, concept)'></concept-auto-complete>
+				      <concept-auto-complete required='false' concept='vm.drug.dosageForm' on-update='vm.updateDosageForm(isCorrect, concept)'></concept-auto-complete>
 				    </p>
 				    <p class="input-position-class">
 				      <label name="input-strength">{{"ConceptDrug.strength" | translate}}</label>
-				      <input id="input-name" ng-model='vm.drug.strength'/>
+				      <input id="input-strength" ng-model='vm.drug.strength'/>
 				    </p>
 				    <p class="input-position-class">
 				      <label name="input-mindose">{{"ConceptDrug.minimumDailyDose" | translate}}</label>
@@ -28,11 +28,11 @@
 				    </p>
 				    <p class="input-position-class">
 				      <label name="input-maxdose">{{"ConceptDrug.maximumDailyDose" | translate}}</label>
-				      <input id="input-name" ng-model='vm.drug.maximumDailyDose'/>
+				      <input id="input-maxdose" ng-model='vm.drug.maximumDailyDose'/>
 				    </p>
 				    <p class="input-position-class">
 				      <label name="input-route">{{"ConceptDrug.route" | translate}}</label>
-				      <concept-auto-complete required='false' concept='vm.drug.route' limit-to-drugs='false' on-update='vm.updateRoute(isCorrect, concept)'></concept-auto-complete>
+				      <concept-auto-complete required='false' concept='vm.drug.route' on-update='vm.updateRoute(isCorrect, concept)'></concept-auto-complete>
 				    </p>
 				    <p class="input-position-class">
 				      <input id="input-comb" type="checkbox" ng-model='vm.drug.combination'/>
