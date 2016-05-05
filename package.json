@@ -50,6 +50,7 @@
     "style-loader": "^0.13.1",
     "url-loader": "^0.5.7",
     "webpack": "^1.12.13",
+    "webpack-md5-hash": "0.0.5",
     "wiredep": "^3.0.0",
     "yargs": "^4.3.1"
   },
@@ -63,11 +64,11 @@
   "license": "MPL-2.0",
   "scripts": {
     "clean": "rimraf dist && rimraf conceptdictionary.zip && rimraf coverage*",
-    "build": "webpack --progress --colors --mode=production --target=web",
-    "build:prod": "npm run clean && npm run test && npm run build && npm run zip",
+    "build": "npm run clean && webpack --progress --colors --mode=production --target=web",
+    "build:prod": "npm run test && npm run build && npm run zip",
     "build:travis": "npm run build:prod",
-    "build:deploy": "npm run clean && webpack --progress --colors --mode=dev --target=web",
-    "watch": "npm run clean && webpack --progress --colors --watch --mode=dev --target=web",
+    "build:deploy": "webpack --progress --colors --mode=dev --target=web",
+    "watch": "webpack --progress --colors --watch --mode=dev --target=web",
     "test": "karma start --singleRun=true",
     "test:debug": "karma start",
     "zip": "bestzip conceptdictionary.zip dist/*",
