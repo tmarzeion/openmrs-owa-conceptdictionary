@@ -121,23 +121,17 @@ export default function conceptsService(openmrsRest, $q){
 		//return in then clause to avoid returning undefined
 		var conceptJson = angular.toJson(conceptRequest);
 		
-		if(angular.isDefined(concept.uuid)){
-	        openmrsRest.update('concept', {uuid: concept.uuid}, conceptJson)
-				        .then(function(success){handleSuccess(success)}, 
-			  				  function(exceptions){handleException(exception)});
-		}
-		else{
-	        openmrsRest.create('concept', conceptJson)
-	        			.then(function(success){handleSuccess(success)}, 
-	        				  function(exceptions){handleException(exception)});
-		}
-        return deferred.promise;
-        
         function handleSuccess(success){
-        	result.requestBody = conceptJson;
-            result.success = true;
-            result.message = success.display + " had been saved";
-            deferred.resolve(result);
+        	if(angular.isDefined(success)){
+            	result.requestBody = conceptJson;
+                result.success = true;
+                result.message = success.display + " had been saved";
+        	}
+        	else{
+        		result.success = false;
+        		result.message = "Server Error"
+        	}
+        	deferred.resolve(result);
         };
         function handleException(exception){
         	result.requestBody = conceptJson;
@@ -145,7 +139,18 @@ export default function conceptsService(openmrsRest, $q){
         	result.message = exception.statusText;
             deferred.resolve(result);
         }
-        
+		
+		if(angular.isDefined(concept.uuid)){
+	        openmrsRest.update('concept', {uuid: concept.uuid}, conceptJson)
+				        .then(function(success){handleSuccess(success)}, 
+			  				  function(exception){handleException(exception)});
+		}
+		else{
+	        openmrsRest.create('concept', conceptJson)
+	        			.then(function(success){handleSuccess(success)}, 
+	        				  function(exception){handleException(exception)});
+		}
+        return deferred.promise;        
 
 	}
 	/**parse names to array of objects, which can be easily serialized to json to make request
