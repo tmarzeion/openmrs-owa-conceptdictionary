@@ -22,8 +22,8 @@ export default function SourceEditController (sources ,openmrsRest, $location){
 
     vm.cancel = cancel;
     vm.save = save;
-    vm.isSavePossible = isSavePossible;
     vm.retire = retire;
+    vm.unretire = unretire;
     vm.deleteForever = deleteForever;
     vm.showAlert = showAlert;
     vm.updateDeleteConfirmation = updateDeleteConfirmation;
@@ -42,10 +42,6 @@ export default function SourceEditController (sources ,openmrsRest, $location){
         $location.path('/source');
     }
 
-    function isSavePossible () {
-        return angular.isDefined(vm.source.name) && angular.isDefined(vm.source.description);
-    }
-
     //Method used to add class with current class params
     function save() {
         vm.json = angular.toJson(vm.source);
@@ -56,8 +52,15 @@ export default function SourceEditController (sources ,openmrsRest, $location){
     }
 
     function retire() {
-        vm.source.retired = !(vm.source.retired);
-        save();
+        openmrsRest.retire('conceptsource', {uuid: vm.source.uuid}).then(function() {
+            cancel();
+        });
+    }
+
+    function unretire() {
+        openmrsRest.unretire('conceptsource', {uuid: vm.source.uuid}).then(function() {
+            cancel();
+        });
     }
     
     

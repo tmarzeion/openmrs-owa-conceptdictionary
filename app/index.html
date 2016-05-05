@@ -1,12 +1,16 @@
 <!DOCTYPE html>
-<html ng-app="conceptDictionaryApp" ng-strict-di>
+<html ng-app="conceptDictionaryApp" ng-strict-di ng-cloak>
 <head>
     <title>Concept Dictionary Management</title>
     <!-- openmrs favicon -->
     <link rel="shortcut icon" type="image/ico" href="../../images/openmrs-favicon.ico"/>
     <link rel="icon" type="image/png" href="../../images/openmrs-favicon.png"/>
     <link rel="stylesheet" href="../uicommons/css/openmrs-refapp.css" type="text/css"/>
-
+    <style>
+        [ng\:cloak], [ng-cloak], [data-ng-cloak], [x-ng-cloak], .ng-cloak, .x-ng-cloak {
+            display: none !important;
+        }
+    </style>
 </head>
 <header>
   	<div ng-controller="IndexController as vm">
@@ -23,8 +27,5 @@
         <a ng-click="vm.changeLanguage('es')">Spanish</a>
     </small>
 </div>
-<script type='text/javascript' id="__bs_script__">//<![CDATA[
-    document.write("<script async src='http://HOST:3000/browser-sync/browser-sync-client.2.11.1.js'><\/script>".replace("HOST", location.hostname));
-//]]></script>
 </body>
 </html>

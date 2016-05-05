@@ -6,7 +6,7 @@
 			<form name="drugEdit">
 				<fieldset>
 					<p class="input-position-class">
-				      <label name="input-name">{{"Name" | translate}}</label>
+				      <label name="input-name">{{"Name" | translate}}<span class="required">*</span></label>
 				      <input name='name' id="input-name" ng-model='vm.drug.name' required/>
 				      <span class="error" ng-show='drugAdd.name.$error.required'>Name is required</span>
 				    </p>

@@ -92,7 +92,7 @@ plugins.push(new CommonsChunkPlugin("vendor", "vendor.bundle.js"));
 
 plugins.push(new HtmlWebpackPlugin({
     template: './app/index.html',
-    inject: 'body'
+    inject: 'head'
 }));
 
 plugins.push(new CopyWebpackPlugin([{

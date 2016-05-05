@@ -3,16 +3,16 @@
 	<label id="content" class="container">
 		<h2>Edit Concept Source</h2>
 		<delete-alert ng-show="vm.deleteClicked" on-update="vm.updateDeleteConfirmation(isConfirmed)"></delete-alert>
-		<form ng-show="!vm.deleteClicked">
+		<form ng-show="!vm.deleteClicked" name="sourceEdit">
 			<label>{{"Name" | translate}}<span class="required">*</span></label>
-			<input name="name" ng-model="vm.source.name"size="35" type="text" />
+			<input name="name" ng-model="vm.source.name"size="35" type="text" required/>
 
 
 			<label>{{"ConceptSource.hl7Code" | translate}}</label>
-			<input name="hl7Code" ng-model="vm.source.hl7Code" size="35" maxlength="20" type="text" />
+			<input name="hl7Code" ng-model="vm.source.hl7Code" size="35" maxlength="20" type="text"/>
 
 			<label>{{"Description" | translate}}<span class="required">*</span></label>
-			<textarea ng-model="vm.source.description" name="description" rows="3" cols="40"></textarea>
+			<textarea ng-model="vm.source.description" name="description" rows="3" cols="40" required></textarea>
 
 			<label ng-show="vm.source.auditInfo">
 				<small>{{"CreatedBy" | translate}}&#160;</small>
@@ -34,7 +34,7 @@
 
 			<br/>
 
-			<button ng-disabled="!vm.isSavePossible()" ng-click="vm.save()" ><i class="icon-ok"></i>&#160;{{"ConceptSource.save" | translate}}</button>
+			<button ng-disabled="sourceEdit.$invalid" ng-click="vm.save()" ><i class="icon-ok"></i>&#160;{{"ConceptSource.save" | translate}}</button>
 			<button ng-click="vm.cancel()" ><i class="icon-remove"></i>&#160;{{"Concept.cancel" | translate}}</button>
 			<button ng-click="vm.showAlert()" ng-show="vm.source.uuid"><i class="icon-trash"></i>&#160;{{"DeleteForever" | translate}}</button>
 
@@ -48,7 +48,7 @@
 				<label>{{"Reason" | translate}}</label>
 					<i>{{vm.source.auditInfo.retireReason}}</i>
 				<br/>
-				<button ng-show="vm.source.retired" ng-click="vm.retire()">
+				<button ng-show="vm.source.retired" ng-click="vm.unretire()">
 					<i class="icon-reply"></i>&#160;{{"Unretire" | translate}}
 				</button>
 			</div>

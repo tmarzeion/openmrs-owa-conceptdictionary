@@ -3,7 +3,7 @@
     <div id="content" class="container">
     		<h2>Edit Reference Term</h2>
     		<delete-alert ng-show="vm.deleteClicked" on-update="vm.updateDeleteConfirmation(isConfirmed)"></delete-alert>
-    		<form method="post" ng-show="!vm.deleteClicked" name="class-edit">
+    		<form method="post" ng-show="!vm.deleteClicked" name="referenceEdit">
                 <div class="info-body">
                     <div class="form_align_left" cellpadding="3" cellspacing="3">
                         <div>
@@ -21,7 +21,7 @@
                             <div class="alignRight" valign="top">{{"Code" | translate}}<span class="required">*</span>
                             </div>
                             <div valign="top">
-                                <input name="conceptReferenceTerm.code" ng-model="vm.reference.code" type="text">
+                                <input name="conceptReferenceTerm.code" ng-model="vm.reference.code" type="text" required>
                             </div>
                         </div>
                         <div>
@@ -64,7 +64,7 @@
                             </font></div>
                         </div>
                         <div>
-                            <button ng-click="vm.save()" ng-disabled="!vm.isSavePossible()">
+                            <button ng-click="vm.save()" ng-disabled="referenceEdit.$invalid">
                                 <i class="icon-ok"></i><strong>&#160;{{"Save" | translate}}</strong></button>
                             <a class="button" ng-click="vm.cancel()"><i class="icon-remove"></i><strong>&#160;{{"Concept.cancel"
                                 | translate}}</strong></a>

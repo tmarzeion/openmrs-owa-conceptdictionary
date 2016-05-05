@@ -23,7 +23,6 @@ export default function ReferenceEditController (reference, sources, openmrsRest
     vm.retire = retire;
     vm.unretire = unretire;
     vm.updateConceptSource = updateConceptSource;
-    vm.isSavePossible = isSavePossible;
 
     activate();
 
@@ -36,6 +35,10 @@ export default function ReferenceEditController (reference, sources, openmrsRest
         }
         else{
             vm.reference.conceptSource = {};
+        }
+        if(angular.isDefined(vm.reference.auditInfo)&&
+            angular.isUndefined(vm.reference.auditInfo.retireReason)){
+            vm.reference.auditInfo.retireReason = "";
         }
     }
 
@@ -51,10 +54,6 @@ export default function ReferenceEditController (reference, sources, openmrsRest
         while(i < vm.sources.length);
     }
 
-    function isSavePossible () {
-        return angular.isDefined(vm.reference.code) && angular.isDefined(vm.reference.conceptSource.uuid);
-    }
-
     function cancel () {
         $location.path('/reference');
     }
@@ -68,14 +67,15 @@ export default function ReferenceEditController (reference, sources, openmrsRest
     }
 
     function unretire() {
-        openmrsRest.unretire('conceptreferenceterm', {uuid: reference.uuid}).then(function() {
+        openmrsRest.unretire('conceptreferenceterm', {uuid: vm.reference.uuid}).then(function() {
             cancel();
         });
     }
 
     function retire() {
-        vm.retired = true;
-        save();
+        openmrsRest.retire('conceptreferenceterm', {uuid: vm.reference.uuid}).then(function() {
+            cancel();
+        });
     }
 
     /**
