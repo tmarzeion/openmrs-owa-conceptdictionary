@@ -1,6 +1,14 @@
 <openmrs-breadcrumbs links="vm.links"></openmrs-breadcrumbs>
 <div id="body-wrapper">
 	<div id="content" class="container">
+		<div ng-show="vm.added" id="success-message" class="note-container">
+			<div class="note success">
+				<div class="text">
+					<i class="icon-info-sign medium"></i>
+					<p>&#160;&#160;{{vm.added}}.</p>
+				</div>
+			</div>
+		</div>
 		<div class="info-section">
 
 			<h2>

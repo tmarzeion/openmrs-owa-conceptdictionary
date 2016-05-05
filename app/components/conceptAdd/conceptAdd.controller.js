@@ -134,7 +134,7 @@ export default function ConceptAddController
 	function postConcept(){
 		conceptsService.postConcept(vm.concept, vm.localizedConcepts).then(function(result){
 			if(angular.isDefined(result)&&result.success){
-				$location.path('/concept/').search({added : result.message});
+				$location.path('/concept/' + vm.concept.uuid).search({added : result.message});
 			}
 			else vm.result = result;
 		})

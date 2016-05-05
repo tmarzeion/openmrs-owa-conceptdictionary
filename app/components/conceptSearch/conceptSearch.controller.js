@@ -18,9 +18,6 @@ export default function ConceptSearchController($scope, $routeParams, openmrsRes
     vm.links["Concept Dictionary"] = "";
     vm.links["Concept Dictionary Maintanace"] = "concept";
 
-    
-    vm.added = $routeParams.added;
-
     //Default is undefined, but it could take data from URL if there is one
     vm.query;
     vm.enableDescription = false;

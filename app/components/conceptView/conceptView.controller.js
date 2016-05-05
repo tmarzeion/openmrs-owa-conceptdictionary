@@ -7,9 +7,9 @@
  * Copyright (C) OpenMRS Inc. OpenMRS is a registered trademark and the OpenMRS
  * graphic logo is a trademark of OpenMRS Inc.
  */
-ConceptViewController.$inject = ['$scope', 'concept', 'serverLocales', 'conceptsService'];
+ConceptViewController.$inject = ['$scope', 'concept', 'serverLocales', 'conceptsService', '$routeParams'];
 
-export default function ConceptViewController ($scope, concept, serverLocales, conceptsService){
+export default function ConceptViewController ($scope, concept, serverLocales, conceptsService, $routeParams){
 
 	var vm = this;
 	
@@ -17,7 +17,9 @@ export default function ConceptViewController ($scope, concept, serverLocales, c
 	vm.links["Concept Dictionary"] = "";
     vm.links["Concept Dictionary Management"] = "concept/";
     vm.links["Concept Form"] = "concept/"+concept.uuid;
-    
+
+	vm.added = $routeParams.added;
+
 	//determines if Numeric content is shown
 	vm.isNumeric;
 	//determines if coded answer content is shown

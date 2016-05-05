@@ -21,7 +21,6 @@
 		<h2><i class="icon-plus"></i>{{"Concept.title" | translate}}</h2>
 		<form method="post">
 			<label>{{"Locale" | translate}}:&#160;&#160;</label>
-
 			<div class="button-group">
 				<label class="button localeButtons-repeat"
 					ng-repeat="locale in vm.serverLocales"
@@ -60,7 +59,7 @@
 
 					<tr ng-repeat="synonym in vm.selectedLocaleData.synonyms">
 						<td>
-							{{"Concept.synonyms" | translate}}
+							{{"Concept.synonym" | translate}}
 							<input ng-model="synonym.name" type="text" />
 						</td>
 						<td>
@@ -76,16 +75,15 @@
 
 					<tr>
 						<td colspan="3">
-							<a class="button confirm"
-							   ng-click="vm.pushSynonyms()" valign="middle">
-								<i class="icon-plus"></i>{{"Concept.synonym.add" | translate}}
+							<a ng-click="vm.pushSynonyms()" valign="middle">
+								<i class="icon-plus"></i> {{"Concept.synonym.add" | translate}}
 							</a>
 						</td>
 					</tr>
 
 					<tr ng-repeat="term in vm.selectedLocaleData.searchTerms">
 						<td>
-							{{"Concept.indexTerms" | translate}}
+							{{"Concept.indexTerm" | translate}}
 							<input ng-model="term.name" value="" class="largeWidth" type="text">
 						</td>
 						<td></td>
@@ -95,42 +93,40 @@
 							</a>
 						</td>
 					</tr>
+
 					<tr>
 						<td colspan="3">
-							<a class="button confirm"
-							   ng-click="vm.pushSearchTerms()" type="button">
-								<i class="icon-plus"></i>{{"Concept.indexTerm.add" | translate}}
+							<a ng-click="vm.pushSearchTerms()" type="button">
+								<i class="icon-plus"></i> {{"Concept.indexTerm.add" | translate}}
 							</a>
+						</td>
+					</tr>
+
+					<tr class="localeSpecific" ng-show="vm.selectedLocaleData.fullname.name.length>0">
+						<td colspan="3">
+							<div>
+								{{"Concept.shortName" | translate}} <img class="help_icon_bottom"
+																		 src="/openmrs/images/help.gif"
+																		 title="The text shown in report headers and other places where space is limited"
+																		 border="0">
+							</div> <input class="smallWidth"
+										  ng-model="vm.selectedLocaleData.shortname.name" type="text">
+						</td>
+					</tr>
+					<tr class="localeSpecific" ng-show="vm.selectedLocaleData.fullname.name.length>0">
+						<td colspan="3">
+							<div>
+								{{"Description" | translate}} <img class="help_icon_top"
+																   src="/openmrs/images/help.gif"
+																   title="Longer body of text used to fully describe this concept and how it is used."
+																   border="0">
+							</div> <textarea name="description"
+											 ng-model="vm.selectedLocaleData.description.description" rows="4"
+											 cols="50"></textarea>
 						</td>
 					</tr>
 				</tbody>
 			</table>
-			<ul>
-				<li class="localeSpecific" ng-show="vm.selectedLocaleData.fullname.name.length>0">
-					<div>
-						{{"Concept.shortName" | translate}} <img class="help_icon_bottom"
-							src="/openmrs/images/help.gif"
-							title="The text shown in report headers and other places where space is limited"
-							border="0">
-					</div> <input class="smallWidth"
-					ng-model="vm.selectedLocaleData.shortname.name" type="text">
-
-
-
-				</li>
-				<li class="localeSpecific" ng-show="vm.selectedLocaleData.fullname.name.length>0">
-					<div>
-						{{"Description" | translate}} <img class="help_icon_top"
-							src="/openmrs/images/help.gif"
-							title="Longer body of text used to fully describe this concept and how it is used."
-							border="0">
-					</div> <textarea name="description"
-						ng-model="vm.selectedLocaleData.description.description" rows="4"
-						cols="50"></textarea>
-
-
-				</li>
-			</ul>
 
 			<label>{{"Concept.conceptClass" | translate}} <img class="help_icon_bottom"
 					src="/openmrs/images/help.gif"
