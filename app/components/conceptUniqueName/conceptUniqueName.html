@@ -11,16 +11,18 @@
 </div>
 <form name='concept-input'>
 	<div>
-		<input id="concept name" type="text" placeholder='Enter concept name' ng-model="vm.searchText" 
+		<input id="concept name" type="text" placeholder='Enter concept name' ng-model="vm.name" 
 				class="form-control" ng-change="vm.search()" 
-				data-watch-options="true" bs-typeahead ng-required='vm.required'
+				data-watch-options="true"
 				bs-options="concept.display for concept in vm.suggestions">
 	</div>
 </form> 
 <div>
 	<div ng-show="vm.isDuplicate">
 		<p>You may want to view:</p>
-			<li ng-repeat="concept in vm.concepts"><i class="icon-chevron-right"></i><a href="#/concept/{{concept.uuid}}">{{concept.display}}</a></li>
+		<ul>
+			<li ng-repeat="concept in vm.concepts">- <a href="#/concept/{{concept.uuid}}">{{concept.display}}</a></li>
+		</ul>
 	</div>
 </div>
 

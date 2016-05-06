@@ -11,11 +11,7 @@ conceptUniqueName.$inject = ['openmrsRest']
 
 	
 export default function conceptUniqueName(openmrsRest){
-	var vm = this;
-	
-	
-	vm.searchText = vm.name.name;
-	
+	var vm = this;	
 		
 	vm.concepts =[];
 	vm.isDuplicate;
@@ -24,43 +20,43 @@ export default function conceptUniqueName(openmrsRest){
 	vm.search = search;
 	vm.checkInput = checkInput;
 	
-	vm.$onChanges = function(changesObj){
-		vm.searchText = changesObj.name.currentValue.name;
-		vm.isCorrect = false;
-	}
-	
 	function checkInput(){
-		var display = vm.searchText;
-		for(var i=0; i<vm.concepts.length; i++){
-			//check for duplicates except concept in edition
-			if(display === vm.concepts[i].display && vm.conceptUuid!=vm.concepts[i].uuid){
-				vm.isDuplicate = true;
+		var display = vm.name;
+		if(angular.isDefined(vm.concepts)){
+			for(var i=0; i<vm.concepts.length; i++){
+				//check for duplicates except concept in edition
+				if(display === vm.concepts[i].display && vm.conceptUuid!=vm.concepts[i].uuid){
+					vm.isDuplicate = true;
+				}
 			}
+		}
+		else {
+			vm.isDuplicate = false;
 		}
 	}
 	
 	function search(){
 		var maxResults = 0;
 		vm.isDuplicate = false;
-		if(angular.isDefined(vm.searchText)){
-			var display = vm.searchText;
+		if(angular.isDefined(vm.name)){
+			var display = vm.name;
 	
 			if(display.length > 1){
 				openmrsRest.listFull('concept',{q: display, includeAll: true}).then(function (response){
 					vm.concepts = response.results;
 					vm.checkInput();
-					vm.onUpdate({isCorrect: !vm.isDuplicate, name: vm.searchText, suggestions: vm.suggestions});
+					vm.onUpdate({isCorrect: !vm.isDuplicate, name: vm.name, suggestions: vm.suggestions});
 				});	
 				
 			}else{
 				vm.concepts = [];
 				vm.checkInput();
-				vm.onUpdate({isCorrect: !vm.isDuplicate, name: vm.searchText, suggestions: vm.suggestions});
+				vm.onUpdate({isCorrect: !vm.isDuplicate, name: vm.name, suggestions: vm.suggestions});
 			}	
 		}
 		else{
 			vm.concepts = [];
-			vm.onUpdate({isCorrect: false, name: vm.searchText, suggestions: vm.suggestions});
+			vm.onUpdate({isCorrect: false, name: vm.name, suggestions: vm.suggestions});
 		}
 		
 	}

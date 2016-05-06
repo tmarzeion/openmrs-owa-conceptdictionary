@@ -1,7 +1,7 @@
 {
   "Name": "Name",
   "Description": "Description",
-  "Display": "Display",
+  "Fullname": "Fullname",
   "CreatedBy": "Created By",
   "ChangedBy": "Changed By",
   "RetiredBy": "Retired By",
@@ -45,7 +45,8 @@
   "Show": "Show",
   "New": "New",
   "Locale":"Locale",
-  "Terms":"Terms",
+  "Synonyms":"Synonyms",
+  "Terms":"Search Terms",
   "Remove":"Remove",
 
 

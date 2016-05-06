@@ -42,12 +42,12 @@ beforeEach(angular.mock.module('conceptDictionaryApp'));
     		  classes = {};
     		  classes.results = [{uuid : "8d4a4488-c2cc-11de-8d13-0010c6dffd0f"}]
     		  
-    		  serverLocales = ["en", "es"];
+    		  serverLocales = ["en"];
     		  serviceSpy = {
     				  	getEmptyLocalizedConcepts: function() {},
     		    		getEmptyConceptObject: function() {},
     		    	    postConcept: function() {}
-    		  };  
+    		  };
     		  
     		  concept = {};
     		  
