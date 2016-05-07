@@ -9,10 +9,12 @@ const target = require('yargs').argv.target;
 const UglifyPlugin = webpack.optimize.UglifyJsPlugin;
 const CommonsChunkPlugin =  webpack.optimize.CommonsChunkPlugin
 const DedupePlugin = webpack.optimize.DedupePlugin;
+const OccurenceOrderPlugin = webpack.optimize.OccurenceOrderPlugin;
 
-const HtmlWebpackPlugin = require('html-webpack-plugin');
+var HtmlWebpackPlugin = require('html-webpack-plugin');
 var BrowserSyncPlugin = require('browser-sync-webpack-plugin')
 var CopyWebpackPlugin = require('copy-webpack-plugin')
+var WebpackMd5Hash = require('webpack-md5-hash');
 
 var nodeModulesDir = path.resolve(__dirname, '../node_modules');
 
@@ -24,6 +26,7 @@ const plugins = [];
 const nodeModules = {};
 
 let outputFile;
+let vendorOutputFile;
 let outputPath;
 
 var configJson;
@@ -71,11 +74,13 @@ if (env === 'production') {
     }
   }));
   plugins.push(new DedupePlugin());
-  outputFile = `${outputFile}.min.js`;
+  outputFile = `${outputFile}.min.[chunkhash].js`;
+  vendorOutputFile = "vendor.bundle.[chunkhash].js";
   outputPath = `${__dirname}/dist/`;
   devtool = 'source-map';
 } else if (env === 'dev') {
   outputFile = `${outputFile}.js`;
+  vendorOutputFile = "vendor.bundle.js";
   outputPath = `${localOwaFolder}${appName}`;
   devtool = 'source-map';
 }
@@ -88,7 +93,7 @@ plugins.push(new BrowserSyncPlugin({
     }
 }));
 
-plugins.push(new CommonsChunkPlugin("vendor", "vendor.bundle.js"));
+plugins.push(new CommonsChunkPlugin("vendor", vendorOutputFile));
 
 plugins.push(new HtmlWebpackPlugin({
     template: './app/index.html',
@@ -98,6 +103,10 @@ plugins.push(new HtmlWebpackPlugin({
 plugins.push(new CopyWebpackPlugin([{
     from: './app/manifest.webapp'
 }]));
+
+plugins.push(new OccurenceOrderPlugin());
+
+plugins.push(new WebpackMd5Hash());
 
 var config = {
   entry: {
