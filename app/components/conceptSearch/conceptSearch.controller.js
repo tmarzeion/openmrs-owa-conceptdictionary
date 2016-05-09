@@ -31,7 +31,11 @@ export default function ConceptSearchController($scope, $routeParams, openmrsRes
     vm.actions = [
         {
             "action":"purge",
-            "label":"Delete",
+            "label":"Delete"
+        },
+        {
+            "action":"view",
+            "label":"View",
             "link" : "#/concept/{uuid}"
         }
     ];

@@ -18,7 +18,6 @@ export default function ConceptStopWordListController ($routeParams) {
     //Properties for list component
     vm.resource = "conceptstopword";
     vm.limit = 20; //Default
-    vm.viewable = false;
     vm.columns= [
         {
             "property": "display",
