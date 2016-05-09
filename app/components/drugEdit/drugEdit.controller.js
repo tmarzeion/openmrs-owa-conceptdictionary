@@ -65,6 +65,7 @@ export default function DrugEditController($location, openmrsRest, loadDrug){
 				vm.drug.auditInfo.retireReason = "";
 			}
         } else {
+        	vm.drug.combination = false;
 			vm.drug.concept = {
 				display: ''
 			};
