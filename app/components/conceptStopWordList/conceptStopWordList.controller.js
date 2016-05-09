@@ -18,6 +18,7 @@ export default function ConceptStopWordListController ($routeParams) {
     //Properties for list component
     vm.resource = "conceptstopword";
     vm.limit = 20; //Default
+    vm.viewable = false;
     vm.columns= [
         {
             "property": "display",
@@ -29,7 +30,8 @@ export default function ConceptStopWordListController ($routeParams) {
         }];
     vm.actions = [{
             "action":"purge",
-            "label":"Delete"
+            "label":"Delete",
+            "link":"#/stopword/{uuid}" //TODO: Delete link
     }];
     
     //Breadcrumbs properties

@@ -14,8 +14,8 @@ export default function SourcesListController ($routeParams) {
     var vm = this;
 
     //Properties for list component
+    vm.limit = 10;
     vm.resource = "conceptsource";
-    vm.redirectionParam = "source";
     vm.columns= [
         {
             "property": "name",
@@ -32,7 +32,8 @@ export default function SourcesListController ($routeParams) {
     vm.actions = [
         {
             "action":"edit",
-            "label":"Edit"
+            "label":"Edit",
+            "link":"#/source/{uuid}"
         },
         {
             "action":"retire",
