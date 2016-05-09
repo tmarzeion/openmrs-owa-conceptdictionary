@@ -104,6 +104,11 @@ plugins.push(new CopyWebpackPlugin([{
     from: './app/manifest.webapp'
 }]));
 
+plugins.push(new CopyWebpackPlugin([{
+    from: './app/img/omrs-button.png',
+    to: 'img/omrs-button.png'
+}]));
+
 plugins.push(new OccurenceOrderPlugin());
 
 plugins.push(new WebpackMd5Hash());
