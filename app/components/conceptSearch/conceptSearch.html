@@ -2,94 +2,10 @@
 <div id="body-wrapper">
 	<div id="content" class="container">
 		<div class = "info-section">
-			<a class="button" href="#/concept/add/">{{"Add new concept" | translate}}</a>
-			<br/>
-			<br/>
-			<div>
-				<form class="patient-search form">
-					<i class="icon-search small"></i>&#160;{{"Concept.typeQuery" | translate}}:
-					<div>
-						<div class="search-input" align="center">
-							<input class="field-display ui-autocomplete-input" id="inputNode" type="text" ng-model="vm.query" ng-change="vm.timeoutRefresh()">
-							<button id="searchButton" name="searchButton" ng-click="vm.refreshResponse()">{{"Search" | translate}}</button>
-						</div>
-						<br>
-						<br>
-					</div>
-				</form>
-			</div>
-			<div>
-				<div ng-show="vm.showResults()">
-					<input id="includeVerbose" type="checkbox" ng-model="vm.enableDescription">
-					<label for="includeVerbose">{{"Show Details" | translate}}</label>
-				</div>
-				<div align="center">
-						<div ng-show="vm.isSearching()"><b>{{"Searching" | translate}}</b></div>
-
-						<img ng-show="vm.isSearching()" src="../../moduleResources/webservices/rest/js/swagger-ui/dist/images/inprogress.gif" width="64" height="64">
-						<span ng-show="vm.isQueryFieldEmpty()"><b>{{"Concept.typeQueryToFindConcept" | translate}}</b></span>
-						<span ng-show="vm.conceptsNotFound()"><b>{{"Concept.conceptNotFound" | translate}} {{vm.query}}</b></span>
-				</div>
-				<div ng-show="vm.showResults()" border="solid" style="width: 100%">
-					<div class="info-header"><strong>
-						<span valign="top">{{"Concept.header" | translate}}</span>
-					</strong></div>
-					<div class="info-body">
-						<ul>
-							<li ng-repeat="concept in vm.concepts.slice(vm.sliceFrom(),vm.sliceTo()) | orderBy:'retired'">
-								<div valign="top">
-									<a href="#/concept/{{concept.uuid}}">
-										<strong>
-											<span ng-show="concept.retired"><del>{{concept.display}}</del></span>
-											<span ng-show="!concept.retired">{{concept.display}}</span>
-										</strong>
-										<small ng-show="vm.enableDescription">{{concept.descriptions[0].description}}</small>
-									</a>
-								</div>
-								</tr>
-							</li>
-						</ul>
-
-					</div>
-				</div>
-					<div ng-show="vm.showResultInfoAndNavigationButtons()">
-					<div align="center">
-						<span ng-show="vm.showEntriesCount()">
-							<i class="icon-ok-sign small"></i>&#160;{{"Found" | translate}} <b>{{vm.concepts.length}}</b> {{"Entries" | translate}}
-						</span>
-						<br>
-						<span ng-show="vm.showResultInfoAndNavigationButtons()">
-							{{"ViewRange" | translate}}: {{vm.viewRangeStart()}} - {{vm.viewRangeEnd()}}
-						</span>
-						<br>
-						<span ng-show="vm.showResultInfoAndNavigationButtons()">
-							{{"Page" | translate}}: {{vm.pageNumber}}
-						</span>
-					</div>
-					<br>
-					<br>
-					<div align="center">
-						<button ng-disabled="vm.isPrevPagePossible()" ng-click="vm.firstPage()">
-							<i class="icon-double-angle-left"></i>&#160;{{"FirstPage" | translate}}</button>
-						<button class="button" ng-disabled="vm.isPrevPagePossible()" ng-click="vm.prevPage()">
-							<i class="icon-angle-left"></i>&#160;{{"PreviousPage" | translate}}</button>
-						<button class="button" ng-disabled="vm.isNextPagePossible()" ng-click="vm.nextPage()">
-							{{"NextPage" | translate}}&#160;<i class="icon-angle-right"></i></button>
-						<button class="button" ng-disabled="vm.isNextPagePossible()" ng-click="vm.lastPage()">
-							{{"LastPage" | translate}}&#160;<i class="icon-double-angle-right"></i></button>
-					</div>
-						<div align="left">
-							{{"Show" | translate}}
-							<select size="1" ng-model="vm.entriesPerPage" ng-click="firstPage()">
-								<option ng-click="vm.firstPage()" selected="selected" value="5">5</option>
-								<option ng-click="vm.firstPage()" value="10">10</option>
-								<option ng-click="vm.firstPage()" value="25">25</option>
-								<option ng-click="vm.firstPage()" value="50">50</option>
-							</select>
-							{{"Entries" | translate}}
-						</div>
-				</div>
-			</div>
+			<a class="button" href="#/concept/add/"><i class="icon-plus"></i>  {{"Add new concept" | translate}}</a>
 	    </div>
+		<div>
+			<openmrs-list resource="vm.resource" columns="vm.columns" type="vm.type" actions="vm.actions" list-all="true" enable-search="true"></openmrs-list>
+		</div>
 	</div>
 </div>

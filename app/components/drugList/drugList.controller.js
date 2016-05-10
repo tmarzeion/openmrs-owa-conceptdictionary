@@ -14,7 +14,6 @@ export default function DrugsListController(){
 
 	//Properties for list component
 	vm.resource = "drug";
-	vm.redirectionParam = "drug";
 	vm.limit = 10; //Default
 	vm.columns= [
 		{
@@ -24,7 +23,8 @@ export default function DrugsListController(){
 	vm.actions = [
 		{
 			"action":"edit",
-			"label":"Edit"
+			"label":"Edit",
+			"link":"#/drug/{uuid}"
 		},
 		{
 			"action":"retire",

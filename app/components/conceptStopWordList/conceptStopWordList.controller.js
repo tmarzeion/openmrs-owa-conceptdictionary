@@ -29,7 +29,8 @@ export default function ConceptStopWordListController ($routeParams) {
         }];
     vm.actions = [{
             "action":"purge",
-            "label":"Delete"
+            "label":"Delete",
+            "link":"#/stopword/{uuid}" //TODO: Delete link
     }];
     
     //Breadcrumbs properties

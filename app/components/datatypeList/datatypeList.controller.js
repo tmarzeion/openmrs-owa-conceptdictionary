@@ -13,7 +13,6 @@ export default function DatatypeListController(){
 
 	//Properties for list component
 	vm.resource = "conceptdatatype";
-	vm.redirectionParam = "datatype";
 	vm.limit = 15; //Default value
 	vm.columns= [
 		{
@@ -27,7 +26,8 @@ export default function DatatypeListController(){
 	vm.actions = [
 		{
 			"action":"view",
-			"label":"View"
+			"label":"View",
+			"link":"#/datatype/{uuid}"
 		}];
 
 	//Breadcrumbs properties

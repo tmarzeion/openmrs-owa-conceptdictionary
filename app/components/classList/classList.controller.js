@@ -16,7 +16,6 @@ export default function ClassListController ($routeParams) {
     
     //Properties for list component
     vm.resource = "conceptclass";
-    vm.redirectionParam = "class";
     vm.limit = 10; //Default value
     vm.columns= [
         {
@@ -30,7 +29,8 @@ export default function ClassListController ($routeParams) {
     vm.actions = [
         {
             "action":"edit",
-            "label":"Edit"
+            "label":"Edit",
+            "link":"#/class/{uuid}"
         },
         {
             "action":"retire",

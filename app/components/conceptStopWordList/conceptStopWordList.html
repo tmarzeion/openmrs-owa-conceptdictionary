@@ -1,14 +1,10 @@
 <openmrs-breadcrumbs links="vm.links"></openmrs-breadcrumbs>
 <div id="body-wrapper">
     <div id="content" class="container">
-
         <a href="#/conceptstopword/add"><button ng-click='vm.goTo("/conceptstopword/add")'>
-            {{"ConceptStopWord.add" | translate}}
+            <i class="icon-plus"></i>  {{"ConceptStopWord.add" | translate}}
         </button></a>
-
         <br/><br/>
-
         <openmrs-list resource="vm.resource" columns="vm.columns" actions="vm.actions" limit="vm.limit"></openmrs-list>
-
     </div>
 </div>
