@@ -16,7 +16,7 @@ export default function ConceptViewController ($scope, concept, serverLocales, c
     vm.links = {};
 	vm.links["Concept Dictionary"] = "";
     vm.links["Concept Dictionary Management"] = "concept/";
-    vm.links["Concept Form"] = "concept/"+concept.uuid;
+    vm.links[concept.display] = "concept/"+concept.uuid;
 
 	vm.added = $routeParams.added;
 
@@ -32,6 +32,7 @@ export default function ConceptViewController ($scope, concept, serverLocales, c
 	vm.locales;
 	//function invoked when user clicks locale button
 	vm.goLocale = goLocale;
+	vm.selectedLocale;
 	
 	activate();
 	
@@ -46,6 +47,7 @@ export default function ConceptViewController ($scope, concept, serverLocales, c
 	}
 	//inserts descriptions and names for specified locale into conceptLocale, parsed from concept tables,
 	function goLocale (locale) {
+		vm.selectedLocale = locale;
 		vm.conceptLocale.description 
 			= conceptsService.getLocaleDescr(vm.concept.descriptions, locale);
 		vm.conceptLocale.names 

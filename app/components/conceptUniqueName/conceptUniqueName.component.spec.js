@@ -70,6 +70,7 @@ beforeEach(angular.mock.module('conceptDictionaryApp'));
               $httpBackend.whenGET('/ws/rest/v1/conceptclass?v=full').respond({});
     		  $httpBackend.whenGET('/ws/rest/v1/concept').respond(response1);
     		  $httpBackend.whenGET('/ws/rest/v1/concept?includeAll=true&q=some&v=full').respond(response2);
+    		  $httpBackend.whenGET('/ws/rest/v1/concept?includeAll=true&q=some+name&v=full').respond(response2);
     		  $httpBackend.whenGET('/ws/rest/v1/concept?includeAll=true&q=concept+name&v=full').respond(response3);
     	    scope = $rootScope.$new();
     	    $componentController = _$componentController_;
@@ -86,9 +87,7 @@ beforeEach(angular.mock.module('conceptDictionaryApp'));
       	      expect(component.name.name).toEqualData("next query");
     	  });
     	  it('should send request with specific query and invoke onUpdate', function(){
-      	      name = {
-      	    		  name:'some'
-      	      }
+      	      name = 'some';
       	      updateSpy = jasmine.createSpy('updateSpy');
     		  component = $componentController('conceptUniqueName', 
     				  {$scope: scope}, {name: name, onUpdate : updateSpy});
@@ -99,12 +98,10 @@ beforeEach(angular.mock.module('conceptDictionaryApp'));
     		  expect(updateSpy).toHaveBeenCalled();
     	  });
     	  it('should send request with specific query and find out that name is duplicate', function(){
-      	      name = {
-      	    		  name:'concept name'
-      	      }
+      	      name = 'some name';
       	      updateSpy = jasmine.createSpy('updateSpy');
     		  component = $componentController('conceptUniqueName', 
-    				  {$scope: scope}, {name: name, onUpdate : updateSpy});
+    				  {$scope: scope}, { name: name, onUpdate : updateSpy});
       	      component.search();
     		  $httpBackend.flush();
     		  expect(component.isDuplicate).toEqualData(true);

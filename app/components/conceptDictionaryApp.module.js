@@ -76,7 +76,6 @@ export default angular
 		  controller: conceptUniqueNameComponent,
 		  controllerAs : 'vm',
 		  bindings: {
-		    required: '<',
 		    conceptUuid: '<',
 		    name: '<',
 		    onUpdate: '&' 

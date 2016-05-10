@@ -293,7 +293,10 @@ export default function conceptsService(openmrsRest, $q){
 				if(names[index].locale === locale){
 					if(names[index].localePreferred === true) localeNames.preferredName = names[index].name;
 					if(names[index].conceptNameType === shortFlag) localeNames.shortname = names[index];
-					else if(names[index].conceptNameType === fullFlag) localeNames.fullname = names[index];
+					else if(names[index].conceptNameType === fullFlag){
+						localeNames.fullname = names[index];
+						localeNames.fullname.valid = true;
+					}
 					else if(names[index].conceptNameType === searchFlag) localeNames.searchTerms.push(names[index]);
 					else localeNames.synonyms.push(names[index]);
 				}
@@ -320,6 +323,9 @@ export default function conceptsService(openmrsRest, $q){
 			localizedConcepts[locales[index]] = getLocaleNames(names, locales[index]);
 			localizedConcepts[locales[index]].description = getLocaleDescr(descriptions, locales[index]);
 			localizedConcepts[locales[index]].locale = locales[index];
+			if(angular.isUndefined(localizedConcepts[locales[index]].fullname)){
+				localizedConcepts[locales[index]].fullname = { name : "" };
+			}
 		}
 		//if there's no data for given locale, create empty locale concept object
 		for (var index=0; index < serverLocales.length; index++){
@@ -344,7 +350,7 @@ export default function conceptsService(openmrsRest, $q){
 		var empty = {};
 		empty.locale = locale;
 		empty.fullname = {};
-		empty.fullname.name;
+		empty.fullname.name = "";
 		empty.preferredName = "";
 		empty.shortname;
 		empty.searchTerms = [];

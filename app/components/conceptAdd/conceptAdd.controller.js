@@ -148,6 +148,11 @@ export default function ConceptAddController
 		})
 	}
 	function validateForm(){
-		vm.isFormValid = vm.selectedLocaleData.fullname.valid
+		vm.isFormValid = false;
+		for(var i=0;i<serverLocales.length; i++){
+			if(vm.localizedConcepts[serverLocales[i]].fullname.valid){
+				vm.isFormValid = true;
+			} 
+		}
 	}
 };
