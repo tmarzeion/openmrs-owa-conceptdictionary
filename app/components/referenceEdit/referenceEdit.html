@@ -11,9 +11,8 @@
                             </div>
                             <div valign="top">
                                 <select
-                                        ng-model="vm.selectedConceptSource"
-                                        ng-options="source.name as source.name for source in vm.sources"
-                                        ng-change="vm.updateConceptSource()">
+                                        ng-model="vm.reference.conceptSource"
+                                        ng-options="source as source.name for source in vm.sources track by source.uuid">
                                 </select>
                             </div>
                         </div>
@@ -98,13 +97,6 @@
                                 <i class="icon-lock"></i>&#160;Retire
                             </button>
                         </div>
-
-
-
-
-
-
-
                     </div>
                 </div>
             </form>

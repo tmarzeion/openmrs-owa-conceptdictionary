@@ -7,9 +7,9 @@
  * Copyright (C) OpenMRS Inc. OpenMRS is a registered trademark and the OpenMRS
  * graphic logo is a trademark of OpenMRS Inc.
  */
-ReferenceEditController.$inject = ['reference', 'sources', 'openmrsRest', '$location'];
+ReferenceEditController.$inject = ['reference', 'sources', 'openmrsRest', '$location', 'openmrsNotification'];
 
-export default function ReferenceEditController (reference, sources, openmrsRest, $location ){
+export default function ReferenceEditController (reference, sources, openmrsRest, $location, openmrsNotification ){
 
     var vm = this;
     
@@ -22,7 +22,6 @@ export default function ReferenceEditController (reference, sources, openmrsRest
     vm.cancel = cancel;
     vm.retire = retire;
     vm.unretire = unretire;
-    vm.updateConceptSource = updateConceptSource;
 
     activate();
 
@@ -30,28 +29,15 @@ export default function ReferenceEditController (reference, sources, openmrsRest
         vm.reference = reference;
         vm.sources = sources.results;
 
-        if(angular.isDefined(vm.reference.name)){
-            vm.selectedConceptSource = vm.reference.conceptSource.name;
-        }
-        else{
-            vm.reference.conceptSource = {};
+        if(angular.isUndefined(vm.reference.uuid)){
+            vm.reference.conceptSource = vm.sources[0]
         }
         if(angular.isDefined(vm.reference.auditInfo)&&
             angular.isUndefined(vm.reference.auditInfo.retireReason)){
             vm.reference.auditInfo.retireReason = "";
         }
-    }
-
-    function updateConceptSource() {
-        var i = 0;
-        do {
-            if (vm.sources[i].name === vm.selectedConceptSource) {
-                vm.reference.conceptSource = vm.sources[i];
-                break;
-            }
-            i++;
-        }
-        while(i < vm.sources.length);
+        vm.reference.conceptSource = vm.reference.conceptSource;
+        openmrsNotification.routeNotification();
     }
 
     function cancel () {
@@ -60,23 +46,18 @@ export default function ReferenceEditController (reference, sources, openmrsRest
 
     function save() {
         vm.json = angular.toJson(vm.reference);
-        openmrsRest.update('conceptreferenceterm', {uuid: vm.reference.uuid}, vm.json).then(function(success) {
-            vm.success = true;
-            $location.path('/reference').search({referenceSaved: vm.reference.name});
-        });
+        openmrsRest.update('conceptreferenceterm', {uuid: vm.reference.uuid}, vm.json).then(handleSuccess, handleException);
     }
 
     function unretire() {
-        openmrsRest.unretire('conceptreferenceterm', {uuid: vm.reference.uuid}).then(function() {
-            cancel();
-        });
+        openmrsRest.unretire('conceptreferenceterm', {uuid: vm.reference.uuid}).then(handleSuccess, handleException);
     }
 
     function retire() {
-        openmrsRest.retire('conceptreferenceterm', {uuid: vm.reference.uuid}).then(function() {
-            cancel();
-        });
+        openmrsRest.retire('conceptreferenceterm', {uuid: vm.reference.uuid}).then(handleSuccess, handleException);
     }
+    
+    
 
     /**
      * Logic for delete-alert component
@@ -89,8 +70,9 @@ export default function ReferenceEditController (reference, sources, openmrsRest
     vm.deleteClicked = false;
     
     function deleteForever() {
-        openmrsRest.remove('conceptreferenceterm', {uuid : vm.reference.uuid, purge : true});
-        $location.path('/reference').search({referenceDeleted: vm.reference.name});
+        openmrsRest.remove('conceptreferenceterm', {uuid : vm.reference.uuid, purge : true}).then(
+        	function(success)  {$location.path('/reference').search({successToast: vm.reference.code+" has been purged"});}, 
+        	handleException);
     }
     function showAlert(item) {
         vm.deleteClicked = true;
@@ -100,5 +82,11 @@ export default function ReferenceEditController (reference, sources, openmrsRest
             deleteForever();
         }
         vm.deleteClicked = false;
+    }
+    function handleSuccess(success){
+    	$location.path('/reference').search({successToast: vm.reference.code+" has been saved"});
+    }
+    function handleException(exception){
+        openmrsNotification.error(exception.data.error.fieldErrors.name[0].message);
     }
 }

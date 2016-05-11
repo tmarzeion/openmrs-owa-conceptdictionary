@@ -69,7 +69,7 @@ describe('Concept dictionary controllers', function () {
         it('should add new concept stop word ', function () {
             ctrl.addConceptStopWord();
             $httpBackend.flush();
-            expect(ctrl.success).toEqualData(true);
+            //just test if all "whenGET"s are satisfied
         });
     });
 });

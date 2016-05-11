@@ -8,12 +8,12 @@
  * graphic logo is a trademark of OpenMRS Inc.
  */
 
-ClassListController.$inject =
-	    ['$routeParams'];
+ClassListController.$inject =['$routeParams', 'openmrsNotification'];
 	
-export default function ClassListController ($routeParams) {
+export default function ClassListController ($routeParams, openmrsNotification) {
 	var vm = this;
     
+	openmrsNotification.routeNotification();
     //Properties for list component
     vm.resource = "conceptclass";
     vm.limit = 10; //Default value
@@ -50,7 +50,4 @@ export default function ClassListController ($routeParams) {
     vm.links = {};
     vm.links["Concept Dictionary"] = "";
     vm.links["Concept Class Management"] = "class";
-
-    //determines whether class has been added in previous view
-    vm.classAdded = $routeParams.classAdded;
 }

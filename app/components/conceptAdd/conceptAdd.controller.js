@@ -9,10 +9,10 @@
  */
 
 ConceptAddController.$inject = 
-	['concept','serverLocales', 'loadClasses', 'loadDataTypes', 'conceptsService', '$location', '$routeParams'];
+	['concept','serverLocales', 'loadClasses', 'loadDataTypes', 'conceptsService', '$location', '$routeParams', 'openmrsNotification'];
 	
 export default function ConceptAddController
-		(concept, serverLocales, loadClasses, loadDataTypes, conceptsService, $location, $routeParams){
+		(concept, serverLocales, loadClasses, loadDataTypes, conceptsService, $location, $routeParams, openmrsNotification){
 	
 	var vm = this;
 	
@@ -51,17 +51,18 @@ export default function ConceptAddController
 	//concept data to create post request
 	vm.concept;
 	vm.isFormValid = false;
-	vm.result;
-	vm.added = $routeParams.added;
+	vm.editMode = false;
 
 	
 	activate();
 	
 	function activate(){
+		openmrsNotification.routeNotification();
 		//edit mode
 		if(angular.isDefined($routeParams.conceptUUID)){
 			vm.concept = concept;
 		    vm.isFormValid = true;
+		    vm.editMode = true;
 		    vm.links["Concept Form"] = "concept/edit/"+$routeParams.conceptUUID;
 		} 
 		//add mode
@@ -131,20 +132,22 @@ export default function ConceptAddController
 		vm.selectedLocaleData.fullname.valid = isCorrect;
 		validateForm()
 	}
-	function postConcept(){
-		conceptsService.postConcept(vm.concept, vm.localizedConcepts).then(function(result){
-			if(angular.isDefined(result)&&result.success){
-				$location.path('/concept/' + vm.concept.uuid).search({added : result.message});
-			}
-			else vm.result = result;
-		})
-	}
 	function postConceptAndContinue(){
+		if(vm.editMode){
+			postConcept('/concept/edit/'+vm.concept.uuid);
+		}else{
+			postConcept('/concept/add');
+		}
+
+	}
+	function postConcept(path='/concept/'){
 		conceptsService.postConcept(vm.concept, vm.localizedConcepts).then(function(result){
 			if(angular.isDefined(result)&&result.success){
-				$location.path($location.path()).search({added : result.message});
+				$location.path(path).search({successToast : result.message});
 			}
-			else vm.result = result;
+			else{
+				openmrsNotification.error(result.message)
+			}
 		})
 	}
 	function validateForm(){

@@ -8,9 +8,9 @@
  * graphic logo is a trademark of OpenMRS Inc.
  */
 
-ConceptSearchController.$inject = ['$scope', '$routeParams' ,'openmrsRest', '$timeout'];			
+ConceptSearchController.$inject = ['$scope', '$routeParams' ,'openmrsRest', '$timeout', 'openmrsNotification'];			
 
-export default function ConceptSearchController($scope, $routeParams, openmrsRest, $timeout) {
+export default function ConceptSearchController($scope, $routeParams, openmrsRest, $timeout, openmrsNotification) {
 
     var vm = this;
     
@@ -18,7 +18,7 @@ export default function ConceptSearchController($scope, $routeParams, openmrsRes
     vm.links["Concept Dictionary"] = "";
     vm.links["Concept Dictionary Maintanace"] = "concept";
     
-    vm.added = $routeParams.added;
+    openmrsNotification.routeNotification();
     
     vm.type = "list";
     vm.resource = "concept";

@@ -9,9 +9,9 @@
  */
 
 ClassEditController.$inject =
-	['singleClass', '$routeParams', '$location', 'openmrsRest'];
+	['singleClass', '$routeParams', '$location', 'openmrsRest', 'openmrsNotification'];
 
-export default function ClassEditController( singleClass, $routeParams, $location, openmrsRest ){
+export default function ClassEditController( singleClass, $routeParams, $location, openmrsRest, openmrsNotification){
 	
 	var vm = this;
 	//holds class information
@@ -21,11 +21,8 @@ export default function ClassEditController( singleClass, $routeParams, $locatio
     vm.links["Concept Dictionary"] = "";
     vm.links["Concept Class Management"] = "class";
     vm.links["Concept Class Form"] = "class/"+vm.singleClass.uuid;
-	
-	vm.responseMessage = '';
+    
 	vm.isError = false;
-	
-	vm.redirectToList = redirectToList;
 	
 	vm.editClass = editClass;
 	
@@ -41,38 +38,29 @@ export default function ClassEditController( singleClass, $routeParams, $locatio
     	   angular.isUndefined(vm.singleClass.auditInfo.retireReason)){
     			vm.singleClass.auditInfo.retireReason = ""; 
     	}
-    }
-	
-
-    function redirectToList() {
-        $location.path('/class').search({classAdded: vm.singleClass.name});
+    	openmrsNotification.routeNotification();
     }
 
     function editClass() {
-
-        openmrsRest.update('conceptclass', {uuid: vm.singleClass.uuid}, vm.singleClass).then(function(success) {
-        	vm.responseMessage = success;
-            vm.redirectToList();
-        }, function(exception) {
-        	vm.isError = true;
-            vm.responseMessage = exception.data.error.fieldErrors.name[0].message;
-        });
+        openmrsRest.update('conceptclass', {uuid: vm.singleClass.uuid}, vm.singleClass).then(handleSuccess, handleException);
     }
 
     function cancel() {
-        $location.path('/class').search({classAdded: ''});
-        
+        $location.path('/class');
     }
     
     function retire() {
-        openmrsRest.retire('conceptclass', {uuid: singleClass.uuid}).then(function(data) {
-        	vm.redirectToList();
-        });
+        openmrsRest.retire('conceptclass', {uuid: singleClass.uuid}).then(handleSuccess, handleException);
     }
     
     function unretire() {
-        openmrsRest.unretire('conceptclass', {uuid: singleClass.uuid}).then(function(data) {
-        	vm.redirectToList();
-        });
+        openmrsRest.unretire('conceptclass', {uuid: singleClass.uuid}).then(handleSuccess, handleException);
+    }
+    
+    function handleSuccess(success){
+    	$location.path('/class').search({successToast: vm.singleClass.name+" has been saved"});
+    }
+    function handleException(exception){
+        openmrsNotification.error(exception.data.error.fieldErrors.name[0].message);
     }
 }

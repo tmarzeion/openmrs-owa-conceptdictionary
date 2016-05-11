@@ -62,7 +62,8 @@ describe('Concept dictionary controllers', function() {
 
         it('should edit existing class ', function() {
             ctrl.editClass();
-            expect(ctrl.responseMessage).toEqualData('');
+            $httpBackend.flush();
+            //just test if all "whenGET"s are satisfied
         });
 
     });

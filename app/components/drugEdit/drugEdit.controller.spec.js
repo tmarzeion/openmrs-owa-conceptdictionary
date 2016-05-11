@@ -81,9 +81,7 @@ describe('Concept dictionary controllers', function() {
 			ctrl.drug.dosageForm = "234";
 			ctrl.saveDrug();
 			$httpBackend.flush();
-            expect(ctrl.responseMessage).toEqualData({ name: 'Morphine',
-													strength: 'high', 
-													uuid: "2b22dc27-72ec-4ab5-9fa8-d98be91adc1c"});
+			//just test if all "whenGET"s are satisfied
         });
 
     });

@@ -1,24 +1,6 @@
 <openmrs-breadcrumbs links="vm.links"></openmrs-breadcrumbs>
 <div id="body-wrapper">
     <div id="content" class="container">
-        <div ng-show="vm.referenceSaved" id="success-message" class="note-container">
-            <div class="note success">
-                <div class="text">
-                    <i class="icon-ok medium"></i>
-                    <p>{{vm.referenceSaved}} {{"Concept.hasBeenSaved" | translate}}</p>
-                </div>
-            </div>
-        </div>
-
-        <div ng-show="vm.referenceDeleted" id="delete-message" class="note-container">
-            <div class="note error">
-                <div class="text">
-                    <i class="icon-trash medium"></i>
-                    <p>{{vm.referenceDeleted}} {{"Concept.hasBeenDeleted" | translate}}</p>
-                </div>
-            </div>
-        </div>
-
         <div><a class="button" href="#/reference/add"><i class="icon-plus"></i>&#160;{{"ConceptReferenceTerm.add" |
             translate}}</a></div>
         <br/>

@@ -9,12 +9,12 @@
  */
 
 ConceptStopWordListController.$inject =
-    ['$routeParams'];
+    ['$routeParams', 'openmrsNotification'];
 
-export default function ConceptStopWordListController ($routeParams) {
+export default function ConceptStopWordListController ($routeParams, openmrsNotification) {
 
     var vm = this;
-
+    openmrsNotification.routeNotification();
     //Properties for list component
     vm.resource = "conceptstopword";
     vm.limit = 20; //Default
