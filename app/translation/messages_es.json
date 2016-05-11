@@ -61,6 +61,7 @@
   "Concept.localesWithErrors":"Errores encontrados en el (los) siguiente lugar(s):",
   "Concept.loinc":"LOINC",
   "Concept.manage":"Vista de Diccionario de Conceptos",
+  "Concept.label": "Diccionario de Conceptos",
   "Concept.manageDrugFormulary":"Administrar Formulario de Medicamentos",
   "Concept.map.termRequired":"Término de referencia es requerido",
   "Concept.map.typeRequired":"EL Tipo de Mapa de Concepto es requerido",
