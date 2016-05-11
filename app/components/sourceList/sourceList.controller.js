@@ -42,10 +42,6 @@ export default function SourcesListController ($routeParams) {
         {
             "action":"unretire",
             "label":"unretire"
-        },
-        {
-            "action":"purge",
-            "label":"Delete"
         }
     ];
 

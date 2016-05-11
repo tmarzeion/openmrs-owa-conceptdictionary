@@ -51,9 +51,5 @@ export default function ReferenceSearchController($scope, $routeParams, openmrsR
         {
             "action":"unretire",
             "label":"unretire"
-        },
-        {
-            "action":"purge",
-            "label":"Delete"
         }];
 }
