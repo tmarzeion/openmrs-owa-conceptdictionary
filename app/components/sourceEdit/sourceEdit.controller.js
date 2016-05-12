@@ -78,6 +78,6 @@ export default function SourceEditController (sources ,openmrsRest, $location, o
     	$location.path('/source').search({successToast: vm.source.name+" has been saved"});
     }
     function handleException(exception){
-        openmrsNotification.error(exception.data.error.fieldErrors.name[0].message);
+        openmrsNotification.error(exception.data.error.message);
     }
 }

@@ -9,6 +9,7 @@
  */
 'use strict';
 
+import testUtils from '../testUtils/testUtils.js';
 /* jasmine specs for controllers go here */
 describe('Concept dictionary controllers', function() {
 
@@ -31,7 +32,9 @@ describe('Concept dictionary controllers', function() {
     beforeEach(angular.mock.module('conceptDictionaryApp'));
 
     describe('DrugEditController', function(){
-        var scope, ctrl, $httpBackend;
+        var scope, ctrl, $httpBackend, $locationMock, notificationMock;
+        $locationMock = testUtils.getLocationMock();
+        notificationMock = testUtils.getNotificationMock();
 
         beforeEach(inject(function(_$httpBackend_, $rootScope, $controller, openmrsRest){
             $httpBackend = _$httpBackend_;
@@ -41,15 +44,6 @@ describe('Concept dictionary controllers', function() {
             respond({ name: 'Morphine', 
             		strength: 'high', 
             		uuid: "2b22dc27-72ec-4ab5-9fa8-d98be91adc1c"});   
-            $httpBackend.whenPOST('/ws/rest/v1/drug/2b22dc27-72ec-4ab5-9fa8-d98be91adc1c').
-            respond({ name: 'Morphine', 
-            		strength: 'high', 
-            		uuid: "2b22dc27-72ec-4ab5-9fa8-d98be91adc1c"});   
-            $httpBackend.whenGET('/ws/rest/v1/drug?includeAll=true&v=full').respond();         
-            $httpBackend.whenGET('/ws/rest/v1/conceptclass?v=full').respond({});      
-            $httpBackend.whenGET('/ws/rest/v1/drug?v=full').respond({});
-            $httpBackend.whenGET('components/indexMenu/indexMenu.html').respond();
-            $httpBackend.whenGET('components/drugList/drugList.html').respond();
 
             scope = $rootScope.$new();
             
@@ -61,7 +55,8 @@ describe('Concept dictionary controllers', function() {
 
             $httpBackend.flush();
 
-            ctrl = $controller('DrugEditController', {$scope: scope, loadDrug: loadDrug});
+            ctrl = $controller('DrugEditController', 
+            		{$scope: scope, loadDrug: loadDrug, $location: $locationMock, openmrsNotification: notificationMock});
 
         }));
 
@@ -71,7 +66,11 @@ describe('Concept dictionary controllers', function() {
 													uuid: "2b22dc27-72ec-4ab5-9fa8-d98be91adc1c"});
         });
         it('Should save edited drug', function(){
-        	
+            $httpBackend.expectPOST('/ws/rest/v1/drug/2b22dc27-72ec-4ab5-9fa8-d98be91adc1c').
+            respond({ name: 'Morphine', 
+            		strength: 'high', 
+            		uuid: "2b22dc27-72ec-4ab5-9fa8-d98be91adc1c"}); 
+            
         	ctrl.drug.name = "Morphine";
 			ctrl.drug.concept = "3g65dc27-72ec-4ab5-9fa8-d98be91adb5b";
 			ctrl.drug.strength = "high";
@@ -79,9 +78,27 @@ describe('Concept dictionary controllers', function() {
 			ctrl.drug.retired = "false";
 			ctrl.drug.route = "123";
 			ctrl.drug.dosageForm = "234";
-			ctrl.saveDrug();
+			
+			ctrl.saveDrug();			
 			$httpBackend.flush();
-			//just test if all "whenGET"s are satisfied
+            expect($locationMock.path).toHaveBeenCalledWith('/drug');
+            expect($locationMock.search).toHaveBeenCalledWith({successToast: "Morphine has been saved"});
+        });
+        it('Should fail saving edited drug', function(){
+            var errorMsg = "ERROR MSG"
+            $httpBackend.expectPOST('/ws/rest/v1/drug/2b22dc27-72ec-4ab5-9fa8-d98be91adc1c').respond(500, {"error" : {"message" : errorMsg }});
+            
+        	ctrl.drug.name = "Morphine";
+			ctrl.drug.concept = "3g65dc27-72ec-4ab5-9fa8-d98be91adb5b";
+			ctrl.drug.strength = "high";
+			ctrl.drug.combination = true;
+			ctrl.drug.retired = "false";
+			ctrl.drug.route = "123";
+			ctrl.drug.dosageForm = "234";
+			
+            ctrl.saveDrug();
+            $httpBackend.flush();
+            expect(notificationMock.error).toHaveBeenCalledWith(errorMsg);
         });
 
     });

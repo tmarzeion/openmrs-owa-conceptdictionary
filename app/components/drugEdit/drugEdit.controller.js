@@ -126,7 +126,7 @@ export default function DrugEditController($location, openmrsRest, loadDrug, ope
     	$location.path('/drug').search({successToast: vm.drug.name+" has been saved"});
     }
     function handleException(exception){
-        openmrsNotification.error(exception.data.error.fieldErrors.name[0].message);
+        openmrsNotification.error(exception.data.error.message);
     }
 	
 };

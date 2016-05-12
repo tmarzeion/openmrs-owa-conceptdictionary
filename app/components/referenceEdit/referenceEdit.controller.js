@@ -87,6 +87,6 @@ export default function ReferenceEditController (reference, sources, openmrsRest
     	$location.path('/reference').search({successToast: vm.reference.code+" has been saved"});
     }
     function handleException(exception){
-        openmrsNotification.error(exception.data.error.fieldErrors.name[0].message);
+        openmrsNotification.error(exception.data.error.message);
     }
 }

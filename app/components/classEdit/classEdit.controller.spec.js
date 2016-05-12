@@ -10,6 +10,8 @@
 'use strict';
 
 /* jasmine specs for controllers go here */
+import testUtils from '../testUtils/testUtils.js';
+
 describe('Concept dictionary controllers', function() {
 
     beforeEach(function(){
@@ -31,20 +33,24 @@ describe('Concept dictionary controllers', function() {
     beforeEach(angular.mock.module('conceptDictionaryApp'));
 
     describe('ClassEditController', function() {
-        var scope, ctrl, $httpBackend;
+        var scope, ctrl, $httpBackend, className, $locationMock, notificationMock, errorMsg;
+        errorMsg = "ERROR MESSAGE";
+        className = 'Question';
+        $locationMock = testUtils.getLocationMock();
+        notificationMock = testUtils.getNotificationMock();
+
 
         beforeEach(inject(function(_$httpBackend_, $rootScope, $controller, openmrsRest, $routeParams) {
             $httpBackend = _$httpBackend_;
             $httpBackend.whenGET('manifest.webapp').respond(500, "");
-			$httpBackend.whenGET(/translation.*/).respond();
             $httpBackend.whenGET('/ws/rest/v1/conceptclass/8d490bf4-c2cc-11de-8d13-0010c6dffd0f?v=full').
             respond({results:{uuid: '8d490bf4-c2cc-11de-8d13-0010c6dffd0f',
-                name: 'Question', description: 'Question (eg, patient history, SF36 items)'}});
+                name: className, description: 'Question (eg, patient history, SF36 items)'}});
             $httpBackend.whenPOST('/ws/rest/v1/conceptclass/8d490bf4-c2cc-11de-8d13-0010c6dffd0f').
             respond({results:{uuid: '8d490bf4-c2cc-11de-8d13-0010c6dffd0f',
-                name: 'Question', description: 'Question (eg, patient history, SF36 items)'}});
-            $httpBackend.whenGET('/ws/rest/v1/conceptclass?v=full').respond({});
-            $httpBackend.whenGET('components/indexMenu/indexMenu.html').respond();
+                name: className, description: 'Question (eg, patient history, SF36 items)'}});
+            $httpBackend.whenPOST('/ws/rest/v1/conceptclass/'+className)
+            .respond(500, {"error":{"fieldErrors":{"name" : [{"message" : errorMsg}]}}});
             
             scope = $rootScope.$new();
 
@@ -55,15 +61,25 @@ describe('Concept dictionary controllers', function() {
             
             $httpBackend.flush();
 
-            ctrl = $controller('ClassEditController', {singleClass: singleClass});
-            ctrl.editClass();
+
+            ctrl = $controller('ClassEditController', {singleClass: singleClass, $location: $locationMock, openmrsNotification : notificationMock});
         }));
 
 
         it('should edit existing class ', function() {
+        	//success
             ctrl.editClass();
             $httpBackend.flush();
-            //just test if all "whenGET"s are satisfied
+            expect($locationMock.path).toHaveBeenCalledWith('/class');
+            expect($locationMock.search).toHaveBeenCalledWith({successToast: className+" has been saved"});
+        });
+        
+        it('should fail at editing existing class ', function() {
+            //fail - call error notification
+            ctrl.singleClass.uuid = className;
+            ctrl.editClass();
+            $httpBackend.flush();
+            expect(notificationMock.error).toHaveBeenCalledWith(errorMsg);
         });
 
     });

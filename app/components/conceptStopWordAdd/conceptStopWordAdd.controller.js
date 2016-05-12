@@ -24,7 +24,7 @@ export default function ConceptStopWordAddController($location, openmrsRest, ser
     //Default values for concept stop word and response message
     vm.conceptStopWord = {
         value: '',
-        locale: ''
+        locale: serverLocales[0]
     };
 
     vm.selectedLocale = '';
@@ -41,7 +41,7 @@ export default function ConceptStopWordAddController($location, openmrsRest, ser
         openmrsRest.create('conceptstopword', vm.json).then(function (success) {
             $location.path('/conceptstopword').search({successToast: vm.conceptStopWord.value+ " has been saved"});
         }, function (exception) {
-        	 openmrsNotification.error(exception.data.error.fieldErrors.name[0].message);
+        	 openmrsNotification.error(exception.data.error.message, exception.statusText);
         });
     }
 
