@@ -78,6 +78,11 @@ if (env === 'production') {
   vendorOutputFile = "vendor.bundle.[chunkhash].js";
   outputPath = `${__dirname}/dist/`;
   devtool = 'source-map';
+  
+  plugins.push(new CopyWebpackPlugin([{
+	    from: './app/manifest.webapp.test'
+	}]));
+  
 } else if (env === 'dev') {
   outputFile = `${outputFile}.js`;
   vendorOutputFile = "vendor.bundle.js";
@@ -120,7 +125,6 @@ var config = {
 		            'angular',
 		            'angular-translate',
 		            'angular-route',
-		            'angular-translate-loader-static-files',
 		            'openmrs-contrib-uicommons' 
 	            ]
   },
@@ -145,13 +149,14 @@ var config = {
 	}, {
 	    test: /\.(png|jpg|jpeg|gif|svg)$/,
 	    loader: 'url'
-	}, {
+	},{
+		test: /\.json$/,
+		loader: 'json'
+		
+	},{
 	    test: /\.html$/,
 	    loader: 'raw'
 	}, {
-        test: /\.json$/,
-        loader: 'file?name=translation/[name].[ext]'
-    }, {
         test: /\.scss$/,
         loader: "style!css!sass?outputStyle=expanded&includePaths[]=" 
         		+ path.resolve(__dirname, "./node_modules/compass-mixins/lib")

@@ -61,6 +61,7 @@ export default function ClassEditController( singleClass, $routeParams, $locatio
 
     function cancel() {
         $location.path('/class').search({classAdded: ''});
+        
     }
     
     function retire() {

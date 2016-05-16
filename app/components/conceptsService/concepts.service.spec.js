@@ -220,6 +220,7 @@ describe('Concept dictionary controllers', function() {
          }));
         it('postConcept should send post request', inject(function(conceptsService, _$httpBackend_){
 			_$httpBackend_.whenGET(/translation.*/).respond();
+			_$httpBackend_.whenGET('manifest.webapp').respond(500, "");
         	_$httpBackend_.expectPOST("/ws/rest/v1/concept").respond("just expect the request");
         	var postResult;
         	conceptsService.postConcept(createdConcept, validLocalizedConcepts).then(function(result){

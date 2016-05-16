@@ -35,6 +35,7 @@ describe('Concept dictionary controllers', function() {
 
         beforeEach(inject(function(_$httpBackend_, $rootScope, $controller, openmrsRest, $routeParams) {
             $httpBackend = _$httpBackend_;
+            $httpBackend.whenGET('manifest.webapp').respond(500, "");
 			$httpBackend.whenGET(/translation.*/).respond();
             $httpBackend.whenGET('/ws/rest/v1/conceptclass/8d490bf4-c2cc-11de-8d13-0010c6dffd0f?v=full').
             respond({results:{uuid: '8d490bf4-c2cc-11de-8d13-0010c6dffd0f',
@@ -54,7 +55,7 @@ describe('Concept dictionary controllers', function() {
             
             $httpBackend.flush();
 
-            ctrl = $controller('ClassEditController', {singleClass: singleClass, });
+            ctrl = $controller('ClassEditController', {singleClass: singleClass});
             ctrl.editClass();
         }));
 
