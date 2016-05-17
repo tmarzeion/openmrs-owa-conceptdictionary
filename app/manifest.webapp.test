@@ -15,11 +15,8 @@
       "openmrs": {
         "href": "*",
         "testConfig": {
-	  "href":"http://devtest04.openmrs.org:8080/openmrs",
-	  "username": "admin",
-	  "password": "Admin123",
-	  "sessionLocation": "0"
-	}
+	  		"href":"http://devtest04.openmrs.org:8080/openmrs"
+		}
       }
     }
 }
