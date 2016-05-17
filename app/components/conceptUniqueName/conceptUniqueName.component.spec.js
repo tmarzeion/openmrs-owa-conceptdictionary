@@ -65,6 +65,7 @@ beforeEach(angular.mock.module('conceptDictionaryApp'));
     		                             display: 'concept name',
     		                         }]}
     		  $httpBackend = _$httpBackend_;
+    		  $httpBackend.whenGET('manifest.webapp').respond(500, "");
 			  $httpBackend.whenGET(/translation.*/).respond();
               $httpBackend.whenGET('components/indexMenu/indexMenu.html').respond();
               $httpBackend.whenGET('/ws/rest/v1/conceptclass?v=full').respond({});

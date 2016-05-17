@@ -8,6 +8,9 @@ echo "Deploying the app to GitHub Pages..."
 cd dist
 rm -f *.zip
 
+rm manifest.webapp
+mv manifest.webapp.test manifest.webapp
+
 # The first and only commit to this new Git repo contains all the
 # files present with the commit message "Deploy to GitHub Pages".
 git init

@@ -35,6 +35,7 @@ describe('Concept dictionary controllers', function() {
 
         beforeEach(inject(function(_$httpBackend_, $rootScope, $controller, openmrsRest) {
             $httpBackend = _$httpBackend_;
+            $httpBackend.whenGET('manifest.webapp').respond(500, "");
 			$httpBackend.whenGET(/translation.*/).respond();
             $httpBackend.whenGET('/ws/rest/v1/conceptreferenceterm/83f9cdf3-b374-42d0-9b70-1a4020a0ee42?v=full').
             respond(
