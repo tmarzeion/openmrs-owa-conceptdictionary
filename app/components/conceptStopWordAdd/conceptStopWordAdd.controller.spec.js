@@ -9,6 +9,7 @@
  */
 'use strict';
 
+import testUtils from '../testUtils/testUtils.js';
 /* jasmine specs for controllers go here */
 describe('Concept dictionary controllers', function () {
 
@@ -31,29 +32,14 @@ describe('Concept dictionary controllers', function () {
     beforeEach(angular.mock.module('conceptDictionaryApp'));
 
     describe('ConceptStopWordAddController', function () {
-        var scope, ctrl, $httpBackend, location;
+        var scope, ctrl, $httpBackend, $locationMock, notificationMock;
+        $locationMock = testUtils.getLocationMock();
+        notificationMock = testUtils.getNotificationMock();
 
-        beforeEach(inject(function (_$httpBackend_, $rootScope, $controller, _$location_) {
+        beforeEach(inject(function (_$httpBackend_, $rootScope, $controller) {
             $httpBackend = _$httpBackend_;
             $httpBackend.whenGET('manifest.webapp').respond(500, "");
 			$httpBackend.whenGET(/translation.*/).respond();
-            $httpBackend.whenGET('/ws/rest/v1/conceptclass?v=full').respond({});
-            $httpBackend.whenGET('components/indexMenu/indexMenu.html').respond();
-            $httpBackend.whenGET('components/conceptStopWordList/conceptStopWordList.html').respond();
-            $httpBackend.whenGET('/ws/rest/v1/conceptstopword?v=full').respond();
-            $httpBackend.whenGET('partials/conceptstopword.html').respond();
-            $httpBackend.expectPOST('/ws/rest/v1/conceptstopword')
-                .respond(
-                    {
-                        results: {
-                            value: 'AND',
-                            locale: 'en'
-                        }
-                    });
-
-            scope = $rootScope.$new();
-
-            location = _$location_;
 
             var newConceptStopWord = {
                 value: 'AND',
@@ -61,15 +47,30 @@ describe('Concept dictionary controllers', function () {
             };
 
             var serverLocales =["en","es","fr","it","pt"];
-
-            ctrl = $controller('ConceptStopWordAddController', {$scope: scope, $location: _$location_, serverLocales : serverLocales});
+            scope = $rootScope.$new();
+            
+            ctrl = $controller('ConceptStopWordAddController', 
+            		{$scope: scope, $location: $locationMock, serverLocales : serverLocales, 
+            		openmrsNotification: notificationMock});
             ctrl.conceptStopWord = newConceptStopWord;
         }));
 
         it('should add new concept stop word ', function () {
+            $httpBackend.expectPOST('/ws/rest/v1/conceptstopword')
+            .respond({results: {value: 'AND',locale: 'en'}});
+
+
             ctrl.addConceptStopWord();
             $httpBackend.flush();
-            expect(ctrl.success).toEqualData(true);
+            expect($locationMock.path).toHaveBeenCalledWith('/conceptstopword');
+            expect($locationMock.search).toHaveBeenCalledWith({successToast: "AND has been saved"});
+        });
+        it('should fail at adding new concept stop word ', function () {
+            var errorMsg = "ERROR MSG"
+            $httpBackend.expectPOST('/ws/rest/v1/conceptstopword').respond(500, {"error" : {"message" : errorMsg }});
+            ctrl.addConceptStopWord();
+            $httpBackend.flush();
+            expect(notificationMock.error).toHaveBeenCalledWith(errorMsg, '');
         });
     });
 });

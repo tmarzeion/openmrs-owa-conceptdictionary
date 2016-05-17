@@ -8,9 +8,9 @@
  * graphic logo is a trademark of OpenMRS Inc.
  */
 
-ReferenceSearchController.$inject = ['$scope', '$routeParams' ,'openmrsRest', '$timeout']
+ReferenceSearchController.$inject = ['$scope', '$routeParams' ,'openmrsRest', '$timeout', 'openmrsNotification']
 
-export default function ReferenceSearchController($scope, $routeParams, openmrsRest, $timeout){
+export default function ReferenceSearchController($scope, $routeParams, openmrsRest, $timeout, openmrsNotification){
 
     var vm = this;
     
@@ -18,9 +18,7 @@ export default function ReferenceSearchController($scope, $routeParams, openmrsR
     vm.links["Concept Dictionary"] = "";
     vm.links["Reference Term Management"] = "reference/";
 
-    //
-    vm.referenceSaved = $routeParams.referenceSaved;
-    vm.referenceDeleted = $routeParams.referenceDeleted;
+    openmrsNotification.routeNotification();
 
     vm.type = "table";
     vm.resource = "conceptreferenceterm";
@@ -41,12 +39,13 @@ export default function ReferenceSearchController($scope, $routeParams, openmrsR
     vm.actions = [
         {
             "action":"edit",
-            "label":"Edit"
+            "label":"Edit",
+        	"link" : "#/reference/{uuid}"
+
         },
         {
             "action":"retire",
-            "label":"Retire",
-            "link" : "#/reference/{uuid}"
+            "label":"Retire"
         },
         {
             "action":"unretire",

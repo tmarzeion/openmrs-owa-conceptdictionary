@@ -8,6 +8,7 @@
  * graphic logo is a trademark of OpenMRS Inc.
  */
 'use strict';
+import testUtils from '../testUtils/testUtils.js';
 
 /* jasmine specs for controllers go here */
 describe('Concept dictionary controllers', function() {
@@ -31,7 +32,9 @@ describe('Concept dictionary controllers', function() {
     beforeEach(angular.mock.module('conceptDictionaryApp'));
 
     describe('ReferenceEditController', function() {
-        var scope, ctrl, $httpBackend;
+        var scope, ctrl, $httpBackend, $locationMock, notificationMock;
+        $locationMock = testUtils.getLocationMock();
+        notificationMock = testUtils.getNotificationMock();
 
         beforeEach(inject(function(_$httpBackend_, $rootScope, $controller, openmrsRest) {
             $httpBackend = _$httpBackend_;
@@ -78,8 +81,6 @@ describe('Concept dictionary controllers', function() {
                 }
             );
             $httpBackend.whenGET('/ws/rest/v1/conceptclass?v=full').respond({});
-            $httpBackend.whenGET('components/indexMenu/indexMenu.html').respond();
-            $httpBackend.whenGET('components/referenceSearch/referenceSearch.html').respond();
             scope = $rootScope.$new();
 
             var reference;
@@ -94,14 +95,23 @@ describe('Concept dictionary controllers', function() {
                 display: 'org.openmrs.module.mdrtb'
             };
 
-            ctrl = $controller('ReferenceEditController', {$scope: scope, reference: reference, sources: sources});
+            ctrl = $controller('ReferenceEditController', {$scope: scope, reference: reference, sources: sources, 
+            	$location: $locationMock, openmrsNotification: notificationMock});
         }));
 
         it('should edit existing concept reference term ', function() {
             ctrl.save();
             $httpBackend.flush();
-            expect(ctrl.success).toEqualData(true);
+            expect($locationMock.path).toHaveBeenCalledWith('/reference');
+            expect($locationMock.search).toHaveBeenCalledWith({successToast: "RESPIRATORY RATE has been saved"});
         });
 
+        it('should fail at edit existing concept reference term ', function() {
+            var errorMsg = "ERROR MSG"
+            $httpBackend.expectPOST('/ws/rest/v1/conceptreferenceterm/83f9cdf3-b374-42d0-9b70-1a4020a0ee42').respond(500, {"error" : {"message" : errorMsg }});
+            ctrl.save();
+            $httpBackend.flush();
+            expect(notificationMock.error).toHaveBeenCalledWith(errorMsg);
+        });
     });
 });

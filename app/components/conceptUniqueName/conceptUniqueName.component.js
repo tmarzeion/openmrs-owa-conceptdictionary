@@ -7,10 +7,10 @@
  * Copyright (C) OpenMRS Inc. OpenMRS is a registered trademark and the OpenMRS
  * graphic logo is a trademark of OpenMRS Inc.
  */
-conceptUniqueName.$inject = ['openmrsRest']
+conceptUniqueName.$inject = ['openmrsRest', 'openmrsNotification']
 
 	
-export default function conceptUniqueName(openmrsRest){
+export default function conceptUniqueName(openmrsRest, openmrsNotification){
 	var vm = this;	
 		
 	vm.concepts =[];
@@ -27,6 +27,7 @@ export default function conceptUniqueName(openmrsRest){
 				//check for duplicates except concept in edition
 				if(display === vm.concepts[i].display && vm.conceptUuid!=vm.concepts[i].uuid){
 					vm.isDuplicate = true;
+					openmrsNotification.warning("This concept name is not unique!")
 				}
 			}
 		}

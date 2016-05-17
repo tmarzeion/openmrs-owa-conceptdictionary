@@ -8,9 +8,9 @@
  * graphic logo is a trademark of OpenMRS Inc.
  */
 
-ConceptStopWordAddController.$inject = ['$location', 'openmrsRest', 'serverLocales']
+ConceptStopWordAddController.$inject = ['$location', 'openmrsRest', 'serverLocales', 'openmrsNotification']
 
-export default function ConceptStopWordAddController($location, openmrsRest, serverLocales){
+export default function ConceptStopWordAddController($location, openmrsRest, serverLocales, openmrsNotification){
 
     var vm = this;
     
@@ -24,9 +24,8 @@ export default function ConceptStopWordAddController($location, openmrsRest, ser
     //Default values for concept stop word and response message
     vm.conceptStopWord = {
         value: '',
-        locale: ''
+        locale: serverLocales[0]
     };
-    vm.responseMessage = '';
 
     vm.selectedLocale = '';
 
@@ -40,16 +39,14 @@ export default function ConceptStopWordAddController($location, openmrsRest, ser
     function addConceptStopWord() {
         vm.json = angular.toJson(vm.conceptStopWord);
         openmrsRest.create('conceptstopword', vm.json).then(function (success) {
-            //Fix this
-            vm.success = true;
-            $location.path('/conceptstopword').search({conceptStopWordAdded: vm.conceptStopWord.value});
-        }, function (error) {
-            vm.responseMessage = error.message;
+            $location.path('/conceptstopword').search({successToast: vm.conceptStopWord.value+ " has been saved"});
+        }, function (exception) {
+        	 openmrsNotification.error(exception.data.error.message, exception.statusText);
         });
     }
 
     //Method used to cancel class making
     function cancel() {
-        $location.path('/conceptstopword').search({conceptStopWordAdded: ''});
+        $location.path('/conceptstopword');
     }
 }

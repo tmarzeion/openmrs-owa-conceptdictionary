@@ -8,6 +8,7 @@
  * graphic logo is a trademark of OpenMRS Inc.
  */
 'use strict';
+import testUtils from '../testUtils/testUtils.js';
 
 /* jasmine specs for controllers go here */
 describe('Concept dictionary controllers', function() {
@@ -31,16 +32,14 @@ describe('Concept dictionary controllers', function() {
     beforeEach(angular.mock.module('conceptDictionaryApp'));
 
     describe('SourceEditController', function() {
-        var scope, ctrl, $httpBackend;
+        var scope, ctrl, $httpBackend, $locationMock, notificationMock;
+        $locationMock = testUtils.getLocationMock();
+        notificationMock = testUtils.getNotificationMock();
 
         beforeEach(inject(function(_$httpBackend_, $rootScope, $controller, openmrsRest) {
             $httpBackend = _$httpBackend_;
             $httpBackend.whenGET('manifest.webapp').respond(500, "");
 			$httpBackend.whenGET(/translation.*/).respond();
-            $httpBackend.whenGET('/ws/rest/v1/conceptclass?v=full').respond({});
-            $httpBackend.whenGET('components/sourceList/sourceList.html').respond();
-            $httpBackend.whenGET('components/indexMenu/indexMenu.html').respond();
-            $httpBackend.whenGET('/ws/rest/v1/conceptsource?includeAll=true&v=full').respond();
             $httpBackend.whenGET('/ws/rest/v1/conceptsource/42f9cdf3-b124-42d0-9b70-1a4020a0ee83?v=full').
             respond(
                 {
@@ -79,13 +78,22 @@ describe('Concept dictionary controllers', function() {
 
             $httpBackend.flush();
 
-            ctrl = $controller('SourceEditController', {$scope: scope, sources: source});
+            ctrl = $controller('SourceEditController', {$scope: scope, sources: source, 
+            	$location: $locationMock, openmrsNotification: notificationMock});
         }));
 
         it('should edit existing conceptSource ', function() {
             ctrl.save();
             $httpBackend.flush();
-            expect(ctrl.success).toEqualData(true);
+            expect($locationMock.path).toHaveBeenCalledWith('/source');
+            expect($locationMock.search).toHaveBeenCalledWith({successToast: "Source has been saved"});
+        });
+        it('should  fail at edit existing conceptSource term ', function() {
+            var errorMsg = "ERROR MSG"
+            $httpBackend.expectPOST('/ws/rest/v1/conceptsource/42f9cdf3-b124-42d0-9b70-1a4020a0ee83').respond(500, {"error" : {"message" : errorMsg }});
+            ctrl.save();
+            $httpBackend.flush();
+            expect(notificationMock.error).toHaveBeenCalledWith(errorMsg);
         });
 
     });

@@ -7,9 +7,9 @@
  * Copyright (C) OpenMRS Inc. OpenMRS is a registered trademark and the OpenMRS
  * graphic logo is a trademark of OpenMRS Inc.
  */
-SourceEditController.$inject = ['sources','openmrsRest', '$location'];
+SourceEditController.$inject = ['sources','openmrsRest', '$location', 'openmrsNotification'];
 
-export default function SourceEditController (sources ,openmrsRest, $location){
+export default function SourceEditController (sources ,openmrsRest, $location, openmrsNotification){
 
     var vm = this;
     
@@ -45,22 +45,14 @@ export default function SourceEditController (sources ,openmrsRest, $location){
     //Method used to add class with current class params
     function save() {
         vm.json = angular.toJson(vm.source);
-        openmrsRest.update('conceptsource', {uuid: vm.source.uuid}, vm.json).then(function(success) {
-            vm.success = true;
-            $location.path('/source').search({sourceSaved: vm.source.name});
-        });
+        openmrsRest.update('conceptsource', {uuid: vm.source.uuid}, vm.json).then(handleSuccess, handleException);
     }
 
     function retire() {
-        openmrsRest.retire('conceptsource', {uuid: vm.source.uuid}).then(function() {
-            cancel();
-        });
+        openmrsRest.retire('conceptsource', {uuid: vm.source.uuid}).then(handleSuccess, handleException);
     }
-
     function unretire() {
-        openmrsRest.unretire('conceptsource', {uuid: vm.source.uuid}).then(function() {
-            cancel();
-        });
+        openmrsRest.unretire('conceptsource', {uuid: vm.source.uuid}).then(handleSuccess, handleException);
     }
     
     
@@ -69,9 +61,9 @@ export default function SourceEditController (sources ,openmrsRest, $location){
      */
     vm.deleteClicked = false;
     function deleteForever() {
-        openmrsRest.remove('conceptsource', {uuid : vm.source.uuid, purge : true}).then(function(){
-            $location.path('/source').search({sourceDeleted: vm.source.name});
-        });
+        openmrsRest.remove('conceptsource', {uuid : vm.source.uuid, purge : true}).then(
+            	function(success)  {$location.path('/source').search({successToast: vm.source.name+" has been purged"});}, 
+            	handleException);
     }
     function showAlert(item) {
         vm.deleteClicked = true;
@@ -81,5 +73,11 @@ export default function SourceEditController (sources ,openmrsRest, $location){
         	deleteForever();
         }
         vm.deleteClicked = false;
+    }
+    function handleSuccess(success){
+    	$location.path('/source').search({successToast: vm.source.name+" has been saved"});
+    }
+    function handleException(exception){
+        openmrsNotification.error(exception.data.error.message);
     }
 }

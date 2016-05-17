@@ -9,9 +9,9 @@
  */
 
 DrugEditController.$inject = 
-	['$location', 'openmrsRest', 'loadDrug'];
+	['$location', 'openmrsRest', 'loadDrug', 'openmrsNotification'];
 
-export default function DrugEditController($location, openmrsRest, loadDrug){
+export default function DrugEditController($location, openmrsRest, loadDrug, openmrsNotification){
 	
 	var vm = this;
 	
@@ -79,17 +79,11 @@ export default function DrugEditController($location, openmrsRest, loadDrug){
 	}
 	
 	function retire(){
-		openmrsRest.remove('drug', {uuid: vm.drug.uuid}).then(function(success){
-			vm.responseMessage = success;
-			$location.path('/drug');
-		});
+		openmrsRest.remove('drug', {uuid: vm.drug.uuid}).then(handleSuccess, handleException);
 	}
 	
 	function unRetire(){
-		openmrsRest.unretire('drug', {uuid: vm.drug.uuid}).then(function(success){
-			vm.responseMessage = success;
-			$location.path('/drug');
-		});
+		openmrsRest.unretire('drug', {uuid: vm.drug.uuid}).then(handleSuccess, handleException);
 	}
 	
 	function isCorrect(){	
@@ -122,17 +116,17 @@ export default function DrugEditController($location, openmrsRest, loadDrug){
 		  route: vm.drug.route.uuid,
 		  retired: vm.drug.retired
 		}
-		openmrsRest.update('drug', {uuid: vm.drug.uuid}, vm.Drug).then(function(success) {
-			vm.responseMessage = success;
-            $location.path('/drug');
-        }, function(exception) {
-        	vm.showMessage = true;
-            vm.responseMessage = exception.data.error.message;
-        });
+		openmrsRest.update('drug', {uuid: vm.drug.uuid}, vm.Drug).then(handleSuccess, handleException);
 	}
 	
 	function redirectToList(){
 		$location.path('/drug');
 	}
+    function handleSuccess(success){
+    	$location.path('/drug').search({successToast: vm.drug.name+" has been saved"});
+    }
+    function handleException(exception){
+        openmrsNotification.error(exception.data.error.message);
+    }
 	
 };

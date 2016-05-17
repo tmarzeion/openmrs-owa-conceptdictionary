@@ -7,12 +7,12 @@
  * Copyright (C) OpenMRS Inc. OpenMRS is a registered trademark and the OpenMRS
  * graphic logo is a trademark of OpenMRS Inc.
  */
-SourcesListController.$inject = ['$routeParams'];
+SourcesListController.$inject = ['$routeParams', 'openmrsNotification'];
 
-export default function SourcesListController ($routeParams) {
+export default function SourcesListController ($routeParams, openmrsNotification) {
 
     var vm = this;
-
+    openmrsNotification.routeNotification();
     //Properties for list component
     vm.limit = 10;
     vm.resource = "conceptsource";
@@ -53,9 +53,5 @@ export default function SourcesListController ($routeParams) {
     vm.links = {};
     vm.links["Concept Dictionary"] = "";
     vm.links["Concept Source Management"] = "source/";
-
-    //determines whether source class has been saved or deleted in previous view
-    vm.sourceSaved = $routeParams.sourceSaved;
-    vm.sourceDeleted = $routeParams.sourceDeleted;
 
 }

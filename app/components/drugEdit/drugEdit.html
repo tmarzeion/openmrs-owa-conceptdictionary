@@ -49,14 +49,6 @@
 				    </p>
 				</fieldset>
 			</form>
-			<div ng-show="vm.showMessage" id="error-message" class="note-container">
-				<div class="note error">
-					<div class="text">
-						<i class="icon-ok medium"></i>
-						<p>&#160;&#160;{{vm.responseMessage}}</p>
-					</div>
-				</div>
-			</div>
 			<div>				
 				<button ng-click='vm.saveDrug()' ng-disabled="vm.isCorrect()"><i class="icon-ok"></i><strong>{{"ConceptDrug.save" | translate}}</strong></button>
 				<button ng-click='vm.redirectToList()'><i class="icon-remove"></i><strong>{{"Concept.cancel" | translate}}</strong></button>

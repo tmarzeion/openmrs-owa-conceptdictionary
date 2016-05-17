@@ -14,7 +14,7 @@
             <select
                     ng-required="true"
                     ng-model="vm.conceptStopWord.locale"
-                    ng-options="serverLocale as serverLocale for serverLocale in vm.serverLocales">
+                    ng-options="serverLocale as serverLocale for serverLocale in vm.serverLocales track by serverLocale">
             </select>
         </form>
         <br>

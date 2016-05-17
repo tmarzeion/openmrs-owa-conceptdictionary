@@ -1,23 +1,6 @@
 <openmrs-breadcrumbs links="vm.links"></openmrs-breadcrumbs>
 <div id="body-wrapper">
 	<div id="content" class="container">
-	
-		<div ng-show="vm.added" id="success-message" class="note-container">
-            <div class="note success">
-                <div class="text">
-                    <i class="icon-info-sign medium"></i>                    
-                        <p>&#160;&#160;{{vm.added}}.</p>                    
-                </div>
-            </div>
-		</div>   
-		<div ng-show="vm.result.success===false" id="error-message" class="note-container">
-            <div class="note error">
-                <div class="text">
-                    <i class="icon-remove medium"></i>                    
-                        <p>&#160;&#160;{{vm.result.message}}.</p>                    
-                </div>
-            </div>
-		</div>
 		<h2><i class="icon-plus"></i>{{"Concept.title" | translate}}</h2>
 		<form method="post">
 			<label>{{"Locale" | translate}}:&#160;&#160;</label>

@@ -7,11 +7,11 @@
  * Copyright (C) OpenMRS Inc. OpenMRS is a registered trademark and the OpenMRS
  * graphic logo is a trademark of OpenMRS Inc.
  */
-	
-export default function DrugsListController(){
+DrugsListController.$inject = ['openmrsNotification']
+export default function DrugsListController(openmrsNotification){
 	
 	var vm = this;
-
+	openmrsNotification.routeNotification();
 	//Properties for list component
 	vm.resource = "drug";
 	vm.limit = 10; //Default
