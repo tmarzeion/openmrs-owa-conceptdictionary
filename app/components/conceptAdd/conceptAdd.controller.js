@@ -18,7 +18,7 @@ export default function ConceptAddController
 	
     vm.links = {};
 	vm.links["Concept Dictionary"] = "";
-    vm.links["Concept Dictionary Management"] = "concept/";
+    vm.links["Concepts Management"] = "concept/";
     
 	//assign injected objects to this
 	vm.serverLocales = serverLocales;

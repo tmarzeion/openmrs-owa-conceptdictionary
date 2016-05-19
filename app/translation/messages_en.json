@@ -56,7 +56,7 @@
 
   "Concept": "Concept",
   "Concept.header": "Concepts",
-  "Concept.manage": "View Concept Dictionary",
+  "Concept.manage": "Manage Concepts",
   "Concept.title": "Concept Form",
   "Concept.conceptId.help": "An internal unique id for this concept",
   "Concept.conceptClass": "Class",

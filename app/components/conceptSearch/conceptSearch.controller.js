@@ -16,7 +16,7 @@ export default function ConceptSearchController($scope, $routeParams, openmrsRes
     
     vm.links = {};
     vm.links["Concept Dictionary"] = "";
-    vm.links["Concept Dictionary Maintanace"] = "concept";
+    vm.links["Concepts Management"] = "concept";
     
     openmrsNotification.routeNotification();
     

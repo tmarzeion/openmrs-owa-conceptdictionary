@@ -16,7 +16,7 @@ export default function DatatypeDetailsController($scope, loadDataType, $routePa
 	
     vm.links = {};
 	vm.links["Concept Dictionary"] = "";
-    vm.links["Concept Datatype Management"] = "datatype/";
+    vm.links["Concept Datatypes"] = "datatype/";
     vm.links["Concept Datatype Form"] = "datatype/"+loadDataType.uuid;
 	
 	vm.singleDataType = loadDataType;
