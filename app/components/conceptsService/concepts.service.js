@@ -343,6 +343,14 @@ export default function conceptsService(openmrsRest, $q){
 		}
 		return localizedConcepts;
 	}
+
+	/**
+	 * function used to delete concept
+	 * @param concept to delete
+     */
+	function deleteConcept(concept) {
+		openmrsRest.remove('concept', {uuid : concept.uuid, purge : true});
+	}
 	/**
 	 * @returns empty localized concept data object for one locale
 	 */

@@ -1,6 +1,6 @@
 <openmrs-breadcrumbs links="vm.links"></openmrs-breadcrumbs>
 <div id="body-wrapper">
-	<div id="content" class="container">
+	<div id="content" class="container" ng-show="!vm.deleteClicked">
 		<h2><i class="icon-plus"></i>{{"Concept.title" | translate}}</h2>
 		<form method="post">
 			<label>{{"Locale" | translate}}:&#160;&#160;</label>
@@ -238,10 +238,17 @@
 				</p>
 			</div>
 
+			<div ng-show="vm.concept.uuid">
+				<h3>{{"DeleteForever" | translate}}</h3>
+				<button ng-click="vm.showAlert()">
+					<i class="icon-trash"></i>&#160;{{"DeleteForever" | translate}}
+				</button>
+			</div>
+
 			<div id="saveDeleteButtons" style="margin-top: 15px">
 
 				<button ng-disabled="!vm.isFormValid" ng-click="vm.postConcept()"><i class="icon-ok"></i><strong>&#160;{{"Concept.save" | translate}}</strong></button>
-				<button ng-disabled="!vm.isFormValid" ng-click="vm.postConceptAndContinue()""><i class="icon-ok"></i><strong>&#160;{{"Concept.saveAndContinue" | translate}}</strong></button>
+				<button ng-disabled="!vm.isFormValid" ng-click="vm.postConceptAndContinue()"><i class="icon-ok"></i><strong>&#160;{{"Concept.saveAndContinue" | translate}}</strong></button>
 				<a class = "button" ng-href="#/concept/{{vm.concept.uuid}}"><i class="icon-remove"></i><strong>&#160;{{"Concept.cancel" | translate}}</strong></a>
 
 			</div>
@@ -249,6 +256,13 @@
 	</div>
 </div>
 
+<div>
+	<br>
+	<br>
+	<delete-alert ng-show="vm.deleteClicked"  on-update="vm.updateDeleteConfirmation(isConfirmed)" item-name="vm.concept.display"></delete-alert>
+	<br>
+	<br>
+</div>
 
 
 
