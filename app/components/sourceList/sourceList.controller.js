@@ -23,7 +23,7 @@ export default function SourcesListController ($routeParams, openmrsNotification
         },
         {
             "property": "hl7Code",
-            "label":"HL7 Code"
+            "label":"ConceptSource.hl7Code"
         },
         {
             "property": "description",
@@ -47,7 +47,7 @@ export default function SourcesListController ($routeParams, openmrsNotification
 
     //Breadcrumbs properties
     vm.links = {};
-    vm.links["Concept Dictionary"] = "";
-    vm.links["Concept Source Management"] = "source/";
+    vm.links["Concept.label"] = "";
+    vm.links["ConceptSource.manage"] = "source/";
 
 }

@@ -15,8 +15,8 @@ export default function ConceptSearchController($scope, $routeParams, openmrsRes
     var vm = this;
     
     vm.links = {};
-    vm.links["Concept Dictionary"] = "";
-    vm.links["Concepts Management"] = "concept";
+    vm.links["Concept.label"] = "";
+    vm.links["Concept.dictionaryMaintanace"] = "concept";
     
     openmrsNotification.routeNotification();
     
@@ -26,7 +26,7 @@ export default function ConceptSearchController($scope, $routeParams, openmrsRes
     vm.columns= [
         {
             "property": "name.name",
-            "label": "Name"
+            "label": "Concept.name"
         }];
     vm.actions = [
         {

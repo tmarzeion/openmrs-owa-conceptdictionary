@@ -32,12 +32,12 @@ export default function DrugsListController(openmrsNotification){
 		},
 		{
 			"action":"unretire",
-			"label":"unretire"
+			"label":"Unretire"
 		}
 	];
 
 	//Breadcrumbs properties
     vm.links = {};
-	vm.links["Concept Dictionary"] = "";
-    vm.links["Concept Drug Management"] = "drug/";
+	vm.links["Concept.label"] = "";
+    vm.links["ConceptDrug.manage.title"] = "drug/";
 };

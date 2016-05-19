@@ -32,7 +32,7 @@ export default function DatatypeListController(){
 
 	//Breadcrumbs properties
     vm.links = {};
-	vm.links["Concept Dictionary"] = "";
-    vm.links["Concept Datatypes"] = "datatype/";
+	vm.links["Concept.label"] = "";
+    vm.links["ConceptDatatype.manage.title"] = "datatype/";
 
 }

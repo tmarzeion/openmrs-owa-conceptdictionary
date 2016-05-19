@@ -30,13 +30,13 @@ export default function ConceptStopWordListController ($routeParams, openmrsNoti
     vm.actions = [{
             "action":"purge",
             "label":"Delete",
-            "link":"#/stopword/{uuid}" //TODO: Delete link
+            "link":"#/stopword/{uuid}"
     }];
     
     //Breadcrumbs properties
     vm.links = {};
-    vm.links["Concept Dictionary"] = "";
-    vm.links["Concept Stop Word Management"] = "conceptstopword/";
+    vm.links["Concept.label"] = "";
+    vm.links["ConceptStopWord.manage"] = "conceptstopword/";
     
 
     //determines whether concept stop word has been added in previous view

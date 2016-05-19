@@ -8,15 +8,16 @@
  * graphic logo is a trademark of OpenMRS Inc.
  */
 
-ReferenceSearchController.$inject = ['$scope', '$routeParams' ,'openmrsRest', '$timeout', 'openmrsNotification']
 
-export default function ReferenceSearchController($scope, $routeParams, openmrsRest, $timeout, openmrsNotification){
+ReferenceSearchController.$inject = ['$scope', '$routeParams', 'openmrsNotification']
+
+export default function ReferenceSearchController($scope, $routeParams, openmrsNotification){
 
     var vm = this;
     
     vm.links = {};
-    vm.links["Concept Dictionary"] = "";
-    vm.links["Reference Term Management"] = "reference/";
+    vm.links["Concept.label"] = "";
+    vm.links["ConceptReferenceTerm.title"] = "reference/";
 
     openmrsNotification.routeNotification();
 
@@ -49,6 +50,6 @@ export default function ReferenceSearchController($scope, $routeParams, openmrsR
         },
         {
             "action":"unretire",
-            "label":"unretire"
+            "label":"Unretire"
         }];
 }
