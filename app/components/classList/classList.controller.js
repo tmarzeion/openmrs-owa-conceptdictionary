@@ -39,10 +39,6 @@ export default function ClassListController ($routeParams, openmrsNotification) 
         {
             "action":"unretire",
             "label":"unretire"
-        },
-        {
-            "action":"purge",
-            "label":"Delete"
         }
     ];
 

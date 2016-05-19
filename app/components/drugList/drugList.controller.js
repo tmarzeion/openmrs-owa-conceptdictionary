@@ -33,10 +33,6 @@ export default function DrugsListController(openmrsNotification){
 		{
 			"action":"unretire",
 			"label":"unretire"
-		},
-		{
-			"action":"purge",
-			"label":"Delete"
 		}
 	];
 
