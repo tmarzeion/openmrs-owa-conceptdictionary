@@ -158,4 +158,27 @@ export default function ConceptAddController
 			} 
 		}
 	}
+
+	/**
+	 * Logic for delete-alert component
+	 */
+	vm.deleteForever = deleteForever;
+	vm.showAlert = showAlert;
+	vm.updateDeleteConfirmation = updateDeleteConfirmation;
+
+	vm.deleteClicked = false;
+
+	function deleteForever() {
+		conceptsService.deleteConcept(vm.concept);
+		$location.path('/concept').search({successToast: vm.concept.name.name+" has been deleted"});
+	}
+	function showAlert() {
+		vm.deleteClicked = true;
+	}
+	function updateDeleteConfirmation(isConfirmed) {
+		if (isConfirmed) {
+			deleteForever();
+		}
+		vm.deleteClicked = false;
+	}
 };

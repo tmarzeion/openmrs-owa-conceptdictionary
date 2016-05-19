@@ -1,5 +1,5 @@
 <openmrs-breadcrumbs links="vm.links"></openmrs-breadcrumbs>
-<div id="body-wrapper">
+<div id="body-wrapper" ng-show="!vm.deleteClicked">
 	<div id="content" class="container">
 		<h2><i class="icon-pencil"></i>{{"ConceptDrug.manage.title" | translate}}</h2>
 
@@ -76,6 +76,22 @@
 					<button ng-click='vm.unRetire()'>{{"Unretire" | translate}}</button>
 				</fieldset>
 			</form>
+
+		<div ng-show="vm.drug.uuid">
+			<strong><h1><i class="icon-trash"></i>{{"DeleteForever" | translate}}</h1></strong>
+			<button ng-click="vm.showAlert()">
+				<i class="icon-trash"></i>&#160;{{"DeleteForever" | translate}}
+			</button>
+		</div>
+
 		</div>
 	</div>
+</div>
+
+<div>
+	<br>
+	<br>
+	<delete-alert ng-show="vm.deleteClicked" on-update="vm.updateDeleteConfirmation(isConfirmed)" item-name="vm.drug.name"></delete-alert>
+	<br>
+	<br>
 </div>

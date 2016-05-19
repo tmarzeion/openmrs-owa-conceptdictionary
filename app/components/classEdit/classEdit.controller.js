@@ -63,4 +63,27 @@ export default function ClassEditController( singleClass, $routeParams, $locatio
     function handleException(exception){
         openmrsNotification.error(exception.data.error.fieldErrors.name[0].message);
     }
+
+    /**
+     * Logic for delete-alert component
+     */
+    vm.deleteForever = deleteForever;
+    vm.showAlert = showAlert;
+    vm.updateDeleteConfirmation = updateDeleteConfirmation;
+
+    vm.deleteClicked = false;
+
+    function deleteForever() {
+        openmrsRest.remove('conceptclass', {uuid : vm.singleClass.uuid, purge : true});
+        $location.path('/class').search({successToast: vm.singleClass.name+" has been deleted"});
+    }
+    function showAlert() {
+        vm.deleteClicked = true;
+    }
+    function updateDeleteConfirmation(isConfirmed) {
+        if (isConfirmed) {
+            deleteForever();
+        }
+        vm.deleteClicked = false;
+    }
 }
