@@ -309,7 +309,7 @@
   "ConceptNumeric.normalLow": "Normal Low",
   "ConceptNumeric.invalid.msg": "Invalid value for numeric",
   "ConceptNumeric.units": "Units",
-  "ConceptNumeric.allowDecimal": "Allow Decimal?",
+  "ConceptNumeric.allowDecimal": "Allow Decimal",
   "ConceptNumeric.displayPrecision": "Display Precision",
   "ConceptNumeric.inclusive": "range values are inclusive",
   "ConceptSource.manage": "Concept Source Management",

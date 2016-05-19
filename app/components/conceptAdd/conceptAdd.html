@@ -224,17 +224,21 @@
 					title="An optional way for you to keep track of which concepts came before others when changing/updating concepts"
 					border="0">
 			</label>
-			<input class="smallWidth" ng-model="vm.concept.version" type="text">
+			<p><input class="smallWidth" ng-model="vm.concept.version" type="text"></p>
+
 			<div ng-if="vm.concept.uuid">
 				<p>
-					<small valign="top">{{"CreatedBy" | translate}}:</small> <strong>
-							{{vm.concept.auditInfo.creator.display}} -
-							{{vm.concept.auditInfo.dateCreated|date:'medium'}} </strong>
+					<small>UUID: <i>{{vm.concept.uuid}}</i></small>
 				</p>
 				<p>
-					<small valign="top">{{"ChangedBy" | translate}}:</small> <strong>
+					<small valign="top">{{"CreatedBy" | translate}}:<i>
 							{{vm.concept.auditInfo.creator.display}} -
-							{{vm.concept.auditInfo.dateChanged|date:'medium'}} </strong>
+							{{vm.concept.auditInfo.dateCreated|date:'medium'}} </i></small>
+				</p>
+				<p>
+					<small valign="top">{{"ChangedBy" | translate}}:<i>
+							{{vm.concept.auditInfo.creator.display}} -
+							{{vm.concept.auditInfo.dateChanged|date:'medium'}}</i> </small>
 				</p>
 			</div>
 

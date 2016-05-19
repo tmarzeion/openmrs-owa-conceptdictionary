@@ -34,6 +34,9 @@ export default function ConceptViewController ($scope, concept, serverLocales, c
 	vm.goLocale = goLocale;
 	vm.selectedLocale;
 	
+	vm.showAllNames = false;
+	vm.toggleAllNames = toggleAllNames;
+	
 	activate();
 	
 	//activation function
@@ -57,5 +60,9 @@ export default function ConceptViewController ($scope, concept, serverLocales, c
 	function checkType (){
 		vm.isNumeric = (vm.concept.datatype.uuid === "8d4a4488-c2cc-11de-8d13-0010c6dffd0f");
 		vm.isCoded = (vm.concept.datatype.uuid === "8d4a48b6-c2cc-11de-8d13-0010c6dffd0f");
+	}
+	
+	function toggleAllNames() {
+		vm.showAllNames = !vm.showAllNames;
 	}
 };
