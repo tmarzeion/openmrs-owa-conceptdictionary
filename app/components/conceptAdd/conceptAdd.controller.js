@@ -7,6 +7,7 @@
  * Copyright (C) OpenMRS Inc. OpenMRS is a registered trademark and the OpenMRS
  * graphic logo is a trademark of OpenMRS Inc.
  */
+import helpgif from '../../img/help.gif'
 
 ConceptAddController.$inject = 
 	['concept','serverLocales', 'loadClasses', 'loadDataTypes', 'conceptsService', '$location', '$routeParams', 'openmrsNotification'];
@@ -52,6 +53,7 @@ export default function ConceptAddController
 	vm.concept;
 	vm.isFormValid = false;
 	vm.editMode = false;
+	vm.helpgif = helpgif;
 
 	
 	activate();
