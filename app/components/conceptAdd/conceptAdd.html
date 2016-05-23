@@ -88,7 +88,7 @@
 						<td colspan="3">
 							<div>
 								{{"Concept.shortName" | translate}} <img class="help_icon_bottom"
-																		 src="/openmrs/images/help.gif"
+																		 ng-src="{{vm.helpgif}}"
 																		 title="The text shown in report headers and other places where space is limited"
 																		 border="0">
 							</div> <input class="smallWidth"
@@ -99,7 +99,7 @@
 						<td colspan="3">
 							<div>
 								{{"Description" | translate}} <img class="help_icon_top"
-																   src="/openmrs/images/help.gif"
+																   ng-src="{{vm.helpgif}}"
 																   title="Longer body of text used to fully describe this concept and how it is used."
 																   border="0">
 							</div> <textarea name="description"
@@ -111,7 +111,7 @@
 			</table>
 
 			<label>{{"Concept.conceptClass" | translate}} <img class="help_icon_bottom"
-					src="/openmrs/images/help.gif"
+					ng-src="{{vm.helpgif}}"
 					title="The classification of the medical concept" border="0"></label>
 
 					<select name="repeatClass" id="repeatClass"
@@ -120,7 +120,7 @@
 				</select>
 
 			<label>{{"Concept.set" | translate}} <img class="help_icon"
-					src="/openmrs/images/help.gif"
+					ng-src="{{vm.helpgif}}"
 					title="Whether this concept is or not a set " border="0">
 			</label>
 			<input type="checkbox" ng-model="vm.concept.set" name="conceptClassId" />
@@ -135,7 +135,7 @@
 			<div class="clear"></div>
 
 			<label>{{"Concept.datatype" | translate}} <img class="help_icon"
-					src="/openmrs/images/help.gif"
+					ng-src="{{vm.helpgif}}"
 					title="If data is stored within this concept, this describes what it will look like"
 					border="0"/>
 			</label>
@@ -148,7 +148,7 @@
 
 			<div ng-show='vm.isCoded'>
 				<label>{{"Concept.answers" | translate}}<img class="help_icon"
-						id="tooltipCodedIcon" src="/openmrs/images/help.gif"
+						id="tooltipCodedIcon" ng-src="{{vm.helpgif}}"
 						title="Answer Concept(s) in case this concept is a question"
 						border="0">
 				</label>
@@ -207,7 +207,7 @@
 
 			<div ng-show="vm.isComplex" id="complexDatatypeRow">
 				<label>{{"ConceptComplex.handler" | translate}} <img class="help_icon"
-					id="tooltipComplexIcon" src="/openmrs/images/help.gif"
+					id="tooltipComplexIcon" ng-src="{{vm.helpgif}}"
 					title="Handlers for complex concept reponses e.g an x-ray image handler"
 					border="0">
 				</label>
@@ -220,7 +220,7 @@
 			<div class="clear"/>
 
 			<label>Version <img class="help_icon_bottom"
-					src="/openmrs/images/help.gif"
+					ng-src="{{vm.helpgif}}"
 					title="An optional way for you to keep track of which concepts came before others when changing/updating concepts"
 					border="0">
 			</label>
