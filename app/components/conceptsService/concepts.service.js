@@ -270,8 +270,8 @@ export default function conceptsService(openmrsRest, $q){
 				if(input.locale === serverLocales[index]) locales[serverLocales[index]] = true;
 			}
 		}
-		return Object.keys(locales);
-		}
+		return Object.keys(locales).sort();
+	}
 
 		/**
 		 * @names array of names objects of concept
