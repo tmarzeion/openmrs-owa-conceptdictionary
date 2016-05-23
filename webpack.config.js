@@ -70,7 +70,8 @@ if (env === 'production') {
     minimize: true,
     sourceMap: false,
     compress: {
-        warnings: false
+        warnings: false,
+        unused: false
     }
   }));
   plugins.push(new DedupePlugin());
