@@ -9,8 +9,10 @@
  */
 import angular from 'angular';
 import ngRoute from 'angular-route';
-import translateApp from './translateApp.module.js';
 import openmrsContribUiCommons from 'openmrs-contrib-uicommons';
+
+import messagesEn from '../translation/messages_en.json';
+import messagesEs from '../translation/messages_es.json';
 
 import ConceptsService from './conceptsService/concepts.service.js';
 
@@ -39,8 +41,7 @@ import conceptDictionaryAppConfig from './conceptDictionaryApp.config.js';
 
 export default angular
     .module('conceptDictionaryApp',
-		['translateApp',
-		 'ngRoute', 
+		['ngRoute',
 		 'openmrs-contrib-uicommons'])
 		 
 	.factory('conceptsService', ConceptsService)	
@@ -80,4 +81,10 @@ export default angular
 		    name: '<',
 		    onUpdate: '&' 
 		  }})
-	.config(['$routeProvider', conceptDictionaryAppConfig]);
+	.config(['$routeProvider', conceptDictionaryAppConfig])
+	.config(['openmrsTranslateProvider', translateConfig]);
+
+function translateConfig(openmrsTranslateProvider) {
+	openmrsTranslateProvider.addTranslations('en', messagesEn);
+	openmrsTranslateProvider.addTranslations('es', messagesEs);
+}

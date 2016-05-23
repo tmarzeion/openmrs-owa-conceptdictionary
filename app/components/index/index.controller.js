@@ -8,16 +8,16 @@
  * graphic logo is a trademark of OpenMRS Inc.
  */
 
-IndexController.$inject = ['$translate'];
+IndexController.$inject = ['openmrsTranslate'];
 
-export default function IndexController($translate) {
+export default function IndexController(openmrsTranslate) {
 
     var vm = this;
 
     vm.appTitle = "Concept Dictionary";
 
     vm.changeLanguage = function (langKey) {
-       return $translate.use(langKey);
+       return openmrsTranslate.changeLanguage(langKey);
     };
 
 }
