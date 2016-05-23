@@ -15,7 +15,7 @@
       "openmrs": {
         "href": "*",
         "testConfig": {
-	  		"href":"http://localhost:8080/openmrs"
+	  		"href":"http://devtest04.openmrs.org:8080/openmrs"
 		}
       }
     }
