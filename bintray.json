@@ -10,6 +10,6 @@
         "released": "2016-04-08"
     },
 
-    "files":[{"includePattern": "(.*\\.zip)", "uploadPattern": "$1"}],
+    "files":[{"includePattern": "(.*\.zip)", "uploadPattern": "$1"}],
     "publish": true
 }
