@@ -14,8 +14,8 @@ export default function ConceptViewController ($scope, concept, serverLocales, c
 	var vm = this;
 	
     vm.links = {};
-	vm.links["Concept Dictionary"] = "";
-    vm.links["Concepts Management"] = "concept/";
+	vm.links["Concept.label"] = "";
+    vm.links["Concept.manage"] = "concept/";
     vm.links[concept.display] = "concept/"+concept.uuid;
 
 	vm.added = $routeParams.added;

@@ -39,5 +39,5 @@ export default function DrugsListController(openmrsNotification){
 	//Breadcrumbs properties
     vm.links = {};
 	vm.links["Concept.label"] = "";
-    vm.links["ConceptDrug.manage.title"] = "drug/";
+    vm.links["ConceptDrug.manage"] = "drug/";
 };

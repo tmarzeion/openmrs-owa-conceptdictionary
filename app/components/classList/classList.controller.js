@@ -45,5 +45,5 @@ export default function ClassListController ($routeParams, openmrsNotification) 
     //Breadcrumbs properties
     vm.links = {};
     vm.links["Concept.label"] = "";
-    vm.links["ConceptClass.manage.title"] = "class";
+    vm.links["ConceptClass.manage"] = "class";
 }

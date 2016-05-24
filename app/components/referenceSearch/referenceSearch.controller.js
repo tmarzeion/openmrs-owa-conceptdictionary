@@ -17,7 +17,7 @@ export default function ReferenceSearchController($scope, $routeParams, openmrsN
     
     vm.links = {};
     vm.links["Concept.label"] = "";
-    vm.links["ConceptReferenceTerm.title"] = "reference/";
+    vm.links["ConceptReferenceTerm.manage"] = "reference/";
 
     openmrsNotification.routeNotification();
 

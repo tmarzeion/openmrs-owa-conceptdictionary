@@ -14,9 +14,9 @@ export default function ReferenceEditController (reference, sources, openmrsRest
     var vm = this;
     
     vm.links = {};
-    vm.links["Concept Dictionary"] = "";
-    vm.links["Reference Term Management"] = "reference/";
-    vm.links["Reference Term Form"] = "reference/"+reference.uuid;
+    vm.links["Concept.label"] = "";
+    vm.links["ConceptReferenceTerm.manage"] = "reference/";
+    vm.links["Add/Edit"] = "reference/"+reference.uuid;
     
     vm.save = save;
     vm.cancel = cancel;

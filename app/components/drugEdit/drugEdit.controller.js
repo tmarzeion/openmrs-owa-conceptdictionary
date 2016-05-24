@@ -16,9 +16,9 @@ export default function DrugEditController($location, openmrsRest, loadDrug, ope
 	var vm = this;
 	
     vm.links = {};
-	vm.links["Concept Dictionary"] = "";
-    vm.links["Concept Drug Management"] = "drug/";
-    vm.links["Concept Drug Form"] = "drug/"+loadDrug.uuid;
+	vm.links["Concept.label"] = "";
+    vm.links["ConceptDrug.manage"] = "drug/";
+    vm.links["Add/Edit"] = "drug/"+loadDrug.uuid;
 
 	vm.drug;
 	vm.responseMessage;

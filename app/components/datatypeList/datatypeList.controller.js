@@ -33,6 +33,6 @@ export default function DatatypeListController(){
 	//Breadcrumbs properties
     vm.links = {};
 	vm.links["Concept.label"] = "";
-    vm.links["ConceptDatatype.manage.title"] = "datatype/";
+    vm.links["ConceptDatatype.manage"] = "datatype/";
 
 }

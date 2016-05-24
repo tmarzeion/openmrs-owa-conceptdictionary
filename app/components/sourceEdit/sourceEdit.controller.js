@@ -14,9 +14,9 @@ export default function SourceEditController (sources ,openmrsRest, $location, o
     var vm = this;
     
     vm.links = {};
-    vm.links["Concept Dictionary"] = "";
-    vm.links["Concept Source Management"] = "source/";
-    vm.links["Concept Source Form"] = "source/"+sources.uuid;
+    vm.links["Concept.label"] = "";
+    vm.links["ConceptSource.manage"] = "source/";
+    vm.links["Add/Edit"] = "source/"+sources.uuid;
     
     vm.responseMessage = '';
 

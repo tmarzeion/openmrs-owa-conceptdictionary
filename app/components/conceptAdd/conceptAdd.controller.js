@@ -18,8 +18,8 @@ export default function ConceptAddController
 	var vm = this;
 	
     vm.links = {};
-	vm.links["Concept Dictionary"] = "";
-    vm.links["Concepts Management"] = "concept/";
+	vm.links["Concept.label"] = "";
+    vm.links["Concept.manage"] = "concept/";
     
 	//assign injected objects to this
 	vm.serverLocales = serverLocales;
@@ -65,7 +65,7 @@ export default function ConceptAddController
 			vm.concept = concept;
 		    vm.isFormValid = true;
 		    vm.editMode = true;
-		    vm.links["Concept Form"] = "concept/edit/"+$routeParams.conceptUUID;
+		    vm.links["Edit"] = "concept/edit/"+$routeParams.conceptUUID;
 		} 
 		//add mode
 		else {
@@ -74,7 +74,7 @@ export default function ConceptAddController
 			vm.concept.datatype = vm.datatypes[1];
 			vm.concept.setMembers = [];
 			vm.concept.answers = [];
-		    vm.links["Concept Form"] = "concept/add/";
+		    vm.links["Add"] = "concept/add/";
 		}
 		createLocalized();
 		vm.goLocale(serverLocales[0]);

@@ -16,8 +16,8 @@ export default function ConceptStopWordAddController($location, openmrsRest, ser
     
     vm.links = {};
     vm.links["Concept Dictionary"] = "";
-    vm.links["Concept Stop Word Management"] = "conceptstopword/";
-    vm.links["Concept Stop Word"] = "conceptstopword/add/";
+    vm.links["ConceptStopWord.manage"] = "conceptstopword/";
+    vm.links["Add"] = "conceptstopword/add/";
 
     vm.serverLocales = serverLocales;
 

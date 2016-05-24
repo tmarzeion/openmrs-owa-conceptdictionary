@@ -18,9 +18,9 @@ export default function ClassEditController( singleClass, $routeParams, $locatio
 	vm.singleClass = singleClass;
 	
     vm.links = {};
-    vm.links["Concept Dictionary"] = "";
-    vm.links["Concept Class Management"] = "class";
-    vm.links["Concept Class Form"] = "class/"+vm.singleClass.uuid;
+    vm.links["Concept.label"] = "";
+    vm.links["ConceptClass.manage"] = "class";
+    vm.links["Add/Edit"] = "class/"+vm.singleClass.uuid;
     
 	vm.isError = false;
 	
