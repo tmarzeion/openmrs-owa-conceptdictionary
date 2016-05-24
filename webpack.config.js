@@ -42,7 +42,7 @@ try{
 	localOwaFolder = configJson.LOCAL_OWA_FOLDER;
 } catch(err){
 	appEntryPoint = "http://localhost:8080//openmrs//owa//conceptdictionary//index.html";
-	localOwaFolder = `${__dirname}/dist/`;	
+	localOwaFolder = `${__dirname}/build/dist/`;
 }
 
 
@@ -78,14 +78,14 @@ if (env === 'production') {
   plugins.push(new DedupePlugin());
   outputFile = `${outputFile}.min.[chunkhash].js`;
   vendorOutputFile = "vendor.bundle.[chunkhash].js";
-  outputPath = `${__dirname}/dist/`;
+  outputPath = `${__dirname}/build/dist/`;
   devtool = 'source-map';
   
   plugins.push(new WebpackOnBuildPlugin(function(stats){
     //create zip file
     var archiver = require('archiver');
     var pjson = require('./package.json');
-    var output = fs.createWriteStream(appName+"-"+pjson.version+'.zip');
+    var output = fs.createWriteStream('build/' + appName + "-" + pjson.version +'.zip');
     var archive = archiver('zip')
 
     output.on('close', function () {
@@ -97,7 +97,7 @@ if (env === 'production') {
     });
 
     archive.pipe(output);
-    archive.bulk([{ expand: true, cwd: 'dist/', src: ['**']}]);
+    archive.bulk([{ expand: true, cwd: 'build/dist/', src: ['**']}]);
     archive.finalize();
   }));
   
