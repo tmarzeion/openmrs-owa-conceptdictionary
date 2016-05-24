@@ -11,12 +11,13 @@ const CommonsChunkPlugin =  webpack.optimize.CommonsChunkPlugin
 const DedupePlugin = webpack.optimize.DedupePlugin;
 const OccurenceOrderPlugin = webpack.optimize.OccurenceOrderPlugin;
 
-var HtmlWebpackPlugin = require('html-webpack-plugin');
-var BrowserSyncPlugin = require('browser-sync-webpack-plugin')
-var CopyWebpackPlugin = require('copy-webpack-plugin')
-var WebpackMd5Hash = require('webpack-md5-hash');
+const HtmlWebpackPlugin = require('html-webpack-plugin');
+const BrowserSyncPlugin = require('browser-sync-webpack-plugin')
+const CopyWebpackPlugin = require('copy-webpack-plugin')
+const WebpackMd5Hash = require('webpack-md5-hash');
+const WebpackOnBuildPlugin = require('on-build-webpack');
 
-var nodeModulesDir = path.resolve(__dirname, '../node_modules');
+const nodeModulesDir = path.resolve(__dirname, '../node_modules');
 
 
 const fileName = 'app';
@@ -80,9 +81,25 @@ if (env === 'production') {
   outputPath = `${__dirname}/dist/`;
   devtool = 'source-map';
   
-  plugins.push(new CopyWebpackPlugin([{
-	    from: './app/manifest.webapp.test'
-	}]));
+  plugins.push(new WebpackOnBuildPlugin(function(stats){
+    //create zip file
+    var archiver = require('archiver');
+    var pjson = require('./package.json');
+    var output = fs.createWriteStream(appName+"-"+pjson.version+'.zip');
+    var archive = archiver('zip')
+
+    output.on('close', function () {
+	  console.log('Distributable has been zipped! size: '+archive.pointer());
+    });
+
+    archive.on('error', function(err){
+	  throw err;
+    });
+
+    archive.pipe(output);
+    archive.bulk([{ expand: true, cwd: 'dist/', src: ['**']}]);
+    archive.finalize();
+  }));
   
 } else if (env === 'dev') {
   outputFile = `${outputFile}.js`;
