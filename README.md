@@ -8,6 +8,7 @@ This repository contains the Concept Dictionary OpenMRS Open Web App.
 # Installing Concepts OWA
 
 Before installing the app, please make sure you have the following modules installed:
+
 1. Open Web Apps 1.4 or later
 2. Webservices.rest 1.15-SNAPSHOT built from source
 
