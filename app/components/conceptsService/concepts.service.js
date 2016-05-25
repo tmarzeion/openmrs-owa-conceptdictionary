@@ -15,6 +15,7 @@ export default function conceptsService(openmrsRest, $q){
 			getEmptyConceptObject: getEmptyConceptObject,
 			getEmptyLocaleConceptObject: getEmptyLocaleConceptObject,
 			postConcept: postConcept,
+			deleteConcept: deleteConcept,
 			getLocales: getLocales,
 			getLocaleNames: getLocaleNames,
 			getLocaleDescr: getLocaleDescr,
