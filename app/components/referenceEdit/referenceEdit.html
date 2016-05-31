@@ -44,24 +44,6 @@
                                 <input name="conceptReferenceTerm.version" ng-model="vm.reference.version" type="text">
                             </div>
                         </div>
-                        <label ng-show="vm.reference.auditInfo">
-                            <small>{{"CreatedBy" | translate}}&#160;</small>
-                            {{vm.reference.auditInfo.creator.display}} -
-                            {{vm.reference.auditInfo.dateCreated|date:'medium'}}
-                        </label>
-
-                        <label ng-show="vm.reference.auditInfo.changedBy">
-                            <small>{{"ChangedBy" | translate}}&#160;</small>
-                            {{vm.reference.auditInfo.changedBy.display}} -
-                            {{vm.reference.auditInfo.dateChanged|date:'medium'}}
-                        </label>
-                        <div ng-show="vm.reference.uuid">
-                            <div class="alignRight"><font color="#D0D0D0">
-                                <small>UUID</sub></small>
-                                <small>{{vm.reference.uuid}}</small>
-                                <br>
-                            </font></div>
-                        </div>
                         <div>
                             <button ng-click="vm.save()" ng-disabled="referenceEdit.$invalid">
                                 <i class="icon-ok"></i><strong>&#160;{{"Save" | translate}}</strong></button>
@@ -97,6 +79,26 @@
                                 <i class="icon-lock"></i>&#160;Retire
                             </button>
                         </div>
+
+                        <label ng-show="vm.reference.auditInfo">
+                            <small>{{"CreatedBy" | translate}}&#160;</small>
+                            {{vm.reference.auditInfo.creator.display}} -
+                            {{vm.reference.auditInfo.dateCreated|date:'medium'}}
+                        </label>
+
+                        <label ng-show="vm.reference.auditInfo.changedBy">
+                            <small>{{"ChangedBy" | translate}}&#160;</small>
+                            {{vm.reference.auditInfo.changedBy.display}} -
+                            {{vm.reference.auditInfo.dateChanged|date:'medium'}}
+                        </label>
+                        <div ng-show="vm.reference.uuid">
+                            <div class="alignRight"><font color="#D0D0D0">
+                                <small>UUID</sub></small>
+                                <small>{{vm.reference.uuid}}</small>
+                                <br>
+                            </font></div>
+                        </div>
+
                     </div>
                 </div>
             </form>
