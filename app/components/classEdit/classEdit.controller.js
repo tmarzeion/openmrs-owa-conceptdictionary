@@ -42,7 +42,7 @@ export default function ClassEditController( singleClass, $routeParams, $locatio
     }
 
     function editClass() {
-        openmrsRest.update('conceptclass', {uuid: vm.singleClass.uuid}, vm.singleClass).then(handleSuccess, handleException);
+        openmrsRest.update('conceptclass', vm.singleClass).then(handleSuccess, handleException);
     }
 
     function cancel() {
@@ -50,11 +50,11 @@ export default function ClassEditController( singleClass, $routeParams, $locatio
     }
     
     function retire() {
-        openmrsRest.retire('conceptclass', {uuid: singleClass.uuid}).then(handleSuccess, handleException);
+        openmrsRest.retire('conceptclass', vm.singleClass).then(handleSuccess, handleException);
     }
     
     function unretire() {
-        openmrsRest.unretire('conceptclass', {uuid: singleClass.uuid}).then(handleSuccess, handleException);
+        openmrsRest.unretire('conceptclass', vm.singleClass).then(handleSuccess, handleException);
     }
     
     function handleSuccess(success){
@@ -74,7 +74,7 @@ export default function ClassEditController( singleClass, $routeParams, $locatio
     vm.deleteClicked = false;
 
     function deleteForever() {
-        openmrsRest.remove('conceptclass', {uuid : vm.singleClass.uuid, purge : true});
+        openmrsRest.purge('conceptclass', vm.singleClass);
         $location.path('/class').search({successToast: vm.singleClass.name+" has been deleted"});
     }
     function showAlert() {

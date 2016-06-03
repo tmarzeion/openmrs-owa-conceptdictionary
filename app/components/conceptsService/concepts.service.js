@@ -23,6 +23,7 @@ export default function conceptsService(openmrsRest, $q){
 			getLocalizedConcepts : getLocalizedConcepts,
 			parseNames : parseNames,
 			parseDescriptions : parseDescriptions,
+			deleteConcept: deleteConcept
 	}
 	return service
 	
@@ -60,6 +61,7 @@ export default function conceptsService(openmrsRest, $q){
 	function postConcept(concept, localizedConcepts){
 		//will be serialized to JSON request body
 		var conceptRequest = {};
+		conceptRequest.uuid = concept.uuid;
 		//contain data about result of postConcept operation
 		var result= {};
 		var deferred = $q.defer();
@@ -142,12 +144,12 @@ export default function conceptsService(openmrsRest, $q){
         }
 		
 		if(angular.isDefined(concept.uuid)){
-	        openmrsRest.update('concept', {uuid: concept.uuid}, conceptJson)
+	        openmrsRest.update('concept', conceptRequest)
 				        .then(function(success){handleSuccess(success)}, 
 			  				  function(exception){handleException(exception)});
 		}
 		else{
-	        openmrsRest.create('concept', conceptJson)
+	        openmrsRest.create('concept', conceptRequest)
 	        			.then(function(success){handleSuccess(success)}, 
 	        				  function(exception){handleException(exception)});
 		}
@@ -350,7 +352,7 @@ export default function conceptsService(openmrsRest, $q){
 	 * @param concept to delete
      */
 	function deleteConcept(concept) {
-		openmrsRest.remove('concept', {uuid : concept.uuid, purge : true});
+		openmrsRest.purge('concept', concept);
 	}
 	/**
 	 * @returns empty localized concept data object for one locale
