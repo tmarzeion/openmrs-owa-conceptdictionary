@@ -1,0 +1,117 @@
+<legend>Mappings</legend>
+<table ng-show="vm.mappings.length > 0 || vm.addView">
+    <thead>
+    <tr>
+        <th>Relationship</th>
+        <th>Source</th>
+        <th>Code</th>
+        <th>Name</th>
+        <th>Actions</th>
+    </tr>
+    </thead>
+    <tbody ng-repeat="mapping in vm.mappings">
+            <tr ng-show="$index === vm.newTermInformationIndex" style="background-color: rgba(230, 230, 230, 0.4);text-align:center;">
+                <td colspan="5"><strong>
+                    The following codes don't exist for the given sources.<br>
+                    New concept reference terms will be created once you save the concept.
+                </strong></td>
+            </tr>
+            <!--view-->
+            <tr ng-show="!mapping.edit">
+                <td ng-bind="mapping.conceptMapType.display"></td>
+                <td ng-bind="mapping.conceptReferenceTerm.conceptSource.display"></td>
+                <td ng-bind="mapping.conceptReferenceTerm.code"></td>
+                <td ng-bind="mapping.conceptReferenceTerm.name"></td>
+                <td align="center">
+                    <a ng-click="vm.startEdit(mapping, $index)"><i class ="icon-pencil"></i></a>
+                    <a ng-click="vm.remove(mapping)"><i class ="icon-trash"></i></a>
+                </td>
+            </tr>
+            <!--edit-->
+            <tr ng-show="mapping.edit && !mapping.showConfirmDialog">
+                <td>
+                    <select ng-options="type as type.display for type in vm.mapTypes track by type.uuid"
+                            ng-model="vm.mappingsCache[$index].conceptMapType"></select>
+                </td>
+                <td>
+                    <select ng-options="source as source.display for source in vm.sources track by source.uuid"
+                            ng-model="vm.mappingsCache[$index].conceptReferenceTerm.conceptSource"></select>
+                </td>
+                <td>
+                    <input type="text" placeholder='Enter code'
+                           ng-model="vm.mappingsCache[$index].termQuery"
+                           class="form-control" ng-change="vm.search(vm.mappingsCache[$index])"
+                           data-watch-options="true"
+                           data-min-length="2"
+                           bs-options="term.code as term.code for term in vm.suggestions"
+                           ng-required="false" bs-typeahead>
+                </td>
+                <td></td>
+                <td>
+                    <a><i class ="icon-ok" ng-click="vm.confirmEdit(mapping, $index)"></i></a>
+                    <a><i class ="icon-remove" ng-click="vm.cancelEdit(mapping, $index)"></i></a>
+                </td>
+            </tr>
+            <!--confirm edit-->
+            <tr ng-show="mapping.edit && mapping.showConfirmDialog">
+                <td colspan="5" style="text-align:center;">
+                    The specified code doesn't exist for the given source.<br>
+                    Would you like to create a new concept reference term when saving the concept?
+                    <br>
+                    <a class="button" ng-click="vm.executeEdit(mapping, $index)">
+                        <i class="icon-ok"></i>&nbsp;Yes
+                    </a>
+                    <a class="button" ng-click="mapping.showConfirmDialog = false">
+                        <i class="icon-reply"></i>&nbsp;Go back
+                    </a>
+                </td>
+            </tr>
+    </tbody>
+        <!--new Term-->
+    <tbody ng-show="vm.addView" style="background-color: rgba(153, 206, 255, 0.2);">
+        <tr ng-show="!vm.newMapping.showConfirmDialog">
+            <td>
+                <select ng-options="type as type.display for type in vm.mapTypes track by type.uuid"
+                        ng-model="vm.newMapping.conceptMapType"></select>
+            </td>
+            <td>
+                <select ng-options="source as source.display for source in vm.sources track by source.uuid"
+                        ng-model="vm.newMapping.conceptReferenceTerm.conceptSource"></select>
+            </td>
+            <td>
+                <input type="text"
+                       placeholder='Enter code'
+                       ng-model="vm.newMapping.termQuery"
+                       ng-change="vm.search(vm.newMapping)"
+                       data-watch-options="true"
+                       data-min-length="2"
+                       bs-options="term.code as term.code for term in vm.newMapping.suggestions"
+                       bs-typeahead>
+            </td>
+            <td></td>
+            <td align="center">
+                <a><i class ="icon-ok" ng-click="vm.confirmAdd()"></i></a>
+                <a><i class ="icon-remove" ng-click="vm.cancelAdd()"></i></a>
+            </td>
+        </tr>
+        <tr ng-show="vm.newMapping.showConfirmDialog">
+            <td colspan="5" style="text-align:center;">
+                The specified code doesn't exist for the given source.<br>
+                Would you like to create a new concept reference term when saving the concept?
+                <br>
+                <a class="button" ng-click="vm.executeAdd()">
+                    <i class="icon-ok"></i>&nbsp;Yes
+                </a>
+                <a class="button" ng-click="vm.newMapping.showConfirmDialog = false">
+                    <i class="icon-reply"></i>&nbsp;Go back
+                </a>
+            </td>
+        </tr>
+    </tbody>
+</table>
+
+<div ng-show="!vm.addView">
+        <a ng-click="vm.startAdd()" type="button">
+            <i class="icon-plus"></i> Add Mapping
+        </a>
+</div>

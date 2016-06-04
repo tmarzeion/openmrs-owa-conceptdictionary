@@ -68,7 +68,8 @@ describe('Concept dictionary controllers', function() {
                     {name: 'EspName1', locale: 'es', conceptNameType: 'FULLY_SPECIFIED'},
                     {name: 'EspName1', locale: 'es', conceptNameType: 'INDEX_TERM'}],
                 descriptions: [{description: "engDescr", locale: "en"},
-                    {description: "EspDescr", locale: "es"}]};
+                    {description: "EspDescr", locale: "es"}],
+                mappings: []};
             
             expectedNames1={}
             expectedNames1.shortname = engShortName1;
@@ -89,7 +90,8 @@ describe('Concept dictionary controllers', function() {
                     {name: "EspName2", locale: "fr", conceptNameType: "FULLY_SPECIFIED"},
                     {name: "EspName2", locale: "it", conceptNameType: "INDEX_TERM"}],
                 descriptions: [{description: "engDescr", locale: "en"},
-                    {description: "EspDescr", locale: "es"}]}
+                    {description: "EspDescr", locale: "es"}],
+                mappings: []}
             
             expectedNames2={};
             expectedNames2.fullname = engFullName2;

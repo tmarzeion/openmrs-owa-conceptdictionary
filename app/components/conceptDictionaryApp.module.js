@@ -37,6 +37,7 @@ import SourcesListController from './sourceList/sourceList.controller.js';
 
 import conceptTableComponent from './conceptTable/conceptTable.component.js';
 import conceptUniqueNameComponent from './conceptUniqueName/conceptUniqueName.component.js';
+import mappingsTableComponent from './mappingsTable/mappingsTable.component.js';
 
 import conceptDictionaryAppConfig from './conceptDictionaryApp.config.js';
 
@@ -83,6 +84,15 @@ export default angular
 		    name: '<',
 		    onUpdate: '&' 
 		  }})
+    .component('mappingsTable', {
+          template: require('./mappingsTable/mappingsTable.html'),
+          controller: mappingsTableComponent,
+          controllerAs : 'vm',
+          bindings: {
+            conceptUuid: '<',
+            onUpdate: '&',
+            editCountUpdate: '&'
+          }})
 	.config(['$routeProvider', conceptDictionaryAppConfig])
 	.config(['openmrsTranslateProvider', translateConfig]);
 

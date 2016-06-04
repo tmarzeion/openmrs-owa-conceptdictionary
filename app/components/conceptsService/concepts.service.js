@@ -48,6 +48,7 @@ export default function conceptsService(openmrsRest, $q){
 				displayPrecision : "",
 				//arrays of concept data
 				answers : [],
+                mappings : [],
 				setMembers: [],
 				handler : ""
 		};	
@@ -109,6 +110,10 @@ export default function conceptsService(openmrsRest, $q){
 		if(concept.datatype.uuid === "8d4a6242-c2cc-11de-8d13-0010c6dffd0f"){
 			
 		}
+
+		if(angular.isDefined(concept.mappings)&&concept.mappings.length > 0){
+		    conceptRequest.mappings = concept.mappings;
+		}
 		//if numeric, add numeric data fields if they are defined
 		if(concept.datatype.uuid === "8d4a4488-c2cc-11de-8d13-0010c6dffd0f"){
 			if(concept.hiAbsolute)conceptRequest.hiAbsolute = concept.hiAbsolute;
@@ -123,7 +128,7 @@ export default function conceptsService(openmrsRest, $q){
 		}
 		//return in then clause to avoid returning undefined
 		var conceptJson = angular.toJson(conceptRequest);
-		
+
         function handleSuccess(success){
         	if(angular.isDefined(success)){
             	result.requestBody = conceptJson;
@@ -136,6 +141,7 @@ export default function conceptsService(openmrsRest, $q){
         	}
         	deferred.resolve(result);
         };
+
         function handleException(exception){
         	result.requestBody = conceptJson;
         	result.success = false;

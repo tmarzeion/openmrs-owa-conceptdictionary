@@ -25,15 +25,18 @@ export default function conceptMappingsService() {
     function parseMappingCode(display){
         //'+2' to cut off ': '
         var nameIndex = display.search(termNameRegEx);
-        if(nameIndex === -1) nameIndex = display.length;
+        if(nameIndex === -1){
+            nameIndex = display.length;
+        }
         return display.substring(display.lastIndexOf(": ")+2, nameIndex)
     }
     function parseMappingName(display){
         var nameIndex = display.search(termNameRegEx);
-        if(nameIndex === -1) return "";
-        else return display.substring(nameIndex+1, display.length-1);
-    }
-    function getMapTypes(){
-        return openmrsRest.list('conceptmaptype');
+        if(nameIndex === -1){
+            return "";
+        }
+        else{
+            return display.substring(nameIndex+1, display.length-1);
+        }
     }
 }

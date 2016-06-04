@@ -219,6 +219,13 @@
 
 			<div class="clear"/>
 
+            <div>
+                <mappings-table concept-uuid="vm.concept.uuid"
+                                on-update = "vm.onMappingsUpdate(mappings)"
+                                edit-count-update="vm.onEditCountUpdate(count)">
+                </mappings-table>
+            </div>
+
 			<label>Version <img class="help_icon_bottom"
 					ng-src="{{vm.helpgif}}"
 					title="An optional way for you to keep track of which concepts came before others when changing/updating concepts"
