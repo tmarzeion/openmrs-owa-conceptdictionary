@@ -14,6 +14,7 @@ import openmrsContribUiCommons from 'openmrs-contrib-uicommons';
 import messagesEn from '../translation/messages_en.json';
 import messagesEs from '../translation/messages_es.json';
 
+import ConceptMappingsService from './conceptMappingsService/conceptMappings.service.js';
 import ConceptsService from './conceptsService/concepts.service.js';
 
 import IndexController from './index/index.controller.js';
@@ -44,7 +45,8 @@ export default angular
 		['ngRoute',
 		 'openmrs-contrib-uicommons'])
 		 
-	.factory('conceptsService', ConceptsService)	
+	.factory('conceptsService', ConceptsService)
+	.factory('conceptMappingsService', ConceptMappingsService)
 		 
 	.controller('ClassEditController', ClassEditController)
 	.controller('ClassListController', ClassListController)

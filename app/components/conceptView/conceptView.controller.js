@@ -7,9 +7,11 @@
  * Copyright (C) OpenMRS Inc. OpenMRS is a registered trademark and the OpenMRS
  * graphic logo is a trademark of OpenMRS Inc.
  */
-ConceptViewController.$inject = ['$scope', 'concept', 'serverLocales', 'conceptsService', '$routeParams'];
+ConceptViewController.$inject = ['$scope', 'concept', 'serverLocales',
+                                'conceptsService', '$routeParams', 'conceptMappingsService'];
 
-export default function ConceptViewController ($scope, concept, serverLocales, conceptsService, $routeParams){
+export default function ConceptViewController ($scope, concept, serverLocales, conceptsService,
+                                                $routeParams, conceptMappingsService){
 
 	var vm = this;
 	
@@ -32,6 +34,9 @@ export default function ConceptViewController ($scope, concept, serverLocales, c
 	vm.locales;
 	//function invoked when user clicks locale button
 	vm.goLocale = goLocale;
+	vm.parseMappingSource = conceptMappingsService.parseMappingSource;
+	vm.parseMappingCode = conceptMappingsService.parseMappingCode;
+	vm.parseMappingName = conceptMappingsService.parseMappingName;
 	vm.selectedLocale;
 	
 	vm.showAllNames = false;
