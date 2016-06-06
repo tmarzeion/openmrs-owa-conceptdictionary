@@ -27,6 +27,14 @@ export default function ConceptSearchController($scope, $routeParams, openmrsRes
         {
             "property": "name.name",
             "label": "Concept.name"
+        },
+        {
+            "property": "conceptClass.name",
+            "label":"class"
+        },
+        {
+            "property": "uuid",
+            "label":"uuid"
         }];
     vm.actions = [
         {
