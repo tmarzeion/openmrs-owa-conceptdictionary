@@ -45,14 +45,14 @@ export default function SourceEditController (sources ,openmrsRest, $location, o
     //Method used to add class with current class params
     function save() {
         vm.json = angular.toJson(vm.source);
-        openmrsRest.update('conceptsource', {uuid: vm.source.uuid}, vm.json).then(handleSuccess, handleException);
+        openmrsRest.update('conceptsource', vm.source).then(handleSuccess, handleException);
     }
 
     function retire() {
-        openmrsRest.retire('conceptsource', {uuid: vm.source.uuid}).then(handleSuccess, handleException);
+        openmrsRest.retire('conceptsource', vm.source).then(handleSuccess, handleException);
     }
     function unretire() {
-        openmrsRest.unretire('conceptsource', {uuid: vm.source.uuid}).then(handleSuccess, handleException);
+        openmrsRest.unretire('conceptsource', vm.source).then(handleSuccess, handleException);
     }
     
     
@@ -61,7 +61,7 @@ export default function SourceEditController (sources ,openmrsRest, $location, o
      */
     vm.deleteClicked = false;
     function deleteForever() {
-        openmrsRest.remove('conceptsource', {uuid : vm.source.uuid, purge : true}).then(
+        openmrsRest.purge('conceptsource', vm.source).then(
             	function(success)  {$location.path('/source').search({successToast: vm.source.name+" has been purged"});}, 
             	handleException);
     }

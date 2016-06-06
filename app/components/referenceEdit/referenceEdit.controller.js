@@ -45,16 +45,15 @@ export default function ReferenceEditController (reference, sources, openmrsRest
     }
 
     function save() {
-        vm.json = angular.toJson(vm.reference);
-        openmrsRest.update('conceptreferenceterm', {uuid: vm.reference.uuid}, vm.json).then(handleSuccess, handleException);
+        openmrsRest.update('conceptreferenceterm', vm.reference).then(handleSuccess, handleException);
     }
 
     function unretire() {
-        openmrsRest.unretire('conceptreferenceterm', {uuid: vm.reference.uuid}).then(handleSuccess, handleException);
+        openmrsRest.unretire('conceptreferenceterm', vm.reference).then(handleSuccess, handleException);
     }
 
     function retire() {
-        openmrsRest.retire('conceptreferenceterm', {uuid: vm.reference.uuid}).then(handleSuccess, handleException);
+        openmrsRest.retire('conceptreferenceterm', vm.reference).then(handleSuccess, handleException);
     }
     
     
@@ -70,7 +69,7 @@ export default function ReferenceEditController (reference, sources, openmrsRest
     vm.deleteClicked = false;
     
     function deleteForever() {
-        openmrsRest.remove('conceptreferenceterm', {uuid : vm.reference.uuid, purge : true}).then(
+        openmrsRest.purge('conceptreferenceterm', vm.reference).then(
         	function(success)  {$location.path('/reference').search({successToast: vm.reference.code+" has been purged"});}, 
         	handleException);
     }

@@ -79,11 +79,11 @@ export default function DrugEditController($location, openmrsRest, loadDrug, ope
 	}
 	
 	function retire(){
-		openmrsRest.remove('drug', {uuid: vm.drug.uuid}).then(handleSuccess, handleException);
+		openmrsRest.remove('drug', vm.drug).then(handleSuccess, handleException);
 	}
 	
 	function unRetire(){
-		openmrsRest.unretire('drug', {uuid: vm.drug.uuid}).then(handleSuccess, handleException);
+		openmrsRest.unretire('drug', vm.drug).then(handleSuccess, handleException);
 	}
 	
 	function isCorrect(){	
@@ -114,9 +114,10 @@ export default function DrugEditController($location, openmrsRest, loadDrug, ope
 		  minimumDailyDose: vm.drug.minimumDailyDose,
 		  maximumDailyDose: vm.drug.maximumDailyDose,
 		  route: vm.drug.route.uuid,
-		  retired: vm.drug.retired
+		  retired: vm.drug.retired,
+		  uuid: vm.drug.uuid
 		}
-		openmrsRest.update('drug', {uuid: vm.drug.uuid}, vm.Drug).then(handleSuccess, handleException);
+		openmrsRest.update('drug', vm.Drug).then(handleSuccess, handleException);
 	}
 	
 	function redirectToList(){
@@ -139,7 +140,7 @@ export default function DrugEditController($location, openmrsRest, loadDrug, ope
 	vm.deleteClicked = false;
 
 	function deleteForever() {
-		openmrsRest.remove('drug', {uuid : vm.drug.uuid, purge : true});
+		openmrsRest.purge('drug', vm.drug);
 		$location.path('/drug').search({successToast: vm.drug.name+" has been deleted"});
 	}
 	function showAlert() {
