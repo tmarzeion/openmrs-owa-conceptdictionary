@@ -16,6 +16,7 @@ export default function ClassListController ($routeParams, openmrsNotification) 
 	openmrsNotification.routeNotification();
     //Properties for list component
     vm.resource = "conceptclass";
+    vm.disableLinks = true;
     vm.limit = 10; //Default value
     vm.columns= [
         {
@@ -25,6 +26,10 @@ export default function ClassListController ($routeParams, openmrsNotification) 
         {
             "property": "description",
             "label":"Description"
+        },
+        {
+            "property": "uuid",
+            "label": "UUID"
         }];
     vm.actions = [
         {
