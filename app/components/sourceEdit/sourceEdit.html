@@ -56,8 +56,8 @@
 			<div ng-show="!vm.source.retired&&vm.source.uuid">
 				<h2><i class="icon-lock"></i>{{"Retire" | translate}}</h2>
 				<label>{{"RetireReason" | translate}}<span class="required">*</span></label>
-				<textarea ng-model="vm.source.auditInfo.retireReason" rows="3" cols="50"></textarea>
-				<button ng-disabled="vm.source.auditInfo.retireReason.length < 1" ng-click="vm.retire()">
+				<textarea ng-model="vm.retireReason" rows="3" cols="50"></textarea>
+				<button ng-disabled="vm.retireReason.length < 1" ng-click="vm.retire()">
 					<i class="icon-lock"></i>&#160;Retire
 				</button>
 			</div>

@@ -32,9 +32,8 @@ export default function SourceEditController (sources ,openmrsRest, $location, o
     
     function activate(){
         vm.source = sources;
-    	if(angular.isDefined(vm.source.auditInfo)&&
-    	   angular.isUndefined(vm.source.auditInfo.retireReason)){
-    			vm.source.auditInfo.retireReason = ""; 
+    	if(angular.isUndefined(vm.retireReason)){
+    			vm.retireReason = "";
     	}
     }
 
@@ -49,7 +48,7 @@ export default function SourceEditController (sources ,openmrsRest, $location, o
     }
 
     function retire() {
-        openmrsRest.retire('conceptsource', vm.source).then(handleSuccess, handleException);
+        openmrsRest.retire('conceptsource', vm.source, vm.retireReason).then(handleSuccess, handleException);
     }
     function unretire() {
         openmrsRest.unretire('conceptsource', vm.source).then(handleSuccess, handleException);
