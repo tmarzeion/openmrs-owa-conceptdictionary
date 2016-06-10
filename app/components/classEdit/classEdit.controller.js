@@ -34,9 +34,8 @@ export default function ClassEditController( singleClass, $routeParams, $locatio
 	activate();
 	
 	function activate(){
-    	if(angular.isDefined(vm.singleClass.auditInfo)&&
-    	   angular.isUndefined(vm.singleClass.auditInfo.retireReason)){
-    			vm.singleClass.auditInfo.retireReason = ""; 
+    	if(angular.isUndefined(vm.retireReason)){
+    			vm.retireReason = "";
     	}
     	openmrsNotification.routeNotification();
     }
@@ -50,7 +49,7 @@ export default function ClassEditController( singleClass, $routeParams, $locatio
     }
     
     function retire() {
-        openmrsRest.retire('conceptclass', vm.singleClass).then(handleSuccess, handleException);
+        openmrsRest.retire('conceptclass', vm.singleClass, vm.retireReason).then(handleSuccess, handleException);
     }
     
     function unretire() {

@@ -32,9 +32,8 @@ export default function ReferenceEditController (reference, sources, openmrsRest
         if(angular.isUndefined(vm.reference.uuid)){
             vm.reference.conceptSource = vm.sources[0]
         }
-        if(angular.isDefined(vm.reference.auditInfo)&&
-            angular.isUndefined(vm.reference.auditInfo.retireReason)){
-            vm.reference.auditInfo.retireReason = "";
+        if(angular.isUndefined(vm.retireReason)){
+            vm.retireReason = "";
         }
         vm.reference.conceptSource = vm.reference.conceptSource;
         openmrsNotification.routeNotification();
@@ -53,7 +52,7 @@ export default function ReferenceEditController (reference, sources, openmrsRest
     }
 
     function retire() {
-        openmrsRest.retire('conceptreferenceterm', vm.reference).then(handleSuccess, handleException);
+        openmrsRest.retire('conceptreferenceterm', vm.reference, vm.retireReason).then(handleSuccess, handleException);
     }
     
     

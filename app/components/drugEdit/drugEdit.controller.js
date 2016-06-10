@@ -61,8 +61,8 @@ export default function DrugEditController($location, openmrsRest, loadDrug, ope
 						display: ''
 					};
 			}
-			if (angular.isDefined(vm.drug.auditInfo) && angular.isUndefined(vm.drug.auditInfo.retireReason)) {
-				vm.drug.auditInfo.retireReason = "";
+			if (angular.isUndefined(vm.retireReason)) {
+				vm.retireReason = "";
 			}
         } else {
         	vm.drug.combination = false;
@@ -79,7 +79,7 @@ export default function DrugEditController($location, openmrsRest, loadDrug, ope
 	}
 	
 	function retire(){
-		openmrsRest.remove('drug', vm.drug).then(handleSuccess, handleException);
+		openmrsRest.remove('drug', vm.drug, vm.retireReason).then(handleSuccess, handleException);
 	}
 	
 	function unRetire(){
