@@ -10,10 +10,12 @@
 import helpgif from '../../img/help.gif'
 
 ConceptAddController.$inject = 
-	['concept','serverLocales', 'loadClasses', 'loadDataTypes', 'conceptsService', '$location', '$routeParams', 'openmrsNotification'];
+	['concept','serverLocales', 'loadClasses', 'loadDataTypes', 'conceptsService',
+	'$location', '$routeParams', 'openmrsNotification', '$window'];
 	
 export default function ConceptAddController
-		(concept, serverLocales, loadClasses, loadDataTypes, conceptsService, $location, $routeParams, openmrsNotification){
+		(concept, serverLocales, loadClasses, loadDataTypes, conceptsService,
+		$location, $routeParams, openmrsNotification, $window){
 	
 	var vm = this;
 	
@@ -49,6 +51,9 @@ export default function ConceptAddController
 	vm.onSetMemberTableUpdate = onSetMemberTableUpdate;
 	vm.onAnswerTableUpdate = onAnswerTableUpdate;
 	vm.onFullnameUpdate = onFullnameUpdate;
+	vm.onMappingsUpdate = onMappingsUpdate;
+	vm.onEditCountUpdate = onEditCountUpdate;
+	vm.editCount;
 	//concept data to create post request
 	vm.concept;
 	vm.isFormValid = false;
@@ -118,39 +123,59 @@ export default function ConceptAddController
 	}
 	
 	function onSetMemberTableUpdate(concepts){
-		vm.concept.setMembers = [];
-		for(var i=0;i<concepts.length;i++){
-			vm.concept.setMembers.push(concepts[i])
-		}
+		updateArrayField(concepts, "setMembers")
 	}
 	function onAnswerTableUpdate(concepts){
-		vm.concept.answers = [];
-		for(var i=0;i<concepts.length;i++){
-			vm.concept.answers.push(concepts[i])
-		}
+		updateArrayField(concepts, "answers")
 	}
 	function onFullnameUpdate(isCorrect, name, suggestions){
 		vm.selectedLocaleData.fullname.name = name;
 		vm.selectedLocaleData.fullname.valid = isCorrect;
 		validateForm()
 	}
+	function onMappingsUpdate(mappings){
+	    updateArrayField(mappings, "mappings");
+	}
+	function onEditCountUpdate(count){
+	    vm.editCount = count;
+	}
+	function updateArrayField(array, fieldName){
+        vm.concept[fieldName] = [];
+        for(var i=0;i<array.length;i++){
+            vm.concept[fieldName].push(array[i]);
+        }
+	}
 	function postConceptAndContinue(){
-		if(vm.editMode){
-			postConcept('/concept/edit/'+vm.concept.uuid);
-		}else{
-			postConcept('/concept/add');
-		}
+        post(function handleSuccess(result){
+            if($location.path()==='/concept/add/'){
+                $location.path('/concept/add/')
+					.search({successToast : result.message, timestamp : Date.now()});
+            } else {
+				$location.path('/concept/edit/'+vm.concept.uuid)
+					.search({successToast : result.message, timestamp : Date.now()});
+			}
+        })
+	}
+	function postConcept(){
+	    post(function handleSuccess(result){
+	        $location.path('/concept/').search({successToast : result.message});
+	    })
 
 	}
-	function postConcept(path='/concept/'){
-		conceptsService.postConcept(vm.concept, vm.localizedConcepts).then(function(result){
-			if(angular.isDefined(result)&&result.success){
-				$location.path(path).search({successToast : result.message});
-			}
-			else{
-				openmrsNotification.error(result.message)
-			}
-		})
+
+	function post(handleSuccess){
+	    if(vm.editCount > 0){
+            $window.alert("Please accept or discard Your changes in mapping table to save this concept");
+        } else {
+            conceptsService.postConcept(vm.concept, vm.localizedConcepts).then(function(result){
+                if(angular.isDefined(result)&&result.success){
+                   handleSuccess(result);
+                }
+                else{
+                   openmrsNotification.error(result.message)
+                }
+            })
+        }
 	}
 	function validateForm(){
 		vm.isFormValid = false;

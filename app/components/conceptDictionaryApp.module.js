@@ -14,6 +14,7 @@ import openmrsContribUiCommons from 'openmrs-contrib-uicommons';
 import messagesEn from '../translation/messages_en.json';
 import messagesEs from '../translation/messages_es.json';
 
+import ConceptMappingsService from './conceptMappingsService/conceptMappings.service.js';
 import ConceptsService from './conceptsService/concepts.service.js';
 
 import IndexController from './index/index.controller.js';
@@ -36,6 +37,7 @@ import SourcesListController from './sourceList/sourceList.controller.js';
 
 import conceptTableComponent from './conceptTable/conceptTable.component.js';
 import conceptUniqueNameComponent from './conceptUniqueName/conceptUniqueName.component.js';
+import mappingsTableComponent from './mappingsTable/mappingsTable.component.js';
 
 import conceptDictionaryAppConfig from './conceptDictionaryApp.config.js';
 
@@ -44,7 +46,8 @@ export default angular
 		['ngRoute',
 		 'openmrs-contrib-uicommons'])
 		 
-	.factory('conceptsService', ConceptsService)	
+	.factory('conceptsService', ConceptsService)
+	.factory('conceptMappingsService', ConceptMappingsService)
 		 
 	.controller('ClassEditController', ClassEditController)
 	.controller('ClassListController', ClassListController)
@@ -81,6 +84,15 @@ export default angular
 		    name: '<',
 		    onUpdate: '&' 
 		  }})
+    .component('mappingsTable', {
+          template: require('./mappingsTable/mappingsTable.html'),
+          controller: mappingsTableComponent,
+          controllerAs : 'vm',
+          bindings: {
+            conceptUuid: '<',
+            onUpdate: '&',
+            editCountUpdate: '&'
+          }})
 	.config(['$routeProvider', conceptDictionaryAppConfig])
 	.config(['openmrsTranslateProvider', translateConfig]);
 

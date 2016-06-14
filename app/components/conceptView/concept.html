@@ -75,7 +75,7 @@
 								</tbody>
 							</table>
 
-							<p ng-show="{{vm.conceptLocale.description.display}}" class="localeSpecific"
+							<p ng-show="vm.conceptLocale.description.display" class="localeSpecific"
 								title="Longer body of text used to fully describe this concept and how it is used.">
 								<label>{{"Description" | translate}}:</label>
 								<i>{{vm.conceptLocale.description.display}}</i>
@@ -166,6 +166,27 @@
 						</fieldset>
 					</div>
 
+                    <fieldset ng-show="vm.concept.mappings.length > 0">
+                        <legend>Mappings</legend>
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>Relationship</th>
+                                    <th>Source</th>
+                                    <th>Code</th>
+                                    <th>Name</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr ng-repeat="mapping in vm.concept.mappings">
+                                    <td ng-bind="mapping.conceptMapType.display"></td>
+                                    <td ng-bind="vm.parseMappingSource(mapping.display)"></td>
+                                    <td ng-bind="vm.parseMappingCode(mapping.display)"></td>
+                                    <td ng-bind="vm.parseMappingName(mapping.display)"></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </fieldset>
 
 					<p ng-show="vm.concept.version"
 						title="An optional way for you to keep track of which concepts came before others when changing/updating concepts">
