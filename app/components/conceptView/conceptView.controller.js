@@ -8,10 +8,11 @@
  * graphic logo is a trademark of OpenMRS Inc.
  */
 ConceptViewController.$inject = ['$scope', 'concept', 'serverLocales',
-                                'conceptsService', '$routeParams', 'conceptMappingsService'];
+                                'conceptsService', '$routeParams', 'conceptMappingsService',
+								'$rootScope', '$translate'];
 
 export default function ConceptViewController ($scope, concept, serverLocales, conceptsService,
-                                                $routeParams, conceptMappingsService){
+                                                $routeParams, conceptMappingsService, $rootScope, $translate){
 
 	var vm = this;
 	
@@ -43,6 +44,11 @@ export default function ConceptViewController ($scope, concept, serverLocales, c
 	vm.toggleAllNames = toggleAllNames;
 	
 	activate();
+
+	$rootScope.$on('$translateChangeSuccess', function (){
+		var locale  = $translate.use();
+		goLocale(locale);
+	});
 	
 	//activation function
 	function activate(){
