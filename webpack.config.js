@@ -128,6 +128,10 @@ plugins.push(new CopyWebpackPlugin([{
 }]));
 
 plugins.push(new CopyWebpackPlugin([{
+    from: './app/manifest.webapp.test'
+}]));
+
+plugins.push(new CopyWebpackPlugin([{
     from: './app/img/omrs-button.png',
     to: 'img/omrs-button.png'
 }]));
