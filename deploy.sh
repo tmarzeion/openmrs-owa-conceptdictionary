@@ -5,7 +5,7 @@ if [ "$TRAVIS_BRANCH" == "master" ]; then
 
 echo "Deploying the app to GitHub Pages..."
 
-cd dist
+cd build/dist
 rm -f *.zip
 
 rm manifest.webapp
