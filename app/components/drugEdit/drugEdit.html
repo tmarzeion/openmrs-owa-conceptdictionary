@@ -32,7 +32,7 @@
 				    </p>
 				    <p class="input-position-class">
 				      <label name="input-route">{{"ConceptDrug.route" | translate}}</label>
-				      <concept-auto-complete required='false' concept='vm.drug.route' on-update='vm.updateRoute(isCorrect, concept)'></concept-auto-complete>
+				      <concept-auto-complete required='false' limit-to-class='route' concept='vm.drug.route' on-update='vm.updateRoute(isCorrect, concept)'></concept-auto-complete>
 				    </p>
 				    <p class="input-position-class">
 				      <input id="input-comb" type="checkbox" ng-model='vm.drug.combination'/>
