@@ -27,51 +27,26 @@
 						<br />
 						<fieldset>
 							<p>
-								<label>{{"Concept.name.localePreferred" | translate}} {{"Concept.name" | translate}}:</label> <i>{{vm.conceptLocale.names.preferredName}}</i>
+								<label><b>{{"Concept.name.localePreferred" | translate}} {{"Concept.name" | translate}}:</b></label> <i>{{vm.conceptLocale.names.preferredName}}</i>
 							</p>
-							<p>
-								<label ng-click="vm.toggleAllNames()"><a>{{vm.showAllNames ? "Hide" : "Show"}} all names</a></label>
-							</p>
-							<table ng-show="vm.showAllNames" class="animate-show">
-								<thead>
-									<tr>
-										<th>Name type</th>
-										<th>Names</th>
-									</tr>
-								</thead>
-								<tbody>
-									<tr>
-									<tr class="localeSpecific"
-										title="The name to be used on forms, reports etc. in case no preferred name is set for the locale">
-										<td>{{"Fully Qualified Name" | translate}}</td>
-										<td>{{vm.conceptLocale.names.fullname.display}}</td>
-									</tr>
+								<label>
+									<b>{{"Fully Qualified Name" | translate}}:</b> </br>
+									<span>{{vm.conceptLocale.names.fullname.display}}</span>
+								</label>
+								<label>
+									<b>{{"Synonyms"| translate}}: </b></br>
+									<span class="synonym-repeat" ng-repeat="synonym in vm.conceptLocale.names.synonyms">- {{synonym.display}}</br></span>
+								</label>
 
+								<label>
+									<b>{{"Terms" | translate}}: </b></br>
+									<span class="searchTerm-repeat" ng-repeat="searchTerm in vm.conceptLocale.names.searchTerms">- {{searchTerm.display}} </br></span>
+								</label>
 
-									<tr class="localeSpecific"
-										title="Any label or name that refers to a primary concept.">
-
-										<td>{{"Synonyms"| translate}}</td>
-										<td><span class="synonym-repeat"
-											ng-repeat="synonym in vm.conceptLocale.names.synonyms">
-											{{synonym.display}}</br>
-										</span></td>
-										</td>
-									</tr>
-
-									<tr class="localeSpecific"
-										title="An index term or phrase that might be used to search for this concept but that is not valid for display purposes or storing in the record (e.g., common misspellings or pragmatic mapping term)">
-										<td>{{"Terms" | translate}}</td>
-										<td><span class="searchTerm-repeat"
-											ng-repeat="searchTerm in vm.conceptLocale.names.searchTerms">
-											{{searchTerm.display}} </br></span></td>
-									</tr>
-
-									<tr class="localeSpecific"
-										title="The text shown in report headers and other places where space is limited">
-										<td>{{"Concept.shortName" | translate}}</td>
-										<td>{{vm.conceptLocale.names.shortname.display}}</td>
-									</tr>
+									<label>
+										<b>{{"Concept.shortName" | translate}}: </b></br>
+										<span>{{vm.conceptLocale.names.shortname.display}}</br></span>
+									</label>
 								</tbody>
 							</table>
 
