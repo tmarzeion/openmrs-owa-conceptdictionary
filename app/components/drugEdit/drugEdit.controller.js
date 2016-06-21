@@ -28,6 +28,7 @@ export default function DrugEditController($location, openmrsRest, loadDrug, ope
 	vm.showMessage;
 	vm.Drug;
 	vm.limitToClass = 'Drug';
+	vm.membersOf = 'Route';
 	
 	//redirects to drug list after success
 	vm.redirectToList = redirectToList;
