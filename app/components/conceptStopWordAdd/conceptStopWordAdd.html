@@ -1,30 +1,47 @@
 <openmrs-breadcrumbs links="vm.links"></openmrs-breadcrumbs>
 <div id="body-wrapper">
     <div id="content" class="container">
-        <h2>Add Concept Stop Word</h2>
+        <h2><i class="icon-font"></i>&#160;Add Concept Stop Word</h2>
         <form>
-            <label>
-            {{"Name" | translate}}<span class="required">*</span>
-            </label>
-            <input type="text" name="name" size="35" ng-model="vm.conceptStopWord.value" ng-required="true"
-                   value=""/>
-            <label>
-                Locale
-            </label>
-            <select
-                    ng-required="true"
-                    ng-model="vm.conceptStopWord.locale"
-                    ng-options="serverLocale as serverLocale for serverLocale in vm.serverLocales track by serverLocale">
-            </select>
+            <div align="center" style="padding-left: 30px; width: 90%;">
+                <fieldset style="width:90%;">
+                    <div style="float:left;width:60%">
+                        <label>
+                            {{"Name" | translate}}<span class="required">*</span>
+                        </label>
+                        <input                                 style="float: left"
+                                                               type="text"
+                                                               name="name"
+                                                               size="10"
+                                                               ng-model="vm.conceptStopWord.value"
+                                                               ng-required="true" 
+                                                               value=""
+                        />
+                    </div>
+                    <div style="float:left;width:40%">
+                        <label>
+                            Locale
+                        </label>
+                        <select
+                                style="float: left"
+                                ng-required="true"
+                                ng-model="vm.conceptStopWord.locale"
+                                ng-options="serverLocale as serverLocale for serverLocale in vm.serverLocales track by serverLocale">
+                        </select>
+                    </div>
+                </fieldset>
+            </div>
         </form>
-        <br>
-        <button ng-disabled="!(vm.conceptStopWord.locale)" ng-click="vm.addConceptStopWord()">
-            <i class="icon-ok"></i>
+
+        <div style="padding-top: 13px">
+            <button ng-disabled="!(vm.conceptStopWord.locale)" ng-click="vm.addConceptStopWord()">
+                <i class="icon-ok"></i>
                 &#160;{{"ConceptStopWord.save" | translate}}
-        </button>
-        <button ng-click="vm.cancel()">
-            <i class="icon-remove"></i>
+            </button>
+            <button ng-click="vm.cancel()">
+                <i class="icon-remove"></i>
                 &#160;{{"Concept.cancel" | translate}}
-        </button>
+            </button>
+        </div>
     </div>
 </div>

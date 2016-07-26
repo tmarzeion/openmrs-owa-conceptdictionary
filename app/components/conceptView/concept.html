@@ -11,176 +11,201 @@
 		</div>
 		<div class="info-section">
 			<div>
-				<h2>
+				<h1>
 					<i class="icon-eye-open"></i>&#160;{{vm.concept.display}}
-				</h2>
+				</h1>
 			</div>
-			<div id="content" class="container">
+			<div class="container">
 				<form>
 					<div>
-						<div class="button-group">
+						<div class="button-group" style="margin-left: 3%">
 							<label class="button localeButtons-repeat"
 								ng-repeat="locale in vm.locales" ng-click="vm.goLocale(locale)"
 								ng-class="{active: vm.selectedLocale===locale}">
 								{{locale}} </label>
 						</div>
-						<br />
-						<fieldset>
-							<p>
-								<label><b>{{"Concept.name.localePreferred" | translate}} {{"Concept.name" | translate}}:</b></label> <i>{{vm.conceptLocale.names.preferredName}}</i>
-							</p>
-								<label>
-									<b>{{"Fully Qualified Name" | translate}}:</b> </br>
-									<span>{{vm.conceptLocale.names.fullname.display}}</span>
-								</label>
-								<label>
-									<b>{{"Synonyms"| translate}}: </b></br>
-									<span class="synonym-repeat" ng-repeat="synonym in vm.conceptLocale.names.synonyms">- {{synonym.display}}</br></span>
-								</label>
-
-								<label>
-									<b>{{"Terms" | translate}}: </b></br>
-									<span class="searchTerm-repeat" ng-repeat="searchTerm in vm.conceptLocale.names.searchTerms">- {{searchTerm.display}} </br></span>
-								</label>
-
+						<br>
+						<div align="center">
+							<fieldset style="width:90%">
+								<div align="left">
+									<p>
+										<label><b>{{"Concept.name.localePreferred" | translate}} {{"Concept.name" | translate}}:</b></label> <i>{{vm.conceptLocale.names.preferredName}}</i>
+									</p>
 									<label>
+										<b>{{"Fully Qualified Name" | translate}}:</b> </br>
+										<span>{{vm.conceptLocale.names.fullname.display}}</span>
+									</label>
+									<label ng-show="vm.conceptLocale.names.synonyms.length > 0">
+										<b>{{"Synonyms"| translate}}: </b></br>
+										<span class="synonym-repeat" ng-repeat="synonym in vm.conceptLocale.names.synonyms">- {{synonym.display}}</br></span>
+									</label>
+
+									<label ng-show="vm.conceptLocale.names.searchTerms.length > 0">
+										<b>{{"Terms" | translate}}: </b></br>
+										<span class="searchTerm-repeat" ng-repeat="searchTerm in vm.conceptLocale.names.searchTerms">- {{searchTerm.display}} </br></span>
+									</label>
+
+									<label ng-show="vm.conceptLocale.names.shortname.display">
 										<b>{{"Concept.shortName" | translate}}: </b></br>
 										<span>{{vm.conceptLocale.names.shortname.display}}</br></span>
 									</label>
-								</tbody>
-							</table>
+									</tbody>
+									</table>
 
-							<p ng-show="vm.conceptLocale.description.display" class="localeSpecific"
-								title="Longer body of text used to fully describe this concept and how it is used.">
-								<label>{{"Description" | translate}}:</label>
-								<i>{{vm.conceptLocale.description.display}}</i>
-							</p>
-						</fieldset>
+									<p ng-show="vm.conceptLocale.description.display" class="localeSpecific"
+									   title="Longer body of text used to fully describe this concept and how it is used.">
+										<label><strong>{{"Description" | translate}}:</strong></label>
+										<i>{{vm.conceptLocale.description.display}}</i>
+									</p>
+								</div>
+							</fieldset>
+						</div>
 					</div>
 
-					<p title="The classification of the medical concept">
-						<label>{{"Concept.conceptClass" | translate}}:</label> <i>{{vm.concept.conceptClass.display}}</i>
-					</p>
+					<div align="center">
+						<fieldset style="width:90%">
+							<legend>Concept information</legend>
+							<div align="left">
+								<p title="The classification of the medical concept">
+									<label><strong>{{"Concept.conceptClass" | translate}}:</strong></label>
+									<i>{{vm.concept.conceptClass.display}}</i>
+								</p>
 
-					<p>
-						<label>{{"Concept.set" | translate}}:</label> <i
-							ng-bind="vm.concept.set"></i>
-					</p>
+								<p>
+									<label><strong>{{"Concept.set" | translate}}:</strong></label>
+									<i ng-bind="vm.concept.set"></i>
+								</p>
 
+								<p ng-show="vm.concept.set">
+									<label><strong>{{"Concept.conceptSets" | translate}}:</strong></label>
+									<i ng-if="vm.concept.setMembers.length === 0">{{"Concept.conceptSets.empty" | translate}}</i>
+								<ul ng-if="vm.concept.setMembers.length !== 0">
+									<li class="setMembers-repeat"
+										ng-repeat="member in vm.concept.setMembers"
+										style="list-style-type: none"><i
+											class="icon-double-angle-right"></i> <a
+											href="/concept/{{member.uuid}}">{{member.display}}</a></li>
+								</ul>
 
+								</p>
 
-					<p ng-show="vm.concept.set">
-						<label>{{"Concept.conceptSets" | translate}}:</label> <i
-							ng-if="vm.concept.setMembers.length === 0">{{"Concept.conceptSets.empty"
-							| translate}}</i>
-					<ul ng-if="vm.concept.setMembers.length !== 0">
-						<li class="setMembers-repeat"
-							ng-repeat="member in vm.concept.setMembers"
-							style="list-style-type: none"><i
-							class="icon-double-angle-right"></i> <a
-							href="/concept/{{member.uuid}}">{{member.display}}</a></li>
-					</ul>
+								<p title="If data is stored within this concept, this describes what it will look like">
+									<label><strong>{{"Concept.datatype" | translate}}:</strong></label>
+									<i>{{vm.concept.datatype.display}}</i>
+								</p>
 
-					</p>
-
-					<p
-						title="If data is stored within this concept, this describes what it will look like">
-						<label>{{"Concept.datatype" | translate}}:</label> <i>{{vm.concept.datatype.display}}</i>
-					</p>
-
-					<p ng-show="vm.isCoded">
-						<label>{{"Concept.answers"| translate}}:</label> <i
-							ng-if="vm.concept.answers.length === 0">{{"Concept.conceptSets.empty"
-							| translate}}</i>
-					<ul ng-if="vm.concept.answers.length !== 0">
-						<li class="answer-repeat" ng-repeat="answer in vm.concept.answers"><i
-							class="icon-double-angle-right"></i> <a
-							href="#/concept/{{answer.uuid}}">{{answer.display}}</a></li>
-					</ul>
-					</p>
-
-
+								<p ng-show="vm.isCoded">
+									<label><strong>{{"Concept.answers"| translate}}:</strong></label>
+									<i ng-if="vm.concept.answers.length === 0">{{"Concept.conceptSets.empty" | translate}}</i>
+								<ul ng-if="vm.concept.answers.length !== 0">
+									<li class="answer-repeat" ng-repeat="answer in vm.concept.answers"><i
+											class="icon-double-angle-right"></i> <a
+											href="#/concept/{{answer.uuid}}">{{answer.display}}</a></li>
+								</ul>
+							</div>
+						</fieldset>
+					</div>
 
 					<div ng-if="vm.isNumeric">
-						<p><label>{{"ConceptNumeric.name" | translate}}:
-						<i>({{"ConceptNumeric.inclusive" |
-							translate}})</i></label></p>
-						<fieldset>
-							<p>
-								<label>{{"ConceptNumeric.absoluteHigh" |
-									translate}}:</label> <i>{{vm.concept.hiAbsolute}}</i>
-							</p>
-							<p>
-								<label>{{"ConceptNumeric.criticalHigh" |
-									translate}}:</label> <i>{{vm.concept.hiCritical}}</i>
-							</p>
-							<p>
-								<label>{{"ConceptNumeric.normalHigh" |
-									translate}}:</label> <i>{{vm.concept.hiNormal}}</i>
-							</p>
-							<p>
-								<label>{{"ConceptNumeric.normalLow" |
-									translate}}:</label> <i>{{vm.concept.lowNormal}}</i>
-							</p>
-							<p>
-								<label>{{"ConceptNumeric.criticalLow" |
-									translate}}:</label> <i>{{vm.concept.lowCritical}}</i>
-							</p>
-							<p>
-								<label>{{"ConceptNumeric.absoluteLow" |
-									translate}}:</label> <i>{{vm.concept.lowAbsolute}}</i>
-							</p>
-							<p>
-								<label>{{"ConceptNumeric.units" |
-									translate}}:</label> <i>{{vm.concept.units}}</i>
-							</p>
-							<p>
-								<label>{{"ConceptNumeric.allowDecimal" |
-									translate}}:</label> <i>{{vm.concept.allowDecimal}}</i>
-							</p>
+						<div align="center">
+							<fieldset style="width:90%">
+								<legend>
+									<label>{{("ConceptNumeric.name" | translate)}}</label>
+								</legend>
+								<div align="left">
+									<p>
+										<small><i>({{"ConceptNumeric.inclusive" |
+											translate}})</i></small>
+									</p>
+									<p ng-show="vm.concept.hiAbsolute">
+										<label><strong>{{"ConceptNumeric.absoluteHigh" |
+											translate}}:</strong></label> <i>{{vm.concept.hiAbsolute}}</i>
+									</p>
+									<p ng-show="vm.concept.hiCritical">
+										<label><strong>{{"ConceptNumeric.criticalHigh" |
+											translate}}:</strong></label> <i>{{vm.concept.hiCritical}}</i>
+									</p>
+									<p ng-show="vm.concept.hiNormal">
+										<label><strong>{{"ConceptNumeric.normalHigh" |
+											translate}}:</strong></label> <i>{{vm.concept.hiNormal}}</i>
+									</p>
+									<p ng-show="vm.concept.lowNormal">
+										<label><strong>{{"ConceptNumeric.normalLow" |
+											translate}}:</strong></label> <i>{{vm.concept.lowNormal}}</i>
+									</p>
+									<p ng-show="vm.concept.lowCritical">
+										<label><strong>{{"ConceptNumeric.criticalLow" |
+											translate}}:</strong></label> <i>{{vm.concept.lowCritical}}</i>
+									</p>
+									<p ng-show="vm.concept.lowAbsolute">
+										<label><strong>{{"ConceptNumeric.absoluteLow" |
+											translate}}:</strong></label> <i>{{vm.concept.lowAbsolute}}</i>
+									</p>
+									<p ng-show="vm.concept.units">
+										<label><strong>{{"ConceptNumeric.units" |
+											translate}}:</strong></label> <i>{{vm.concept.units}}</i>
+									</p>
+									<p ng-show="vm.concept.allowDecimal">
+										<label><strong>{{"ConceptNumeric.allowDecimal" |
+											translate}}:</strong></label> <i>{{vm.concept.allowDecimal}}</i>
+									</p>
+								</div>
+							</fieldset>
+						</div>
+					</div>
+
+					<div align="center">
+						<fieldset style="width:90%" ng-show="vm.concept.mappings.length > 0">
+							<legend>Mappings</legend>
+							<div align="left">
+								<table>
+									<thead>
+									<tr>
+										<th>Relationship</th>
+										<th>Source</th>
+										<th>Code</th>
+										<th>Name</th>
+									</tr>
+									</thead>
+									<tbody>
+									<tr ng-repeat="mapping in vm.concept.mappings">
+										<td ng-bind="mapping.conceptMapType.display"></td>
+										<td ng-bind="vm.parseMappingSource(mapping.display)"></td>
+										<td ng-bind="vm.parseMappingCode(mapping.display)"></td>
+										<td ng-bind="vm.parseMappingName(mapping.display)"></td>
+									</tr>
+									</tbody>
+								</table>
+							</div>
 						</fieldset>
 					</div>
 
-                    <fieldset ng-show="vm.concept.mappings.length > 0">
-                        <legend>Mappings</legend>
-                        <table>
-                            <thead>
-                                <tr>
-                                    <th>Relationship</th>
-                                    <th>Source</th>
-                                    <th>Code</th>
-                                    <th>Name</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <tr ng-repeat="mapping in vm.concept.mappings">
-                                    <td ng-bind="mapping.conceptMapType.display"></td>
-                                    <td ng-bind="vm.parseMappingSource(mapping.display)"></td>
-                                    <td ng-bind="vm.parseMappingCode(mapping.display)"></td>
-                                    <td ng-bind="vm.parseMappingName(mapping.display)"></td>
-                                </tr>
-                            </tbody>
-                        </table>
-                    </fieldset>
+					<div align="center">
+						<fieldset style="width:90%">
+							<legend>AUDIT INFORMATION</legend>
+							<div align="left">
+								<p ng-show="vm.concept.version"
+								   title="An optional way for you to keep track of which concepts came before others when changing/updating concepts">
+									<label>{{"Version" | translate}}: </label><i>{{vm.concept.version}}</i>
+								</p>
+								<p>
+									<small>{{"CreatedBy" | translate}}: <i>
+										{{vm.concept.auditInfo.creator.display}} -
+										{{vm.concept.auditInfo.dateCreated|date:'medium'}}</i></small>
+								</p>
+								<p>
+									<small>{{"ChangedBy" | translate}}: <i>
+										{{vm.concept.auditInfo.creator.display}} -
+										{{vm.concept.auditInfo.dateChanged|date:'medium'}}</i></small>
+								</p>
 
-					<p ng-show="vm.concept.version"
-						title="An optional way for you to keep track of which concepts came before others when changing/updating concepts">
-						<label>{{"Version" | translate}}: </label><i>{{vm.concept.version}}</i>
-					</p>
+								<p title="System generated unique ID" style="color: #D0D0D0;">
+									<small>UUID: <i>{{vm.concept.uuid}}</i></small>
+								</p>
+							</div>
+						</fieldset>
+					</div>
 
-					<p title="System generated unique ID">
-						<small>UUID: <i>{{vm.concept.uuid}}</i></small>
-					</p>
-					<p>
-						<small>{{"CreatedBy" | translate}}: <i>
-							{{vm.concept.auditInfo.creator.display}} -
-							{{vm.concept.auditInfo.dateCreated|date:'medium'}}</i></small>
-					</p>
-					<p>
-						<small>{{"ChangedBy" | translate}}: <i>
-							{{vm.concept.auditInfo.creator.display}} -
-							{{vm.concept.auditInfo.dateChanged|date:'medium'}}</i></small>
-					</p>
 			</form>
 			<br> <a class="button"
 				ng-href="#/concept/edit/{{vm.concept.uuid}}"><i

@@ -1,10 +1,9 @@
 <openmrs-breadcrumbs links="vm.links"></openmrs-breadcrumbs>
 <div id="body-wrapper">
 	<div id="content" class="container" ng-show="!vm.deleteClicked">
-		<h2><i class="icon-plus"></i>{{"Concept.title" | translate}}</h2>
+		<h1><i class="icon-plus"></i>{{"Concept.title" | translate}}</h1>
 		<form method="post">
-			<label>{{"Locale" | translate}}:&#160;&#160;</label>
-			<div class="button-group">
+			<div class="button-group" style="margin-left: 3%">
 				<label class="button localeButtons-repeat"
 					ng-repeat="locale in vm.serverLocales"
 					ng-click="vm.goLocale(locale)"
@@ -13,7 +12,7 @@
 				</label>
 			</div>
 			<br/>
-			<table>
+			<table style="width:94%">
 				<thead>
 					<tr>
 						<th>Names in {{vm.selectedLocale}}</th>
@@ -110,158 +109,184 @@
 				</tbody>
 			</table>
 
-			<label>{{"Concept.conceptClass" | translate}} <img class="help_icon_bottom"
-					ng-src="{{vm.helpgif}}"
-					title="The classification of the medical concept" border="0"></label>
+			<div align="center">
+				<fieldset style="width: 90%; margin-top: 10px">
+					<legend>Concept Information</legend>
+					<div align="left">
+						<label>{{"Concept.conceptClass" | translate}} <img class="help_icon_bottom"
+																		   ng-src="{{vm.helpgif}}"
+																		   title="The classification of the medical concept" border="0"></label>
 
-					<select name="repeatClass" id="repeatClass"
-					ng-model="vm.concept.conceptClass"
-					ng-options="class as class.name for class in vm.classes track by class.uuid">
-				</select>
+						<select name="repeatClass" id="repeatClass"
+								ng-model="vm.concept.conceptClass"
+								ng-options="class as class.name for class in vm.classes track by class.uuid">
+						</select>
 
-			<label>{{"Concept.set" | translate}} <img class="help_icon"
-					ng-src="{{vm.helpgif}}"
-					title="Whether this concept is or not a set " border="0">
-			</label>
-			<input type="checkbox" ng-model="vm.concept.set" name="conceptClassId" />
+						<label>{{"Concept.set" | translate}} <img class="help_icon"
+																  ng-src="{{vm.helpgif}}"
+																  title="Whether this concept is or not a set " border="0">
+						</label>
+						<input type="checkbox" ng-model="vm.concept.set" name="conceptClassId" />
 
-			<div class="clear"></div>
+						<div class="clear"></div>
 
-			<div ng-show="vm.concept.set">
-				<label>{{"Concept.conceptSets" | translate}}</label>
-				<concept-table members="vm.concept.setMembers" on-update="vm.onSetMemberTableUpdate(concepts)"></concept-table>
+						<div ng-show="vm.concept.set">
+							<label>{{"Concept.conceptSets" | translate}}</label>
+							<concept-table members="vm.concept.setMembers" on-update="vm.onSetMemberTableUpdate(concepts)"></concept-table>
+						</div>
+
+						<div class="clear"></div>
+
+						<label>{{"Concept.datatype" | translate}} <img class="help_icon"
+																	   ng-src="{{vm.helpgif}}"
+																	   title="If data is stored within this concept, this describes what it will look like"
+																	   border="0"/>
+						</label>
+
+						<select name="repeatDatatype"
+								id="repeatDatatype" ng-model="vm.concept.datatype"
+								ng-change="vm.checkType()"
+								ng-options="type as type.name for type in vm.datatypes track by type.uuid">
+						</select>
+
+						<div ng-show='vm.isCoded'>
+							<label>{{"Concept.answers" | translate}}<img class="help_icon"
+																		 id="tooltipCodedIcon" ng-src="{{vm.helpgif}}"
+																		 title="Answer Concept(s) in case this concept is a question"
+																		 border="0">
+							</label>
+							<concept-table members="vm.concept.answers" on-update="vm.onAnswerTableUpdate(concepts)"></concept-table>
+						</div>
+					</div>
+				</fieldset>
 			</div>
 
-			<div class="clear"></div>
+			<div align="center">
+				<fieldset id="numericDatatypeRow" ng-show='vm.isNumeric' style="width: 90%;">
+					<legend>
+						<label>{{("ConceptNumeric.name" | translate)}}</label>
+					</legend>
+					<div align="left">
+						<small><em>({{"ConceptNumeric.inclusive" | translate}})</em></small>
 
-			<label>{{"Concept.datatype" | translate}} <img class="help_icon"
-					ng-src="{{vm.helpgif}}"
-					title="If data is stored within this concept, this describes what it will look like"
-					border="0"/>
-			</label>
+						<label>{{"ConceptNumeric.absoluteHigh" | translate}}</label>
+						<input name="hiAbsolute" value=""
+							   class="smallWidth" type="number" step="any"
+							   ng-model="vm.concept.hiAbsolute">
 
-			<select name="repeatDatatype"
-					id="repeatDatatype" ng-model="vm.concept.datatype"
-					ng-change="vm.checkType()"
-					ng-options="type as type.name for type in vm.datatypes track by type.uuid">
-			</select>
+						<label>{{"ConceptNumeric.criticalHigh" | translate}}</label>
+						<input name="hiCritical" value=""
+							   class="smallWidth" type="number" step="any"
+							   ng-model="vm.concept.hiCritical" />
 
-			<div ng-show='vm.isCoded'>
-				<label>{{"Concept.answers" | translate}}<img class="help_icon"
-						id="tooltipCodedIcon" ng-src="{{vm.helpgif}}"
-						title="Answer Concept(s) in case this concept is a question"
-						border="0">
-				</label>
-				<concept-table members="vm.concept.answers" on-update="vm.onAnswerTableUpdate(concepts)"></concept-table>
+						<label>{{"ConceptNumeric.normalHigh" | translate}}</label>
+						<input name="hiNormal" value=""
+							   class="smallWidth" type="number" step="any"
+							   ng-model="vm.concept.hiNormal"/>
+
+						<label>{{"ConceptNumeric.normalLow" | translate}}</label>
+						<input name="lowNormal" value=""
+							   class="smallWidth" type="number" step="any"
+							   ng-model="vm.concept.lowNormal">
+
+						<label>{{"ConceptNumeric.criticalLow" | translate}}</label>
+						<input name="lowCritical" value=""
+							   class="smallWidth" type="number" step="any"
+							   ng-model="vm.concept.lowCritical" />
+
+						<label>{{"ConceptNumeric.absoluteLow" | translate}}</label>
+						<input name="lowAbsolute" value=""
+							   class="smallWidth" type="number" step="any"
+							   ng-model="vm.concept.lowAbsolute">
+
+						<label>{{"ConceptNumeric.units" | translate}}</label>
+						<input name="units" value=""
+							   class="mediumWidth" type="text" ng-model="vm.concept.units">
+
+						<label>{{"ConceptNumeric.allowDecimal" | translate}}</label>
+						<input type="checkbox" ng-model="vm.concept.allowDecimal"/>
+
+						<div class="clear"/>
+
+						<label>{{"ConceptNumeric.displayPrecision" | translate}}</label>
+						<input name="displayPrecision" value=""
+							   class="smallWidth" type="number" step="any"
+							   ng-model="vm.concept.displayPrecision">
+					</div>
+				</fieldset>
 			</div>
 
-			<br/>
-
-			<fieldset id="numericDatatypeRow" ng-show='vm.isNumeric'>
-				<small><em>({{"ConceptNumeric.inclusive" | translate}})</em></small>
-
-				<label>{{"ConceptNumeric.absoluteHigh" | translate}}</label>
-				<input name="hiAbsolute" value=""
-					   class="smallWidth" type="number" step="any"
-					   ng-model="vm.concept.hiAbsolute">
-
-				<label>{{"ConceptNumeric.criticalHigh" | translate}}</label>
-				<input name="hiCritical" value=""
-					   class="smallWidth" type="number" step="any"
-					   ng-model="vm.concept.hiCritical" />
-
-				<label>{{"ConceptNumeric.normalHigh" | translate}}</label>
-				<input name="hiNormal" value=""
-					   class="smallWidth" type="number" step="any"
-					   ng-model="vm.concept.hiNormal"/>
-
-				<label>{{"ConceptNumeric.normalLow" | translate}}</label>
-				<input name="lowNormal" value=""
-					   class="smallWidth" type="number" step="any"
-					   ng-model="vm.concept.lowNormal">
-
-				<label>{{"ConceptNumeric.criticalLow" | translate}}</label>
-				<input name="lowCritical" value=""
-					   class="smallWidth" type="number" step="any"
-					   ng-model="vm.concept.lowCritical" />
-
-				<label>{{"ConceptNumeric.absoluteLow" | translate}}</label>
-				<input name="lowAbsolute" value=""
-					   class="smallWidth" type="number" step="any"
-					   ng-model="vm.concept.lowAbsolute">
-
-				<label>{{"ConceptNumeric.units" | translate}}</label>
-				<input name="units" value=""
-						class="mediumWidth" type="text" ng-model="vm.concept.units">
-
-				<label>{{"ConceptNumeric.allowDecimal" | translate}}</label>
-				<input type="checkbox" ng-model="vm.concept.allowDecimal"/>
-
-				<div class="clear"/>
-
-				<label>{{"ConceptNumeric.displayPrecision" | translate}}</label>
-				<input name="displayPrecision" value=""
-					   class="smallWidth" type="number" step="any"
-					   ng-model="vm.concept.displayPrecision">
-			</fieldset>
-
-			<div ng-show="vm.isComplex" id="complexDatatypeRow">
-				<label>{{"ConceptComplex.handler" | translate}} <img class="help_icon"
-					id="tooltipComplexIcon" ng-src="{{vm.helpgif}}"
-					title="Handlers for complex concept reponses e.g an x-ray image handler"
-					border="0">
-				</label>
-				<select name="handlerKey"
-					ng-options="handler as handler for handler in vm.handlers"
-					ng-model="vm.concept.handler">
-				</select>
+			<div ng-show="vm.isComplex" id="complexDatatypeRow" align="center">
+				<fieldset style="width: 90%">
+					<legend>Complex datatype</legend>
+					<div align="left">
+						<label>{{"ConceptComplex.handler" | translate}} <img class="help_icon"
+																			 id="tooltipComplexIcon" ng-src="{{vm.helpgif}}"
+																			 title="Handlers for complex concept reponses e.g an x-ray image handler"
+																			 border="0">
+						</label>
+						<select name="handlerKey"
+								ng-options="handler as handler for handler in vm.handlers"
+								ng-model="vm.concept.handler">
+						</select>
+					</div>
+				</fieldset>
 			</div>
 
-			<div class="clear"/>
+            <div align="center">
+				<fieldset style="width: 90%;">
+					<legend>Mappings</legend>
+					<div align="left">
+						<mappings-table concept-uuid="vm.concept.uuid"
+										on-update = "vm.onMappingsUpdate(mappings)"
+										edit-count-update="vm.onEditCountUpdate(count)">
+						</mappings-table>
+					</div>
+				</fieldset>
 
-            <div>
-                <mappings-table concept-uuid="vm.concept.uuid"
-                                on-update = "vm.onMappingsUpdate(mappings)"
-                                edit-count-update="vm.onEditCountUpdate(count)">
-                </mappings-table>
             </div>
 
-			<label>Version <img class="help_icon_bottom"
-					ng-src="{{vm.helpgif}}"
-					title="An optional way for you to keep track of which concepts came before others when changing/updating concepts"
-					border="0">
-			</label>
-			<p><input class="smallWidth" ng-model="vm.concept.version" type="text"></p>
+			<div align="center">
+				<fieldset style="width: 90%;">
+					<legend>Audit information</legend>
+					<div align="left">
+						<label>Version <img class="help_icon_bottom"
+											ng-src="{{vm.helpgif}}"
+											title="An optional way for you to keep track of which concepts came before others when changing/updating concepts"
+											border="0">
+						</label>
+						<p><input class="smallWidth" ng-model="vm.concept.version" type="text"></p>
 
-			<div ng-if="vm.concept.uuid">
-				<p>
-					<small>UUID: <i>{{vm.concept.uuid}}</i></small>
-				</p>
-				<p>
-					<small valign="top">{{"CreatedBy" | translate}}:<i>
-							{{vm.concept.auditInfo.creator.display}} -
-							{{vm.concept.auditInfo.dateCreated|date:'medium'}} </i></small>
-				</p>
-				<p>
-					<small valign="top">{{"ChangedBy" | translate}}:<i>
-							{{vm.concept.auditInfo.creator.display}} -
-							{{vm.concept.auditInfo.dateChanged|date:'medium'}}</i> </small>
-				</p>
-			</div>
-
-			<div ng-show="vm.concept.uuid">
-				<h3>{{"DeleteForever" | translate}}</h3>
-				<button ng-click="vm.showAlert()">
-					<i class="icon-trash"></i>&#160;{{"DeleteForever" | translate}}
-				</button>
+						<div ng-if="vm.concept.uuid">
+							<p>
+								<small valign="top">{{"CreatedBy" | translate}}:<i>
+									{{vm.concept.auditInfo.creator.display}} -
+									{{vm.concept.auditInfo.dateCreated|date:'medium'}} </i></small>
+							</p>
+							<p>
+								<small valign="top">{{"ChangedBy" | translate}}:<i>
+									{{vm.concept.auditInfo.creator.display}} -
+									{{vm.concept.auditInfo.dateChanged|date:'medium'}}</i> </small>
+							</p>
+							<p style="color: #D0D0D0;">
+								<small>UUID: <i>{{vm.concept.uuid}}</i></small>
+							</p>
+						</div>
+					</div>
+				</fieldset>
 			</div>
 
 			<div id="saveDeleteButtons" style="margin-top: 15px">
-
 				<button ng-disabled="!vm.isFormValid" ng-click="vm.postConcept()"><i class="icon-ok"></i><strong>&#160;{{"Concept.save" | translate}}</strong></button>
 				<button ng-disabled="!vm.isFormValid" ng-click="vm.postConceptAndContinue()"><i class="icon-ok"></i><strong>&#160;{{"Concept.saveAndContinue" | translate}}</strong></button>
 				<a class = "button" ng-href="#/concept/{{vm.concept.uuid}}"><i class="icon-remove"></i><strong>&#160;{{"Concept.cancel" | translate}}</strong></a>
+			</div>
 
+			<div ng-show="vm.concept.uuid">
+				<h2><i class="icon-trash"></i>&#160;{{"DeleteForever" | translate}}</h2>
+				<button ng-click="vm.showAlert()">
+					<i class="icon-trash"></i>&#160;<strong>{{"DeleteForever" | translate}}</strong>
+				</button>
 			</div>
 		</form>
 	</div>

@@ -1,71 +1,82 @@
 <openmrs-breadcrumbs links="vm.links"></openmrs-breadcrumbs>
 <div id="body-wrapper" ng-show="!vm.deleteClicked">
 	<div id="content" class="container">
-		<h2><i class="icon-pencil"></i>{{"ConceptDrug.manage.title" | translate}}</h2>
-
+		<h1><i class="icon-pencil"></i>&#160;{{"ConceptDrug.manage.title" | translate}}</h1>
 			<form name="drugEdit">
-				<fieldset>
-					<p class="input-position-class">
-				      <label name="input-name">{{"Name" | translate}}<span class="required">*</span></label>
-				      <input name='name' id="input-name" ng-model='vm.drug.name' required/>
-				      <span class="error" ng-show='drugAdd.name.$error.required'>Name is required</span>
-				    </p>
-				    <p class="input-position-class">
-				      <label name="input-concept">{{"Concept" | translate}}<span class="required">*</span></label>
-				      <concept-auto-complete required='true' limit-to-class='vm.limitToClass' concept='vm.drug.concept' on-update='vm.updateConcept(isCorrect, concept)'></concept-auto-complete>
-				    </p>
-				    <p class="input-position-class">
-				      <label name="input-dosage">{{"ConceptDrug.dosageForm" | translate}}</label>
-				      <concept-auto-complete required='false' concept='vm.drug.dosageForm' on-update='vm.updateDosageForm(isCorrect, concept)'></concept-auto-complete>
-				    </p>
-				    <p class="input-position-class">
-				      <label name="input-strength">{{"ConceptDrug.strength" | translate}}</label>
-				      <input id="input-strength" ng-model='vm.drug.strength'/>
-				    </p>
-				    <p class="input-position-class">
-				      <label name="input-mindose">{{"ConceptDrug.minimumDailyDose" | translate}}</label>
-				      <input id="input-minDose" type="number" ng-model='vm.drug.minimumDailyDose'/>
-				    </p>
-				    <p class="input-position-class">
-				      <label name="input-maxdose">{{"ConceptDrug.maximumDailyDose" | translate}}</label>
-				      <input id="input-maxdose" type="number" ng-model='vm.drug.maximumDailyDose'/>
-				    </p>
-				    <p class="input-position-class">
-				      <label name="input-route">{{"ConceptDrug.route" | translate}}</label>
-				      <concept-auto-complete required='false' members-of='vm.membersOf' concept='vm.drug.route' on-update='vm.updateRoute(isCorrect, concept)'></concept-auto-complete>
-				    </p>
-				    <p class="input-position-class">
-				      <input id="input-comb" type="checkbox" ng-model='vm.drug.combination'/>
-				      <label name="input-comb">{{"ConceptDrug.combination" | translate}}</label>
-				    </p>
-				    <p class="input-position-class" ng-show='vm.drug.auditInfo'>
-				      <label name="input-maxdose">{{"CreatedBy" | translate}}
-						{{vm.drug.auditInfo.creator.display}} -
-						{{vm.drug.auditInfo.dateCreated | date: 'medium'}}</label>
-				    </p>
-				    <p class="input-position-class" ng-show='vm.drug.uuid'>
-				    	<label name="input-maxdose"><span style="color: #D0D0D0; "><sub>UUID</sub></span>
-				    	<span style="color: #D0D0D0; "><sub>{{vm.drug.uuid}}</sub></span></label>
-				    </p>
-				</fieldset>
+				<div align="center">
+					<fieldset style="width: 90%">
+						<p class="input-position-class">
+							<label name="input-name">{{"Name" | translate}}<span class="required">*</span></label>
+							<input name='name' id="input-name" ng-model='vm.drug.name' required/>
+							<span class="error" ng-show='drugAdd.name.$error.required'>Name is required</span>
+						</p>
+						<p class="input-position-class">
+							<label name="input-concept">{{"Concept" | translate}}<span class="required">*</span></label>
+							<concept-auto-complete required='true' limit-to-class='vm.limitToClass' concept='vm.drug.concept' on-update='vm.updateConcept(isCorrect, concept)'></concept-auto-complete>
+						</p>
+						<p class="input-position-class">
+							<label name="input-dosage">{{"ConceptDrug.dosageForm" | translate}}</label>
+							<concept-auto-complete required='false' concept='vm.drug.dosageForm' on-update='vm.updateDosageForm(isCorrect, concept)'></concept-auto-complete>
+						</p>
+						<p class="input-position-class">
+							<label name="input-strength">{{"ConceptDrug.strength" | translate}}</label>
+							<input id="input-strength" ng-model='vm.drug.strength'/>
+						</p>
+						<p class="input-position-class">
+							<label name="input-mindose">{{"ConceptDrug.minimumDailyDose" | translate}}</label>
+							<input id="input-minDose" type="number" ng-model='vm.drug.minimumDailyDose'/>
+						</p>
+						<p class="input-position-class">
+							<label name="input-maxdose">{{"ConceptDrug.maximumDailyDose" | translate}}</label>
+							<input id="input-maxdose" type="number" ng-model='vm.drug.maximumDailyDose'/>
+						</p>
+						<p class="input-position-class">
+							<label name="input-route">{{"ConceptDrug.route" | translate}}</label>
+							<concept-auto-complete required='false' members-of='vm.membersOf' concept='vm.drug.route' on-update='vm.updateRoute(isCorrect, concept)'></concept-auto-complete>
+						</p>
+						<p class="input-position-class">
+							<input id="input-comb" type="checkbox" ng-model='vm.drug.combination'/>
+							<label name="input-comb">{{"ConceptDrug.combination" | translate}}</label>
+						</p>
+						<p class="input-position-class" ng-show='vm.drug.auditInfo'>
+							<label name="input-maxdose">{{"CreatedBy" | translate}}
+								{{vm.drug.auditInfo.creator.display}} -
+								{{vm.drug.auditInfo.dateCreated | date: 'medium'}}</label>
+						</p>
+						<p class="input-position-class" ng-show='vm.drug.uuid'>
+							<label name="input-maxdose"><span style="color: #D0D0D0; "><sub>UUID</sub></span>
+								<span style="color: #D0D0D0; "><sub>{{vm.drug.uuid}}</sub></span></label>
+						</p>
+					</fieldset>
+				</div>
 			</form>
-			<div>				
+			<div style="padding-top: 13px">
 				<button ng-click='vm.saveDrug()' ng-disabled="vm.isCorrect()"><i class="icon-ok"></i><strong>{{"ConceptDrug.save" | translate}}</strong></button>
 				<button ng-click='vm.redirectToList()'><i class="icon-remove"></i><strong>{{"Concept.cancel" | translate}}</strong></button>
 			</div>
-			<h1 ng-show='vm.drug.uuid'>
-				<span ng-show="!vm.drug.retired"><strong><i class="icon-lock"></i>{{"Retire" | translate}}</strong></span>
-				<span ng-show="vm.drug.retired"><strong><i class="icon-reply"></i>{{"Unretire" | translate}}</strong></span>
-			</h1>
+			<h2 ng-show='vm.drug.uuid'>
+				<span ng-show="!vm.drug.retired"><i class="icon-lock"></i>{{"Retire" | translate}}</span>
+				<span ng-show="vm.drug.retired"><i class="icon-reply"></i>{{"Unretire" | translate}}</span>
+			</h2>
+
+		<div align="center">
 			<form ng-show='!vm.drug.retired&&vm.drug.uuid'>
-				<fieldset>				
-					<b>{{"Reason" | translate}}</b>
-					<textarea ng-model="vm.retireReason" rows="3" cols="37"></textarea>
-					<button ng-disabled="vm.retireReason.length < 1" ng-click='vm.retire()'>{{"ConceptDrug.retireDrug" | translate}}</button>
+				<fieldset style="width: 90%;align:left">
+					<div align="left">
+						{{"Reason" | translate}}
+						<textarea ng-model="vm.retireReason"></textarea>
+					</div>
 				</fieldset>
 			</form>
+		</div>
+		<div style="padding-top: 13px" ng-show='(!vm.drug.retired)&&vm.drug.uuid'>
+			<button ng-disabled="vm.retireReason.length < 1" ng-click='vm.retire()'>
+				<i class="icon-lock"></i>&#160;{{"ConceptDrug.retireDrug" | translate}}
+			</button>
+		</div>
+
 			<form ng-show='vm.drug.retired&&vm.drug.uuid'>
-				<fieldset>
+				<fieldset style="width: 90%;">
 					<p>
 						<label>{{"RetiredBy" | translate}}</label>
 						<i>{{vm.drug.auditInfo.retiredBy.display}} -
@@ -73,12 +84,16 @@
 						<label>{{"Reason" | translate}}</label>
 						<i>{{vm.drug.auditInfo.retireReason}}</i>
 					</p>
-					<button ng-click='vm.unRetire()'>{{"Unretire" | translate}}</button>
 				</fieldset>
+				<div style="padding-top: 13px">
+					<button ng-click='vm.unRetire()'>
+						<i class="icon-reply"></i>&#160;{{"Unretire" | translate}}
+					</button>
+				</div>
 			</form>
 
 		<div ng-show="vm.drug.uuid">
-			<strong><h1><i class="icon-trash"></i>{{"DeleteForever" | translate}}</h1></strong>
+			<h2><i class="icon-trash"></i>&#160;{{"DeleteForever" | translate}}</h2>
 			<button ng-click="vm.showAlert()">
 				<i class="icon-trash"></i>&#160;{{"DeleteForever" | translate}}
 			</button>
