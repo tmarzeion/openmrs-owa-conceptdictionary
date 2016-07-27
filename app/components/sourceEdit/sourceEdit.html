@@ -1,66 +1,106 @@
 <openmrs-breadcrumbs links="vm.links"></openmrs-breadcrumbs>
 <div id="body-wrapper">
 	<label id="content" class="container">
-		<h2>Edit Concept Source</h2>
+		<h1><i class="icon-pencil"></i>&#160;Edit Concept Source</h1>
 		<delete-alert ng-show="vm.deleteClicked" on-update="vm.updateDeleteConfirmation(isConfirmed)"></delete-alert>
 		<form ng-show="!vm.deleteClicked" name="sourceEdit">
-			<label>{{"Name" | translate}}<span class="required">*</span></label>
-			<input name="name" ng-model="vm.source.name"size="35" type="text" required/>
 
+			<div align="center">
+				<fieldset style="width: 90%;">
+					<div align="left">
+						<label>{{"Name" | translate}}<span class="required">*</span></label>
+						<input  name="name" ng-model="vm.source.name"size="35" type="text" required/>
+					</div>
 
-			<label>{{"ConceptSource.hl7Code" | translate}}</label>
-			<input name="hl7Code" ng-model="vm.source.hl7Code" size="35" maxlength="20" type="text"/>
+					<div align="left">
+						<label>{{"ConceptSource.hl7Code" | translate}}</label>
+						<input name="hl7Code" ng-model="vm.source.hl7Code" size="35" maxlength="20" type="text"/>
+					</div>
 
-			<label>{{"Description" | translate}}<span class="required">*</span></label>
-			<textarea ng-model="vm.source.description" name="description" rows="3" cols="40" required></textarea>
+					<div align="left">
+						<label>{{"Description" | translate}}<span class="required">*</span></label>
+						<textarea ng-model="vm.source.description" name="description" rows="3" cols="40" required></textarea>
+					</div>
 
-			<label ng-show="vm.source.auditInfo">
-				<small>{{"CreatedBy" | translate}}&#160;</small>
-					{{vm.source.auditInfo.creator.display}} -
-					{{vm.source.auditInfo.dateCreated|date:'medium'}}
-			</label>
+					<div align="left">
+						<div>
+							<label ng-show="vm.source.auditInfo">
+								<small>
+									{{"CreatedBy" | translate}}&#160;
+									{{vm.source.auditInfo.creator.display}} -
+									{{vm.source.auditInfo.dateCreated|date:'medium'}}
+								</small>
+							</label>
+						</div>
 
-			<label ng-show="vm.source.auditInfo.changedBy">
-				<small>{{"ChangedBy" | translate}}&#160;</small>
+						<div>
+							<label ng-show="vm.source.auditInfo.changedBy">
+								<small>
+									{{"ChangedBy" | translate}}&#160;
+									{{vm.source.auditInfo.changedBy.display}} -
+									{{vm.source.auditInfo.dateChanged|date:'medium'}}
+								</small>
+							</label>
+						</div>
 
-					{{vm.source.auditInfo.changedBy.display}} -
-					{{vm.source.auditInfo.dateChanged|date:'medium'}}
-
-			</label>
-			<label ng-show="vm.source.uuid">
-				<font color="#D0D0D0"><sub>UUID - </sub></font>
-				<font color="#D0D0D0"><sub>{{vm.source.uuid}}</sub></font>
-			</label>
-
-			<br/>
-
-			<button ng-disabled="sourceEdit.$invalid" ng-click="vm.save()" ><i class="icon-ok"></i>&#160;{{"ConceptSource.save" | translate}}</button>
-			<button ng-click="vm.cancel()" ><i class="icon-remove"></i>&#160;{{"Concept.cancel" | translate}}</button>
-			<button ng-click="vm.showAlert()" ng-show="vm.source.uuid"><i class="icon-trash"></i>&#160;{{"DeleteForever" | translate}}</button>
-
-			<br/>
+						<div>
+							<label ng-show="vm.source.uuid">
+								<span style="color: #D0D0D0; "><sub>UUID - </sub></span>
+								<span style="color: #D0D0D0; "><sub>{{vm.source.uuid}}</sub></span>
+							</label>
+						</div>
+					</div>
+				</fieldset>
+				<div style="padding-top: 13px;padding-bottom: 13px;float:left">
+					<button ng-disabled="sourceEdit.$invalid" ng-click="vm.save()" ><i class="icon-ok"></i>&#160;{{"ConceptSource.save" | translate}}</button>
+					<button ng-click="vm.cancel()" ><i class="icon-remove"></i>&#160;{{"Concept.cancel" | translate}}</button>
+				</div>
+			</div>
 
 			<div ng-show="vm.source.retired&&vm.source.uuid">
-				<h2><i class="icon-reply"></i>{{"Unretire" | translate}}</h2>
-				<label>{{"RetiredBy" | translate}}</label>
-					<i>{{vm.source.auditInfo.retiredBy.display}} -
-					{{"RetiredOn" | translate}} {{vm.source.auditInfo.dateRetired|date: 'medium'}} </i>
-				<label>{{"Reason" | translate}}</label>
-					<i>{{vm.source.auditInfo.retireReason}}</i>
-				<br/>
-				<button ng-show="vm.source.retired" ng-click="vm.unretire()">
-					<i class="icon-reply"></i>&#160;{{"Unretire" | translate}}
-				</button>
+				<h2><i class="icon-reply"></i>&#160;{{"Unretire" | translate}}</h2>
+				<div align="center">
+					<fieldset style="width: 90%;">
+						<div align="left">
+							<label>{{"RetiredBy" | translate}}</label>
+							<i>{{vm.source.auditInfo.retiredBy.display}} -
+								{{"RetiredOn" | translate}} {{vm.source.auditInfo.dateRetired|date: 'medium'}} </i>
+							<label>{{"Reason" | translate}}</label>
+							<i>{{vm.source.auditInfo.retireReason}}</i>
+						</div>
+					</fieldset>
+				</div>
+				<div style="padding-top: 13px">
+					<button ng-show="vm.source.retired" ng-click="vm.unretire()">
+						<i class="icon-reply"></i>&#160;{{"Unretire" | translate}}
+					</button>
+				</div>
 			</div>
 
 			<div ng-show="!vm.source.retired&&vm.source.uuid">
-				<h2><i class="icon-lock"></i>{{"Retire" | translate}}</h2>
-				<label>{{"RetireReason" | translate}}<span class="required">*</span></label>
-				<textarea ng-model="vm.retireReason" rows="3" cols="50"></textarea>
-				<button ng-disabled="vm.retireReason.length < 1" ng-click="vm.retire()">
-					<i class="icon-lock"></i>&#160;Retire
+				<h2><i class="icon-lock"></i>&#160;{{"Retire" | translate}}</h2>
+				<div align="center">
+					<fieldset style="width:90%;">
+						<label>{{"RetireReason" | translate}}<span class="required">*</span></label>
+						<div align="left">
+							<textarea ng-model="vm.retireReason"></textarea>
+						</div>
+					</fieldset>
+					<div style="padding-top: 13px" align="left">
+						<button ng-disabled="vm.retireReason.length < 1" ng-click="vm.retire()">
+							<i class="icon-lock"></i>&#160;Retire
+						</button>
+					</div>
+				</div>
+			</div>
+
+			<div ng-show="vm.source.uuid">
+				<h2><i class="icon-trash"></i>&#160;{{"DeleteForever" | translate}}</h2>
+				<button ng-click="vm.showAlert()">
+					<i class="icon-trash"></i>&#160;{{"DeleteForever" | translate}}
 				</button>
 			</div>
+
 		</form>
 	</div>
 </div>

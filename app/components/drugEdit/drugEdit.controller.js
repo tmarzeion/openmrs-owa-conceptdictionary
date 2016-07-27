@@ -51,7 +51,9 @@ export default function DrugEditController($location, openmrsRest, loadDrug, ope
 	
 	function activate(){
 		vm.drug = loadDrug;
+		var isEditing = false;
 		if(angular.isDefined(vm.drug.name)){
+			isEditing = true;
 			if(vm.drug.route === null){
 				vm.drug.route = {
 						display: ''
@@ -77,6 +79,10 @@ export default function DrugEditController($location, openmrsRest, loadDrug, ope
 				display: ''
 			};
 		}
+		if (!isEditing) {
+			vm.isConceptCorrect = false;
+		}
+		vm.isCorrect();
 	}
 	
 	function retire(){

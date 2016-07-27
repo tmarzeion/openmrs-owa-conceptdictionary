@@ -1,31 +1,44 @@
 <openmrs-breadcrumbs links="vm.links"></openmrs-breadcrumbs>
 <div id="body-wrapper" ng-show="!vm.deleteClicked">
 	<div id="content" class="container">
-		<h2>Edit Concept Class</h2>
+		<h1><i class="icon-pencil"></i>&#160;Edit Concept Class</h1>
 		<form name="classEdit">
-			<div class="info-body">
+			<div class="info-body" align="center">
+					<fieldset style="width: 90%;">
+						<div align="left">
+							<div>{{"Name" | translate}}
+								<span class="required">*</span>
+								<input type="text" name="name" ng-model="vm.singleClass.name" ng-required="true">
+							</div>
 
-					<div>{{"Name" | translate}}
-						<span class="required">*</span>
-						<input type="text" name="name" ng-model="vm.singleClass.name" ng-required="true">
-					</div>
+							<div>{{"Description" | translate}}
+								<textarea name="description" rows="3" cols="40" ng-model="vm.singleClass.description"></textarea>
+							</div>
 
-					<div>{{"Description" | translate}}
-						<textarea name="description" rows="3" cols="40" ng-model="vm.singleClass.description"></textarea>
-					</div>
+							<div ng-show="vm.singleClass.auditInfo.creator">
+								<small>
+									{{"CreatedBy" | translate}}:&#160;&#160;{{vm.singleClass.auditInfo.creator.display}} -
+									{{vm.singleClass.auditInfo.dateCreated | date:'medium'}}
+								</small>
+							</div>
+							<div>
+								<label ng-show="vm.singleClass.auditInfo.changedBy">
+									<small>
+										{{"ChangedBy" | translate}}&#160;
+										{{vm.source.singleClass.changedBy.display}} -
+										{{vm.source.singleClass.dateChanged|date:'medium'}}
+									</small>
+								</label>
+							</div>
 
-					<div ng-show="vm.singleClass.auditInfo.creator">
-						{{"CreatedBy" | translate}}:&#160;&#160;{{vm.singleClass.auditInfo.creator.display}} - {{vm.singleClass.auditInfo.dateCreated | date:'medium'}}
-					</div>
-
-					<div ng-show="vm.singleClass.uuid">
-						<font color="#D0D0D0"><sub>UUID:&#160;&#160;</sub></font>
-						<font color="#D0D0D0"><sub>{{vm.singleClass.uuid}}</sub></font>
-					</div>
-
+							<div ng-show="vm.singleClass.uuid">
+								<span style="color: #D0D0D0; "><sub>UUID:&#160;&#160;</sub></span>
+								<span style="color: #D0D0D0; "><sub>{{vm.singleClass.uuid}}</sub></span>
+							</div>
+						</div>
+					</fieldset>
 			</div>
-
-			<div>
+			<div style="padding-top: 13px">
 
 				<button ng-disabled="classEdit.$invalid" ng-click="vm.editClass()">
 					<i class="icon-ok"></i>
@@ -36,26 +49,45 @@
 					{{"Concept.cancel" | translate}}
 				</button>
 			</div>
+
+
 			<div ng-show="vm.singleClass.retired&&vm.singleClass.uuid">
 				<h2><i class="icon-reply"></i>{{"Unretire" | translate}}</h2>
-				<p>
-					<label>{{"RetiredBy" | translate}}</label>
-					<i>{{vm.singleClass.auditInfo.retiredBy.display}} -
-					{{"RetiredOn" | translate}} {{vm.singleClass.auditInfo.dateRetired|date: 'medium'}} </i>
-					<label>{{"Reason" | translate}}</label>
-					<i>{{vm.singleClass.auditInfo.retireReason}}</i>
-				</p>
+				<div align="center">
+					<fieldset style="width: 90%">
+						<div align="left">
+							<p>
+								<label>{{"RetiredBy" | translate}}</label>
+								<i>{{vm.singleClass.auditInfo.retiredBy.display}} -
+									{{"RetiredOn" | translate}} {{vm.singleClass.auditInfo.dateRetired|date: 'medium'}} </i>
+								<label>{{"Reason" | translate}}</label>
+								<i>{{vm.singleClass.auditInfo.retireReason}}</i>
+							</p>
+						</div>
+					</fieldset>
+				</div>
+				<div style="padding-top: 13px">
 					<button ng-show="vm.singleClass.retired" ng-click="vm.unretire()">
-					<i class="icon-reply"></i>&#160;{{"Unretire" | translate}}
-				</button>
+						<i class="icon-reply"></i>&#160;{{"Unretire" | translate}}
+					</button>
+				</div>
 			</div>
+
 			<div ng-show="!vm.singleClass.retired&&vm.singleClass.uuid">
 				<h2><i class="icon-lock"></i>{{"Retire" | translate}}</h2>
-				<label>{{"RetireReason" | translate}}<span class="required">*</span></label>
-				<textarea ng-model="vm.retireReason" rows="3" cols="50"></textarea>
-				<button ng-disabled="vm.retireReason.length < 1" ng-click="vm.retire()">
-					<i class="icon-lock"></i>&#160;Retire
-				</button>
+				<div align="center">
+					<fieldset style="width: 90%">
+						<div align="left">
+							<label>{{"RetireReason" | translate}}<span class="required">*</span></label>
+							<textarea ng-model="vm.retireReason" rows="3" cols="50"></textarea>
+						</div>
+					</fieldset>
+				</div>
+				<div style="padding-top: 13px">
+					<button ng-disabled="vm.retireReason.length < 1" ng-click="vm.retire()">
+						<i class="icon-lock"></i>&#160;Retire
+					</button>
+				</div>
 			</div>
 
 			<div ng-show="vm.singleClass.uuid">
